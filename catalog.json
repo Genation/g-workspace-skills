@@ -33,6 +33,61 @@
       "examples": [
         "Ước tính giúp tôi thời gian xử lý một bộ hồ sơ mới"
       ]
+    },
+    {
+      "id": "doc-check-identity",
+      "title": "Kiểm tra giấy tờ tùy thân",
+      "summary": "Nhận diện bằng lái, hộ chiếu, Medicare, visa và báo điểm cần xử lý.",
+      "details": "Khi khách gửi giấy tờ tùy thân, trợ lý xác định loại giấy tờ, trích số giấy tờ, họ tên và ngày hết hạn để ghi vào Fact Find, rồi đối chiếu với tên và địa chỉ của người vay. Trợ lý báo rõ giấy tờ hết hạn, sai tên, sai địa chỉ hoặc visa tạm thời để bạn xử lý; trợ lý không tự gửi thư hay sửa Monday.",
+      "icon": "clipboard-check",
+      "examples": [
+        "Kiểm tra giấy tờ tùy thân khách vừa gửi trong thư này",
+        "Bằng lái này còn hạn và có khớp tên người vay không?"
+      ]
+    },
+    {
+      "id": "doc-check-property",
+      "title": "Kiểm tra giấy tờ nhà đất",
+      "summary": "Kiểm tra rates notice, giấy chủ quyền, hợp đồng mua bán và hợp đồng xây dựng.",
+      "details": "Trợ lý xác định loại giấy tờ nhà đất, tìm ngày settlement, hạn duyệt vay (finance clause) và thông tin conveyancer trong hợp đồng, rồi báo các điểm cần xử lý: nợ quá hạn, tên chủ sở hữu hoặc người mua khác tên người vay, hợp đồng thiếu chữ ký hay ngày ký. Trợ lý không tự gửi thư hay sửa Monday.",
+      "icon": "file-search",
+      "examples": [
+        "Kiểm tra hợp đồng mua bán khách vừa gửi",
+        "Rates notice này có nợ quá hạn không?"
+      ]
+    },
+    {
+      "id": "doc-check-entity-credit",
+      "title": "Kiểm tra trust, công ty và tín dụng",
+      "summary": "Kiểm tra Trust Deed, Company Extract của ASIC và báo cáo tín dụng Equifax.",
+      "details": "Trợ lý trích tên trust, trustee, beneficiary, ACN, director và shareholder để ghi vào Fact Find, rồi báo các điểm cần xử lý: người không phải người vay, deed thiếu chữ ký hoặc chưa chứng thực, công ty không còn đăng ký. Với báo cáo Equifax, trợ lý liệt kê enquiry trong 6 tháng, default và các tháng trả chậm.",
+      "icon": "users",
+      "examples": [
+        "Kiểm tra company extract này",
+        "Báo cáo Equifax của khách có gì cần lưu ý?"
+      ]
+    },
+    {
+      "id": "doc-check-income",
+      "title": "Kiểm tra giấy tờ thu nhập",
+      "summary": "Kiểm tra payslip, giấy tờ thuế, giấy tờ cho thuê nhà, Centrelink và child support.",
+      "details": "Trợ lý xác định loại giấy tờ thu nhập, trích thông tin employer, lợi nhuận, tiền thuê hoặc trợ cấp để ghi vào Fact Find, rồi báo các điểm cần xử lý: giấy tờ quá 30 ngày, payslip không liên tiếp, có salary sacrifice, lỗ, sai tên. Trợ lý nhắc che Tax File Number và không chép số này vào báo cáo.",
+      "icon": "receipt",
+      "examples": [
+        "Kiểm tra hai payslip khách vừa gửi",
+        "Notice of Assessment này có cần che TFN không?"
+      ]
+    },
+    {
+      "id": "doc-check-liabilities",
+      "title": "Kiểm tra sao kê và khoản nợ",
+      "summary": "Kiểm tra sao kê ngân hàng, khoản vay nhà, vay cá nhân, thẻ tín dụng, HECS và BNPL.",
+      "details": "Trợ lý xác định loại sao kê, trích lender, số tài khoản, lãi suất, khoản trả và hạn vay để ghi vào Fact Find, rồi báo các điểm cần xử lý: sao kê chưa đủ kỳ hoặc quá 30 ngày, sai tên, trả chậm, cá cược, giao dịch nước ngoài, nộp tiền mặt lớn, lương hoặc tiền thuê lệch với giấy tờ khác.",
+      "icon": "list-checks",
+      "examples": [
+        "Kiểm tra sao kê 3 tháng của khách",
+        "Sao kê thẻ tín dụng này có trả chậm không?"
+      ]
     }
   ]
 }
