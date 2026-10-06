@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "id": "doc-coauthoring",
+      "title": "Cùng soạn tài liệu",
+      "summary": "Dẫn dắt từng bước khi viết đề xuất, quy trình hay tài liệu dài.",
+      "details": "Trợ lý hỏi về người đọc và mục đích, cùng bạn dựng dàn ý, viết từng phần, rồi đọc lại như một người chưa biết gì để tìm chỗ khó hiểu.",
+      "icon": "pen-line",
+      "examples": [
+        "Giúp tôi viết quy trình tiếp nhận hồ sơ khách hàng mới",
+        "Tôi cần soạn một bản đề xuất gửi ban giám đốc"
+      ],
+      "default": true
+    },
+    {
+      "id": "internal-comms",
+      "title": "Viết thông báo nội bộ",
+      "summary": "Soạn báo cáo tuần, thông báo và bản tin cho cả nhóm.",
+      "details": "Trợ lý viết báo cáo tiến độ (đã làm, sẽ làm, vướng mắc), bản tin công ty, câu trả lời cho câu hỏi thường gặp và các thông báo nội bộ khác theo mẫu có sẵn.",
+      "icon": "message-square-text",
+      "examples": [
+        "Viết báo cáo tuần của nhóm: đã làm, sẽ làm, vướng mắc",
+        "Viết thông báo lịch nghỉ lễ cho cả văn phòng"
+      ]
+    },
+    {
+      "id": "discernment-nudge",
+      "title": "Gợi ý câu hỏi kiểm tra lại",
+      "summary": "Sau câu trả lời quan trọng, gợi ý vài câu hỏi để bạn kiểm chứng.",
+      "details": "Khi trợ lý đưa ra lời khuyên, con số ước tính hay bản nháp mà bạn sẽ dựa vào để quyết định, trợ lý thêm hai ba câu hỏi ngắn giúp bạn kiểm tra dữ kiện, lập luận và những điều còn thiếu. Mỗi cuộc trò chuyện chỉ gợi ý một lần.",
+      "icon": "shield-check",
+      "examples": [
+        "Ước tính giúp tôi thời gian xử lý một bộ hồ sơ mới"
+      ]
+    }
+  ]
+}
