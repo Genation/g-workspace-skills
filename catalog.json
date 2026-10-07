@@ -79,6 +79,72 @@
       ]
     },
     {
+      "id": "doc-check-tax-and-financial-statements",
+      "title": "Kiểm tra giấy tờ thuế và báo cáo tài chính",
+      "summary": "Kiểm tra Tax Return, ATO Income Statement, Notice of Assessment, Profit & Loss và Balance Sheet.",
+      "details": "Trợ lý ghi các số liệu Profit & Loss và Balance Sheet vào Fact Find, rồi báo tên khác, khoản lỗ, số liệu Tax Return lệch Financial Statements hoặc Tax File Number cần che. TFN không bao giờ được chép vào báo cáo.",
+      "icon": "file-search",
+      "examples": [
+        "Kiểm tra Tax Return và báo tôi nếu tài liệu có TFN cần che",
+        "Đối chiếu Notice of Assessment này với Applicant trên Fact Find"
+      ]
+    },
+    {
+      "id": "doc-check-rental-statement",
+      "title": "Kiểm tra Rental Statement",
+      "summary": "Trích tiền thuê nhận được và kiểm tra ngày trên Rental Statement.",
+      "details": "Trợ lý ghi tiền thuê và kỳ nhận vào Fact Find, rồi báo nhân viên nếu tài liệu đã quá 30 ngày.",
+      "icon": "receipt",
+      "examples": [
+        "Kiểm tra Rental Statement này và ghi tiền thuê vào Fact Find",
+        "Rental Statement này có quá 30 ngày chưa?"
+      ]
+    },
+    {
+      "id": "doc-check-rental-agreement",
+      "title": "Kiểm tra Rental Agreement",
+      "summary": "Trích tiền thuê và đối chiếu Applicant với bên thuê hoặc bên cho thuê.",
+      "details": "Trợ lý ghi số tiền thuê và kỳ hạn vào Fact Find, xác định Applicant là Landlord hay Tenant, rồi báo khi tên của bên có Applicant không khớp hoặc Applicant không có tên trong các bên của hợp đồng.",
+      "icon": "file-text",
+      "examples": [
+        "Kiểm tra hợp đồng thuê nhà này và ghi tiền thuê vào Fact Find",
+        "Tên bên thuê trong Rental Agreement có khớp Applicant không?"
+      ]
+    },
+    {
+      "id": "doc-check-rental-appraisal-airbnb",
+      "title": "Kiểm tra Rental Appraisal và Airbnb",
+      "summary": "Trích giá thuê ước tính hoặc payout Airbnb, kiểm tra ngày và tên chủ nhà/Host.",
+      "details": "Trợ lý ghi rent amount vào Fact Find, rồi báo tài liệu quá 30 ngày hoặc tên chủ nhà/Host khác Applicant. Với appraisal, ghi khoảng giá ước tính; với Airbnb, ghi payout và kỳ.",
+      "icon": "house",
+      "examples": [
+        "Kiểm tra Rental Appraisal này và trích khoảng giá thuê",
+        "Kiểm tra Airbnb Rental Statement, payout và tên Host"
+      ]
+    },
+    {
+      "id": "doc-check-centrelink-statement",
+      "title": "Kiểm tra Centrelink Statement",
+      "summary": "Trích khoản trợ cấp và kiểm tra tên, thời lượng kỳ và ngày tài liệu.",
+      "details": "Trợ lý ghi tên trợ cấp, số tiền và kỳ vào Fact Find, rồi báo khi kỳ ngắn hơn 3 tháng, tài liệu quá 30 ngày hoặc tên khác Applicant. Không chép Customer Reference Number.",
+      "icon": "landmark",
+      "examples": [
+        "Kiểm tra Centrelink Statement và ghi khoản trợ cấp vào Fact Find",
+        "Statement Centrelink này có đủ kỳ 3 tháng không?"
+      ]
+    },
+    {
+      "id": "doc-check-child-support-documents",
+      "title": "Kiểm tra giấy tờ cấp dưỡng",
+      "summary": "Kiểm tra Child Support Assessment, Family Court Order và thư về khoản cấp dưỡng.",
+      "details": "Trợ lý ghi khoản income received vào Fact Find, rồi báo kỳ dưới 3 tháng, tài liệu quá 30 ngày hoặc tên Applicant không xuất hiện trên tài liệu. Nếu Applicant là người trả, ghi đây là khoản chi trong Ghi chú thay vì Income received.",
+      "icon": "scale",
+      "examples": [
+        "Kiểm tra Child Support Assessment này",
+        "Đọc Family Court Order và cho biết khoản cấp dưỡng cần ghi thế nào"
+      ]
+    },
+    {
       "id": "doc-check-liabilities",
       "title": "Kiểm tra sao kê và khoản nợ",
       "summary": "Kiểm tra sao kê ngân hàng, khoản vay nhà, vay cá nhân, thẻ tín dụng, HECS và BNPL.",
