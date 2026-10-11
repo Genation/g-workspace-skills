@@ -7,17 +7,19 @@ Dữ liệu trong các ví dụ là giả. Cả ba ví dụ dùng chung:
 
 ## 1. Hai payslip liên tiếp, có salary sacrifice
 
-- payslip_1.pdf: "ABC Pty Ltd · ABN 12 345 678 901 · 100 Collins Street Melbourne VIC 3000 · Pay Advice · Employee: Thi Mai Tran · Pay period 31/08/2026 - 13/09/2026 · Pay date 15/09/2026 · Gross $3,000.00 · Salary sacrifice super $200.00 · Tax $650.00 · Net pay $2,150.00"
+- payslip_1.pdf: "ABC Pty Ltd · ABN 12 345 670 031 · 100 Collins Street Melbourne VIC 3000 · Pay Advice · Employee: Thi Mai Tran · Pay period 31/08/2026 - 13/09/2026 · Pay date 15/09/2026 · Gross $3,000.00 · Salary sacrifice super $200.00 · Tax $650.00 · Net pay $2,150.00"
 - payslip_2.pdf: giống trên, Pay period 14/09/2026 - 27/09/2026, Pay date 29/09/2026.
 
 Kỳ sau bắt đầu 14/09, ngay sau ngày cuối kỳ trước 13/09: liên tiếp. Payslip mới nhất có Pay date 29/09/2026; 29/09 + 30 ngày = 29/10/2026, sau hôm nay: chưa quá 30 ngày.
+
+`guroos_abn_lookup` (abn = "12 345 670 031") trả về: Doanh nghiệp ABC PTY LTD · Trạng thái ABN: Đang hoạt động (Active) từ 01/07/2015 · GST đăng ký từ 01/07/2015 · VIC 3000. "ABC Pty Ltd" khớp "ABC PTY LTD" (bỏ qua hoa/thường).
 
 ```
 ### payslip_2.pdf — Payslip (chắc chắn)
 Kết luận: CẦN XỬ LÝ
 
 Ghi vào Fact Find
-- Employer ABN: 12 345 678 901
+- Employer ABN: 12 345 670 031
 - Employer address: 100 Collins Street Melbourne VIC 3000
 - Employer phone no.: không có trên payslip
 - Salary Sacrifice / Packaging / Deductions before tax: Salary sacrifice super $200.00
@@ -32,9 +34,10 @@ Ghi chú
 - Net pay $2,150.00, kỳ 14/09/2026 - 27/09/2026, Pay date 29/09/2026.
 - Payslip mới nhất: Pay date 29/09/2026, hôm nay 06/10/2026, chưa quá 30 ngày.
 - Liên tiếp với payslip_1.pdf (kỳ 31/08/2026 - 13/09/2026). Tên khớp Applicant.
+- ABN Lookup (tra ngày 06/10/2026): ABC PTY LTD, ABN đang hoạt động từ 01/07/2015; tên employer khớp.
 ```
 
-payslip_1.pdf có khối riêng, cùng các trường và cùng thông báo Salary sacrifice. Quy tắc 30 ngày chỉ xét payslip mới nhất.
+payslip_1.pdf có khối riêng, cùng các trường và cùng thông báo Salary sacrifice. Quy tắc 30 ngày chỉ xét payslip mới nhất. ABN chỉ tra một lần cho cả bộ.
 
 ## 2. Notice of Assessment có in TFN
 

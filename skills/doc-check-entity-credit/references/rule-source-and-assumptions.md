@@ -29,6 +29,7 @@ Mọi dòng "Ghi vào Fact Find", "Ghi vào Broker's Notes" và "Thông báo khi
 | 9 | Equifax: tên khác Applicant chỉ ghi chú | Checklist mục 11 không có dòng về tên | Thêm dòng thông báo ở phần C |
 | 10 | Không chép credit score, ngày sinh, số bằng lái, địa chỉ cũ | Checklist không yêu cầu; giảm dữ liệu cá nhân lộ ra | Thêm trường vào phần C |
 | 11 | So tên chặt và 4 mức Kết luận | Giống `doc-check-identity` | Xem tệp cùng tên của `doc-check-identity` |
+| 12 | Company Extract: tra thêm ACN bằng `guroos_abn_lookup` (ABR), ghi trạng thái ABN vào Ghi chú và thông báo khi ABN đã huỷ; không có công cụ thì bỏ qua | Checklist không yêu cầu; ABN đã huỷ là dấu hiệu công ty ngừng kinh doanh dù extract còn "Registered" | Bỏ bước tra ABN |
 
 ## Khi nối với Document module và Noti module
 

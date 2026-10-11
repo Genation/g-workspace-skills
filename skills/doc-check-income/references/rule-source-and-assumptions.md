@@ -25,7 +25,7 @@ Mọi dòng "Ghi vào Fact Find" và "Thông báo khi" lấy từ checklist, tr�
 | 1 | Dấu hiệu nhận diện từng loại (Bước 1) | Checklist không nói cách nhận ra loại | Sửa bảng ở Bước 1 |
 | 2 | Payslip: 30 ngày tính từ Pay date và chỉ xét payslip MỚI NHẤT | Hai payslip liên tiếp thì cái cũ hơn gần như luôn quá 30 ngày | Xét từng payslip |
 | 3 | Payslip: "liên tiếp" = kỳ sau bắt đầu ngay sau ngày cuối kỳ trước; chỉ có một payslip thì ghi "chưa kiểm tra được" | Checklist không định nghĩa | Sửa phần A |
-| 4 | Payslip: không tự tra ABN Lookup; trường không in thì ghi "không có trên payslip" | Checklist ghi "(ABN lookup)" nhưng không nói ai tra | Cho trợ lý tra trên abr.business.gov.au |
+| 4 | Payslip: trợ lý tra ABN in trên payslip bằng công cụ `guroos_abn_lookup` (ABR); thông báo ABN đã huỷ, ABN không hợp lệ / không có bản ghi, tên employer không khớp tên ABR; không tra theo tên khi payslip không in ABN; không có công cụ thì "Chưa kiểm tra được" | Checklist ghi "(ABN lookup)"; ứng dụng Guroos có công cụ tra ABR từ bản có `guroos_abn_lookup` | Bỏ việc tra, chỉ chép ABN như in |
 | 5 | Payslip: ghi Net pay, kỳ lương, Pay date vào Ghi chú | Mục 19 cần Net pay để đối chiếu với bank statement | Bỏ dòng này |
 | 6 | Mục 13: "Income Statement" hiểu là income statement của ATO; Financial Statements (Profit & Loss, Balance Sheet) xếp cùng nhóm B | Checklist nhắc Profit & Loss, Balance Sheet trong mục 13 | Tách thành loại riêng |
 | 7 | Mục 13: `Profit & Loss` gồm Total income, Total expenses, Net profit; `Balance Sheet` gồm Total assets, Total liabilities, Net assets | Checklist không nói ghi số nào | Sửa phần B |

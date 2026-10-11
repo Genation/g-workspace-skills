@@ -60,7 +60,7 @@
       "id": "doc-check-entity-credit",
       "title": "Kiểm tra trust, công ty và tín dụng",
       "summary": "Kiểm tra Trust Deed, Company Extract của ASIC và báo cáo tín dụng Equifax.",
-      "details": "Trợ lý trích tên trust, trustee, beneficiary, ACN, director và shareholder để ghi vào Fact Find, rồi báo các điểm cần xử lý: người không phải người vay, deed thiếu chữ ký hoặc chưa chứng thực, công ty không còn đăng ký. Với báo cáo Equifax, trợ lý liệt kê enquiry trong 6 tháng, default và các tháng trả chậm.",
+      "details": "Trợ lý trích tên trust, trustee, beneficiary, ACN, director và shareholder để ghi vào Fact Find, rồi báo các điểm cần xử lý: người không phải người vay, deed thiếu chữ ký hoặc chưa chứng thực, công ty không còn đăng ký hoặc ABN đã huỷ. Với báo cáo Equifax, trợ lý liệt kê enquiry trong 6 tháng, default và các tháng trả chậm.",
       "icon": "users",
       "examples": [
         "Kiểm tra company extract này",
@@ -71,11 +71,22 @@
       "id": "doc-check-income",
       "title": "Kiểm tra giấy tờ thu nhập",
       "summary": "Kiểm tra payslip, giấy tờ thuế, giấy tờ cho thuê nhà, Centrelink và child support.",
-      "details": "Trợ lý xác định loại giấy tờ thu nhập, trích thông tin employer, lợi nhuận, tiền thuê hoặc trợ cấp để ghi vào Fact Find, rồi báo các điểm cần xử lý: giấy tờ quá 30 ngày, payslip không liên tiếp, có salary sacrifice, lỗ, sai tên. Trợ lý nhắc che Tax File Number và không chép số này vào báo cáo.",
+      "details": "Trợ lý xác định loại giấy tờ thu nhập, trích thông tin employer, lợi nhuận, tiền thuê hoặc trợ cấp để ghi vào Fact Find, tra ABN của employer trên ABN Lookup, rồi báo các điểm cần xử lý: giấy tờ quá 30 ngày, payslip không liên tiếp, có salary sacrifice, ABN đã huỷ hoặc khác tên employer, lỗ, sai tên. Trợ lý nhắc che Tax File Number và không chép số này vào báo cáo.",
       "icon": "receipt",
       "examples": [
         "Kiểm tra hai payslip khách vừa gửi",
         "Notice of Assessment này có cần che TFN không?"
+      ]
+    },
+    {
+      "id": "abn-lookup",
+      "title": "Tra cứu doanh nghiệp Úc (ABN)",
+      "summary": "Tra ABN, ACN hoặc tên doanh nghiệp: còn hoạt động hay đã huỷ, GST, có khớp tên trên tài liệu không.",
+      "details": "Trợ lý tra doanh nghiệp trên ABN Lookup của Australian Business Register, nêu tên pháp nhân, loại hình, trạng thái ABN (đang hoạt động hay đã huỷ và từ ngày nào), GST và tên thương mại, rồi báo các điểm cần xử lý: ABN đã huỷ, sai số ABN, tên không khớp tài liệu. Trạng thái đăng ký với ASIC (công ty đã giải thể hay chưa) không có trong ABR nên trợ lý nêu rõ là chưa kiểm tra được. Trợ lý không đoán thông tin doanh nghiệp từ trí nhớ.",
+      "icon": "shield-check",
+      "examples": [
+        "Tra cứu ABN 51 824 753 556",
+        "Công ty ABC Pty Ltd còn hoạt động không?"
       ]
     },
     {

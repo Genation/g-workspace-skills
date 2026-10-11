@@ -41,11 +41,15 @@ Chỉ trích đúng các trường liệt kê, ghi nguyên văn. Việc cần l�
 
 ### A · Payslip
 Ghi vào Fact Find: `Employer ABN` · `Employer address` · `Employer phone no.` · `Salary Sacrifice / Packaging / Deductions before tax` (tên khoản và số tiền)
-- Trường nào payslip không in thì ghi "không có trên payslip"; không tự tìm ở nơi khác.
+- Trường nào payslip không in thì ghi "không có trên payslip"; không tự tìm ở nơi khác (không tra ABN theo tên employer).
 - Ghi `Net pay`, kỳ lương và Pay date vào "Ghi chú" để đối chiếu với bank statement.
+- Payslip có in ABN của employer: tra bằng công cụ `guroos_abn_lookup` (abn = số in trên payslip), mỗi ABN một lần cho cả bộ payslip. Ghi vào "Ghi chú": tên pháp nhân, trạng thái ABN và ngày tra theo kết quả. Không có công cụ này, hoặc công cụ báo chưa cấu hình / không kết nối được: ghi "tra ABN" vào "Chưa kiểm tra được" kèm lý do; không trả lời từ trí nhớ.
 
 Thông báo khi:
 - Tên Employee khác Applicant Name.
+- ABN của employer đã huỷ (Cancelled) → báo nhân viên xem xét, ghi ngày huỷ.
+- Công cụ báo ABN không hợp lệ (sai checksum) hoặc ABR không có bản ghi → nhờ nhân viên xem lại số trên payslip. Không tự đổi chữ số để thử.
+- Tên employer trên payslip không khớp tên pháp nhân lẫn tên thương mại nào trong kết quả tra ABN → ghi nguyên văn hai tên. So tên doanh nghiệp: bỏ qua hoa/thường, dấu câu và đuôi loại hình ("Pty Ltd", "Proprietary Limited", "Limited", "Ltd"); còn lại phải giống hệt.
 - Có Salary Sacrifice, Salary Packaging hoặc khoản trừ trước thuế (pre-tax deduction, novated lease) → xin khách Statement hoặc Employment Letter / Contract.
 
 Hai quy tắc sau xét trên CẢ BỘ payslip của cùng một người và chỉ ghi MỘT LẦN, ở khối của payslip mới nhất; khối của payslip cũ hơn không lặp lại:
@@ -115,7 +119,7 @@ Ghi vào Fact Find
 - <Trường>: <giá trị nguyên văn>
 
 Cần thông báo
-- [<Sai tên | Quá 30 ngày | Kỳ dưới 3 tháng | Không liên tiếp | Salary sacrifice | TFN | Loss | Lệch số liệu>] <bằng chứng> → <việc cần làm>
+- [<Sai tên | Quá 30 ngày | Kỳ dưới 3 tháng | Không liên tiếp | Salary sacrifice | ABN đã huỷ | ABN không hợp lệ | Sai tên employer | TFN | Loss | Lệch số liệu>] <bằng chứng> → <việc cần làm>
 
 Chưa kiểm tra được
 - <mục>: <thiếu gì>
