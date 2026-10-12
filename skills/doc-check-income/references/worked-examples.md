@@ -36,29 +36,15 @@ Ghi chú
 
 payslip_1.pdf có khối riêng, cùng các trường và cùng thông báo Salary sacrifice. Quy tắc 30 ngày chỉ xét payslip mới nhất.
 
-## 2. Notice of Assessment có in TFN
+## 2. Notice of Assessment (loại B)
 
-Nội dung đọc được (trang 1): "Australian Taxation Office · Notice of assessment · Year ended 30 June 2026 · Thi Mai Tran · Tax file number 000 000 000 · Your taxable income $85,000 · Date of issue 20/08/2026".
+Tài liệu loại B không được kiểm tra ở kỹ năng này. Nạp `doc-check-tax-and-financial-statements` và dùng nguyên khối kết quả của kỹ năng đó. Kỹ năng đó kiểm tra tệp gốc (Bước 0) trước, nên kết quả có thể là `KHÔNG HỢP LỆ`; xem `doc-check-tax-and-financial-statements/references/worked-examples.md`.
+
+Kỹ năng đó chưa được bật thì chỉ ghi:
 
 ```
-### noa.pdf — Notice of Assessment (chắc chắn)
-Kết luận: CẦN XỬ LÝ
-
-Ghi vào Fact Find
-- Không có
-
-Cần thông báo
-- [TFN] Trang 1 có in Tax File Number → che TFN (redact) trước khi lưu hoặc gửi đi.
-
-Chưa kiểm tra được
-- Không có
-
-Ghi chú
-- Taxable income $85,000, năm tài chính kết thúc 30/06/2026.
-- Tên "Thi Mai Tran" khớp Applicant.
+### noa.pdf — Notice of Assessment (cần kỹ năng "Kiểm tra giấy tờ thuế và báo cáo tài chính")
 ```
-
-Báo cáo không chép số TFN. Tài liệu thuế cá nhân không cần đối chiếu với Financial Statements.
 
 ## 3. Centrelink Statement có kỳ dưới 3 tháng
 

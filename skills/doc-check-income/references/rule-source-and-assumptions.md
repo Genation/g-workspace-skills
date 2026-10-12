@@ -40,6 +40,7 @@ Mọi dòng "Ghi vào Fact Find" và "Thông báo khi" lấy từ checklist, tr�
 | 16 | Mục 18: tài liệu không ghi kỳ (Court Order) thì ghi "chưa kiểm tra được"; quy tắc 30 ngày vẫn áp dụng | Checklist áp cùng một quy tắc cho cả Court Order. Court Order thường cũ hơn 30 ngày nên gần như luôn bị thông báo: cần Guroos xem lại | Bỏ quy tắc ngày cho Court Order |
 | 17 | Mục 18: Applicant là người trả thì ghi chú, không ghi `Income received` | Khoản trả là chi phí, không phải thu nhập | Sửa phần G |
 | 18 | So tên chặt và 4 mức Kết luận | Giống `doc-check-identity` | Xem tệp cùng tên của `doc-check-identity` |
+| 19 | Mục 13 (phần B) chuyển sang `doc-check-tax-and-financial-statements` để qua Bước 0 kiểm tra tệp gốc; kết quả nào không qua là `KHÔNG HỢP LỆ` và dừng | Khách có thể tự gõ tệp có đủ dấu hiệu ở Bước 1; người dùng chọn dừng hẳn khi có nghi vấn | Xem `doc-check-tax-and-financial-statements/references/validity-markers.md` |
 
 ## Kiểm tra chéo với kỹ năng khác
 
