@@ -1,6 +1,6 @@
 # Ví dụ đã làm sẵn
 
-Dữ liệu doanh nghiệp trong ví dụ 2 và 3 là giả. Cả ba ví dụ dùng chung: hôm nay 12/10/2026.
+Dữ liệu doanh nghiệp trong ví dụ 2 đến 5 là giả. Mọi ví dụ dùng chung: hôm nay 12/10/2026.
 
 ## 1. ABN đang hoạt động, tên khớp
 
@@ -80,3 +80,62 @@ Ghi chú
 ```
 
 Không điền tên hay trạng thái từ trí nhớ, kể cả với doanh nghiệp nổi tiếng.
+
+## 4. Trust, tên trên tài liệu không có "The Trustee for"
+
+Payslip in "Tran Family Trust · ABN 18 123 456 789". `guroos_abn_lookup` trả về: Doanh nghiệp The Trustee for TRAN FAMILY TRUST · Loại hình Discretionary Trading Trust · Trạng thái ABN: Đang hoạt động (Active) từ 01/07/2018 · GST đăng ký từ 01/07/2018 · NSW 2000 · không có tên thương mại.
+
+```
+### Tran Family Trust
+Kết luận: ĐẠT
+
+Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
+- Tên pháp nhân: The Trustee for TRAN FAMILY TRUST
+- ABN: 18 123 456 789 · ACN: không có
+- Loại hình: Discretionary Trading Trust
+- Trạng thái ABN: Đang hoạt động từ 01/07/2018
+- GST: đăng ký từ 01/07/2018
+- Bang / postcode: NSW 2000
+- Tên thương mại: không có
+
+Cần thông báo
+- Không có
+
+Chưa kiểm tra được
+- Không có
+
+Ghi chú
+- Tên trên payslip "Tran Family Trust" khớp tên pháp nhân sau khi bỏ "The Trustee for".
+- ABR không có tên trustee: chưa so được trustee.
+```
+
+## 5. Sole trader, tên trên tài liệu thiếu tên đệm
+
+Hoá đơn in "Mai Tran · ABN 80 987 654 321". `guroos_abn_lookup` trả về: Doanh nghiệp TRAN, THI MAI · Loại hình Individual/Sole Trader · Trạng thái ABN: Đang hoạt động (Active) từ 15/03/2026 · không đăng ký GST · VIC 3170 · không có tên thương mại. Lưu ý thẩm định: Trạng thái Active mới có hiệu lực 211 ngày (dưới 12 tháng); Không đăng ký GST; Là cá nhân kinh doanh (sole trader).
+
+```
+### Mai Tran
+Kết luận: CẦN XỬ LÝ
+
+Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
+- Tên pháp nhân: TRAN, THI MAI
+- ABN: 80 987 654 321 · ACN: không có
+- Loại hình: Individual/Sole Trader
+- Trạng thái ABN: Đang hoạt động từ 15/03/2026
+- GST: không đăng ký
+- Bang / postcode: VIC 3170
+- Tên thương mại: không có
+
+Cần thông báo
+- [Sai tên doanh nghiệp] Hoá đơn in "Mai Tran", ABR ghi "TRAN, THI MAI": thiếu tên đệm "Thi" → báo nhân viên xem xét.
+
+Chưa kiểm tra được
+- Không có
+
+Ghi chú
+- Trạng thái Active có hiệu lực từ 15/03/2026, dưới 12 tháng: có thể là ABN mới hoặc ABN cũ vừa hoạt động lại; xem lịch sử trên ABR trước khi kết luận.
+- Không đăng ký GST.
+- Cá nhân kinh doanh (sole trader): không có ACN, không đăng ký với ASIC.
+```
+
+Tên cá nhân so như tên người: đổi thứ tự từ không sao, nhưng thiếu tên đệm là KHÁC.
