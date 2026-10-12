@@ -35,6 +35,19 @@
       ]
     },
     {
+      "id": "doc-check",
+      "title": "Kiểm tra giấy tờ hồ sơ vay",
+      "summary": "Kiểm tra từng giấy tờ của khách theo checklist 23 mục, đối chiếu chéo rồi báo việc cần làm.",
+      "details": "Trợ lý kiểm tra tệp gốc trước (có phải bản phát hành thật, có bị sửa, có phải ảnh chụp hay bản scan), rồi nhận loại giấy tờ và đọc theo đúng quy tắc của loại đó: tùy thân, nhà đất, phiếu lương, thuế, thuê nhà, trợ cấp, sao kê và khoản vay. Giấy tờ đạt được đối chiếu chéo với nhau (tên, địa chỉ, kỳ, số liệu). Báo cáo ghi kết luận cho từng giấy tờ, thông tin ghi vào Fact Find và việc cần báo khách. Trợ lý không chép TFN, số Medicare hay số tài khoản đầy đủ, và không tự sửa hay di chuyển tệp.",
+      "icon": "clipboard-check",
+      "examples": [
+        "Kiểm tra giấy tờ trong thư mục của khách Nguyễn Văn A",
+        "Kiểm tra phiếu lương và sao kê tôi vừa đính kèm",
+        "Tờ khai thuế này có phải bản gốc tải từ myGov không?"
+      ],
+      "default": true
+    },
+    {
       "id": "doc-check-identity",
       "title": "Kiểm tra giấy tờ tùy thân",
       "summary": "Nhận diện bằng lái, hộ chiếu, Medicare, visa và báo điểm cần xử lý.",
@@ -93,10 +106,10 @@
       "id": "doc-check-tax-and-financial-statements",
       "title": "Kiểm tra giấy tờ thuế và báo cáo tài chính",
       "summary": "Kiểm tra Tax Return, ATO Income Statement, Notice of Assessment, Profit & Loss và Balance Sheet.",
-      "details": "Trợ lý ghi các số liệu Profit & Loss và Balance Sheet vào Fact Find, rồi báo tên khác, khoản lỗ, số liệu Tax Return lệch Financial Statements hoặc Tax File Number cần che. TFN không bao giờ được chép vào báo cáo.",
+      "details": "Trước hết trợ lý xác nhận tệp là bản PDF gốc, tải từ myGov/ATO hoặc do phần mềm kế toán xuất ra: không bị gõ lại, sửa số, che chữ hay chụp ảnh, và các con số khớp nhau. Tệp không đạt thì trợ lý dừng, nêu lý do và đề nghị xin bản gốc. Tệp đạt thì trợ lý ghi số liệu Profit & Loss và Balance Sheet vào Fact Find, rồi báo tên khác, khoản lỗ, số liệu Tax Return lệch Financial Statements hoặc Tax File Number cần che. TFN không bao giờ được chép vào báo cáo.",
       "icon": "file-search",
       "examples": [
-        "Kiểm tra Tax Return và báo tôi nếu tài liệu có TFN cần che",
+        "Tax Return này có phải bản gốc không? Kiểm tra và báo TFN cần che",
         "Đối chiếu Notice of Assessment này với Applicant trên Fact Find"
       ]
     },
