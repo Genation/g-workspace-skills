@@ -18,7 +18,7 @@ Không có hai công cụ này, hoặc công cụ báo "Chưa cấu hình ABN Lo
 
 1. **Số ABN (11 số) hoặc ACN (9 số)**, chép đúng như in trên tài liệu hoặc như người dùng đưa. Chỉ có tên: tìm bằng `guroos_abn_search`.
 2. **Tên cần đối chiếu** (không bắt buộc): tên doanh nghiệp in trên tài liệu, ví dụ tên employer trên payslip. Không có thì bỏ bước đối chiếu tên.
-3. **Ngày hôm nay** để ghi ngày tra. Dùng ngày hiện tại của hệ thống.
+3. **Ngày hôm nay** để ghi ngày tra. Có công cụ `guroos_date_check`: dùng dòng "Hôm nay" của công cụ. Không có: dùng ngày hiện tại của hệ thống. Không biết chắc thì hỏi người dùng.
 
 ## Bước 1 - Tra
 

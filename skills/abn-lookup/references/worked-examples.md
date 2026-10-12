@@ -33,7 +33,7 @@ Ghi chú
 
 ## 2. ABN đã huỷ, tên trên payslip là tên thương mại
 
-Payslip in "Sunrise Cafe · ABN 12 345 670 031". `guroos_abn_lookup` trả về: Doanh nghiệp SUNRISE HOLDINGS PTY LTD · ACN 123 456 780 · Australian Private Company · Trạng thái ABN: ĐÃ HUỶ (Cancelled) từ 30/06/2026 · không đăng ký GST · VIC 3000 · Tên thương mại: Sunrise Cafe.
+Payslip in "Sunrise Cafe · ABN 11 123 456 780". `guroos_abn_lookup` trả về: Doanh nghiệp SUNRISE HOLDINGS PTY LTD · ACN 123 456 780 · Australian Private Company · Trạng thái ABN: ĐÃ HUỶ (Cancelled) từ 30/06/2026 · không đăng ký GST · VIC 3000 · Tên thương mại: Sunrise Cafe.
 
 ```
 ### Sunrise Cafe
@@ -41,7 +41,7 @@ Kết luận: CẦN XỬ LÝ
 
 Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
 - Tên pháp nhân: SUNRISE HOLDINGS PTY LTD
-- ABN: 12 345 670 031 · ACN: 123 456 780
+- ABN: 11 123 456 780 · ACN: 123 456 780
 - Loại hình: Australian Private Company
 - Trạng thái ABN: Đã huỷ từ 30/06/2026
 - GST: không đăng ký
@@ -49,7 +49,7 @@ Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
 - Tên thương mại: Sunrise Cafe
 
 Cần thông báo
-- [ABN đã huỷ] ABN 12 345 670 031 bị huỷ từ 30/06/2026 → báo nhân viên xem xét.
+- [ABN đã huỷ] ABN 11 123 456 780 bị huỷ từ 30/06/2026 → báo nhân viên xem xét.
 
 Chưa kiểm tra được
 - Trạng thái đăng ký công ty với ASIC: ABR không có; cần ASIC Company Extract hoặc tra ACN 123 456 780 trên ASIC Connect.
@@ -66,7 +66,7 @@ ABN đã huỷ không có nghĩa là công ty đã giải thể; vì vậy trạ
 `guroos_abn_lookup` báo: "Chưa cấu hình ABN Lookup trên máy này (thiếu GUID của ABR)…".
 
 ```
-### ABN 12 345 670 031
+### ABN 11 123 456 780
 Kết luận: CHƯA ĐỦ THÔNG TIN
 
 Cần thông báo

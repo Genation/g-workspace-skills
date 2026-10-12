@@ -96,7 +96,7 @@
       "title": "Tra cứu doanh nghiệp Úc (ABN)",
       "summary": "Tra ABN, ACN hoặc tên doanh nghiệp: còn hoạt động hay đã huỷ, GST, có khớp tên trên tài liệu không.",
       "details": "Trợ lý tra doanh nghiệp trên ABN Lookup của Australian Business Register, nêu tên pháp nhân, loại hình, trạng thái ABN (đang hoạt động hay đã huỷ và từ ngày nào), GST và tên thương mại, rồi báo các điểm cần xử lý: ABN đã huỷ, sai số ABN, tên không khớp tài liệu. Trạng thái đăng ký với ASIC (công ty đã giải thể hay chưa) không có trong ABR nên trợ lý nêu rõ là chưa kiểm tra được. Trợ lý không đoán thông tin doanh nghiệp từ trí nhớ.",
-      "icon": "shield-check",
+      "icon": "building-2",
       "examples": [
         "Tra cứu ABN 51 824 753 556",
         "Công ty ABC Pty Ltd còn hoạt động không?"
