@@ -7,12 +7,13 @@
 | Centrelink Statement: Income Statement, Payment Summary, Statement of benefits, thư xác nhận trợ cấp | 17 |
 | Child Support Assessment; Child Support statement (Statement of account, Payment history) | 18 |
 | Family Court Order: Orders, Consent Orders | 18 |
-| Thư Solicitor; thư Family & Community Services (FACS, nay NSW Department of Communities and Justice, hoặc cơ quan tương đương bang khác) | 18 |
+| Binding / Limited Child Support Agreement (loại mở rộng) | 18 |
 
-- Đọc trước (`guroos_document_read` với `pages`): trang 1–2 và trang có tổng; trang giữa chỉ khi cần cho kỳ hoặc 2C. Court Order: thêm các order về tiền ("child support", "maintenance", "pay", "$") và trang cuối (dấu toà). Thư: đọc hết.
+- Đọc trước (`guroos_document_read` với `pages`): trang 1–2 và trang có tổng; trang giữa chỉ khi cần cho kỳ hoặc 2C. Court Order: thêm các order về tiền ("child support", "maintenance", "pay", "$") và trang cuối (dấu toà). Thư, agreement: đọc hết.
 - Bản cũ in "Department of Human Services" hoặc "Child Support Agency" vẫn tính.
 - Thư trợ cấp của Department of Veterans' Affairs (DVA): xử lý như Centrelink, ghi "chưa chắc: cơ quan DVA".
-- Binding / Limited Child Support Agreement: xử lý như thư Solicitor, ghi "chưa chắc: Child Support Agreement".
+- Binding / Limited Child Support Agreement: ghi "chưa chắc: Child Support Agreement".
+- Ngoài phạm vi: thư Solicitor, thư Family & Community Services (FACS, nay NSW Department of Communities and Justice, hoặc cơ quan tương đương bang khác), kể cả khi thư nói về cấp dưỡng hay trợ cấp; loại dễ nhầm khác ở cột "Dễ nhầm với" (mục 1).
 
 ## 1. Dấu hiệu cấu trúc bắt buộc
 
@@ -22,7 +23,7 @@
 | Child Support Assessment | (1) Services Australia – Child Support; (2) tiêu đề assessment; (3) bên nhận và bên trả (Receiving / Paying parent, Payee / Payer); (4) số tiền (annual rate, có thể kèm per month); (5) ngày bắt đầu hoặc assessment period; (6) ngày thư | — |
 | Child Support statement | (1) Services Australia – Child Support; (2) Statement of account / Payment history; (3) bên nhận và bên trả; (4) bảng ngày và số tiền; (5) khoảng ngày; (6) ngày in | — |
 | Family Court Order | (1) tên toà (Federal Circuit and Family Court of Australia, Family Court of Western Australia; cũ: Family Court of Australia, Federal Circuit Court); (2) file number, các bên (Applicant / Respondent); (3) Orders / Consent Orders, "the Court orders"; (4) order đánh số; (5) ngày order, Judge / Registrar; (6) dấu toà (seal) hoặc chữ ký Registrar | Minute of Proposed Consent Orders, Application for Consent Orders, Parenting Plan → Ngoài phạm vi |
-| Thư Solicitor / FACS | (1) letterhead văn phòng luật hoặc cơ quan; (2) ngày thư; (3) người nhận; (4) nội dung về khoản cấp dưỡng / trợ cấp: số tiền, kỳ, bên trả, bên nhận; (5) tên, chức danh người ký | thư Solicitor không về cấp dưỡng → Ngoài phạm vi |
+| Child Support Agreement | (1) tiêu đề Binding / Limited Child Support Agreement; (2) các bên (cha, mẹ, carer) có tên; (3) khoản cấp dưỡng: số tiền, kỳ, bên trả, bên nhận; (4) chữ ký và ngày ký của các bên | thư Solicitor riêng → Ngoài phạm vi (xác nhận tư vấn pháp lý ký kèm thuộc agreement) |
 
 ## 2. Bước 0 của nhóm
 
@@ -31,9 +32,9 @@
 | Loại | BÁO khi Nhóm nguồn là |
 |---|---|
 | Centrelink, Child Support, Court Order | công cụ văn phòng; công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF (DOCX…) |
-| Thư Solicitor / FACS, Child Support Agreement | công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF |
+| Child Support Agreement | công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF |
 
-Nguồn khác: GHI CHÚ (myGov, Courts Portal hay in từ trình duyệt; thư thường soạn bằng Word). Tệp ảnh JPG/PNG: GHI CHÚ, dù khối ảnh ghi nhóm nguồn nào.
+Nguồn khác: GHI CHÚ (myGov, Courts Portal hay in từ trình duyệt; agreement thường soạn bằng Word). Tệp ảnh JPG/PNG: GHI CHÚ, dù khối ảnh ghi nhóm nguồn nào.
 
 ### 2B. Dấu hiệu xét theo loại (mọi loại)
 
@@ -48,16 +49,17 @@ Nguồn khác: GHI CHÚ (myGov, Courts Portal hay in từ trình duyệt; thư t
 
 **Số.** Sai số $1; lệch → `[Lệch số liệu]` theo mẫu chung, không DỪNG. Không quy đổi annual rate, không tính lại mức trợ cấp.
 - Centrelink, Child Support statement: tổng các dòng trả của một khoản = tổng in cho khoản đó.
-- Assessment, Court Order, thư: không có phép so số.
+- Assessment, Court Order, Agreement: không có phép so số.
 
 **Ngày và kỳ**: `guroos_date_check(document_date=<Date of issue / ngày thư / ngày in>, max_age_days=30, periods=[{start, end}], min_months=3)`; không có kỳ thì bỏ `periods`, `min_months`.
-- Court Order (ngày order), thư Solicitor, Child Support Agreement (ngày thư): KHÔNG áp quy tắc 30 ngày; bỏ qua "QUÁ"/"TRONG" 30 ngày, chỉ xét ngày trong tương lai.
+- Court Order (ngày order), Child Support Agreement (ngày ký): KHÔNG áp quy tắc 30 ngày; bỏ qua "QUÁ"/"TRONG" 30 ngày, chỉ xét ngày trong tương lai.
 - Kỳ "(có ngày trong tương lai)" (assessment, order áp tới sau này): chỉ Ghi chú.
 
 Cách lấy kỳ:
 - Khoảng ngày in (statement period, assessment period, from – to): đúng khoảng đó.
 - Chỉ có bảng các lần trả: đầu kỳ lần trả đầu → cuối kỳ lần trả cuối; không in kỳ thì ngày trả đầu → ngày trả cuối, ghi chú cách tính.
 - "Đang nhận từ <ngày>" (receiving since, paid since): <ngày> → ngày tài liệu.
+- Chỉ in năm tài chính (`2024–25`, `Year ended 30 June 2025`): 01/07/2024 → 30/06/2025.
 - Chỉ có ngày bắt đầu nghĩa vụ ("commencing", "until the child turns 18"): không có kỳ → Chưa kiểm tra được "Kỳ dưới 3 tháng: <tài liệu chỉ ghi gì>", trừ khi bộ có kỳ từ tài liệu khác (mục 5).
 
 ## 3. Ghi vào Fact Find
@@ -67,7 +69,7 @@ Cách lấy kỳ:
 | Centrelink Statement | tên từng trợ cấp, số tiền và kỳ trả, mỗi trợ cấp một dòng; thêm tổng và khoảng ngày nếu có in | không có trên tài liệu |
 | Child Support Assessment / statement | số tiền và kỳ như in (annual rate, per month…), bên trả | không có trên tài liệu |
 | Family Court Order | số tiền, kỳ, bên trả, số order | Order không có khoản trả tiền |
-| Thư Solicitor / FACS | số tiền, kỳ, bên trả (FACS: tên khoản, vd. care allowance) | không có trên tài liệu |
+| Child Support Agreement | số tiền, kỳ, bên trả | không có trên tài liệu |
 
 - Rule 18, Applicant là bên trả: `Income received: không ghi, Applicant là bên trả (khoản chi)`, số tiền và kỳ ghi ở Ghi chú. Không rõ Applicant nhận hay trả: `Income received: chưa ghi, chưa rõ vai trò của Applicant`.
 - Không chép thêm: Child Support reference, file number của toà, tên và ngày sinh của con.
@@ -76,14 +78,14 @@ Cách lấy kỳ:
 
 | Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
 |---|---|---|---|
-| Centrelink, Child Support, thư FACS mới nhất của bộ: tool trả QUÁ 30 ngày | [Quá 30 ngày] | loại ngày, ngày tài liệu, hôm nay theo tool | báo nhân viên xem xét |
+| Centrelink, Child Support Assessment hoặc statement mới nhất của bộ: tool trả QUÁ 30 ngày | [Quá 30 ngày] | loại ngày, ngày tài liệu, hôm nay theo tool | báo nhân viên xem xét |
 | Đoạn kỳ liền mạch mới nhất của bộ: tool trả CHƯA ĐỦ 3 tháng | [Kỳ dưới 3 tháng] | kỳ đã dùng, các dòng "Khoảng hở" | báo nhân viên xem xét |
 | Rule 17: tên người nhận KHÁC mọi Applicant | [Sai tên] | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
 | Rule 18: không Applicant nào khớp bên nhận hay bên trả | [Sai tên] | tên các bên và vai trò như in | báo nhân viên xem xét |
-| Bước 0 ra BÁO (2A, 2B) | [Tệp gốc] | nhóm nguồn, tên phần mềm, nhãn trong khối | xác minh với nơi phát hành (Services Australia, toà, văn phòng luật, FACS) hoặc xin bản gốc |
+| Bước 0 ra BÁO (2A, 2B) | [Tệp gốc] | nhóm nguồn, tên phần mềm, nhãn trong khối | xác minh với nơi phát hành (Services Australia, toà, văn phòng luật) hoặc xin bản gốc |
 | Tài liệu in TFN (dòng "Mã số" của khối, trang có `[đã che TFN]` hoặc TFN thấy trên ảnh) | [TFN] | chỉ số trang | che TFN trước khi lưu hoặc gửi đi |
 
-Chỉ ghi chú: ngày order / ngày thư của Court Order, thư Solicitor; khoảng hở nằm trước đoạn mới nhất đã đủ 3 tháng; bên trả còn nợ (arrears, amount owing) hoặc khoản đã dừng (cancelled, ceased), số và ngày như in; Child Support "Private Collect" (Services Australia không thu hộ).
+Chỉ ghi chú: ngày order của Court Order, ngày ký của Child Support Agreement; khoảng hở nằm trước đoạn mới nhất đã đủ 3 tháng; bên trả còn nợ (arrears, amount owing) hoặc khoản đã dừng (cancelled, ceased), số và ngày như in; Child Support "Private Collect" (Services Australia không thu hộ).
 
 Chưa kiểm tra được: kỳ (2C); rule 18 không rõ Applicant nhận hay trả → "vai trò của Applicant".
 
@@ -91,7 +93,7 @@ Chưa kiểm tra được: kỳ (2C); rule 18 không rõ Applicant nhận hay tr
 
 - **Vai trò (rule 18):** bên nhận = Receiving parent = Payee = carer; bên trả = Paying parent = Payer = liable parent. Trong Court Order, "Applicant" / "Respondent" là bên tại toà, không phải Applicant của hồ sơ. "The Father pay to the Mother": nối với tên qua phần đầu order; không nối được → "Chưa kiểm tra được".
 - **Nhiều Applicant:** so từng người; một Applicant đúng vai trò là đủ. Bên còn lại không phải Applicant là bình thường, không báo.
-- **Bộ:** cùng Applicant, cùng khoản (cùng tên trợ cấp; hoặc child support / maintenance cho cùng con), cùng bên trả; có thể gồm Assessment, statement, Court Order. Bước 6 (cross-checks.md bảng 1): 3 tháng xét trên đoạn liền mạch mới nhất, 30 ngày ở tài liệu mới nhất mà quy tắc 30 ngày áp dụng; hai dòng này ghi MỘT LẦN ở khối tài liệu đó (bộ chỉ có Court Order, thư Solicitor: khối mới nhất), khối khác ghi "xét theo bộ ở khối <tệp>".
+- **Bộ:** cùng Applicant, cùng khoản (cùng tên trợ cấp; hoặc child support / maintenance cho cùng con), cùng bên trả; có thể gồm Assessment, statement, Court Order, Child Support Agreement. Bước 6 (cross-checks.md bảng 1): 3 tháng xét trên đoạn liền mạch mới nhất, 30 ngày ở tài liệu mới nhất mà quy tắc 30 ngày áp dụng; hai dòng này ghi MỘT LẦN ở khối tài liệu đó (bộ chỉ có Court Order, Child Support Agreement: khối mới nhất), khối khác ghi "xét theo bộ ở khối <tệp>".
 - **Dữ kiện để đối chiếu:** người nhận · bên trả · tên khoản · số tiền và kỳ trả · kỳ tài liệu · ngày tài liệu · Applicant nhận hay trả · tài khoản nhận (…NNNN) nếu có.
 
 ## 6. Ví dụ

@@ -4,9 +4,9 @@
 
 Bước 6 của SKILL.md: MỘT lần cho cả lô của một khách, sau bước 1–5 của mọi tài liệu.
 
-- **Ai tham gia:** tài liệu đã qua Bước 0 và đọc được; KHÔNG HỢP LỆ, KHÔNG ĐỌC ĐƯỢC coi như không có. Tài liệu có `[Tệp gốc]` hoặc "chưa chắc" vẫn tham gia, nêu điều đó trong bằng chứng.
+- **Ai tham gia:** tài liệu đã qua Bước 0 và đọc được; KHÔNG HỢP LỆ, KHÔNG ĐỌC ĐƯỢC coi như không có. Tài liệu có `[Tệp gốc]` hoặc "chưa chắc" vẫn tham gia, nêu điều đó trong bằng chứng. Ngoại lệ: giấy nối tên ngoài phạm vi (Marriage, Change of Name, Birth Certificate) đọc được vẫn dùng ở dòng cuối bảng 3.
 - **Số liệu** lấy từ "Dữ kiện để đối chiếu"; thiếu thì đọc lại đúng trang.
-- **Chỉ ghép cùng chủ thể:** cùng người (tên trên hai tài liệu KHỚP, kể cả khi chưa có Applicant), cùng pháp nhân (tên pháp lý; ABN/ACN nếu cả hai cùng in), cùng tài khoản (tổ chức và 4 số cuối), cùng địa chỉ nhà, cùng năm tài chính.
+- **Chỉ ghép cùng chủ thể:** cùng người (tên trên hai tài liệu KHỚP, kể cả khi chưa có Applicant), cùng pháp nhân (tên pháp lý; ABN/ACN nếu cả hai cùng in), cùng tài khoản (tổ chức và 4 số cuối), cùng địa chỉ nhà, cùng năm tài chính (so theo dạng 2024–25: `Company tax return 2025`, `Year ended 30 June 2025`, `For the year ended 30 June 2025` cùng là 2024–25).
 - **Ghi ở khối A**, không lặp ở khối B. Quy tắc theo bộ ghi MỘT lần ở khối mới nhất của bộ; khối cũ hơn ghi Ghi chú "xét theo bộ ở khối <tệp>".
 - **Lệch** → Cần thông báo `[<Nhãn>] <số/ngày trên A> · <số/ngày trên B> (<tệp B>) · lệch <số chênh> → báo nhân viên xem xét` (trừ khi bảng nêu việc khác). **Khớp** → Ghi chú "đã đối chiếu <gì> với <tệp B>: khớp". Lệch không quá $1 là khớp. Lệch không làm tài liệu nào KHÔNG HỢP LỆ.
 
@@ -22,7 +22,7 @@ Chỉ tài liệu mới nhất xét 30 ngày; số tháng xét trên đoạn li�
 |---|---|---|---|
 | Payslip (12) | cùng Employee, cùng employer (so ABN; không có thì so tên) | 30 ngày từ Pay date (không có thì ngày cuối kỳ); kỳ liên tiếp, không truyền `min_months`. Từng cặp liền kỳ cùng năm tài chính: YTD Gross sau − YTD Gross trước = Gross kỳ sau | Quá 30 ngày · Không liên tiếp · Lệch số liệu |
 | Sao kê rule 19, 20, 21 | cùng tài khoản | 30 ngày; `min_months` 3 (19, 21) hoặc 6 (20). Sao kê liền kỳ: Closing kỳ trước = Opening kỳ sau, khớp đúng | Quá 30 ngày · Kỳ dưới 3 tháng · Kỳ dưới 6 tháng · Lệch số liệu |
-| Centrelink (17), cấp dưỡng (18) | cùng Applicant, cùng khoản, cùng bên trả; bộ 18 có thể gồm Assessment, statement, Court Order | `min_months=3`; 30 ngày tính từ tài liệu mới nhất mà quy tắc 30 ngày áp dụng (Court Order, thư Solicitor: chỉ ghi chú ngày). Khoảng hở trước đoạn đã ĐỦ 3 tháng: Ghi chú | Quá 30 ngày · Kỳ dưới 3 tháng |
+| Centrelink (17), cấp dưỡng (18) | cùng Applicant, cùng khoản, cùng bên trả; bộ 18 có thể gồm Assessment, statement, Court Order, Child Support Agreement | `min_months=3`; 30 ngày tính từ tài liệu mới nhất mà quy tắc 30 ngày áp dụng (Court Order, Child Support Agreement: chỉ ghi chú ngày). Khoảng hở trước đoạn đã ĐỦ 3 tháng: Ghi chú | Quá 30 ngày · Kỳ dưới 3 tháng |
 | Rental Statement (14), Airbnb (16) | 14: cùng địa chỉ nhà; 16: cùng Host và listing | 30 ngày, không xét kỳ. Rental Appraisal xét từng tài liệu | Quá 30 ngày |
 
 ### 2. Cặp khác nhóm theo checklist
@@ -56,7 +56,7 @@ Một dòng Ghi chú ở khối A; nhãn sẵn có giữ nguyên.
 | Land Title (1) có mortgage ↔ Home Loan Statement (20) | bên nhận mortgage ↔ `Lender` → khác lender, hoặc chưa có sao kê của bên đó |
 | Payslip (12) ↔ ATO Income Statement (13) gần nhất | employer (ABN) → không có trong Income Statement (có thể là việc mới) |
 | Medicare (7) xanh dương, vàng ↔ Visa / VEVO (8) cùng người | tình trạng cư trú → lô không có visa của người đó, hoặc visa Permanent mà thẻ chưa đổi |
-| Tài liệu có `[Sai tên]` ↔ giấy đổi tên, kết hôn, giấy tờ tùy thân mang tên đó | giấy nối hai tên → thêm tên tệp vào bằng chứng `[Sai tên]` |
+| Tài liệu có `[Sai tên]` ↔ giấy đổi tên, kết hôn, khai sinh, giấy tờ tùy thân mang tên đó | giấy nối hai tên → thêm tên tệp vào bằng chứng `[Sai tên]` |
 
 ## Thiếu tài liệu đối ứng
 

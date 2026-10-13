@@ -11,7 +11,7 @@ Chín nội dung Fair Work bắt buộc trên payslip.
 
 | Loại | Dấu hiệu bắt buộc | Dễ nhầm với |
 |---|---|---|
-| Payslip | (1) tên employer ở đầu trang; (2) Employer ABN; (3) tên employee; (4) kỳ lương có ngày đầu và ngày cuối (`Pay period`, `Period start / end`); (5) `Pay date` / `Payment date`; (6) bảng thu nhập: các dòng lương (giờ × rate, hoặc salary) và `Gross`; (7) các khoản trừ, có PAYG `Tax`; (8) `Net pay`; (9) `Superannuation` do employer đóng (số tiền, thường kèm tên quỹ) | timesheet, roster (không có `Pay date` và `Net pay`) → Ngoài phạm vi |
+| Payslip | (1) tên employer ở đầu trang; (2) Employer ABN; (3) tên employee; (4) kỳ lương (`Pay period`, `Period start / end`; có payslip chỉ in ngày cuối: `Period ending`, `Week ending` kèm tần suất); (5) `Pay date` / `Payment date`; (6) bảng thu nhập: các dòng lương (giờ × rate, hoặc salary) và tổng thu nhập (`Gross`, `Gross Pay`, `Gross Earnings`, `Total Gross`, `Total Earnings`); (7) các khoản trừ, có PAYG `Tax` (có thể $0.00 hoặc không in khi kỳ không giữ thuế); (8) `Net pay`; (9) `Superannuation` do employer đóng (số tiền, thường kèm tên quỹ) | timesheet, roster (không có `Pay date` và `Net pay`) → Ngoài phạm vi |
 
 ## 2. Bước 0 của nhóm
 
@@ -35,9 +35,11 @@ Nguồn khác: GHI CHÚ (cổng nhân viên hay in từ trình duyệt hoặc xu
 | `[Sửa ảnh] Ảnh nhỏ lưu trong EXIF (…) khác tỉ lệ khung với ảnh chính …` | BÁO |
 | `[Chữ vẽ bằng nét]`, `[Ảnh chụp/scan]` | BÁO |
 
-Trang scan: đọc số trên ảnh trang gửi kèm ("Trang N: ảnh scan, xem ảnh … gửi kèm"). Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", thường do chữ vẽ bằng nét; "ảnh scan chưa gửi" mà không đọc lại được trong kho (SKILL.md mục 2); ảnh mờ) → `KHÔNG ĐỌC ĐƯỢC`; dòng "Nội dung" ghi cần bản PDF tải trực tiếp từ phần mềm lương hoặc cổng nhân viên.
+Trang scan: đọc số trên ảnh trang gửi kèm ("Trang N: ảnh scan, xem ảnh … gửi kèm"). Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", thường do chữ vẽ bằng nét; "ảnh scan chưa gửi" mà không đọc lại được trong kho (SKILL.md mục 2); ảnh mờ) → `KHÔNG ĐỌC ĐƯỢC`; dòng "Nội dung" ghi cần bản PDF tải trực tiếp từ phần mềm lương hoặc cổng nhân viên. Điểm BÁO của Bước 0 (máy in PDF, chữ vẽ bằng nét…) vẫn ghi một dòng `[Tệp gốc]` ở Cần thông báo; Kết luận vẫn là `KHÔNG ĐỌC ĐƯỢC`.
 
 ### 2C. Kiểm tra số và ngày
+
+`Gross` ở bảng dưới là nhãn tổng thu nhập ở dấu hiệu (6) của mục 1.
 
 | Phép so | Đạt khi |
 |---|---|
@@ -67,7 +69,7 @@ Net pay, kỳ, Pay date không vào Fact Find; ghi ở dòng "Dữ kiện để 
 | Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
 |---|---|---|---|
 | Tên Employee không khớp Applicant nào | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
-| Có Salary Sacrifice, Salary Packaging, khoản trừ trước thuế (pre-tax deduction, RESC), novated lease | Salary sacrifice | tên khoản và số tiền như in | xin khách Statement hoặc Employment Letter / Contract |
+| Có Salary Sacrifice, Salary Packaging, khoản trừ trước thuế (pre-tax deduction, RESC), novated lease; kể cả khoản mang tên nhà cung cấp salary packaging, khoản có chữ `Pre Tax` / `Pre-Tax` / `Bef.Tax`, phí packaging trừ trước thuế | Salary sacrifice | tên khoản và số tiền như in | xin khách Statement hoặc Employment Letter / Contract |
 | Payslip MỚI NHẤT của bộ quá 30 ngày, tính từ Pay date (không có thì ngày cuối kỳ) | Quá 30 ngày | Pay date và hôm nay theo tool | báo nhân viên xem xét |
 | Các payslip trong bộ không liên tiếp | Không liên tiếp | các dòng "Khoảng hở" của tool | báo nhân viên xem xét |
 | Hai payslip liền kỳ, cùng năm tài chính, không có payslip xen giữa: YTD Gross sau − YTD Gross trước lệch Gross kỳ sau quá $1 | Lệch số liệu | hai YTD Gross và Gross như in | báo nhân viên xem xét |
@@ -78,17 +80,19 @@ Net pay, kỳ, Pay date không vào Fact Find; ghi ở dòng "Dữ kiện để 
 `guroos_date_check(document_date=<Pay date payslip mới nhất>, max_age_days=30, periods=[<kỳ của từng payslip>])`
 - Kỳ in ngược (ngày đầu sau ngày cuối) không đưa vào `periods`, vì tool trả lỗi cho cả lần gọi. Khi đó ghi "Chưa kiểm tra được: tính liên tiếp: kỳ in ngược ở <tệp>".
 - Ba dòng theo bộ (Quá 30 ngày, Không liên tiếp, YTD) chỉ ghi ở khối payslip mới nhất. Khối khác ghi Ghi chú "xét theo bộ ở khối <tệp mới nhất>".
+- Có payslip chỉ in ngày cuối kỳ: không tự tính ngày đầu; gọi không có `periods` (bỏ một kỳ sẽ thành khoảng hở giả) và ghi "Chưa kiểm tra được: tính liên tiếp: <tệp> chỉ in ngày cuối kỳ".
 - Cả bộ chỉ có một payslip: "Chưa kiểm tra được: tính liên tiếp: chỉ có một payslip".
 
 Chỉ ghi chú khi:
 - Superannuation do employer đóng (Superannuation Guarantee): không phải salary sacrifice.
 - Khoản trừ sau thuế (union fee, after-tax super, child support…): ghi tên và số tiền; không phải Deductions before tax.
-- Hai payslip trùng kỳ (có thể là payslip bổ sung, off-cycle): ghi cả hai.
+- Hai payslip trùng kỳ, khác số liệu (có thể là payslip bổ sung, off-cycle): ghi cả hai.
 - Employer trùng một dòng "Pháp nhân" của `guroos_case_profile`: Applicant nhận lương từ công ty của mình.
 
 ## 5. Lưu ý riêng
 
 - **Bộ payslip** = mọi payslip cùng Employee và cùng employer (so ABN; không có ABN thì so tên) trong lô, kể cả nhiều payslip trong một tệp. Làm hai nơi = hai bộ, xét riêng.
+- **Trùng tệp.** Hai tệp cùng nội dung (cùng kỳ, cùng số liệu, cùng thông tin tệp): Ghi chú "trùng tệp <tên>" ở cả hai khối, chỉ tính một lần trong bộ.
 - Payslip `KHÔNG HỢP LỆ` không vào bộ. Khối payslip mới nhất ghi Ghi chú "<tệp> không tính vào bộ (KHÔNG HỢP LỆ)".
 - "Dữ kiện để đối chiếu" gồm, nếu có in: Employee · employer và trạng thái ABN · kỳ (tần suất) · Pay date · Gross · Net pay · YTD Gross · tài khoản nhận lương (4 số cuối).
 

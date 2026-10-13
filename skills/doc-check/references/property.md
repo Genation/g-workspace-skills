@@ -5,31 +5,31 @@
 | Rule | Loại | Gồm |
 |---|---|---|
 | 1 | Rates Notice | Rates (and Charges) Notice của council |
-| 1 | Water Bill | hóa đơn của công ty cấp nước |
 | 1 | Owners Corporation Notice | Levy / Fee Notice của Owners Corporation, Strata, Body Corporate; OC Certificate đứng riêng cũng xử lý như loại này |
 | 1 | Land Title Certificate | Register Search Statement, Title Search, Certificate of Title |
 | 2 | Contract of Sale | Contract of Sale, Contract for Sale, Offer & Acceptance; Section 32 / Vendor's Statement đi kèm thuộc cùng bộ |
 | 3 | Building Contract | hợp đồng xây nhà (HIA, Master Builders…) |
 
-Ngoài phạm vi: Land Tax assessment, Valuation Notice, hóa đơn điện/gas, Sales Advice, báo giá, tender của builder, variation đứng riêng, bản vẽ, Plan of Subdivision, Property Report, biên bản họp và ngân sách strata.
+Ngoài phạm vi: Water Bill (hóa đơn nước), hóa đơn điện/gas, Land Tax assessment, Valuation Notice, Sales Advice, báo giá, tender của builder, variation đứng riêng, bản vẽ, Plan of Subdivision, Property Report, biên bản họp và ngân sách strata.
 
 **Tài liệu dài.** Rule 1 thường 1–4 trang: đọc hết. Hợp đồng có thể hàng trăm trang: gọi `guroos_document_read` với `pages` "1-3" trước, dùng mục lục nếu có, rồi chỉ tìm:
-1. Phần đầu (Particulars of Sale, trang bìa, Reference Schedule, mẫu Offer & Acceptance; với Building Contract là Schedule): các bên, giá, cọc, settlement, conveyancer.
+1. Phần đầu: Particulars of Sale (VIC; SA "Contract for the Sale and Purchase of Land"), Reference Schedule (QLD "Contract for Houses and Residential Land"), Particulars / Schedule của Standard Form Contract (TAS), mẫu Offer and Acceptance và các Annexure (WA; điều khoản chung in riêng "Joint Form of General Conditions"), trang bìa mẫu NSW "Contract for the sale and purchase of land"; với Building Contract là Schedule. Tìm: các bên, giá, cọc, settlement, conveyancer.
 2. Điều kiện tài chính: mục Loan / Finance, Special Conditions hoặc Annexure.
 3. Trang ký của mọi bên.
 
 Không đọc General Conditions, Section 32, bản vẽ trừ khi cần để tìm ba phần trên.
 
-**Bộ hợp đồng là MỘT tài liệu rule 2.** Section 32 / Vendor's Statement và mọi phụ lục của nó (title search, rates, nước, planning, property/land tax clearance certificate, báo cáo môi trường, checklist) nằm trong tệp hợp đồng thì thuộc khối Contract of Sale: không tách khối, không tách dòng ngoài phạm vi; có thể ghi tên các phụ lục vào Ghi chú. Chỉ tách `(phần n)` khi tệp còn chứa tài liệu khác hẳn của khách (ví dụ một sao kê).
+**Bộ hợp đồng là MỘT tài liệu rule 2.** Section 32 / Vendor's Statement (VIC), Form 1 và Form R3 (SA), annexure, disclosure (WA, QLD, TAS) và mọi phụ lục đi kèm (title search, rates, nước, planning, sơ đồ thoát nước, property/land tax clearance certificate, báo cáo môi trường, checklist) nằm trong tệp hợp đồng thì thuộc khối Contract of Sale: không tách khối, không tách dòng ngoài phạm vi; có thể ghi tên các phụ lục vào Ghi chú. Chỉ tách `(phần n)` khi tệp còn chứa tài liệu khác hẳn của khách (ví dụ một sao kê).
 
 **Trang scan** đến dạng ảnh trang (SKILL.md): đọc các bên, giá, chữ ký, ngày ký trên ảnh như trang thường. Trang ký chưa có ảnh: xem "Chữ ký" ở mục 5.
+
+**Trang ảnh trong phong bì ký điện tử.** Ghi chú kỹ thuật "Trang … có ảnh phủ gần cả trang, chữ nằm trên ảnh" mà chữ của trang chỉ là mã phong bì ký điện tử ("Docusign Envelope ID…") hay giá trị rời không có nhãn: nội dung trang nằm trong ảnh Guroos chưa gửi. Coi trang đó như trang không đọc được: "Chưa kiểm tra được", hoặc `KHÔNG ĐỌC ĐƯỢC` khi phần đầu (bước 1 ở trên) và trang ký đều như vậy; khối vẫn ghi `Kiểm tra tệp gốc: … · quy tắc: references/property.md`. Không gán giá trị rời vào Price, Deposit, Purchaser hay trường nào khác.
 
 ## 1. Dấu hiệu cấu trúc bắt buộc
 
 | Loại | Dấu hiệu bắt buộc |
 |---|---|
 | Rates Notice | (1) council phát hành; (2) tiêu đề rates kèm năm rates; (3) Assessment No. và địa chỉ tài sản; (4) giá trị định giá (CIV, Site / Land Value); (5) bảng phí có tổng, hạn trả hoặc instalment, cách trả |
-| Water Bill | (1) công ty cấp nước; (2) số tài khoản và địa chỉ dịch vụ; (3) kỳ hóa đơn có chỉ số đồng hồ hoặc service charges; (4) tổng, hạn trả, cách trả |
 | Owners Corporation Notice | (1) tên OC / Strata / Body Corporate kèm số plan; (2) số Lot và địa chỉ căn; (3) levy theo quỹ (Administrative, Maintenance / Capital Works / Sinking Fund); (4) số phải trả, hạn trả |
 | Land Title Certificate | (1) tiêu đề của cơ quan đăng ký đất bang; (2) Volume/Folio, Folio Identifier hoặc Title Reference; (3) mô tả thửa (Lot … on Plan …); (4) Registered Proprietor; (5) Encumbrances / Dealings; (6) ngày tìm kiếm hoặc edition |
 | Contract of Sale | (1) tên mẫu hợp đồng mua bán; (2) Vendor và Purchaser (Seller, Buyer) có tên; (3) tài sản; (4) Price, Deposit; (5) điều khoản settlement; (6) phần ký cho hai bên |
@@ -43,7 +43,7 @@ Section 32 đứng riêng: hợp đồng mua bán thiếu trang.
 
 | Loại | BÁO khi Nhóm nguồn là |
 |---|---|
-| Rates Notice, Water Bill, Land Title | công cụ văn phòng; máy in PDF; trình sửa/xử lý PDF; công cụ thiết kế; không phải PDF (DOCX…) |
+| Rates Notice, Land Title | công cụ văn phòng; máy in PDF; trình sửa/xử lý PDF; công cụ thiết kế; không phải PDF (DOCX…) |
 | Owners Corporation Notice | máy in PDF; trình sửa/xử lý PDF; công cụ thiết kế; không phải PDF |
 | Contract of Sale, Building Contract | công cụ thiết kế; không phải PDF |
 
@@ -77,12 +77,12 @@ Ngày, so bằng `guroos_date_check`:
 
 | Loại | Trường | Không có thì ghi |
 |---|---|---|
-| Rates, Water, OC, Land Title, Building Contract | không có | - Không có |
+| Rates, OC, Land Title, Building Contract | không có | - Không có |
 | Contract of Sale | Finance Clause / Loan Approval Date (cũng ghi cột Monday): ngày nguyên văn kèm điều khoản | "không có" khi not subject to finance, ô finance trống hoặc gạch; chưa đọc được → Chưa kiểm tra được |
 | Contract of Sale | Settlement Date (cũng ghi cột Monday): ngày, hoặc nguyên văn nếu tương đối | Chưa kiểm tra được |
 | Contract of Sale | Conveyancer / Legal Practitioner: tên, công ty, điện thoại, email; ghi rõ bên mua hay bán, có cả hai thì ghi cả hai | "không in trên hợp đồng" |
 
-Không chép số Assessment, số tài khoản nước, mã BPAY.
+Không chép số Assessment, mã BPAY.
 
 ## 4. Cần thông báo
 
@@ -101,7 +101,7 @@ Chỉ ghi chú:
 - Building Contract: progress payments lệch Contract price (2C).
 - Một Applicant vắng tên trên tài liệu, trong khi mọi người có tên trên tài liệu đều khớp Applicant.
 - Có "and/or nominee" sau tên người mua.
-- Chữ ký điện tử, ký qua attorney hoặc director: tính là đã ký.
+- Chữ ký điện tử, ký qua attorney, director, executor hoặc administrator của di sản: tính là đã ký.
 - Land Title có mortgage hoặc caveat: ghi tên bên nhận.
 
 ## 5. Lưu ý riêng
@@ -109,6 +109,7 @@ Chỉ ghi chú:
 - **Ai được so tên.** Từng người TRÊN tài liệu so với Applicant và entity trong `guroos_case_profile`. Đồng sở hữu hoặc đồng mua không phải Applicant cũng là `[Sai tên]`. Vendor, Builder không so tên, chỉ xét chữ ký.
 - **Tên in tắt.** Hóa đơn rule 1 hay in "T M TRAN": vẫn là KHÁC. Bỏ qua phần "C/- <đơn vị quản lý>".
 - **Chữ ký.** Chưa xem trang ký (kể cả trang scan chưa có ảnh trang) thì ghi "Chưa kiểm tra được", không kết luận "Chưa ký". Chữ ký trên Section 32 không thay chữ ký hợp đồng. Mẫu chỉ có một ô ngày chung thì ngày đó tính cho mọi bên. Bản counterpart chỉ có chữ ký một bên: vẫn `[Chưa ký]`, ghi chú có thể là counterpart.
+- **Trang ký chỉ có lớp chữ.** Chữ ký tay hay ký điện tử thường là ảnh hoặc nét vẽ, không nằm trong lớp chữ, và Guroos không gửi ảnh của trang có lớp chữ. Chữ ký có trong lớp chữ ("DocuSigned by…", "Signed by…") là đã ký. Không kết luận `[Chưa ký]` chỉ vì lớp chữ không có chữ ký: ghi "Chưa kiểm tra được: chữ ký trang <n> (chỉ đọc được lớp chữ)". Chỉ ghi `[Chưa ký]` khi ảnh trang cho thấy ô ký trống, hoặc ô ngày ký của bên đó để trống trong lớp chữ (thiếu ngày ký). Tên, ngày gõ sẵn không phải chữ ký.
 - **Đối chiếu chéo.** Ghi vào "Dữ kiện để đối chiếu" những gì `references/cross-checks.md` dùng: địa chỉ tài sản, bên nhận mortgage (Land Title), Deposit (Contract of Sale).
 
 ## 6. Ví dụ

@@ -10,7 +10,7 @@
 | D | 7 | Medicare Card (xanh lá; xanh dương "Reciprocal"; vàng "Interim") |
 | E | 8 | Visa Grant Notice, VEVO |
 
-Đọc trước: hộ chiếu trang thông tin (ảnh, MRZ); Visa Grant Notice trang 1 rồi trang có hạn visa. Thẻ, hộ chiếu thường là ảnh hoặc trang scan: đọc chữ trên ảnh (chat: ảnh gửi kèm; kho: ảnh `guroos_document_read` trả về, còn trang thì gọi lại với `pages`).
+Đọc trước: hộ chiếu trang thông tin (ảnh, MRZ); Visa Grant Notice trang 1 rồi trang có hạn visa.
 
 ## 1. Dấu hiệu cấu trúc bắt buộc
 
@@ -27,8 +27,9 @@
 Chỉ có bìa hộ chiếu, chỉ có mặt sau thẻ, VEVO mất trang có hạn: trường thiếu vào "Chưa kiểm tra được".
 
 Gần giống:
-- Ngoài phạm vi: thẻ WWCC, security, white card, bằng tàu thuyền, thẻ sinh viên, thẻ nhân viên, Citizenship Certificate, thẻ bảo hiểm tư, Health Care Card, Pensioner Concession Card, thẻ DVA.
+- Ngoài phạm vi: thẻ WWCC, security, white card, bằng tàu thuyền, thẻ sinh viên, thẻ nhân viên, Citizenship Certificate, Birth Certificate (cả bản dịch), Marriage, Change of Name Certificate, thẻ bảo hiểm tư, Health Care Card, Pensioner Concession Card, thẻ DVA.
 - Thẻ không có hạng bằng là Photo Card. Thẻ căn cước nước ngoài, ImmiCard (MRZ 3 dòng bắt đầu `I`): A, "chưa chắc: không phải thẻ của bang Úc". Document of Identity: B, "chưa chắc".
+- Bản sao chứng thực (trang dán ảnh giấy tờ, lời "certify … true copy"): mỗi giấy tờ một phần; lời chứng thực chỉ ghi Ghi chú "bản sao có chứng thực", không chép người chứng thực. Không có ảnh giấy tờ gửi kèm: `KHÔNG ĐỌC ĐƯỢC` (cần ảnh hoặc bản scan riêng), không ghi Ngoài phạm vi. Ảnh khách cầm giấy tờ (cuộc gọi video): không tách phần, chỉ Ghi chú.
 - E "chưa chắc": "Acknowledgement of valid application received" (chỉ xác nhận nộp đơn, không phải visa: mục 4); bản tóm tắt visa tự gõ, không có các nhãn VEVO.
 
 ## 2. Bước 0 của nhóm
@@ -59,18 +60,18 @@ CHẤP NHẬN: ảnh (JPG/PNG) với A–D, có khối kiểm tra ảnh hay chư
 | Hạn A, C, D, E (E: "Visa expiry date" hoặc ngày cuối "Period of stay") | `guroos_date_check(expiry_date=…)` | HẾT HẠN → `[Hết hạn]`; E → `[Visa]` |
 | Hạn B | `guroos_date_check(expiry_date=…, expiry_grace_years=2)` | "HẾT HẠN (quá 2 năm)" → `[Hết hạn]` |
 | Ngày kiểm tra VEVO | `guroos_date_check(document_date=…, max_age_days=30)` | QUÁ 30 ngày → Ghi chú |
-| Giấy tờ có MRZ (B, C; ImmiCard, thẻ hay nhãn visa có MRZ) | `guroos_identity_check(mrz=…, printed={surname, given_names, birth_date, expiry_date, nationality, sex, document_number})`; B, C thêm `passport={number, country}` | Đọc kết quả như dưới |
+| Giấy tờ có MRZ (B, C; ImmiCard, thẻ căn cước nước ngoài, thẻ hay nhãn visa có MRZ) | `guroos_identity_check(mrz=…, printed={surname, given_names, birth_date, expiry_date, nationality, sex, document_number})`; B, C thêm `passport={number, country}` | Đọc kết quả như dưới |
 | D | `guroos_identity_check(medicare={number, irn})`, `irn` = số dòng của Applicant | Như trên |
 | A · bằng lái | `guroos_identity_check(licence={number, state})` | Chỉ định dạng (không có số kiểm tra) |
 
-- Hộ chiếu "15 AUG 2025" = 15/08/2025. Medicare "VALID TO 08/2027" còn hạn đến hết tháng: gửi tool 31/08/2027.
+- Hộ chiếu "15 AUG 2025" = 15/08/2025. Hạn chỉ in tháng/năm (Medicare "VALID TO 08/2027", Keypass "EXPIRY 08-27"): còn hạn hết tháng, gửi tool 31/08/2027.
 - `mrz`: mọi dòng MRZ như đọc trên ảnh, mỗi dòng một hàng, đủ từng ký tự kể cả `<`; không sửa cho "đúng". `printed`: chép như in; trường không in thì bỏ; giấy tờ không in tách họ, tên thì dùng `name`. Mọi phần của một giấy tờ gửi trong một lần gọi. Không tự tính số kiểm tra.
 - Hạn chỉ lấy từ `guroos_date_check` với ngày in; bỏ dòng `[Hết hạn]` "Theo MRZ" của `guroos_identity_check` (hạn MRZ lệch hạn in thì đã có `[Lệch MRZ]`).
 - So tên với Applicant bằng tên in, không bằng tên trong MRZ (viết hoa, không dấu, có thể bị cắt).
 
 Đọc kết quả `guroos_identity_check` (kết quả 2C, không phải khối kiểm tra tệp: không xét theo SKILL.md 5.2, 2A, 2B, kể cả `[Mã số sai]`):
 - Dòng dưới "Mã số sai hoặc không khớp" (`[MRZ sai số kiểm tra]`, `[MRZ sai]`, `[Lệch MRZ]`, `[Mã số sai]`, `[Sai định dạng]`), `[Định dạng bằng lái]`, chữ "LỆCH" ở dòng "Đối chiếu MRZ với chữ in": đọc lại ảnh một lần, gọi lại. Vẫn còn → BÁO (dòng `[Tệp gốc]`, mục 4), không tự thành `KHÔNG HỢP LỆ`.
-- `[Cần đọc lại]`, hoặc ảnh không đọc ra MRZ hay số: đọc lại, gọi lại; vẫn vậy → "Chưa kiểm tra được: <ô>, ảnh chưa đủ rõ". Ghi chú kỹ thuật khác (cả "chưa so được" không kèm `[Cần đọc lại]`): chép dòng liên quan vào Ghi chú.
+- `[Cần đọc lại]`, hoặc ảnh không đọc ra MRZ hay số: đọc lại (nhìn lại ảnh đã có trong hội thoại, không gọi lại `guroos_document_read`), gọi lại tool kiểm; vẫn vậy → "Chưa kiểm tra được: <ô>, ảnh chưa đủ rõ". Ghi chú kỹ thuật khác (cả "chưa so được" không kèm `[Cần đọc lại]`): chép dòng liên quan vào Ghi chú.
 - Bằng chứng: tên dấu hiệu bỏ ngoặc vuông, ô và dòng MRZ như tool in, "vẫn vậy sau khi đọc lại"; không chép câu nhận định thật/giả của tool. Không chép dòng MRZ, số Medicare, số bằng lái; số khác chỉ ghi đuôi như tool in.
 
 ## 3. Ghi vào Fact Find
@@ -81,7 +82,7 @@ Trường không đọc rõ: "Chưa kiểm tra được".
 |---|---|---|
 | A | Licence No. | Ghi "có trên giấy tờ, không chép số (nhân viên chép từ tệp gốc)", kể cả số thẻ của Photo Card. Card No. in riêng trên bằng lái không phải Licence No. |
 | A, B, C | Name on document | Nguyên văn như in; hộ chiếu lấy "Surname, Given names" trên trang in, không lấy từ MRZ |
-| A, B, C | Expiry Date | DD/MM/YYYY |
+| A, B, C | Expiry Date | DD/MM/YYYY; thẻ chỉ in tháng/năm: MM/YYYY |
 | B, C | Document No. | Ô "Passport No." trên trang in, không lấy từ MRZ |
 | D | Name on document | Dòng của Applicant, kèm số dòng; không có → "không có dòng tên của <Applicant>", báo `[Sai tên]` |
 | D | Expiry Date | Như in: MM/YYYY (thẻ xanh lá) hoặc DD/MM/YYYY |
@@ -124,7 +125,6 @@ Chỉ ghi chú:
 
 - **Medicare nhiều người.** Mỗi Applicant lấy dòng có tên giống người đó nhất để so, ghi một dòng "Name on document". Dòng của người ngoài hồ sơ: "thẻ có N dòng tên khác, bỏ qua", không chép tên. Chưa có Applicant: "chưa xác định (thẻ có N dòng tên)", không chép tên nào, hỏi người dùng.
 - **Nhiều Applicant, không ai KHỚP:** `[Sai tên]` so với người gần nhất; không chọn được → "Chưa kiểm tra được: tên".
-- **Đối chiếu chéo** (bước 6, `cross-checks.md`): hộ chiếu C ↔ Visa/VEVO hoặc hộ chiếu Úc cùng người (tên KHỚP, hoặc trùng 4 ký tự cuối số hộ chiếu); Medicare xanh dương, vàng ↔ visa; `[Sai tên]` ↔ giấy đổi tên, giấy kết hôn.
 - **Dữ kiện để đối chiếu**: A tên · địa chỉ · hạn; B, C mã nước · tên · 4 ký tự cuối số hộ chiếu · hạn; D màu thẻ · tên dòng Applicant · hạn; E subclass · nhóm · status · hạn · tên · 4 ký tự cuối số hộ chiếu.
 
 ## 6. Ví dụ

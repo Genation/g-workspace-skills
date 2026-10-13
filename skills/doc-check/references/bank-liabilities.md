@@ -19,14 +19,15 @@
 
 | Loại | Dấu hiệu bắt buộc | Dễ nhầm với |
 |---|---|---|
-| A | (1) tên ngân hàng; (2) Statement / Transaction history; (3) Account name; (4) BSB, số tài khoản (có thể che); (5) kỳ; (6) Opening, Closing balance; (7) bảng giao dịch Date, Description, Debit, Credit, Balance; không có lãi suất vay | B (có "% p.a.", Loan balance); thẻ tín dụng (Credit limit); thư xác nhận số dư (không kỳ, không giao dịch) → Ngoài phạm vi |
+| A | (1) tên ngân hàng; (2) Statement / Transaction history; (3) Account name; (4) BSB, số tài khoản (có thể che); (5) kỳ; (6) Opening, Closing balance (Transaction history: cột Balance hay "Balance B/F"); (7) bảng giao dịch Date, Description, Debit, Credit (hoặc cột Amount có dấu +/−), Balance; không có lãi suất vay | B (có "% p.a.", Loan balance); thẻ tín dụng (Credit limit); thư xác nhận số dư (không kỳ, không giao dịch) → Ngoài phạm vi |
 | B | (1) lender; (2) "Home Loan" / "Mortgage" / "Loan account"; (3) người đứng tên, số tài khoản vay; (4) kỳ; (5) "Interest rate … % p.a."; (6) Opening / Closing hoặc Loan balance; (7) giao dịch repayment, "Interest charged"; (8) Repayment amount | sao kê offset (A); Letter of Offer, hợp đồng vay (không kỳ, không giao dịch) → Ngoài phạm vi |
 | C · Personal / Car Loan | như B, tiêu đề "Personal Loan", "Car Loan", "Vehicle / Motor finance"; có Repayment và tần suất | hợp đồng vay → Ngoài phạm vi |
-| C · Credit Card | (1) tổ chức phát hành; (2) "Credit Card Statement"; (3) chủ thẻ, số thẻ đã che; (4) kỳ hoặc Statement date; (5) Credit limit; (6) Opening / Closing balance; (7) "Minimum payment due", Due date; (8) Purchase rate; (9) giao dịch | sao kê thẻ ghi nợ (A) |
-| D | (1) ATO hoặc myGov; (2) tên khoản vay ở mục Phạm vi; (3) tên người vay; (4) số dư (Current balance, Accumulated HELP debt); (5) ngày "as at"; (6) Indexation, Compulsory / Voluntary repayment | — |
+| C · Credit Card | (1) tổ chức phát hành; (2) "Credit Card Statement"; (3) chủ thẻ, số thẻ đã che; (4) kỳ hoặc Statement date; (5) Credit limit; (6) Opening / Closing balance; (7) "Minimum payment due", Due date; (8) Purchase rate (hoặc `Annual percentage rate` của Purchases); (9) giao dịch | sao kê thẻ ghi nợ (A) |
+| D | (1) ATO hoặc myGov; (2) tên khoản vay ở mục Phạm vi; (3) tên người vay; (4) số dư (Current balance, Accumulated HELP debt); (5) ngày của số dư ("as at", "Balance at", ngày in); (6) các dòng Indexation, Compulsory / Voluntary repayment đã phát sinh (khoản nợ mới có thể chưa có dòng nào) | — |
 | E | (1) nhà cung cấp; (2) chủ tài khoản; (3) Account balance / Amount owing; (4) Spending / Credit limit; (5) lịch trả (Instalments); (6) ngày lập hoặc kỳ | email xác nhận đơn hàng → Ngoài phạm vi; Latitude Gem, 28° là thẻ tín dụng (C) |
 
 - **Sao kê gộp nhiều tài khoản của cùng ngân hàng:** một khối `<tệp> — Home Loan Statement + Bank Statement (rule 20, 19)`; áp quy tắc từng loại cho từng tài khoản, mở đầu mỗi bộ trường Fact Find và mỗi dòng thông báo bằng 4 số cuối; mỗi tài khoản một bộ (mục 5).
+- **Transaction history** không in kỳ: kỳ = ngày giao dịch đầu → cuối, ghi chú cách tính; không in tên chủ tài khoản: "chưa chắc: thiếu (3)", so tên vào "Chưa kiểm tra được".
 - **Một tệp nhiều sao kê của cùng tài khoản** (nhiều tháng): một khối; so số dư từng sao kê; mỗi sao kê một kỳ trong `periods`.
 
 ## 2. Bước 0 của nhóm
@@ -36,10 +37,10 @@
 | Nhóm nguồn | A (19) | B–E (20–23) |
 |---|---|---|
 | máy in PDF | BÁO | BÁO |
-| ảnh (JPG/PNG) | BÁO | GHI CHÚ (ảnh chụp app BNPL) |
+| ảnh (JPG/PNG), dù khối ảnh ghi nguồn nào | BÁO | GHI CHÚ (ảnh chụp app BNPL) |
 | công cụ văn phòng; công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF (DOCX, XLSX, CSV…) | DỪNG `[Nguồn]` | BÁO |
 
-Nguồn khác: GHI CHÚ, gồm trình duyệt in ra PDF, bộ chuyển HTML sang PDF, Apple (in từ internet banking, ATO online, myGov). Cột A chỉ dành cho sao kê tài khoản (rule 19); sao kê khoản vay, thẻ tín dụng, HELP, BNPL (rule 20–23) dùng cột B–E: công cụ văn phòng ở đó là BÁO, không DỪNG. Tệp ảnh JPG/PNG: dòng "ảnh (JPG/PNG)", dù khối ảnh ghi nhóm nguồn nào.
+Nguồn khác: GHI CHÚ, gồm trình duyệt in ra PDF, bộ chuyển HTML sang PDF, Apple (in từ internet banking, ATO online, myGov). Cột A chỉ cho sao kê tài khoản (rule 19); sao kê khoản vay, thẻ, HELP, BNPL (rule 20–23) dùng cột B–E: công cụ văn phòng là BÁO, không DỪNG.
 
 ### 2B. Dấu hiệu xét theo loại
 
@@ -60,7 +61,7 @@ Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ v�
 | Số dư B, C | Opening + tổng ghi nợ (lãi, phí, chi tiêu) − tổng ghi có (trả nợ) = Closing, khi có in tổng; giữ dấu như in |
 | Chuyển trang | "Balance carried forward" = "brought forward" ở trang sau, khớp đúng |
 
-- **Không đạt sau khi đọc lại:** Số dư A, Chuyển trang của A, đọc từ lớp chữ → DỪNG `[Số liệu] <phép so>: <các số in> lệch <số chênh>`. Còn lại (A đọc từ ảnh trang; B, C) → `[Lệch số liệu]` theo mẫu chung, không DỪNG.
+- **Không đạt sau khi đọc lại:** Số dư A, Chuyển trang của A, đọc từ lớp chữ gốc → DỪNG `[Số liệu] <phép so>: <các số in> lệch <số chênh>`. Còn lại (A đọc từ ảnh hay lớp chữ OCR của trang `[Ảnh chụp/scan]`; B, C) → `[Lệch số liệu]` theo mẫu chung, không DỪNG.
 - **Ngày tài liệu** = Statement date; không có (bản in Transaction history) → ngày cuối kỳ; ngày in chỉ ghi chú.
 - A, B, C: 30 ngày và kỳ xét theo bộ (mục 5); một tệp lẻ cũng là một bộ.
 - D, E: không xét kỳ và 30 ngày; `guroos_date_check(document_date=<ngày "as at" hoặc ngày lập>)` chỉ để xét ngày ở tương lai, bỏ qua "QUÁ"/"TRONG".
@@ -75,7 +76,7 @@ Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ v�
 | E | `Account balance` · `Limit` ("Available to spend" không phải Limit) |
 
 - Trường không in trên tài liệu: "không có trên tài liệu".
-- **Credit card:** `Repayment` = "Minimum payment due" (kèm Due date); `Loan Expiry date` = "không áp dụng"; `Interest rate` = Purchase rate; Credit limit ghi vào Ghi chú.
+- **Credit card:** `Repayment` = "Minimum payment due" (kèm Due date); `Loan Expiry date` = "không áp dụng"; `Interest rate` = Purchase rate (dấu hiệu (8)); Credit limit ghi vào Ghi chú.
 - Khoản vay chia phần (split): bộ trường cho từng phần, mở đầu bằng 4 số cuối. Fixed rate expiry, Interest-only end date không phải `Loan Expiry date` (Ghi chú).
 
 ## 4. Cần thông báo
@@ -118,7 +119,6 @@ Chỉ chép giao dịch cần thông báo.
   - Đoạn liền mạch mới nhất "CHƯA ĐỦ N tháng" → `[Kỳ dưới 3 tháng]` / `[Kỳ dưới 6 tháng]`, nêu các đoạn và "Khoảng hở". Khoảng hở trước đoạn đã ĐỦ: chỉ ghi chú.
   - Sao kê liền kỳ: Closing kỳ trước = Opening kỳ sau, khớp đúng. Lệch → `[Lệch số liệu]` ở khối mới nhất, không DỪNG.
 - Sao kê `KHÔNG HỢP LỆ` không vào bộ; khối mới nhất ghi Ghi chú "<tệp> không tính vào bộ (KHÔNG HỢP LỆ)".
-- **Đối chiếu chéo** theo `references/cross-checks.md`: lương, tiền thuê, trả nợ định kỳ (↔ Repayment rule 20–21), Centrelink, cấp dưỡng, Deposit.
 - **Dữ kiện để đối chiếu.** A: …NNNN (tổ chức, loại) · người đứng tên · kỳ · Opening / Closing · lương, tiền thuê, Centrelink vào (người trả, số tiền, nhịp, ngày) · trả nợ định kỳ ra (tên, số tiền). B, C: lender · …NNNN · người đứng tên · Repayment · Closing balance và ngày · Credit limit. D: Current balance và ngày. E: nhà cung cấp · Account balance · Limit.
 
 ## 6. Ví dụ

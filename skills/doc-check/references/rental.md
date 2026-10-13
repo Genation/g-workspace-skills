@@ -50,7 +50,7 @@ Sai số $1; lệch thì `[Lệch số liệu]`. Không tự tính lại % phí 
 - **Rental Statement:** tổng các dòng tiền thuê = tổng thu in; tổng thu − tổng phí và chi = số trả owner; có Opening và Closing balance thì Opening + thu − chi − trả owner = Closing.
 - **Airbnb:** tổng các payout = tổng in; Gross earnings − Host service fee − điều chỉnh in trên tài liệu = Total paid out.
 - **Ngày** (`guroos_date_check`):
-  - Statement, Appraisal, Airbnb: `document_date=<statement date / Date of issue / ngày lập; không có thì ngày cuối kỳ>`, `max_age_days=30`.
+  - Statement, Appraisal, Airbnb: `document_date=<statement date / Date of issue / ngày lập; không có thì ngày cuối kỳ (EOFY in FY2026 hay 2025–26: 30/06/2026)>`, `max_age_days=30`.
   - Agreement: `document_date=<ngày ký>` chỉ để xét ngày trong tương lai, bỏ qua "QUÁ"/"TRONG" 30 ngày (Agreement không có quy tắc 30 ngày); `expiry_date=<ngày kết thúc>` chỉ để ghi chú. Ngày bắt đầu thuê sau hôm nay là bình thường.
 
 ## 3. Ghi vào Fact Find
