@@ -50,6 +50,9 @@ Extract loại "Current & Historical": chỉ lấy người đang giữ vai trò
 Thông báo khi:
 - Có Director hoặc Shareholder không khớp Applicant nào → báo nhân viên xem xét, nêu tên và vai trò.
 - Status của công ty không phải "Registered" (ví dụ "Deregistered", "External Administration", "Strike-Off Action in Progress") → báo nhân viên, ghi nguyên văn status.
+- ABN của công ty đã huỷ theo ABN Lookup (xem dưới) → báo nhân viên, ghi ngày huỷ.
+
+Có công cụ `guroos_abn_lookup`: tra thêm theo ACN trên extract (acn = số in trên extract) và ghi vào "Ghi chú" tên pháp nhân, ABN, trạng thái ABN, ngày tra. Status công ty vẫn lấy từ extract: ABR chỉ có trạng thái của ABN, không có trạng thái đăng ký với ASIC. Không có công cụ, hoặc công cụ báo chưa cấu hình / không kết nối được: bỏ qua bước này và ghi lý do vào "Ghi chú" (không tính là "Chưa kiểm tra được", vì checklist không yêu cầu).
 
 ### C · Equifax Credit Report
 Ghi vào Fact Find: không có.
