@@ -63,7 +63,7 @@ ABN đã huỷ không có nghĩa là công ty đã giải thể; vì vậy trạ
 
 ## 3. Chưa cấu hình ABN Lookup
 
-`guroos_abn_lookup` báo: "Chưa cấu hình ABN Lookup trên máy này (thiếu GUID của ABR)…".
+`guroos_abn_lookup` báo: "Chưa cấu hình ABN Lookup trên máy này (chưa có GUID của ABR). Hướng dẫn người dùng đăng ký miễn phí tại https://abr.business.gov.au/Tools/WebServices…".
 
 ```
 ### ABN 11 123 456 780
@@ -73,7 +73,7 @@ Cần thông báo
 - Không có
 
 Chưa kiểm tra được
-- Tra ABN: ABN Lookup chưa được cấu hình trên máy này. Người dùng có thể tự tra tại https://abr.business.gov.au, hoặc nhờ người cài đặt ứng dụng cấu hình.
+- Tra ABN: chưa có GUID ABN Lookup. Đăng ký miễn phí tại https://abr.business.gov.au/Tools/WebServices, ABR gửi GUID qua email, rồi nhập ở Cài đặt → Tra cứu ABN (chỉ một lần). Trong lúc chờ có thể tự tra tại https://abr.business.gov.au.
 
 Ghi chú
 - Không có

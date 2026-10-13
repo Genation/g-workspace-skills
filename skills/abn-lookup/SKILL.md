@@ -18,7 +18,7 @@ Công cụ có thể trả:
 - "ABN Lookup không có doanh nghiệp nào khớp …" (tìm theo tên): không có ứng viên → `[Không tìm thấy]`.
 - "Chưa cấu hình ABN Lookup", "ABR không chấp nhận GUID", "ABN Lookup không kết nối được / quá thời gian chờ / đang gặp sự cố / trả về dữ liệu không đọc được", "ABN Lookup báo: …", "Tra cứu ABN Lookup thất bại": không tra được.
 
-Không có hai công cụ này, hoặc không tra được: không tự tra ở nơi khác, không trả lời từ trí nhớ. Ghi "tra ABN" vào "Chưa kiểm tra được", kèm lý do công cụ đưa ra, và gợi ý người dùng tự tra tại https://abr.business.gov.au.
+Không có hai công cụ này, hoặc không tra được: không tự tra ở nơi khác, không trả lời từ trí nhớ. Ghi "tra ABN" vào "Chưa kiểm tra được", kèm lý do công cụ đưa ra, và gợi ý người dùng tự tra tại https://abr.business.gov.au. Công cụ báo "Chưa cấu hình ABN Lookup" hoặc "ABR không chấp nhận GUID": nêu lại cho người dùng hướng dẫn lấy và nhập GUID mà công cụ đưa ra (đăng ký miễn phí tại https://abr.business.gov.au/Tools/WebServices, ABR gửi GUID qua email, nhập ở Cài đặt → Tra cứu ABN). Không bảo người dùng liên hệ người cài đặt ứng dụng.
 
 ## Cần có trước khi tra
 
