@@ -1,6 +1,6 @@
 ---
 name: doc-check
-description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos: kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách.
+description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách.
 ---
 
 # Kiểm tra giấy tờ hồ sơ vay

@@ -1,6 +1,6 @@
 ---
 name: abn-lookup
-description: Tra cứu và thẩm định doanh nghiệp Úc trên ABN Lookup (Australian Business Register) theo ABN, ACN hoặc tên - tên pháp nhân, trạng thái ABN đang hoạt động hay đã huỷ, GST, đối chiếu với tên trên tài liệu. Dùng khi người dùng nhờ kiểm tra một doanh nghiệp, một số ABN / ACN, hoặc gửi bản in / ảnh chụp kết quả ABN Lookup. Không dùng khi kiểm tra cả một giấy tờ (payslip, Company Extract): kỹ năng kiểm tra giấy tờ đó tự tra ABN.
+description: Tra cứu và thẩm định doanh nghiệp Úc trên ABN Lookup (Australian Business Register) theo ABN, ACN hoặc tên - tên pháp nhân, trạng thái ABN đang hoạt động hay đã huỷ, GST, đối chiếu với tên trên tài liệu. Dùng khi người dùng nhờ kiểm tra một doanh nghiệp, một số ABN / ACN, hoặc gửi bản in / ảnh chụp kết quả ABN Lookup. Không dùng khi kiểm tra cả một giấy tờ (payslip, Company Extract) vì kỹ năng kiểm tra giấy tờ đó đã tự tra ABN.
 ---
 
 # Tra cứu doanh nghiệp Úc (ABN Lookup)
