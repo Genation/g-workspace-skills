@@ -10,7 +10,7 @@
 
 Ngoài phạm vi: ABN Lookup (kể cả "The Trustee for …"), Certificate of Registration, kết quả tìm tên trên ASIC Connect, ứng dụng chỉ hiện điểm tín dụng.
 
-Đọc bằng `guroos_document_read(customer, file, pages)` theo thứ tự:
+Đọc theo thứ tự:
 - **Trust Deed**: trang 1–2 (tên trust, ngày, các bên) → Schedule (thường ở cuối) → trang ký → dòng chứng thực (đầu, cuối hoặc mọi trang). Schedule không nêu beneficiary thì đọc Definitions.
 - **Company Extract**: đọc hết.
 - **Equifax**: trang 1 (ngày lập, tóm tắt) → Credit Enquiries → Accounts / Repayment History → Defaults, Court, Insolvency → Directorships.
@@ -89,7 +89,7 @@ Trả chậm = mã 1–6 hoặc X trong Repayment History, hoặc "Worst repayme
 | Deed: không có dấu chứng thực ("Certified true copy" kèm chữ ký, tên, chức danh, ngày) | Chưa chứng thực | các trang đã xem | xin khách chứng thực (certify) bản sao |
 | Extract: Director hoặc Shareholder hiện tại không khớp Applicant nào | Sai tên | tên, vai trò | báo nhân viên xem xét |
 | Extract: Status khác "Registered" | Trạng thái công ty | status nguyên văn | báo nhân viên xem xét |
-| Tên trust hay công ty khác entity trong `guroos_case_profile` | Sai tên | hai tên | báo nhân viên xem xét |
+| Tên trust hay công ty khác entity người dùng nêu trong chat | Sai tên | hai tên | báo nhân viên xem xét |
 | Equifax: có Current Directorship | Directorship | tên công ty | xin khách Accountant Letter nếu không dùng thu nhập từ công ty đó để tính khả năng trả nợ (servicing) |
 | Equifax: có Default, tháng trả chậm, Court Judgement, Personal Insolvency hoặc Serious Credit Infringement | Tín dụng xấu | tổ chức, loại, tháng, mã | báo nhân viên xem xét |
 | Lệch theo 2C | Lệch số liệu | phép so, số in, số chênh, trang | báo nhân viên xem xét |
@@ -112,7 +112,7 @@ Chỉ ghi chú khi:
 
 ## 6. Ví dụ
 
-Dữ liệu giả. Hôm nay 11/10/2026. `guroos_case_profile`: Applicant 1 "Thi Mai Tran"; Pháp nhân: Mai Tran Pty Ltd (công ty). Lô không có Company Extract, không có sao kê khoản nợ.
+Dữ liệu giả. Hôm nay 11/10/2026. Người dùng nêu trong chat: Applicant "Thi Mai Tran"; pháp nhân Mai Tran Pty Ltd (công ty). Lô không có Company Extract, không có sao kê khoản nợ.
 
 Tệp `equifax-thi-mai-tran.pdf`. Khối: "Nhóm nguồn: trình duyệt in ra PDF (trình duyệt (Chrome/Edge), theo Producer).", không có dấu hiệu. Lập 01/10/2026; `guroos_date_check(window_months=6, reference_date="01/10/2026")` trả "Cửa sổ 6 tháng: 01/04/2026–01/10/2026 (tính lùi từ 01/10/2026)". Enquiry: 15/08/2026 ABC Bank, Credit Card, $10,000; 02/02/2026 XYZ Finance, Personal Loan, $20,000. Thẻ ABC Bank (…4821): 05/2026 mã 1, tháng khác mã 0. Defaults, Court, Insolvency: None. Current Directorships: MAI TRAN PTY LTD.
 

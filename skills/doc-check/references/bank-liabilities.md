@@ -10,7 +10,7 @@
 | D | 22 | Study loans: HELP (HECS-HELP, FEE-HELP, SA-HELP, OS-HELP), VSL / VET FEE-HELP, SSL, ABSTUDY SSL, TSL / Apprenticeship Support Loan, SFSS; CAN của trường |
 | E | 23 | Buy Now Pay Later: Afterpay, Zip, Klarna, humm, PayPal Pay in 4… |
 
-- **Đọc trước** (`guroos_document_read` với `pages`): A, B, C trang 1 (tài khoản, kỳ, số dư, lãi suất, Repayment; lãi suất thẻ thường ở trang cuối), rồi MỌI trang giao dịch đến trang cuối. D, E đọc hết.
+- **Đọc trước:** A, B, C trang 1 (tài khoản, kỳ, số dư, lãi suất, Repayment; lãi suất thẻ thường ở trang cuối), rồi MỌI trang giao dịch đến trang cuối. D, E đọc hết.
 - Chưa đọc hết trang giao dịch thì không kết luận "không có giao dịch bất thường" hay "không trả chậm": "Chưa kiểm tra được: <giao dịch bất thường | trả chậm>: chưa đọc trang …".
 - Khoản vay học của ngân hàng (không phải ATO) là Personal Loan (C).
 - CAN của trường (nợ một kỳ học, không có số dư): "chưa chắc", Ghi chú "cần số dư HELP từ myGov".
@@ -51,7 +51,7 @@ Nguồn khác: GHI CHÚ, gồm trình duyệt in ra PDF, bộ chuyển HTML sang
 | `[Sửa ảnh] Ảnh nhỏ lưu trong EXIF (…) khác tỉ lệ khung với ảnh chính …` | BÁO | BÁO |
 | `[Ảnh chụp/scan]`, `[Chữ vẽ bằng nét]` (dù phần mềm scan/gộp ảnh nào tạo tệp) | BÁO | GHI CHÚ |
 
-Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" mà không đọc lại được trong kho (SKILL.md mục 2), ảnh mờ): mục cần trang đó vào "Chưa kiểm tra được"; không đọc được trang nào → `KHÔNG ĐỌC ĐƯỢC`.
+Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" (SKILL.md mục 2), ảnh mờ): mục cần trang đó vào "Chưa kiểm tra được"; không đọc được trang nào → `KHÔNG ĐỌC ĐƯỢC`.
 
 ### 2C. Kiểm tra số và ngày
 

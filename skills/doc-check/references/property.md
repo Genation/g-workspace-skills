@@ -12,7 +12,7 @@
 
 Ngoài phạm vi: Water Bill (hóa đơn nước), hóa đơn điện/gas, Land Tax assessment, Valuation Notice, Sales Advice, báo giá, tender của builder, variation đứng riêng, bản vẽ, Plan of Subdivision, Property Report, biên bản họp và ngân sách strata.
 
-**Tài liệu dài.** Rule 1 thường 1–4 trang: đọc hết. Hợp đồng có thể hàng trăm trang: gọi `guroos_document_read` với `pages` "1-3" trước, dùng mục lục nếu có, rồi chỉ tìm:
+**Tài liệu dài.** Rule 1 thường 1–4 trang: đọc hết. Hợp đồng có thể hàng trăm trang: đọc trang 1–3 trước, dùng mục lục nếu có, rồi chỉ tìm:
 1. Phần đầu: Particulars of Sale (VIC; SA "Contract for the Sale and Purchase of Land"), Reference Schedule (QLD "Contract for Houses and Residential Land"), Particulars / Schedule của Standard Form Contract (TAS), mẫu Offer and Acceptance và các Annexure (WA; điều khoản chung in riêng "Joint Form of General Conditions"), trang bìa mẫu NSW "Contract for the sale and purchase of land"; với Building Contract là Schedule. Tìm: các bên, giá, cọc, settlement, conveyancer.
 2. Điều kiện tài chính: mục Loan / Finance, Special Conditions hoặc Annexure.
 3. Trang ký của mọi bên.
@@ -106,7 +106,7 @@ Chỉ ghi chú:
 
 ## 5. Lưu ý riêng
 
-- **Ai được so tên.** Từng người TRÊN tài liệu so với Applicant và entity trong `guroos_case_profile`. Đồng sở hữu hoặc đồng mua không phải Applicant cũng là `[Sai tên]`. Vendor, Builder không so tên, chỉ xét chữ ký.
+- **Ai được so tên.** Từng người TRÊN tài liệu so với Applicant và entity người dùng nêu trong chat. Đồng sở hữu hoặc đồng mua không phải Applicant cũng là `[Sai tên]`. Vendor, Builder không so tên, chỉ xét chữ ký.
 - **Tên in tắt.** Hóa đơn rule 1 hay in "T M TRAN": vẫn là KHÁC. Bỏ qua phần "C/- <đơn vị quản lý>".
 - **Chữ ký.** Chưa xem trang ký (kể cả trang scan chưa có ảnh trang) thì ghi "Chưa kiểm tra được", không kết luận "Chưa ký". Chữ ký trên Section 32 không thay chữ ký hợp đồng. Mẫu chỉ có một ô ngày chung thì ngày đó tính cho mọi bên. Bản counterpart chỉ có chữ ký một bên: vẫn `[Chưa ký]`, ghi chú có thể là counterpart.
 - **Trang ký chỉ có lớp chữ.** Chữ ký tay hay ký điện tử thường là ảnh hoặc nét vẽ, không nằm trong lớp chữ, và Guroos không gửi ảnh của trang có lớp chữ. Chữ ký có trong lớp chữ ("DocuSigned by…", "Signed by…") là đã ký. Không kết luận `[Chưa ký]` chỉ vì lớp chữ không có chữ ký: ghi "Chưa kiểm tra được: chữ ký trang <n> (chỉ đọc được lớp chữ)". Chỉ ghi `[Chưa ký]` khi ảnh trang cho thấy ô ký trống, hoặc ô ngày ký của bên đó để trống trong lớp chữ (thiếu ngày ký). Tên, ngày gõ sẵn không phải chữ ký.

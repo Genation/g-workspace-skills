@@ -35,7 +35,7 @@ Nguồn khác: GHI CHÚ (cổng nhân viên hay in từ trình duyệt hoặc xu
 | `[Sửa ảnh] Ảnh nhỏ lưu trong EXIF (…) khác tỉ lệ khung với ảnh chính …` | BÁO |
 | `[Chữ vẽ bằng nét]`, `[Ảnh chụp/scan]` | BÁO |
 
-Trang scan: đọc số trên ảnh trang gửi kèm ("Trang N: ảnh scan, xem ảnh … gửi kèm"). Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", thường do chữ vẽ bằng nét; "ảnh scan chưa gửi" mà không đọc lại được trong kho (SKILL.md mục 2); ảnh mờ) → `KHÔNG ĐỌC ĐƯỢC`; dòng "Nội dung" ghi cần bản PDF tải trực tiếp từ phần mềm lương hoặc cổng nhân viên. Điểm BÁO của Bước 0 (máy in PDF, chữ vẽ bằng nét…) vẫn ghi một dòng `[Tệp gốc]` ở Cần thông báo; Kết luận vẫn là `KHÔNG ĐỌC ĐƯỢC`.
+Trang scan: đọc số trên ảnh trang gửi kèm ("Trang N: ảnh scan, xem ảnh … gửi kèm"). Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", thường do chữ vẽ bằng nét; "ảnh scan chưa gửi" (SKILL.md mục 2); ảnh mờ) → `KHÔNG ĐỌC ĐƯỢC`; dòng "Nội dung" ghi cần bản PDF tải trực tiếp từ phần mềm lương hoặc cổng nhân viên. Điểm BÁO của Bước 0 (máy in PDF, chữ vẽ bằng nét…) vẫn ghi một dòng `[Tệp gốc]` ở Cần thông báo; Kết luận vẫn là `KHÔNG ĐỌC ĐƯỢC`.
 
 ### 2C. Kiểm tra số và ngày
 
@@ -87,7 +87,7 @@ Chỉ ghi chú khi:
 - Superannuation do employer đóng (Superannuation Guarantee): không phải salary sacrifice.
 - Khoản trừ sau thuế (union fee, after-tax super, child support…): ghi tên và số tiền; không phải Deductions before tax.
 - Hai payslip trùng kỳ, khác số liệu (có thể là payslip bổ sung, off-cycle): ghi cả hai.
-- Employer trùng một dòng "Pháp nhân" của `guroos_case_profile`: Applicant nhận lương từ công ty của mình.
+- Employer trùng pháp nhân người dùng nêu trong chat: Applicant nhận lương từ công ty của mình.
 
 ## 5. Lưu ý riêng
 

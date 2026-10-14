@@ -91,7 +91,7 @@ Số, ngày đọc từ ảnh (tệp ảnh, ảnh trang) hay lớp chữ OCR c�
 | Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
 |---|---|---|---|
 | Có in TFN: trang ở dòng "Mã số" của khối, trang có `[đã che TFN]` hoặc TFN thấy trên ảnh. Chú thích chỉ che số TFN không xóa số khỏi tệp, nên vẫn ghi | TFN | chỉ số trang; khối liệt kê "…" thì viết "trang 1, 3, … và các trang sau" | che TFN (redact) trước khi lưu hoặc chia sẻ |
-| Tên người nộp thuế khác Applicant; tài liệu của pháp nhân: tên pháp lý khác pháp nhân trong `guroos_case_profile` | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
+| Tên người nộp thuế khác Applicant; tài liệu của pháp nhân: tên pháp lý khác pháp nhân người dùng nêu trong chat | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
 | Profit and Loss có Net profit âm | Loss | dòng lãi/lỗ nguyên văn và năm | báo nhân viên xem xét |
 | Bước 6 lệch quá $1: Tax Return pháp nhân với Financial Statements; Tax Return cá nhân với NOA | Lệch số liệu | theo `cross-checks.md` | báo nhân viên xem xét |
 | Có điểm BÁO ở Bước 0 (mục 2) | Tệp gốc | nguồn, hoặc nhãn và trang như khối | xác minh với nơi phát hành hoặc xin bản PDF gốc |
@@ -116,7 +116,7 @@ Chỉ ghi chú:
 
 ## 6. Ví dụ
 
-Dữ liệu giả. Hôm nay 11/10/2026. `guroos_case_profile`: "Applicant 1: Thi Mai Tran". Lô chỉ có tệp này.
+Dữ liệu giả. Hôm nay 11/10/2026. Người dùng nêu trong chat: Applicant "Thi Mai Tran". Lô chỉ có tệp này.
 
 **Tax Return cá nhân của tax agent.** Khối kiểm tra: "Nhóm nguồn: phần mềm đã biết (phần mềm thuế/kế toán XReport, theo Producer).", "Mã số (không hiện số): TFN 15 lần (trang 1, 3, 4, 5, 6, 7, 8, 9, …), 1 số khác nhau, số kiểm tra đúng.", các mục dấu hiệu và ghi chú kỹ thuật đều "không có.". Nội dung: "Individual tax return 1 July 2024 to 30 June 2025"; mục `1 Salary or wages … C 92,500`, `D3`, `D5`; "TRAN, THI MAI" đầu mỗi trang; "Total income or loss 92,500 · Total deductions 4,180 · Taxable income 88,320"; Taxation estimate "Tax on your taxable income 17,284.00 · Medicare levy 1,766.40 · PAYG credits 19,200.00 · Refund 149.60"; "Electronic lodgement declaration" ký 14/08/2025.
 

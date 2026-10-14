@@ -9,7 +9,7 @@
 | Family Court Order: Orders, Consent Orders | 18 |
 | Binding / Limited Child Support Agreement (loại mở rộng) | 18 |
 
-- Đọc trước (`guroos_document_read` với `pages`): trang 1–2 và trang có tổng; trang giữa chỉ khi cần cho kỳ hoặc 2C. Court Order: thêm các order về tiền ("child support", "maintenance", "pay", "$") và trang cuối (dấu toà). Thư, agreement: đọc hết.
+- Đọc trước: trang 1–2 và trang có tổng; trang giữa chỉ khi cần cho kỳ hoặc 2C. Court Order: thêm các order về tiền ("child support", "maintenance", "pay", "$") và trang cuối (dấu toà). Thư, agreement: đọc hết.
 - Bản cũ in "Department of Human Services" hoặc "Child Support Agency" vẫn tính.
 - Thư trợ cấp của Department of Veterans' Affairs (DVA): xử lý như Centrelink, ghi "chưa chắc: cơ quan DVA".
 - Binding / Limited Child Support Agreement: ghi "chưa chắc: Child Support Agreement".
@@ -43,7 +43,7 @@ Nguồn khác: GHI CHÚ (myGov, Courts Portal hay in từ trình duyệt; agreem
 | `[Che chữ]`, `[Sửa nội dung]` | DỪNG. Lưu thêm chỉ để ký hay gắn chữ ký số nằm ở Ghi chú kỹ thuật, không mang nhãn này |
 | `[Sửa ảnh] Thông tin tệp ghi tên trình sửa ảnh: …` | DỪNG |
 | `[Sửa ảnh] Ảnh nhỏ lưu trong EXIF (…) khác tỉ lệ khung …` | BÁO |
-| `[Ảnh chụp/scan]`, `[Chữ vẽ bằng nét]` | GHI CHÚ. Trang scan: đọc trên ảnh trang gửi kèm. Trang cần đọc không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" mà không đọc lại được trong kho (SKILL.md mục 2), ảnh mờ) → `KHÔNG ĐỌC ĐƯỢC`, xin bản PDF tải từ myGov hoặc bản rõ hơn |
+| `[Ảnh chụp/scan]`, `[Chữ vẽ bằng nét]` | GHI CHÚ. Trang scan: đọc trên ảnh trang gửi kèm. Trang cần đọc không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" (SKILL.md mục 2), ảnh mờ) → `KHÔNG ĐỌC ĐƯỢC`, xin bản PDF tải từ myGov hoặc bản rõ hơn |
 
 ### 2C. Kiểm tra số và ngày
 

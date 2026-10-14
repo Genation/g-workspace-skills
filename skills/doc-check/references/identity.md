@@ -71,7 +71,7 @@ CHẤP NHẬN: ảnh (JPG/PNG) với A–D, có khối kiểm tra ảnh hay chư
 
 Đọc kết quả `guroos_identity_check` (kết quả 2C, không phải khối kiểm tra tệp: không xét theo SKILL.md 5.2, 2A, 2B, kể cả `[Mã số sai]`):
 - Dòng dưới "Mã số sai hoặc không khớp" (`[MRZ sai số kiểm tra]`, `[MRZ sai]`, `[Lệch MRZ]`, `[Mã số sai]`, `[Sai định dạng]`), `[Định dạng bằng lái]`, chữ "LỆCH" ở dòng "Đối chiếu MRZ với chữ in": đọc lại ảnh một lần, gọi lại. Vẫn còn → BÁO (dòng `[Tệp gốc]`, mục 4), không tự thành `KHÔNG HỢP LỆ`.
-- `[Cần đọc lại]`, hoặc ảnh không đọc ra MRZ hay số: đọc lại (nhìn lại ảnh đã có trong hội thoại, không gọi lại `guroos_document_read`), gọi lại tool kiểm; vẫn vậy → "Chưa kiểm tra được: <ô>, ảnh chưa đủ rõ". Ghi chú kỹ thuật khác (cả "chưa so được" không kèm `[Cần đọc lại]`): chép dòng liên quan vào Ghi chú.
+- `[Cần đọc lại]`, hoặc ảnh không đọc ra MRZ hay số: đọc lại (nhìn lại ảnh đã có trong hội thoại), gọi lại tool kiểm; vẫn vậy → "Chưa kiểm tra được: <ô>, ảnh chưa đủ rõ". Ghi chú kỹ thuật khác (cả "chưa so được" không kèm `[Cần đọc lại]`): chép dòng liên quan vào Ghi chú.
 - Bằng chứng: tên dấu hiệu bỏ ngoặc vuông, ô và dòng MRZ như tool in, "vẫn vậy sau khi đọc lại"; không chép câu nhận định thật/giả của tool. Không chép dòng MRZ, số Medicare, số bằng lái; số khác chỉ ghi đuôi như tool in.
 
 ## 3. Ghi vào Fact Find

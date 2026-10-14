@@ -2,7 +2,7 @@
 
 ## Phạm vi
 
-| Loại | Rule | Đọc trước (`guroos_document_read` với `pages`) |
+| Loại | Rule | Đọc trước |
 |---|---|---|
 | Rental Statement: Owner / Ownership / Rental Statement, EOFY statement của agency | 14 | Trang 1 (đầu trang, kỳ, bảng tổng). Trang chi tiết chỉ khi cần cho 2C. |
 | Rental Agreement: Residential Tenancy / Rental Agreement, Lease | 15 | Trang 1–3 (các bên, địa chỉ, thời hạn, tiền thuê), rồi 1–2 trang cuối (chữ ký). Chưa thấy tiền thuê hay các bên thì đọc phần Schedule / Item. |
