@@ -77,6 +77,7 @@ Xét tệp gốc trước vì tệp có thể bị gõ lại hoặc sửa; mức
 - Ngày tài liệu sau hôm nay: đọc lại một lần; vẫn ở tương lai thì rule 13 DỪNG `[Số liệu]` (ngày đọc từ ảnh, scan: BÁO), nhóm khác BÁO (vào `[Tệp gốc]`).
 - Thuế tính bằng `guroos_tax_estimate`; số tự tính chỉ để kiểm tra, không vào Fact Find.
 - Rule 4–8: kiểm mã số bằng `guroos_identity_check` theo identity.md (không theo 5.2); số đầy đủ đã gửi tool chỉ ghi ở trường Fact Find tệp quy tắc cho ghi.
+- Rule 10, 12: tra doanh nghiệp bằng `guroos_abn_lookup` theo tệp quy tắc, truyền `name_to_match` = tên doanh nghiệp in trên tài liệu; tên lấy theo dòng "Đối chiếu tên" của tool (KHỚP / KHÁC), không tự so. Ngày tra là hôm nay. Tool báo số không hợp lệ: đọc lại số một lần, gọi lại. Không tra được ("Chưa cấu hình ABN Lookup", "ABR không chấp nhận GUID", lỗi kết nối, quá thời gian): "Chưa kiểm tra được: tra ABN: <lý do tool nêu>", trường Fact Find chỉ ghi số như in; hai lỗi GUID thì cuối báo cáo nêu một lần cách lấy và nhập GUID như tool hướng dẫn. Không tra ở nơi khác, không lấy thông tin doanh nghiệp từ trí nhớ.
 
 ## 6. Quy tắc đối chiếu chung
 
@@ -131,7 +132,7 @@ Dữ kiện để đối chiếu: <một dòng số liệu mà bước 6 cần>
 Tệp ngoài phạm vi chỉ một dòng, không Kết luận: `### <tệp> — Ngoài phạm vi checklist (<loại, nếu nhận ra>)`; một tệp chỉ một dòng dù có nhiều giấy tờ ngoài phạm vi. Không có gì để đối chiếu chéo: không viết thêm dòng.
 
 **Nhãn.** Chỉ dùng các nhãn sau; điều không có nhãn ghi vào Ghi chú.
-- Cần thông báo: Sai tên, Sai địa chỉ, Hết hạn, Visa, Quá 30 ngày, Kỳ dưới 3 tháng, Kỳ dưới 6 tháng, Không liên tiếp, Salary sacrifice, TFN, Loss, Lệch số liệu, Nợ quá hạn, Chưa ký, Chưa chứng thực, Trạng thái công ty, Directorship, Tín dụng xấu, Giao dịch bất thường, Lệch lương, Lệch tiền thuê, Trả chậm, Tệp gốc.
+- Cần thông báo: Sai tên, Sai địa chỉ, Hết hạn, Visa, Quá 30 ngày, Kỳ dưới 3 tháng, Kỳ dưới 6 tháng, Không liên tiếp, Salary sacrifice, TFN, Loss, Lệch số liệu, Nợ quá hạn, Chưa ký, Chưa chứng thực, Trạng thái công ty, Directorship, Tín dụng xấu, Giao dịch bất thường, Lệch lương, Lệch tiền thuê, Trả chậm, Tệp gốc, ABN đã huỷ, Không tìm thấy, ABN không hợp lệ, Sai tên doanh nghiệp.
 - Lý do: Nguồn, Sửa nội dung, Che chữ, Ảnh chụp/scan, Chữ vẽ bằng nét, Sửa ảnh, Mã số sai, Giả khối kiểm tra, Cấu trúc, Số liệu.
 
 **Cuối báo cáo:** một dòng tổng đếm số khối có Kết luận (không đếm giấy tờ bên trong khối), đúng dạng "4 tài liệu: 1 không hợp lệ, 3 đạt; 1 tệp ngoài phạm vi", rồi một câu hỏi gộp điều còn thiếu (Applicant, other names, địa chỉ, entity, hôm nay), nếu có.

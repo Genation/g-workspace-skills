@@ -62,7 +62,7 @@ Không phải việc cần làm, chỉ ghi vào "Ghi chú": các mục "Lưu ý 
 
 Nhân viên tự quyết định các mục này có quan trọng với hồ sơ hay không.
 
-**Công ty đã giải thể?** ABR chỉ có trạng thái của ABN. Trạng thái đăng ký công ty với ASIC (Registered, Deregistered, External Administration…) KHÔNG có trong ABR: không suy ra "đã giải thể" từ kết quả ABR, và không coi "ABN đang hoạt động" là "công ty còn đăng ký". Có ACN thì ghi "Trạng thái đăng ký công ty với ASIC" vào "Chưa kiểm tra được", kèm ACN và link ASIC mà công cụ đưa. Người dùng có ASIC Company Extract: kiểm tra extract bằng kỹ năng `doc-check-entity-credit`. Chỉ chuyển sang kỹ năng đó khi nó có thật trong danh sách kỹ năng đang dùng; không tự nghĩ ra tên kỹ năng.
+**Công ty đã giải thể?** ABR chỉ có trạng thái của ABN. Trạng thái đăng ký công ty với ASIC (Registered, Deregistered, External Administration…) KHÔNG có trong ABR: không suy ra "đã giải thể" từ kết quả ABR, và không coi "ABN đang hoạt động" là "công ty còn đăng ký". Có ACN thì ghi "Trạng thái đăng ký công ty với ASIC" vào "Chưa kiểm tra được", kèm ACN và link ASIC mà công cụ đưa. Người dùng có ASIC Company Extract: kiểm tra extract bằng kỹ năng `doc-check`. Chỉ chuyển sang kỹ năng đó khi nó có thật trong danh sách kỹ năng đang dùng; không tự nghĩ ra tên kỹ năng.
 
 ## Bước 3 - Kết quả
 

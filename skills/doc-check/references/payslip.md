@@ -57,12 +57,18 @@ Trang scan: đọc số trên ảnh trang gửi kèm ("Trang N: ảnh scan, xem 
 
 | Loại | Trường | Không có thì ghi |
 |---|---|---|
-| Payslip | Employer ABN | "không có trên payslip". Không tự tra ABN Lookup |
+| Payslip | Employer ABN: ABN như in, kèm kết quả tra "(ABN Lookup <ngày tra>: <tên pháp nhân>, <trạng thái ABN>)" | "không có trên payslip" (tìm theo tên: "Tra ABN" dưới đây) |
 | Payslip | Employer address | "không có trên payslip" |
 | Payslip | Employer phone no. | "không có trên payslip" |
 | Payslip | Salary Sacrifice / Packaging / Deductions before tax (tên khoản và số tiền của kỳ) | "không có trên payslip" |
 
 Net pay, kỳ, Pay date không vào Fact Find; ghi ở dòng "Dữ kiện để đối chiếu" (mục 5).
+
+**Tra ABN** (ABN Lookup; SKILL.md 5.5). Mỗi employer trong lô tra một lần; các payslip cùng ABN dùng chung kết quả.
+- Payslip in ABN: `guroos_abn_lookup(abn=<ABN như in>, name_to_match=<tên employer như in ở đầu trang>)`.
+- Không in ABN: `guroos_abn_search(name=<tên employer>)`. Đúng một ứng viên (không tính dòng "tên cũ"): tra ứng viên đó như trên; KHỚP thì Fact Find ghi "<ABN> (không in trên payslip; ABN Lookup theo tên, <ngày tra>: <tên pháp nhân>, <trạng thái ABN>)". Nhiều ứng viên, không có, hoặc KHÁC: Fact Find "không có trên payslip", "Chưa kiểm tra được: Employer ABN: <N> ứng viên trên ABN Lookup, chưa chọn" (không có ứng viên: "không tìm thấy theo tên"); không tự chọn.
+- "Trạng thái ABN" không phải Active hay Cancelled: "Chưa kiểm tra được: trạng thái ABN", kèm link ABR tool đưa.
+- "Lưu ý thẩm định" của tool (không đăng ký GST; Active có hiệu lực dưới 12 tháng; cá nhân kinh doanh) → Ghi chú, giữ đúng ý tool. ABR chỉ có bang và postcode: địa chỉ, số điện thoại employer lấy từ payslip.
 
 ## 4. Cần thông báo
 
@@ -75,6 +81,10 @@ Net pay, kỳ, Pay date không vào Fact Find; ghi ở dòng "Dữ kiện để 
 | Hai payslip liền kỳ, cùng năm tài chính, không có payslip xen giữa: YTD Gross sau − YTD Gross trước lệch Gross kỳ sau quá $1 | Lệch số liệu | hai YTD Gross và Gross như in | báo nhân viên xem xét |
 | Có điểm BÁO ở Bước 0 | Tệp gốc | nhóm nguồn, tên phần mềm, nhãn trong khối | xác minh với employer hoặc xin bản gốc |
 | Payslip in TFN (dòng "Mã số" của khối, trang có `[đã che TFN]` hoặc TFN thấy trên ảnh) | TFN | số trang | che TFN trước khi lưu hoặc gửi đi |
+| ABN Lookup: trạng thái ABN của employer là Cancelled | ABN đã huỷ | ABN, ngày huỷ theo tool | báo nhân viên xem xét |
+| ABN Lookup: "ABR không có bản ghi" cho ABN in trên payslip | Không tìm thấy | ABN như in | xem lại số ABN trên payslip với khách |
+| ABN Lookup vẫn báo ABN không hợp lệ sau khi đọc lại (số đọc từ ảnh, trang scan) | ABN không hợp lệ | ABN như đọc được | xem lại số ABN trên payslip với khách |
+| ABN Lookup: "Đối chiếu tên" là KHÁC | Sai tên doanh nghiệp | tên employer trên payslip và tên ABR (pháp nhân, tên thương mại) nguyên văn | báo nhân viên xem xét |
 
 **Theo bộ.** Ở bước 6 (`references/cross-checks.md` bảng 1), gọi một lần cho cả bộ:
 `guroos_date_check(document_date=<Pay date payslip mới nhất>, max_age_days=30, periods=[<kỳ của từng payslip>])`
@@ -94,20 +104,20 @@ Chỉ ghi chú khi:
 - **Bộ payslip** = mọi payslip cùng Employee và cùng employer (so ABN; không có ABN thì so tên) trong lô, kể cả nhiều payslip trong một tệp. Làm hai nơi = hai bộ, xét riêng.
 - **Trùng tệp.** Hai tệp cùng nội dung (cùng kỳ, cùng số liệu, cùng thông tin tệp): Ghi chú "trùng tệp <tên>" ở cả hai khối, chỉ tính một lần trong bộ.
 - Payslip `KHÔNG HỢP LỆ` không vào bộ. Khối payslip mới nhất ghi Ghi chú "<tệp> không tính vào bộ (KHÔNG HỢP LỆ)".
-- "Dữ kiện để đối chiếu" gồm, nếu có in: Employee · employer và trạng thái ABN · kỳ (tần suất) · Pay date · Gross · Net pay · YTD Gross · tài khoản nhận lương (4 số cuối).
+- "Dữ kiện để đối chiếu" gồm, nếu có in: Employee · employer, ABN và trạng thái ABN theo ABN Lookup · kỳ (tần suất) · Pay date · Gross · Net pay · YTD Gross · tài khoản nhận lương (4 số cuối).
 
 ## 6. Ví dụ
 
 Dữ liệu giả. Hôm nay 11/10/2026 (theo `guroos_date_check`). Applicant: Thi Mai Tran.
 
-**Hai payslip liên tiếp, có salary sacrifice.** Khối kiểm tra của cả hai tệp: `Phần mềm tạo tệp: Producer "SamplePay PDF"; Creator trống.`, `Nhóm nguồn: chưa biết.`, `Mã số (không hiện số): ABN 1 lần (trang 1), 1 số khác nhau, số kiểm tra đúng.`, hai mục dấu hiệu "không có.", Ghi chú kỹ thuật `Phần mềm tạo tệp chưa có trong danh sách đã biết.` payslip_1.pdf: kỳ 31/08–13/09/2026, Pay date 16/09/2026, YTD Gross $18,000.00. payslip_2.pdf: kỳ 14/09–27/09/2026, Pay date 30/09/2026, Gross $3,000.00, Salary sacrifice super $200.00, Tax $650.00, Net pay $2,150.00, Superannuation $360.00, YTD Gross $21,000.00. Tool: `Ngày tài liệu: 30/09/2026 → 11 ngày → TRONG 30 ngày`, `Gộp: liền mạch, không có khoảng hở`.
+**Hai payslip liên tiếp, có salary sacrifice.** Khối kiểm tra của cả hai tệp: `Phần mềm tạo tệp: Producer "SamplePay PDF"; Creator trống.`, `Nhóm nguồn: chưa biết.`, `Mã số (không hiện số): ABN 1 lần (trang 1), 1 số khác nhau, số kiểm tra đúng.`, hai mục dấu hiệu "không có.", Ghi chú kỹ thuật `Phần mềm tạo tệp chưa có trong danh sách đã biết.` payslip_1.pdf: kỳ 31/08–13/09/2026, Pay date 16/09/2026, YTD Gross $18,000.00. payslip_2.pdf: kỳ 14/09–27/09/2026, Pay date 30/09/2026, Gross $3,000.00, Salary sacrifice super $200.00, Tax $650.00, Net pay $2,150.00, Superannuation $360.00, YTD Gross $21,000.00. Tool: `Ngày tài liệu: 30/09/2026 → 11 ngày → TRONG 30 ngày`, `Gộp: liền mạch, không có khoảng hở`. `guroos_abn_lookup(abn=…, name_to_match="Sample Logistics Pty Ltd")`: `Doanh nghiệp: SAMPLE LOGISTICS PTY LTD`, `Trạng thái ABN: Đang hoạt động (Active) từ 01/07/2015`, `GST: đăng ký từ 01/07/2015`, `Đối chiếu tên "Sample Logistics Pty Ltd" (…): KHỚP tên pháp nhân "SAMPLE LOGISTICS PTY LTD".`
 
 ```
 ### payslip_2.pdf — Payslip (rule 12) · chắc chắn
 Kết luận: CẦN XỬ LÝ
 Kiểm tra tệp gốc: đạt (nguồn: chưa biết) · quy tắc: references/payslip.md
 Ghi vào Fact Find
-- Employer ABN: <11 số như in>
+- Employer ABN: <11 số như in> (ABN Lookup 11/10/2026: SAMPLE LOGISTICS PTY LTD, đang hoạt động từ 01/07/2015)
 - Employer address: 1 Sample Street, Sampleton VIC 3000
 - Employer phone no.: không có trên payslip
 - Salary Sacrifice / Packaging / Deductions before tax: Salary sacrifice super $200.00
@@ -120,7 +130,8 @@ Ghi chú
 - $3,000.00 − $200.00 − $650.00 = Net pay $2,150.00: khớp.
 - Bộ 2 payslip: kỳ 31/08/2026–27/09/2026 liền mạch; YTD Gross $21,000.00 − $18,000.00 = Gross $3,000.00. Pay date 30/09/2026, hôm nay 11/10/2026: TRONG 30 ngày (theo tool).
 - Superannuation $360.00 do employer đóng, không phải salary sacrifice.
-Dữ kiện để đối chiếu: Employee Thi Mai Tran · Sample Logistics Pty Ltd, ABN đúng số kiểm tra · kỳ 14/09–27/09/2026 (fortnightly) · Pay date 30/09/2026 · Gross $3,000.00 · Net pay $2,150.00 · YTD Gross $21,000.00 · tài khoản nhận …4821
+- ABN Lookup: tên employer khớp tên pháp nhân; GST đăng ký từ 01/07/2015.
+Dữ kiện để đối chiếu: Employee Thi Mai Tran · Sample Logistics Pty Ltd, ABN đúng số kiểm tra, đang hoạt động (ABN Lookup) · kỳ 14/09–27/09/2026 (fortnightly) · Pay date 30/09/2026 · Gross $3,000.00 · Net pay $2,150.00 · YTD Gross $21,000.00 · tài khoản nhận …4821
 ```
 
 payslip_1.pdf có khối riêng: cùng trường Fact Find, cùng dòng `[Salary sacrifice]`, Ghi chú "xét theo bộ ở khối payslip_2.pdf".

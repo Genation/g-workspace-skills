@@ -8,7 +8,7 @@
 | Company Extract | 10 | ASIC Current (& Historical) Company Extract, từ ASIC hoặc dịch vụ tra cứu |
 | Equifax | 11 | Báo cáo tín dụng của một người. Báo cáo illion, Experian áp như Equifax, ghi chú tên bureau; chữ "Equifax" dưới đây gồm cả hai |
 
-Ngoài phạm vi: ABN Lookup (kể cả "The Trustee for …"), Certificate of Registration, kết quả tìm tên trên ASIC Connect, ứng dụng chỉ hiện điểm tín dụng.
+Ngoài phạm vi: bản in kết quả ABN Lookup (kể cả "The Trustee for …"), Certificate of Registration, kết quả tìm tên trên ASIC Connect, ứng dụng chỉ hiện điểm tín dụng.
 
 Đọc theo thứ tự:
 - **Trust Deed**: trang 1–2 (tên trust, ngày, các bên) → Schedule (thường ở cuối) → trang ký → dòng chứng thực (đầu, cuối hoặc mọi trang). Schedule không nêu beneficiary thì đọc Definitions.
@@ -73,6 +73,12 @@ Apple, trình duyệt in ra PDF, chưa biết: GHI CHÚ. Ảnh theo dòng "ảnh
 
 Extract "Current & Historical": bỏ qua mục Former, Ceased, Previous.
 
+**Tra ACN** (Company Extract; ABN Lookup, SKILL.md 5.5): `guroos_abn_lookup(acn=<ACN như in>, name_to_match=<tên công ty như in ở Organisation details>)`.
+- Fact Find ACN: ACN như in, kèm "(ABN Lookup <ngày tra>: ABN <ABN tool trả>, <trạng thái ABN>)".
+- ABR chỉ có trạng thái ABN; trạng thái đăng ký với ASIC (Status), director, shareholder vẫn lấy từ extract. Dòng "Trạng thái đăng ký công ty với ASIC … không có trong ABR" của tool không ghi lại, vì extract đã in Status.
+- "ABR không có bản ghi" cho ACN: Ghi chú "ABN Lookup không có ABN cho ACN này (công ty có thể chưa đăng ký ABN)", không gắn nhãn. ACN đọc từ ảnh mà tool vẫn báo không hợp lệ sau khi đọc lại: "Chưa kiểm tra được: tra ACN: ACN đọc từ ảnh không hợp lệ".
+- "Lưu ý thẩm định" khác của tool (không đăng ký GST; Active có hiệu lực dưới 12 tháng) → Ghi chú, giữ đúng ý tool.
+
 **Ghi vào Broker's Notes** (chỉ Equifax):
 - Ngày lập báo cáo.
 - Mọi Credit Enquiry (consumer và commercial) trong 6 tháng: ngày, tổ chức, loại, số tiền. Không có → "Không có enquiry trong 6 tháng".
@@ -89,6 +95,8 @@ Trả chậm = mã 1–6 hoặc X trong Repayment History, hoặc "Worst repayme
 | Deed: không có dấu chứng thực ("Certified true copy" kèm chữ ký, tên, chức danh, ngày) | Chưa chứng thực | các trang đã xem | xin khách chứng thực (certify) bản sao |
 | Extract: Director hoặc Shareholder hiện tại không khớp Applicant nào | Sai tên | tên, vai trò | báo nhân viên xem xét |
 | Extract: Status khác "Registered" | Trạng thái công ty | status nguyên văn | báo nhân viên xem xét |
+| Extract: ABN Lookup, trạng thái ABN của công ty là Cancelled | ABN đã huỷ | ABN, ngày huỷ theo tool | báo nhân viên xem xét |
+| Extract: ABN Lookup, "Đối chiếu tên" là KHÁC | Sai tên doanh nghiệp | tên trên extract và tên ABR nguyên văn | báo nhân viên xem xét |
 | Tên trust hay công ty khác entity người dùng nêu trong chat | Sai tên | hai tên | báo nhân viên xem xét |
 | Equifax: có Current Directorship | Directorship | tên công ty | xin khách Accountant Letter nếu không dùng thu nhập từ công ty đó để tính khả năng trả nợ (servicing) |
 | Equifax: có Default, tháng trả chậm, Court Judgement, Personal Insolvency hoặc Serious Credit Infringement | Tín dụng xấu | tổ chức, loại, tháng, mã | báo nhân viên xem xét |
