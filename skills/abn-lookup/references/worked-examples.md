@@ -10,8 +10,6 @@ Người dùng: "Tra cứu ABN 51 824 753 556, tên trên tài liệu là Austra
 
 ```
 ### Australian Taxation Office
-Kết luận: ĐẠT
-
 Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
 - Tên pháp nhân: AUSTRALIAN TAXATION OFFICE
 - ABN: 51 824 753 556 · ACN: không có
@@ -37,8 +35,6 @@ Payslip in "Sunrise Cafe · ABN 11 123 456 780". `guroos_abn_lookup` trả về:
 
 ```
 ### Sunrise Cafe
-Kết luận: CẦN XỬ LÝ
-
 Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
 - Tên pháp nhân: SUNRISE HOLDINGS PTY LTD
 - ABN: 11 123 456 780 · ACN: 123 456 780
@@ -67,8 +63,6 @@ ABN đã huỷ không có nghĩa là công ty đã giải thể; vì vậy trạ
 
 ```
 ### ABN 11 123 456 780
-Kết luận: CHƯA ĐỦ THÔNG TIN
-
 Cần thông báo
 - Không có
 
@@ -87,8 +81,6 @@ Payslip in "Tran Family Trust · ABN 18 123 456 789". `guroos_abn_lookup` trả 
 
 ```
 ### Tran Family Trust
-Kết luận: ĐẠT
-
 Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
 - Tên pháp nhân: The Trustee for TRAN FAMILY TRUST
 - ABN: 18 123 456 789 · ACN: không có
@@ -115,8 +107,6 @@ Hoá đơn in "Mai Tran · ABN 80 987 654 321". `guroos_abn_lookup` trả về: 
 
 ```
 ### Mai Tran
-Kết luận: CẦN XỬ LÝ
-
 Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
 - Tên pháp nhân: TRAN, THI MAI
 - ABN: 80 987 654 321 · ACN: không có

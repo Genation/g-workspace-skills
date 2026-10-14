@@ -20,6 +20,7 @@ Dành cho người bảo trì kỹ năng. Trợ lý không cần đọc tệp n�
 | 7 | Active dưới 12 tháng, không đăng ký GST, sole trader: chỉ ghi chú | Mức chấp nhận tuỳ lender và tuỳ hồ sơ; nhân viên quyết định | Đưa thành nhãn thông báo |
 | 8 | Bản in / ảnh chụp ABN Lookup: tra lại, bản in chỉ là gợi ý | Bản in có thể cũ hoặc đã bị sửa | Xử lý như giấy tờ, có kiểm tra tệp gốc |
 | 9 | Ngày hôm nay lấy theo hệ thống | Giống các kỹ năng `doc-check-*` | Lấy từ công cụ ngày |
+| 10 | Không có dòng "Kết luận" (khác các kỹ năng `doc-check-*`) | Kỹ năng để tra cứu, không thẩm định cả hồ sơ; các mục "Cần thông báo", "Chưa kiểm tra được", "Ghi chú" đủ để nhân viên tự quyết định | Thêm Kết luận 4 mức như `doc-check-*` |
 
 ## Đồng bộ với các kỹ năng doc-check-*
 

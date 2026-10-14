@@ -5,7 +5,7 @@ description: Tra cứu và thẩm định doanh nghiệp Úc trên ABN Lookup (A
 
 # Tra cứu doanh nghiệp Úc (ABN Lookup)
 
-Xác minh một doanh nghiệp Úc bằng dữ liệu của Australian Business Register (ABR) và nêu những điểm nhân viên phải xử lý. Kết quả có thể đi vào hồ sơ vay, nên chỉ kết luận từ kết quả tra cứu; không đoán, không dùng trí nhớ.
+Xác minh một doanh nghiệp Úc bằng dữ liệu của Australian Business Register (ABR) và nêu những điểm nhân viên cần lưu ý. Kết quả có thể đi vào hồ sơ vay, nên chỉ nêu những gì kết quả tra cứu cho thấy; không đoán, không dùng trí nhớ.
 
 ## Công cụ
 
@@ -38,7 +38,7 @@ Không có hai công cụ này, hoặc không tra được: không tự tra ở 
   - Không có kết quả: ghi `[Không tìm thấy]`.
   - Trạng thái ABN trong danh sách chỉ để tham khảo: luôn gọi `guroos_abn_lookup` với ABN đã chọn để lấy trạng thái.
 
-**Bản in hoặc ảnh chụp kết quả ABN Lookup** (khách hay bên thứ ba gửi): bản in chỉ là gợi ý, có thể cũ hoặc đã bị sửa. Đọc số ABN in trên đó rồi tra lại bằng công cụ; báo cáo theo kết quả tra. Không đọc được số: Kết luận `KHÔNG ĐỌC ĐƯỢC`. Tên hoặc trạng thái in trên bản in khác kết quả tra: ghi vào "Ghi chú" cả hai, kèm ngày in trên bản in nếu có.
+**Bản in hoặc ảnh chụp kết quả ABN Lookup** (khách hay bên thứ ba gửi): bản in chỉ là gợi ý, có thể cũ hoặc đã bị sửa. Đọc số ABN in trên đó rồi tra lại bằng công cụ; báo cáo theo kết quả tra. Không đọc được số: không tra; ghi "Số ABN trên bản in: không đọc được" vào "Chưa kiểm tra được" và nhờ người dùng gửi bản rõ hơn hoặc gõ số ABN. Tên hoặc trạng thái in trên bản in khác kết quả tra: ghi vào "Ghi chú" cả hai, kèm ngày in trên bản in nếu có.
 
 ## Bước 2 - Đánh giá
 
@@ -70,7 +70,6 @@ Mỗi doanh nghiệp một khối, đúng mẫu. Mục nào trống ghi "- Khôn
 
 ```
 ### <tên doanh nghiệp hoặc số đã tra>
-Kết luận: <ĐẠT | CẦN XỬ LÝ | CHƯA ĐỦ THÔNG TIN | KHÔNG ĐỌC ĐƯỢC>
 
 Thông tin doanh nghiệp (ABN Lookup, tra ngày <DD/MM/YYYY>)
 - Tên pháp nhân: <...>
@@ -91,16 +90,12 @@ Ghi chú
 - <lưu ý thẩm định khác, điều đã kiểm tra và đạt>
 ```
 
-Chọn Kết luận bằng dòng ĐẦU TIÊN đúng:
-1. Bản in / ảnh chụp không đọc được số ABN → `KHÔNG ĐỌC ĐƯỢC`
-2. Có ít nhất một dòng "Cần thông báo" (dù có cả dòng "Chưa kiểm tra được") → `CẦN XỬ LÝ`
-3. Không tra được (thiếu công cụ, chưa cấu hình, lỗi kết nối) hoặc có dòng "Chưa kiểm tra được" → `CHƯA ĐỦ THÔNG TIN`
-4. Còn lại → `ĐẠT`
+Kỹ năng này để tra cứu, không thẩm định cả hồ sơ: không ghi dòng "Kết luận" hay đánh giá đạt / không đạt. Nhân viên đọc các mục "Cần thông báo", "Chưa kiểm tra được" và "Ghi chú" để tự quyết định.
 
-Không tra được thì bỏ phần "Thông tin doanh nghiệp", chỉ giữ Kết luận và các mục còn lại.
+Không tra được thì bỏ phần "Thông tin doanh nghiệp", chỉ giữ các mục còn lại.
 
 Sau các khối:
-- Tra từ hai doanh nghiệp trở lên: một dòng tổng, đếm lại từ Kết luận của từng khối (ví dụ "3 doanh nghiệp: 2 đạt, 1 cần xử lý"). Không nhắc lại nội dung các khối.
+- Tra từ hai doanh nghiệp trở lên: một dòng tổng nêu số doanh nghiệp đã tra và tên những doanh nghiệp có dòng "Cần thông báo" (ví dụ "Đã tra 3 doanh nghiệp; có điểm cần thông báo: Sunrise Cafe"). Không nhắc lại nội dung các khối.
 - Chỉ hỏi người dùng thứ còn thiếu để tra xong (số đúng trên tài liệu, chọn ứng viên, ngày hôm nay), gom vào một lần. Không thiếu gì thì không hỏi.
 
 Chưa chắc cách điền mẫu: đọc `references/worked-examples.md`.
