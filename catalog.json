@@ -35,6 +35,17 @@
       ]
     },
     {
+      "id": "mail-intake",
+      "title": "Tiếp nhận thư khách hàng",
+      "summary": "Tách thư khách hàng khỏi thư chung, tìm Deal trên Monday và lưu tệp đính kèm vào thư mục tạm của hồ sơ.",
+      "details": "Trợ lý xem thư mới, phân loại thư khách hàng với thư chung (ngân hàng, webinar, quảng cáo), tìm Deal trên Monday theo người gửi và xác định đúng một bộ hồ sơ trong kho tài liệu. Tệp đính kèm được lưu vào thư mục tmp/ của hồ sơ đó để kiểm tra sau; mỗi lần lưu trợ lý đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư.",
+      "icon": "inbox",
+      "examples": [
+        "Hôm nay hộp thư có thư gì mới của khách?",
+        "Lưu giấy tờ khách gửi trong thư này vào hồ sơ"
+      ]
+    },
+    {
       "id": "doc-check",
       "title": "Kiểm tra giấy tờ hồ sơ vay",
       "summary": "Kiểm tra từng giấy tờ của khách theo checklist 23 mục, đối chiếu chéo rồi báo việc cần làm.",
