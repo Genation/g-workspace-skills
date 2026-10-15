@@ -102,7 +102,7 @@ Trả chậm = mã 1–6 hoặc X trong Repayment History, hoặc "Worst repayme
 | Equifax: có Default, tháng trả chậm, Court Judgement, Personal Insolvency hoặc Serious Credit Infringement | Tín dụng xấu | tổ chức, loại, tháng, mã | báo nhân viên xem xét |
 | Lệch theo 2C | Lệch số liệu | phép so, số in, số chênh, trang | báo nhân viên xem xét |
 
-Chữ ký điện tử (DocuSign…) tính là đã ký. Chưa đọc hết phần liên quan (kể cả trang scan chưa có ảnh trang) thì không kết luận "chưa ký", "chưa chứng thực", "không có default"; ghi vào "Chưa kiểm tra được".
+Chữ ký điện tử (DocuSign…) tính là đã ký. Chữ ký, dấu chứng thực trên trang có lớp chữ thường là ảnh hay nét vẽ: xem trang ký, trang chứng thực bằng `guroos_attachment_page` (SKILL.md mục 2) trước khi kết luận. Chưa đọc hết phần liên quan (tool không vẽ được trang) thì không kết luận "chưa ký", "chưa chứng thực", "không có default"; ghi vào "Chưa kiểm tra được".
 
 Chỉ ghi chú khi:
 - Một Applicant vắng tên trên deed hay extract (người có tên mà không khớp Applicant nào vẫn là `[Sai tên]`).

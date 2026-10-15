@@ -51,7 +51,7 @@ Nguồn khác: GHI CHÚ, gồm trình duyệt in ra PDF, bộ chuyển HTML sang
 | `[Sửa ảnh] Ảnh nhỏ lưu trong EXIF (…) khác tỉ lệ khung với ảnh chính …` | BÁO | BÁO |
 | `[Ảnh chụp/scan]`, `[Chữ vẽ bằng nét]` (dù phần mềm scan/gộp ảnh nào tạo tệp) | BÁO | GHI CHÚ |
 
-Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" (SKILL.md mục 2), ảnh mờ): mục cần trang đó vào "Chưa kiểm tra được"; không đọc được trang nào → `KHÔNG ĐỌC ĐƯỢC`.
+Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" mà `guroos_attachment_page` không vẽ được (SKILL.md mục 2), ảnh mờ): mục cần trang đó vào "Chưa kiểm tra được"; không đọc được trang nào → `KHÔNG ĐỌC ĐƯỢC`.
 
 ### 2C. Kiểm tra số và ngày
 
