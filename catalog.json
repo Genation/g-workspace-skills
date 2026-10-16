@@ -46,6 +46,17 @@
       ]
     },
     {
+      "id": "genation-workspace-tracking",
+      "title": "Lưu lịch sử làm việc",
+      "summary": "Ghi lại tài liệu và thư trợ lý đã xử lý cho từng hồ sơ, gọn và không trùng.",
+      "details": "Sau khi tiếp nhận thư hoặc kiểm tra giấy tờ, trợ lý lưu lịch sử làm việc của hồ sơ trong ứng dụng: tài liệu nào đã lưu, đã kiểm tra hay không đọc được, thư nào của khách đã tiếp nhận. Trợ lý xem lịch sử đã có trước, chỉ ghi điều còn thiếu và ghi một lần khi xong việc. Lịch sử chỉ có tên thư mục, đường dẫn, loại, tiêu đề và trạng thái; không có nội dung tệp hay thư. Lần lưu đầu tiên của mỗi cuộc trò chuyện, ứng dụng hỏi bạn.",
+      "icon": "history",
+      "examples": [
+        "Lưu lại lịch sử làm việc của hồ sơ này"
+      ],
+      "default": true
+    },
+    {
       "id": "doc-check",
       "title": "Kiểm tra giấy tờ hồ sơ vay",
       "summary": "Kiểm tra từng giấy tờ của khách theo checklist 23 mục, đối chiếu chéo rồi báo việc cần làm.",

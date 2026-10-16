@@ -9,7 +9,7 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 
 ## 1. Phạm vi
 
-- Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo.
+- Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo. Riêng lịch sử làm việc được ghi ở bước 8.
 - Chỉ kiểm tra tệp đính kèm trong chat; người dùng nêu vài tệp trong số đó: chỉ các tệp đó. Các tài liệu kiểm tra trong lượt là "lô"; đối chiếu chéo chỉ trong lô.
 - Không tìm hay mở hồ sơ, thư mục khách: không gọi `guroos_customers`, `guroos_customer_files`, `guroos_document_read`, `guroos_document_check`, `guroos_case_profile`, kể cả khi người dùng nêu tên khách hay thư mục. Nhờ kiểm tra mà không đính kèm tệp: xin đính kèm giấy tờ trong ô chat của Guroos, không làm tiếp.
 
@@ -23,7 +23,7 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 
 ## 3. Quy trình
 
-Bước 1–5 và 7 cho từng tài liệu, bước 6 cho cả lô. Gặp DỪNG ở bước 2 hoặc 4: `KHÔNG HỢP LỆ`, bỏ bước 5–6.
+Bước 1–5 và 7 cho từng tài liệu, bước 6 và 8 cho cả lô. Gặp DỪNG ở bước 2 hoặc 4: `KHÔNG HỢP LỆ`, bỏ bước 5–6.
 1. **Nhận tài liệu** (mục 2): khối ở đầu tệp chữ, rồi mọi trang, phần, ảnh trang đã gửi kèm.
 2. **Kiểm tra tệp gốc:** lấy khối (5.1), xét 5.2.
 3. **Nhận loại** (mục 4) theo nơi phát hành và cấu trúc, không theo tiêu đề hay tên tệp; **mở tệp quy tắc** của nhóm bằng `read` (đường dẫn = thư mục kỹ năng ở đầu nội dung kỹ năng + `/references/<tệp>.md`, chép nguyên, không gõ lại).
@@ -31,6 +31,7 @@ Bước 1–5 và 7 cho từng tài liệu, bước 6 cho cả lô. Gặp DỪNG
 5. **Đọc và trích** theo tệp quy tắc: Fact Find, tên, ngày, kỳ, số liệu, "Dữ kiện để đối chiếu". Chưa kết luận.
 6. **Đối chiếu chéo** theo `references/cross-checks.md`, chỉ với tài liệu đã qua Bước 0 và đọc được, kể cả khi chỉ còn một.
 7. **Chốt** Kết luận, Fact Find, việc cần báo theo mục 7.
+8. **Ghi lịch sử làm việc** sau khi đã chốt mọi Kết luận (bước 7), chỉ khi đã biết chắc thư mục hồ sơ (người dùng gõ tên thư mục, hoặc đã dùng ở bước trước trong cuộc trò chuyện); không tìm thư mục để ghi. Nạp kỹ năng `genation-workspace-tracking` bằng tool `skill` (một lần mỗi cuộc trò chuyện) và làm theo. Kỹ năng đó không có trong danh sách kỹ năng đang dùng thì bỏ bước này.
 
 ## 4. Nhận loại và tệp quy tắc
 
