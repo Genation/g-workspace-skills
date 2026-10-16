@@ -7,7 +7,7 @@
 | Tax Return | tờ khai Individual, Company, Partnership, Trust do tax agent hoặc phần mềm thuế xuất ra (cả bản tự nộp qua myTax) |
 | Notice of Assessment (NOA) | thông báo tính thuế của ATO, kể cả `Notice of amended assessment` |
 | ATO Income Statement | income statement trên myGov / ATO online services |
-| Financial Statements | bộ báo cáo tài chính: Profit and Loss, Balance Sheet và phần kèm theo (mục 1) |
+| Financial Statements | bộ báo cáo tài chính: Profit and Loss, Balance Sheet và phần kèm theo (mục 1); cả P&L hoặc Balance Sheet rời, management accounts ("chưa chắc", mục 1) |
 
 Đọc theo trang:
 - Tax Return: trang 1 (tiêu đề, năm, tên) → trang tổng hợp (`Taxable income`, thường kèm "Taxation estimate") → trang declaration (thường ở cuối).
@@ -24,10 +24,11 @@
 | Financial Statements | (1) tên tổ chức kèm ABN/ACN và kỳ (`For the year ended …` hoặc `Year ended …`); (2) `Profit and Loss` (hoặc `Statement of profit or loss`) có dòng lãi/lỗ (`Net profit`, `Profit before / after income tax`…); (3) `Balance Sheet` (hoặc `Statement of Financial Position`) có `Total assets`, `Total liabilities`, `Net assets` và Equity; (4) ít nhất một trong: `Notes to the financial statements`, declaration của Directors / Trustee / Partners, `Compilation Report` |
 
 - Năm ở tiêu đề Tax Return là năm tài chính kết thúc 30 June năm đó (`2025` = 2024–25). Ô ngày trống ở trang 1 (`If not a resident for a full year`, `approved substitute period`) không phải thiếu dấu hiệu.
-- Thiếu một dấu hiệu bắt buộc → DỪNG `[Cấu trúc] Thiếu <dấu hiệu>`. Rule 13 không hạ xuống "chưa chắc", trừ hai trường hợp ngay dưới.
+- Thiếu một dấu hiệu bắt buộc → DỪNG `[Cấu trúc] Thiếu <dấu hiệu>`. Rule 13 không hạ xuống "chưa chắc", trừ các trường hợp ngay dưới.
 - NOA và ATO Income Statement chưa đủ mẫu để chốt dấu hiệu: chỉ DỪNG khi thiếu (1) hoặc (2); thiếu dấu hiệu khác → tiêu đề "chưa chắc: thiếu <dấu hiệu>", Ghi chú "chưa đủ mẫu để chốt".
 - Tệp thiếu trang: dấu hiệu nằm ở trang thiếu không làm DỪNG; dấu hiệu (1) và dấu hiệu ở các trang có mặt vẫn phải đủ. Dấu hiệu ở trang scan chưa đọc được, kể cả (1), không làm DỪNG.
-- Gửi thay cho loại chính thì thiếu dấu hiệu, nên DỪNG `[Cấu trúc]`: trang "Taxation estimate" hoặc "Lodgement summary" đứng riêng, bảng tóm tắt tự gõ (thay Tax Return); P&L hoặc Balance Sheet rời, management accounts (thay Financial Statements, thiếu (3) hoặc (4)).
+- **P&L hoặc Balance Sheet rời**, management accounts (Financial Statements có (1) và ít nhất một trong (2), (3), thiếu phần còn lại hoặc (4)): không DỪNG `[Cấu trúc]`. Tiêu đề `<tệp> — Profit and Loss rời` (hoặc `Balance Sheet rời`, `Management accounts`) `(rule 13) · chưa chắc: thiếu <dấu hiệu>`; BÁO `[Tệp gốc]` (mục 4); vẫn ghi Fact Find (mục 3) và làm phép so 2C của phần có in. Thiếu (1), hoặc không có cả (2) lẫn (3): DỪNG `[Cấu trúc]`. Bước 0 (mục 2) vẫn áp như Financial Statements.
+- Gửi thay cho loại chính thì thiếu dấu hiệu, nên DỪNG `[Cấu trúc]`: trang "Taxation estimate" hoặc "Lodgement summary" đứng riêng, bảng tóm tắt tự gõ (thay Tax Return).
 - "Income statement" trong bộ Financial Statements là tên khác của P&L, không phải ATO Income Statement.
 - PAYG payment summary do employer phát hành (mẫu cũ, không phải của ATO): một dòng "Ngoài phạm vi".
 
@@ -74,17 +75,20 @@ Số, ngày đọc từ ảnh (tệp ảnh, ảnh trang) hay lớp chữ OCR c�
 - Tax Return, NOA, Financial Statements: so trực tiếp ngày đó với ngày kết thúc năm tài chính: `Year ended …` nếu in, không thì 30 June của năm ở tiêu đề; kỳ thay thế chỉ khi ô có ngày. Trùng hoặc trước ngày kết thúc → DỪNG `[Số liệu] <nhãn ngày> <ngày> không sau ngày kết thúc năm tài chính <ngày kết thúc>`.
 - Mọi loại: gọi `guroos_date_check(document_date="<ngày>")` chỉ để xét ngày trong tương lai; bỏ qua "QUÁ" / "TRONG" 30 ngày.
 - ATO Income Statement của năm đang chạy (chưa `Tax ready`) vẫn hợp lệ; ghi trạng thái vào Ghi chú.
+- P&L, Balance Sheet rời: ngày kết thúc là ngày cuối kỳ in ("to …", "as at …"), không phải 30 June. Xuất trước ngày đó (báo cáo của kỳ đang chạy) không DỪNG; Ghi chú "kỳ chưa kết thúc khi xuất, số liệu tạm tính".
 - Kỳ in trong thân (`1 July … to 30 June …`, ô kỳ thay thế có ngày, `Year ended …`) thuộc năm tài chính khác tiêu đề → DỪNG `[Số liệu]`; ô ngày trống, kỳ ngắn hơn trong cùng năm, cột năm trước không tính. Không có ngày nào để so → Ghi chú.
 
 ## 3. Ghi vào Fact Find
 
 | Loại | Trường | Không có thì ghi |
 |---|---|---|
-| Financial Statements — Profit and Loss | Total income; Total expenses; Net profit / loss | "không có trên tài liệu" |
-| Financial Statements — Balance Sheet | Total assets; Total liabilities; Net assets | "không có trên tài liệu" |
-| Tax Return, NOA, ATO Income Statement | không có trường Fact Find. Tax Return và NOA ghi `Taxable income` (hoặc loss) và năm tài chính vào Ghi chú | — |
+| Tax Return cá nhân, NOA | Taxable income (hoặc loss, như in) kèm năm tài chính, ví dụ "88,320 (2024–25)" | "không có trên tài liệu" |
+| Tax Return pháp nhân (company, partnership, trust) | Total income (số của `Total income` hoặc `Total business income`); Total expenses; Net profit / loss (số của `Total profit or loss` hoặc `Net income or loss`); tên trường giữ đúng như cột này, nhãn in và năm tài chính ghi trong ngoặc | "không có trên tài liệu" |
+| Financial Statements — Profit and Loss (cả P&L rời, management accounts) | Total income; Total expenses; Net profit / loss | "không có trên tài liệu" |
+| Financial Statements — Balance Sheet (cả Balance Sheet rời) | Total assets; Total liabilities; Net assets | "không có trên tài liệu" |
+| ATO Income Statement | không có trường Fact Find | — |
 
-- Kèm nhãn in khi khác tên trường (ví dụ "Total revenue"); có cột năm trước thì chỉ lấy cột năm của tiêu đề.
+- Kèm nhãn in khi khác tên trường (ví dụ "Total revenue"); có cột năm trước thì chỉ lấy cột năm của tiêu đề. P&L, Balance Sheet rời: kèm kỳ in ("1 July 2025 to 31 March 2026", "as at 31 March 2026"); chỉ ghi trường của phần có in, phần không có thì không ghi dòng.
 
 ## 4. Cần thông báo
 
@@ -95,6 +99,7 @@ Số, ngày đọc từ ảnh (tệp ảnh, ảnh trang) hay lớp chữ OCR c�
 | Profit and Loss có Net profit âm | Loss | dòng lãi/lỗ nguyên văn và năm | báo nhân viên xem xét |
 | Bước 6 lệch quá $1: Tax Return pháp nhân với Financial Statements; Tax Return cá nhân với NOA | Lệch số liệu | theo `cross-checks.md` | báo nhân viên xem xét |
 | Có điểm BÁO ở Bước 0 (mục 2) | Tệp gốc | nguồn, hoặc nhãn và trang như khối | xác minh với nơi phát hành hoặc xin bản PDF gốc |
+| P&L hoặc Balance Sheet rời, management accounts (mục 1) | Tệp gốc | "<loại> rời, thiếu <dấu hiệu>"; cùng khối có điểm BÁO ở Bước 0 thì gộp một dòng | xin khách bộ Financial Statements đầy đủ do kế toán lập (có Notes, declaration hoặc Compilation Report), hoặc xác minh số liệu với kế toán |
 
 Khối `KHÔNG HỢP LỆ` (trừ khi không có khối, xem mục 2): `[Tệp gốc] <tóm tắt lý do> → yêu cầu khách gửi bản PDF gốc tải trực tiếp từ myGov/ATO, hoặc nhờ kế toán/tax agent gửi trực tiếp cho văn phòng`. Lý do có `[Sửa nội dung]`, `[Che chữ]`, `[Mã số sai]` hoặc `[Số liệu]` thì thêm "; đối chiếu trực tiếp với kế toán/tax agent hoặc ATO trước khi dùng số liệu của khách".
 
@@ -112,7 +117,7 @@ Chỉ ghi chú:
   - Tax Return pháp nhân: `<tên pháp nhân> · năm … · Total income … · Total profit or loss …`
   - NOA: `<tên> · năm … · Taxable income … · Date of issue …`
   - ATO Income Statement: `<tên> · năm … · payer <tên>, ABN đúng số kiểm tra · Gross payments … · Tax withheld …`
-  - Financial Statements: `<tên pháp nhân> · năm kết thúc … · Total income … · Net profit / loss … · Net assets …`
+  - Financial Statements: `<tên pháp nhân> · năm kết thúc … · Total income … · Net profit / loss … · Net assets …` (P&L, Balance Sheet rời: kỳ in thay năm, chỉ phần có in)
 
 ## 6. Ví dụ
 
@@ -125,7 +130,7 @@ Dữ liệu giả. Hôm nay 11/10/2026. Người dùng nêu trong chat: Applican
 Kết luận: CẦN XỬ LÝ
 Kiểm tra tệp gốc: đạt (nguồn: phần mềm đã biết (phần mềm thuế/kế toán XReport, theo Producer)) · quy tắc: references/tax-financials.md
 Ghi vào Fact Find
-- Không có
+- Taxable income: 88,320 (2024–25)
 Cần thông báo
 - [TFN] Trang 1, 3, 4, 5, 6, 7, 8, 9 và các trang sau có in TFN → che TFN (redact) trước khi lưu hoặc chia sẻ.
 Chưa kiểm tra được
@@ -134,6 +139,5 @@ Ghi chú
 - Tên "TRAN, THI MAI" khớp Applicant Thi Mai Tran, khác thứ tự từ.
 - Đã đối chiếu: Total income − Total deductions = Taxable income; thuế − PAYG credits = Refund; thuế theo biểu thuế 2024–25 khớp $17,284.00; ngày declaration 14/08/2025 sau 30 June 2025.
 - Lô chưa có Notice of Assessment cùng năm để đối chiếu.
-- Taxable income 88,320, năm tài chính 2024–25.
 Dữ kiện để đối chiếu: Thi Mai Tran · năm 2024–25 · Total income 92,500 · Taxable income 88,320
 ```

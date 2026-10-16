@@ -71,12 +71,12 @@ Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ v�
 | Loại | Trường |
 |---|---|
 | A | (không có): "- Không có" |
-| B, C | `Lender` · `Account name` (mọi người đứng tên) · `Account number` (4 số cuối: "…7310 (số đầy đủ ở trang 1)") · `Interest rate` (số và nhãn; Comparison rate không phải Interest rate) · `Repayment` (số tiền, tần suất) · `Loan Expiry date` (Loan end / maturity / Final repayment date; chỉ in thời hạn còn lại thì chép nguyên văn, không tự tính) |
+| B, C | `Lender` · `Account name` (mọi người đứng tên) · `Account number` (khoản vay: đủ như in, số in đã che một phần thì chép đúng phần in; Credit card: dưới bảng) · `Interest rate` (số và nhãn; Comparison rate không phải Interest rate) · `Repayment` (số tiền, tần suất) · `Loan Expiry date` (Loan end / maturity / Final repayment date; chỉ in thời hạn còn lại thì chép nguyên văn, không tự tính) |
 | D | `Current balance` (kèm nhãn, ngày "as at") · `Repayments` (Compulsory / Voluntary repayment của năm tài chính gần nhất có in) |
 | E | `Account balance` · `Limit` ("Available to spend" không phải Limit) |
 
 - Trường không in trên tài liệu: "không có trên tài liệu".
-- **Credit card:** `Repayment` = "Minimum payment due" (kèm Due date); `Loan Expiry date` = "không áp dụng"; `Interest rate` = Purchase rate (dấu hiệu (8)); Credit limit ghi vào Ghi chú.
+- **Credit card:** `Account number` = số tài khoản nếu sao kê in riêng, khác số thẻ ("Account number", "Account No."), đủ như in; chỉ có số thẻ thì 4 số cuối kèm "(số thẻ)", ví dụ "…4821 (số thẻ)", không chép số thẻ đầy đủ dù sao kê in đủ. `Repayment` = "Minimum payment due" (kèm Due date); `Loan Expiry date` = "không áp dụng"; `Interest rate` = Purchase rate (dấu hiệu (8)); Credit limit ghi vào Ghi chú.
 - Khoản vay chia phần (split): bộ trường cho từng phần, mở đầu bằng 4 số cuối. Fixed rate expiry, Interest-only end date không phải `Loan Expiry date` (Ghi chú).
 
 ## 4. Cần thông báo
@@ -119,7 +119,7 @@ Chỉ chép giao dịch cần thông báo.
   - Đoạn liền mạch mới nhất "CHƯA ĐỦ N tháng" → `[Kỳ dưới 3 tháng]` / `[Kỳ dưới 6 tháng]`, nêu các đoạn và "Khoảng hở". Khoảng hở trước đoạn đã ĐỦ: chỉ ghi chú.
   - Sao kê liền kỳ: Closing kỳ trước = Opening kỳ sau, khớp đúng. Lệch → `[Lệch số liệu]` ở khối mới nhất, không DỪNG.
 - Sao kê `KHÔNG HỢP LỆ` không vào bộ; khối mới nhất ghi Ghi chú "<tệp> không tính vào bộ (KHÔNG HỢP LỆ)".
-- **Dữ kiện để đối chiếu.** A: …NNNN (tổ chức, loại) · người đứng tên · kỳ · Opening / Closing · lương, tiền thuê, Centrelink vào (người trả, số tiền, nhịp, ngày) · trả nợ định kỳ ra (tên, số tiền). B, C: lender · …NNNN · người đứng tên · Repayment · Closing balance và ngày · Credit limit. D: Current balance và ngày. E: nhà cung cấp · Account balance · Limit.
+- **Dữ kiện để đối chiếu.** A: …NNNN (tổ chức, loại) · người đứng tên · kỳ · Opening / Closing · lương, tiền thuê, Centrelink vào (người trả, số tiền, nhịp, ngày) · trả nợ định kỳ ra (tên, số tiền). B, C: lender · …NNNN (4 số cuối của Account number, kể cả khi nhãn là Contract / Loan / Card Number; Fact Find ghi đủ thì ở đây vẫn chỉ 4 số cuối) · người đứng tên · Repayment · Closing balance và ngày · Credit limit. D: Current balance và ngày. E: nhà cung cấp · Account balance · Limit.
 
 ## 6. Ví dụ
 
