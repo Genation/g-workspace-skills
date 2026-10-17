@@ -39,6 +39,7 @@
       "title": "Tiếp nhận thư khách hàng",
       "summary": "Tìm Deal trên Monday theo email người gửi, tìm hoặc tạo thư mục hồ sơ và lưu tệp đính kèm vào thư mục tạm.",
       "details": "Với thư bạn chỉ định, trợ lý tìm Deal trên Monday theo địa chỉ email người gửi, tìm thư mục hồ sơ đúng tên Deal (chưa có thì tạo mới kèm thư mục tmp/), rồi tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau. Mỗi lần tạo thư mục hay lưu tệp trợ lý đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư.",
+      "default": true,
       "icon": "inbox",
       "examples": [
         "Xử lý thư này và lưu tệp vào hồ sơ",
