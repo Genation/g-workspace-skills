@@ -79,7 +79,7 @@ Với từng tệp cần tải ở Bước 2.2, gọi `guroos_mail_save_attachme
 
 Dừng giữa chừng thì chỉ ghi dòng thư và `- Dừng ở Bước <n>: <lý do>`. Gom mọi điều cần hỏi người dùng vào một lần.
 
-Có tệp vừa lưu thì hỏi người dùng có kiểm tra luôn không. Việc kiểm tra thuộc skill `doc-check`, mà skill đó chỉ kiểm tra tệp đính kèm trong chat: liệt kê tên các tệp vừa lưu và nhờ người dùng đính kèm chúng từ `tmp/` vào ô chat của Guroos rồi nhờ kiểm tra. Không tự đọc hay kiểm tra các tệp này; để nguyên chúng trong `tmp/`.
+Có tệp vừa lưu thì không hỏi có kiểm tra luôn không. Việc kiểm tra thuộc skill `doc-check`: sau câu trả lời này ứng dụng Guroos tự đính kèm các tệp chưa kiểm tra vào cuộc trò chuyện và nhờ kiểm tra. Chỉ ghi thêm một dòng: "Guroos sẽ kiểm tra các tệp này ở bước tiếp theo; nếu bước đó không tự bắt đầu, hãy đính kèm các tệp từ `tmp/` vào ô chat và nhờ kiểm tra." Không tự đọc hay kiểm tra các tệp này; để nguyên chúng trong `tmp/`.
 
 ## Giới hạn và an toàn
 
