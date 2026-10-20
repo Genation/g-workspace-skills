@@ -37,8 +37,8 @@
     {
       "id": "mail-intake",
       "title": "Tiếp nhận thư khách hàng",
-      "summary": "Tìm Deal trên Monday theo email người gửi, tìm hoặc tạo thư mục hồ sơ và lưu tệp đính kèm vào thư mục tạm.",
-      "details": "Với thư bạn chỉ định, trợ lý tìm Deal trên Monday theo địa chỉ email người gửi, tìm thư mục hồ sơ đúng tên Deal (chưa có thì tạo mới kèm thư mục tmp/), rồi tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau. Mỗi lần tạo thư mục hay lưu tệp trợ lý đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư.",
+      "summary": "Tìm khách và deal theo email người gửi (trên CRM nếu tổ chức có, không thì trên Monday), lưu tệp đính kèm vào thư mục deal và ghi nhận lên deal.",
+      "details": "Với thư bạn chỉ định, trợ lý tìm khách và deal trên CRM của tổ chức theo địa chỉ email người gửi (tổ chức chưa bật CRM thì tìm Deal trên Monday), tìm thư mục deal (chưa có thì tạo mới kèm thư mục tmp/), tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau, rồi ghi nhận các tệp đó lên deal trên CRM. Chưa có khách hay deal thì trợ lý đề xuất tạo và chỉ tạo khi bạn đồng ý. Mỗi lần tạo thư mục, lưu tệp hay ghi lên CRM ứng dụng đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư.",
       "default": true,
       "icon": "inbox",
       "examples": [
