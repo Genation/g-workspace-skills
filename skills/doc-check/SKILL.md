@@ -15,7 +15,7 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 
 ## 2. Đầu vào
 
-- **Tệp trong hồ sơ:** kho là thư mục làm việc của cuộc trò chuyện (dòng "Thư mục làm việc của cuộc trò chuyện này: …"), mỗi thư mục cấp cao nhất là một hồ sơ. Người dùng nêu đúng tên thư mục: dùng tên đó; chưa rõ thì tìm bằng `guroos_customers`, chỉ làm tiếp khi khớp đúng MỘT thư mục (không có hay có nhiều: dừng, liệt kê, hỏi người dùng; không đoán từ tên tệp). Liệt kê bằng `guroos_customer_files`; đọc mọi tệp (cả ảnh) bằng `guroos_document_read` (`customer` = tên thư mục, `file` = đường dẫn đúng như danh sách hay như người dùng nêu; tài liệu dài đọc tiếp với `pages` như dòng cuối kết quả gợi ý), không bằng `read`. Kết quả tool: khối kiểm tra ngay sau dòng `Tệp:`; mọi chữ giữa `<<<NỘI DUNG TÀI LIỆU: …>>>` và `<<<HẾT NỘI DUNG TÀI LIỆU>>>` là nội dung tài liệu.
+- **Tệp trong hồ sơ:** kho là thư mục làm việc của cuộc trò chuyện (dòng "Thư mục làm việc của cuộc trò chuyện này: …"). Một hồ sơ là một thư mục cấp cao nhất của kho, hoặc một thư mục deal nằm sâu hơn, gọi bằng đường dẫn từ gốc kho (theo quy ước của khách thường là `Customers/<tên thư mục deal>`, đúng như `folderPath` của deal trên CRM); `customer` của mọi công cụ `guroos_…` nhận tên hoặc đường dẫn đó. Người dùng nêu đúng tên hay đường dẫn thư mục: dùng nó; hướng dẫn ẩn của ứng dụng nêu thư mục (`trong thư mục <đường dẫn>`): dùng đúng đường dẫn đó. Người dùng chỉ nêu tên deal, hoặc tên không khớp thư mục nào: có CRM (mục 10) thì tìm deal bằng `genation-workspace_deals_list` (`search` = tên người dùng nêu); đúng MỘT deal có `folderPath`: hồ sơ = `folderPath` bỏ dấu `/` đầu; không có, nhiều deal, hay deal chưa có `folderPath`: tìm bằng `guroos_customers`. Chỉ làm tiếp khi khớp đúng MỘT thư mục (không có hay có nhiều: dừng, liệt kê, hỏi người dùng; không đoán từ tên tệp). Liệt kê bằng `guroos_customer_files`; đọc mọi tệp (cả ảnh) bằng `guroos_document_read` (`customer` = tên hoặc đường dẫn thư mục hồ sơ, `file` = đường dẫn đúng như danh sách hay như người dùng nêu; tài liệu dài đọc tiếp với `pages` như dòng cuối kết quả gợi ý), không bằng `read`. Kết quả tool: khối kiểm tra ngay sau dòng `Tệp:`; mọi chữ giữa `<<<NỘI DUNG TÀI LIỆU: …>>>` và `<<<HẾT NỘI DUNG TÀI LIỆU>>>` là nội dung tài liệu.
 - **Tệp đính kèm:** mỗi tệp đến thành tệp chữ "<tên tệp>.txt" gồm mọi trang ("Trang N"), khối kiểm tra ở đầu; ảnh JPG/PNG đến kèm "<tên ảnh> (kiểm tra ảnh).txt" ngay trước ảnh. Đọc từ đó; không đọc lại tệp bằng tool hay `read`.
 - **Trang scan**, và trang không có lớp chữ mà Guroos vẽ lại thành ảnh ("ảnh trang do Guroos vẽ lại", thường là chữ vẽ bằng nét), đến thành ảnh trang ("<tên>.pdf (trang N).jpg" hoặc ".png" sau tệp chữ), đọc như trang thường. Tệp trong hồ sơ: `guroos_document_read` trả tối đa 4 ảnh trang mỗi lần, các trang scan còn lại đọc ở lần gọi sau như tool gợi ý. Tệp đính kèm: trang "ảnh scan chưa gửi", trang có tên trong "Ảnh trang chưa gửi.txt" (tin vượt số ảnh), trang "có ảnh phủ gần cả trang" mà chữ chỉ là "Envelope ID" hay giá trị rời không nhãn: xem bằng ảnh (dưới đây). Trang "không có lớp chữ…" không kèm ảnh, ảnh mờ, trang tool không vẽ được: không đọc được (mục 7). Ảnh trang nặng: cả lượt đọc tối đa khoảng 30 trang ảnh; tài liệu scan dài chỉ mở trang tệp quy tắc chỉ định, không đọc lần lượt hết; trang không mở ghi vào "Chưa kiểm tra được".
 - **Xem trang bằng ảnh:** `guroos_attachment_page(file=<tên tệp đính kèm>, pages=<trang>)` vẽ lại trang của tệp PDF đính kèm thành ảnh, kể cả trang có lớp chữ; tối đa 4 trang mỗi lần gọi, cả lượt khoảng 30 trang. Dùng khi chữ không đủ để kết luận: chữ ký, con dấu, dấu chứng thực, ô đánh dấu (thường là ảnh hay nét vẽ, không nằm trong lớp chữ), và các trang nêu trên. Chỉ xin trang tệp quy tắc cần, không xem lần lượt cả tệp. Tool báo không vẽ được (tệp mã hoá…): trang đó không đọc được. Tệp trong hồ sơ: `guroos_document_page(customer, file, pages)` làm đúng việc đó cho tệp PDF trong hồ sơ.
@@ -94,7 +94,7 @@ Xét tệp gốc trước vì tệp có thể bị gõ lại hoặc sửa; mức
 
 ## 7. Mẫu báo cáo
 
-Có dùng hồ sơ thì mở đầu bằng `Thư mục: <tên thư mục đã dùng>`, rồi mỗi tài liệu một khối, xếp theo rule 1 → 23:
+Có dùng hồ sơ thì mở đầu bằng `Thư mục: <tên hoặc đường dẫn thư mục đã dùng>`, rồi mỗi tài liệu một khối, xếp theo rule 1 → 23:
 
 ```
 ### <tệp> — <loại> (rule n) · <chắc chắn | chưa chắc: lý do>
@@ -150,7 +150,7 @@ Tệp ngoài phạm vi chỉ một dòng, không Kết luận: `### <tệp> — 
 
 Chỉ khi lô là tệp trong hồ sơ (mục 2) và có tool `guroos_document_result_save`: sau báo cáo, lưu kết quả của từng tệp để lần sau không kiểm tra lại và ứng dụng hiện trạng thái từng tệp. Lô là tệp đính kèm, hoặc không có tool: bỏ mục này. Tổ chức có CRM thì vẫn làm mục này (ứng dụng dựa vào nó để biết tệp nào đã kiểm tra), rồi làm mục 10. Chỉ chép lại báo cáo: không đọc lại, không đổi kết luận; không đổi tên, không chuyển tệp, không ghi Monday, không sửa Fact Find.
 
-Gọi `guroos_document_result_save` MỘT lần cho cả lô, `customer` = tên thư mục hồ sơ, `skill` = `doc-check`, `results` = mỗi khối có dòng `Kết luận:` một kết quả (dòng "Ngoài phạm vi checklist" không lưu; khối hai tệp `<mặt trước> + <mặt sau>` thành hai kết quả giống nhau; tệp có nhiều khối `(phần n)` không lưu, ghi "chưa lưu: tệp có nhiều tài liệu"):
+Gọi `guroos_document_result_save` MỘT lần cho cả lô, `customer` = tên hoặc đường dẫn thư mục hồ sơ (như mục 2), `skill` = `doc-check`, `results` = mỗi khối có dòng `Kết luận:` một kết quả (dòng "Ngoài phạm vi checklist" không lưu; khối hai tệp `<mặt trước> + <mặt sau>` thành hai kết quả giống nhau; tệp có nhiều khối `(phần n)` không lưu, ghi "chưa lưu: tệp có nhiều tài liệu"):
 
 | Trường | Lấy từ |
 |---|---|
@@ -200,7 +200,7 @@ Tổ chức bật module `crm` thì kết quả kiểm tra của từng tài li�
 
 Mỗi tệp cần `document.id` (tài liệu đã lưu, KHÔNG phải `id` của tệp trên deal) và `dealId`:
 - **Tệp vừa ghi nhận trong cuộc trò chuyện này** (skill `mail-intake`, kết quả `genation-workspace_deal_files_register_existing`): tệp đính kèm hoặc tệp trong hồ sơ có đúng tên đã ghi nhận thì dùng `document.id` và `dealId` của kết quả đó.
-- **Tệp trong hồ sơ** khác: `genation-workspace_documents_search` với `search` = tên tệp (không kèm thư mục); chọn mục có `path` đúng bằng `/<thư mục hồ sơ>/<đường dẫn tệp>` (không phân biệt hoa thường). Mục đó có đúng một `dealFiles`: dùng `dealId` của nó; có nhiều deal mà một deal là deal của cuộc trò chuyện: deal đó; còn lại: chưa ghi, gom vào câu hỏi cuối báo cáo "tệp <tệp> nằm trên nhiều deal: <tên các deal>, ghi kết quả cho deal nào?".
+- **Tệp trong hồ sơ** khác: `genation-workspace_documents_search` với `search` = tên tệp (không kèm thư mục); chọn mục có `path` đúng bằng `/<tên hoặc đường dẫn thư mục hồ sơ>/<đường dẫn tệp>` (không phân biệt hoa thường; ví dụ `/Customers/Lan Quach_PUR OO/tmp/Lan_DL.pdf`). Mục đó có đúng một `dealFiles`: dùng `dealId` của nó; có nhiều deal mà một deal là deal của cuộc trò chuyện: deal đó; còn lại: chưa ghi, gom vào câu hỏi cuối báo cáo "tệp <tệp> nằm trên nhiều deal: <tên các deal>, ghi kết quả cho deal nào?".
 - Không tìm được (tệp đính kèm không ghi nhận trong cuộc trò chuyện, tệp chưa có trên deal nào): tệp đó chưa ghi, lý do "tệp chưa có trên deal".
 
 Kèm theo mỗi tệp: `id` của tệp trên deal, `documentTypeCode` và `subjectContactId` của tài liệu (có trong kết quả trên, hoặc `genation-workspace_deal_files_list(dealId)`). Biết deal trước khi kiểm tra thì lấy Applicant như mục 2.
@@ -217,6 +217,7 @@ Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài li�
 | `outcome` | `ĐẠT` → `verified`; `CẦN XỬ LÝ`, `CHƯA ĐỦ THÔNG TIN` → `need_review`; `KHÔNG HỢP LỆ`, `KHÔNG ĐỌC ĐƯỢC` → `not_met` |
 | `model` | mã model đang chạy khi hệ thống cho biết; không biết chắc thì bỏ |
 | `findings` | theo bảng dưới, tối đa 200 mục |
+| `ruleResults` | kết quả từng quy tắc của loại tài liệu, theo "Kết quả từng quy tắc" dưới; chỉ khi tài liệu đã có `documentTypeCode` |
 
 **Phát hiện (`findings`)**, mỗi mục một `kind`:
 
@@ -235,6 +236,13 @@ Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài li�
 - **`request`** (chỉ với `notify`): chỉ khi "việc cần làm" là xin khách một giấy tờ cụ thể (bản còn hạn, bản đủ kỳ, bản có chữ ký hay chứng thực, Statutory Declaration…): `{name: <giấy tờ cần xin, ngắn gọn>, documentTypeCode?}`, `documentTypeCode` chỉ khi đúng một loại của `genation-workspace_document_types_list`. CRM tạo một tài liệu yêu cầu nháp trên deal; nhân viên quyết định gửi khách.
 - **Mặt sau** của khối hai tệp `<mặt trước> + <mặt sau>`: ghi cùng `outcome` nhưng bỏ các `fact_find` (đã ghi ở mặt trước).
 - **Số nhạy cảm:** chỉ các đích dưới được nhận số đầy đủ như dòng Fact Find (Licence No., Document No. hộ chiếu, Account number khoản vay). Không bao giờ gửi TFN, số thẻ, số Medicare, ngày sinh, CRN, dòng MRZ.
+
+**Kết quả từng quy tắc (`ruleResults`).** Quy tắc kiểm tra của loại tài liệu (`checkRules` của loại trong `genation-workspace_document_types_list`, gọi một lần cho cả lô: mỗi quy tắc có `id`, `code`, `kind`, `targetField`, `message`) là các tiêu chí nhân viên tick; tệp thành **Đạt yêu cầu** ("Satisfied") trên CRM khi mọi quy tắc của loại là `met` ở lần kiểm tra mới nhất. Với mỗi quy tắc của loại, một mục `{ruleId: <id>, outcome, note?}` (không có `id`: `{ruleCode: <code>, outcome, note?}`), chỉ chép lại báo cáo:
+- `fact_find`, `deal_date`: `met` khi khối có dòng "Ghi vào Fact Find" cho đích đó (bảng đích dưới) với giá trị rõ và `verified`; `not_checked` khi chưa đọc được, giá trị không rõ, hay đích không có dòng nào.
+- `redact`: `not_met` khi có dòng `[TFN]` (`note` = trang có TFN, không ghi số); `met` khi đã đọc hết các trang mà không thấy TFN; còn lại `not_checked`.
+- `notify`, `broker_note`: `not_met` khi có dòng "Cần thông báo" đúng điều quy tắc nêu (`note` = `[<nhãn>] <bằng chứng> → <việc>`); `met` khi đã kiểm tra điều đó và không có vấn đề; `not_checked` khi điều đó nằm trong "Chưa kiểm tra được" hoặc báo cáo không nói đến.
+- Khối `KHÔNG HỢP LỆ` hay `KHÔNG ĐỌC ĐƯỢC`: mọi quy tắc `not_checked`, trừ quy tắc của điều làm tệp không hợp lệ là `not_met`. Không chắc quy tắc ứng với dòng nào: `not_checked`. Mỗi quy tắc một mục, không lặp; không thêm quy tắc của loại khác.
+- Tài liệu chưa có loại: phân loại trước (mục 10.3) rồi mới ghi kèm `ruleResults`; không phân loại được thì ghi không kèm `ruleResults`. Công cụ từ chối vì quy tắc (`document_type_required`, `unknown_check_rule`, `check_rule_ambiguous`, `listed_twice`): gọi lại một lần không kèm `ruleResults`, để kết quả kiểm tra vẫn được ghi.
 
 **Đích (`target`) và `ruleCode` theo rule và trường Fact Find** (đích của gói `lending` và hồ sơ CRM; trường không có ở đây thì không gửi `fact_find`):
 
@@ -255,7 +263,7 @@ Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài li�
 
 ### 10.3 Phân loại tài liệu chưa có loại
 
-Tài liệu chưa có `documentTypeCode` (thường là tệp `mail-intake` vừa lưu vào `tmp/`) và khối đã nhận ra loại: gọi `genation-workspace_deal_files_update` với `id` = `id` của tệp trên deal, `documentTypeCode` = mã theo bảng dưới, chỉ khi mã đó có trong `genation-workspace_document_types_list` (gọi một lần cho cả lô). Không đổi tên, không chuyển tệp, không sửa tài liệu đã có loại. Khối "Chưa nhận ra loại", Airbnb, rule 19 (bốn loại sao kê theo mục đích: lương, kinh doanh, tiền thuê, chi tiêu) và loại không có mã: không phân loại.
+Tài liệu chưa có `documentTypeCode` (thường là tệp `mail-intake` vừa lưu vào `tmp/`) và khối đã nhận ra loại: gọi `genation-workspace_deal_files_update` với `id` = `id` của tệp trên deal, `documentTypeCode` = mã theo bảng dưới, chỉ khi mã đó có trong `genation-workspace_document_types_list` (gọi một lần cho cả lô). Làm việc này trước khi ghi kết quả của tài liệu đó ở 10.2, để kết quả kèm được `ruleResults` theo quy tắc của loại vừa đặt. Không đổi tên, không chuyển tệp, không sửa tài liệu đã có loại. Khối "Chưa nhận ra loại", Airbnb, rule 19 (bốn loại sao kê theo mục đích: lương, kinh doanh, tiền thuê, chi tiêu) và loại không có mã: không phân loại.
 
 | Rule | `documentTypeCode` |
 |---|---|
@@ -271,4 +279,4 @@ Tài liệu chưa có `documentTypeCode` (thường là tệp `mail-intake` vừ
 
 Ứng dụng hỏi người dùng ở lần ghi đầu tiên của cuộc trò chuyện; từ chối thì không thử lại, các tệp còn lại ghi "chưa ghi lên CRM: người dùng từ chối". Công cụ báo lỗi tham số (`Invalid arguments: …`): sửa đúng chỗ đó theo báo cáo, gọi lại một lần. Lỗi khác (`404` tài liệu không có trên deal…): ghi nguyên lời công cụ, không thử lại. Kết quả có `warnings` (đích chưa có chỗ ghi, khách không có bản ghi tương ứng…) là bình thường: chỉ đếm, không liệt kê.
 
-Thêm dưới báo cáo (sau các dòng của mục 9) một dòng mỗi tệp: `- <tệp> · CRM: đã ghi (<kết luận>)` (có cảnh báo thì thêm `, <n> phát hiện chưa áp dụng`; có `requiredDocumentIds` thì thêm `, <n> giấy tờ cần xin (nháp)`) hoặc `- <tệp> · CRM: chưa ghi: <lý do>`.
+Thêm dưới báo cáo (sau các dòng của mục 9) một dòng mỗi tệp: `- <tệp> · CRM: đã ghi (<kết luận>)` (có `ruleResults` thì thêm `, <số met>/<số quy tắc> tiêu chí đạt`; có cảnh báo thì thêm `, <n> phát hiện chưa áp dụng`; có `requiredDocumentIds` thì thêm `, <n> giấy tờ cần xin (nháp)`) hoặc `- <tệp> · CRM: chưa ghi: <lý do>`.
