@@ -50,7 +50,7 @@
       "id": "doc-check",
       "title": "Kiểm tra giấy tờ hồ sơ vay",
       "summary": "Kiểm tra từng giấy tờ của khách theo checklist 23 mục, đối chiếu chéo rồi báo việc cần làm.",
-      "details": "Trợ lý kiểm tra tệp gốc trước (có phải bản phát hành thật, có bị sửa, có phải ảnh chụp hay bản scan), rồi nhận loại giấy tờ và đọc theo đúng quy tắc của loại đó: tùy thân, nhà đất, phiếu lương, thuế, thuê nhà, trợ cấp, sao kê và khoản vay. Giấy tờ đạt được đối chiếu chéo với nhau (tên, địa chỉ, kỳ, số liệu). Báo cáo ghi kết luận cho từng giấy tờ, thông tin ghi vào Fact Find và việc cần báo khách. Trợ lý không chép TFN, số Medicare hay số tài khoản đầy đủ, và không tự sửa hay di chuyển tệp.",
+      "details": "Trợ lý kiểm tra tệp gốc trước (có phải bản phát hành thật, có bị sửa, có phải ảnh chụp hay bản scan), rồi nhận loại giấy tờ và đọc theo đúng quy tắc của loại đó: tùy thân, nhà đất, phiếu lương, thuế, thuê nhà, trợ cấp, sao kê và khoản vay. Giấy tờ đạt được đối chiếu chéo với nhau (tên, địa chỉ, kỳ, số liệu). Báo cáo ghi kết luận cho từng giấy tờ, thông tin ghi vào Fact Find và việc cần báo khách. Khi tổ chức có CRM và giấy tờ đã nằm trên một deal, kết quả còn được ghi lên deal: thông tin Fact Find thành giá trị đề xuất để nhân viên duyệt, việc cần báo hiện cho nhân viên. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự sửa hay di chuyển tệp.",
       "icon": "clipboard-check",
       "examples": [
         "Kiểm tra giấy tờ trong thư mục của khách Nguyễn Văn A",
