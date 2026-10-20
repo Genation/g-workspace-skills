@@ -10,7 +10,7 @@
 
 Ngoài phạm vi: bản in kết quả ABN Lookup (kể cả "The Trustee for …"), Certificate of Registration, kết quả tìm tên trên ASIC Connect, ứng dụng chỉ hiện điểm tín dụng.
 
-Đọc theo thứ tự:
+Đọc theo thứ tự (tệp trong hồ sơ: `guroos_document_read(customer, file, pages)`):
 - **Trust Deed**: trang 1–2 (tên trust, ngày, các bên) → Schedule (thường ở cuối) → trang ký → dòng chứng thực (đầu, cuối hoặc mọi trang). Schedule không nêu beneficiary thì đọc Definitions.
 - **Company Extract**: đọc hết.
 - **Equifax**: trang 1 (ngày lập, tóm tắt) → Credit Enquiries → Accounts / Repayment History → Defaults, Court, Insolvency → Directorships.
@@ -97,7 +97,7 @@ Trả chậm = mã 1–6 hoặc X trong Repayment History, hoặc "Worst repayme
 | Extract: Status khác "Registered" | Trạng thái công ty | status nguyên văn | báo nhân viên xem xét |
 | Extract: ABN Lookup, trạng thái ABN của công ty là Cancelled | ABN đã huỷ | ABN, ngày huỷ theo tool | báo nhân viên xem xét |
 | Extract: ABN Lookup, "Đối chiếu tên" là KHÁC | Sai tên doanh nghiệp | tên trên extract và tên ABR nguyên văn | báo nhân viên xem xét |
-| Tên trust hay công ty khác entity người dùng nêu trong chat | Sai tên | hai tên | báo nhân viên xem xét |
+| Tên trust hay công ty khác entity hồ sơ (SKILL.md mục 2: `guroos_case_profile` hay người dùng nêu trong chat) | Sai tên | hai tên | báo nhân viên xem xét |
 | Equifax: có Current Directorship | Directorship | tên công ty | xin khách Accountant Letter nếu không dùng thu nhập từ công ty đó để tính khả năng trả nợ (servicing) |
 | Equifax: có Default, tháng trả chậm, Court Judgement, Personal Insolvency hoặc Serious Credit Infringement | Tín dụng xấu | tổ chức, loại, tháng, mã | báo nhân viên xem xét |
 | Lệch theo 2C | Lệch số liệu | phép so, số in, số chênh, trang | báo nhân viên xem xét |

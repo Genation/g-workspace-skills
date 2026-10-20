@@ -60,17 +60,6 @@
       "default": true
     },
     {
-      "id": "doc-filing",
-      "title": "Lưu kết quả kiểm tra vào hồ sơ",
-      "summary": "Lưu kết luận kiểm tra của từng giấy tờ vào hồ sơ của khách, để không phải kiểm tra lại và xem được trạng thái từng tệp.",
-      "details": "Sau khi trợ lý kiểm tra giấy tờ, kết luận của từng tệp (loại giấy tờ, thông tin ghi vào Fact Find, việc cần báo khách) được lưu cạnh thư mục hồ sơ. Tab Tài liệu hiện trạng thái Đạt, Cần xem lại hoặc Không đạt cho từng tệp, và lần sau trợ lý không kiểm tra lại tệp đã có kết quả. Trợ lý hỏi bạn trước khi lưu; trợ lý không lưu TFN hay số giấy tờ đầy đủ, không đổi tên hay chuyển tệp.",
-      "icon": "folder-check",
-      "examples": [
-        "Lưu kết quả kiểm tra vừa rồi vào hồ sơ"
-      ],
-      "default": true
-    },
-    {
       "id": "doc-check-identity",
       "title": "Kiểm tra giấy tờ tùy thân",
       "summary": "Nhận diện bằng lái, hộ chiếu, Medicare, visa và báo điểm cần xử lý.",

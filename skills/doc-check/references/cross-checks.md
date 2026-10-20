@@ -46,7 +46,7 @@ Một dòng Ghi chú ở khối A; nhãn sẵn có giữ nguyên.
 
 | A ↔ B | So gì → Ghi chú nêu |
 |---|---|
-| Equifax (11) có Current Directorship ↔ Company Extract (10), entity người dùng nêu trong chat | tên công ty → trùng entity hồ sơ hay có extract trong lô không |
+| Equifax (11) có Current Directorship ↔ Company Extract (10), entity hồ sơ (SKILL.md mục 2: `guroos_case_profile` hay người dùng nêu trong chat) | tên công ty → trùng entity hồ sơ hay có extract trong lô không |
 | Equifax (11) ↔ sao kê khoản nợ (20–23) | Credit Enquiry trong `guroos_date_check(window_months=6, reference_date=<ngày lập báo cáo>)` → enquiry chưa có sao kê khoản nợ cùng lender, cùng loại |
 | Trust Deed (9), Trustee là công ty ↔ Company Extract (10) | tên Trustee ↔ tên công ty → có extract của trustee (nêu tệp) hay chưa |
 | Bank Statement (19) có trả nợ định kỳ ↔ sao kê khoản nợ (20–21) cùng lender | số tiền ra ↔ `Repayment` (khác tần suất: không quy đổi) → khớp hay lệch, kèm hai số; hoặc khoản trả nợ chưa có sao kê |
@@ -66,7 +66,7 @@ Một dòng Ghi chú ở khối A; nhãn sẵn có giữ nguyên.
 - Tax Return hoặc Financial Statements pháp nhân thiếu tài liệu còn lại cùng năm → Chưa kiểm tra được "đối chiếu Tax Return với Financial Statements: thiếu <tài liệu>".
 - Individual Tax Return không có NOA cùng năm, hoặc ngược lại → Ghi chú "lô chưa có <loại> cùng năm để đối chiếu".
 
-Người dùng đã cho số trong chat: so với số đó, bằng chứng ghi "theo người dùng, không có tài liệu". Không tự tìm hay mở tệp ngoài lô; cần B thì ghi ở dòng "Chưa kiểm tra được", xin đính kèm ở cuối báo cáo.
+Người dùng đã cho số trong chat: so với số đó, bằng chứng ghi "theo người dùng, không có tài liệu". Không tự mở tệp ngoài lô; tệp trong `guroos_customer_files` có thể là B: nêu tên ở dòng "Chưa kiểm tra được", hỏi ở cuối báo cáo (lô đính kèm: xin đính kèm B).
 
 ## Ví dụ
 

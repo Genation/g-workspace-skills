@@ -2,7 +2,7 @@
 
 ## Phạm vi
 
-| Loại | Rule | Đọc trước |
+| Loại | Rule | Đọc trước (tệp trong hồ sơ: `guroos_document_read` với `pages`) |
 |---|---|---|
 | Rental Statement: Owner / Ownership / Rental Statement, EOFY statement của agency | 14 | Trang 1 (đầu trang, kỳ, bảng tổng). Trang chi tiết chỉ khi cần cho 2C. |
 | Rental Agreement: Residential Tenancy / Rental Agreement, Lease | 15 | Trang 1–3 (các bên, địa chỉ, thời hạn, tiền thuê), rồi 1–2 trang cuối (chữ ký). Chưa thấy tiền thuê hay các bên thì đọc phần Schedule / Item. |
@@ -11,7 +11,7 @@
 
 Stayz, Booking.com: xử lý như Airbnb, ghi "chưa chắc: nền tảng <tên>".
 
-**Trang scan** đến dạng ảnh trang (SKILL.md): đọc các bên, tiền thuê, chữ ký trên ảnh như trang thường. Trang ký có lớp chữ, hay trang "ảnh scan chưa gửi": xem bằng `guroos_attachment_page` (SKILL.md mục 2). Trang vẫn không có ảnh đọc được ("không có lớp chữ; <lý do>", tool không vẽ được): các trang đó vào "Chưa kiểm tra được", không kết luận dòng ký để trống.
+**Trang scan** đến dạng ảnh trang (SKILL.md): đọc các bên, tiền thuê, chữ ký trên ảnh như trang thường. Trang ký có lớp chữ, hay trang "ảnh scan chưa gửi": xem bằng `guroos_attachment_page` (tệp đính kèm) hay đọc tiếp bằng `guroos_document_read` với `pages` (tệp trong hồ sơ; SKILL.md mục 2). Trang vẫn không có ảnh đọc được ("không có lớp chữ; <lý do>", tool không vẽ được): các trang đó vào "Chưa kiểm tra được", không kết luận dòng ký để trống.
 
 Ngoài phạm vi: Tenant ledger (lịch sử trả tiền của người thuê, không có phí và số trả owner); Management Agreement / Agency Authority (không có Tenant); Rental application; Bond lodgement form; Sales appraisal, CMA (giá bán); ước tính trên website không có đầu trang agency; biên nhận đặt phòng mà Applicant là khách.
 

@@ -95,7 +95,7 @@ Số, ngày đọc từ ảnh (tệp ảnh, ảnh trang) hay lớp chữ OCR c�
 | Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
 |---|---|---|---|
 | Có in TFN: trang ở dòng "Mã số" của khối, trang có `[đã che TFN]` hoặc TFN thấy trên ảnh. Chú thích chỉ che số TFN không xóa số khỏi tệp, nên vẫn ghi | TFN | chỉ số trang; khối liệt kê "…" thì viết "trang 1, 3, … và các trang sau" | che TFN (redact) trước khi lưu hoặc chia sẻ |
-| Tên người nộp thuế khác Applicant; tài liệu của pháp nhân: tên pháp lý khác pháp nhân người dùng nêu trong chat | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
+| Tên người nộp thuế khác Applicant; tài liệu của pháp nhân: tên pháp lý khác pháp nhân của hồ sơ (SKILL.md mục 2) | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
 | Profit and Loss có Net profit âm | Loss | dòng lãi/lỗ nguyên văn và năm | báo nhân viên xem xét |
 | Bước 6 lệch quá $1: Tax Return pháp nhân với Financial Statements; Tax Return cá nhân với NOA | Lệch số liệu | theo `cross-checks.md` | báo nhân viên xem xét |
 | Có điểm BÁO ở Bước 0 (mục 2) | Tệp gốc | nguồn, hoặc nhãn và trang như khối | xác minh với nơi phát hành hoặc xin bản PDF gốc |
