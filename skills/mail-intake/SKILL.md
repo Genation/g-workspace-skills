@@ -77,15 +77,15 @@ Người dùng không đồng ý: **Dừng** - "không lưu: chưa có deal". C�
 
 ### Bước C4 - Thư mục deal
 
-Kho (thư mục làm việc của cuộc trò chuyện) là bản đồng bộ trên máy của thư mục gốc OneDrive của tổ chức. Thư mục deal nằm ở bất kỳ đâu dưới kho, theo quy ước đặt tên của khách thường là `Customers/<tên thư mục deal>`. Các công cụ `guroos_…` nhận thư mục deal bằng **đường dẫn từ gốc kho** trong `customer` (ví dụ `Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`), không chỉ bằng tên thư mục cấp cao nhất. Xác định đường dẫn đó theo thứ tự, dừng ở cách đầu tiên cho ra kết quả:
+Kho (thư mục làm việc của cuộc trò chuyện) là bản đồng bộ trên máy của thư mục gốc OneDrive của tổ chức. Thư mục deal nằm ở bất kỳ đâu dưới kho, theo quy ước đặt tên của khách thường là `Customers/<tên thư mục deal>`. Các công cụ `guroos_…` nhận thư mục deal bằng **đường dẫn từ gốc kho** trong `customer` (ví dụ `Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`), không chỉ bằng tên thư mục cấp cao nhất. Xác định đường dẫn đó như sau:
 
-1. Gọi `genation-workspace_deals_get` với `id` của deal. `deal.folderPath` có giá trị (ví dụ `/Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`): đường dẫn thư mục deal = `folderPath` bỏ dấu `/` ở đầu. Đây là thư mục CRM đã gắn với deal; luôn dùng nó, kể cả khi có thư mục khác tên gần giống.
-2. `folderPath` trống: gọi `genation-workspace_deal_files_list` với `dealId`. Mỗi tệp có `document.path`, đường dẫn tính từ thư mục gốc, ví dụ `/Customers/Lan Quach_PUR OO/3. ID/Lan Quach_DL.pdf`.
-   - Có tệp: thư mục deal là phần đường dẫn trước thư mục con (`0. Compliance` … `6. Approval & Settlement`, `Archive`, `tmp`), hoặc trước tên tệp khi tệp nằm ngay trong thư mục deal; bỏ dấu `/` ở đầu. Thư mục deal ở mức nào dưới kho cũng được. Các tệp cho ra hai thư mục deal khác nhau: **Dừng** - liệt kê và hỏi người dùng dùng thư mục nào.
-3. Chưa có tệp nào: đặt theo cách CRM sẽ đặt khi tải tệp đầu tiên lên deal.
-   - Có công cụ `genation-workspace_deal_summaries_list`: gọi với `dealIds` = [`id` của deal]. Mục của deal có cả `loanPurpose` và `ownershipType`: đường dẫn = `Customers/<title của deal>`. Thiếu một trong hai, hoặc không có công cụ đó: đường dẫn = `<title của deal>` (ngay dưới gốc kho).
-   - Tìm bằng `guroos_customers` với đường dẫn đó (đường dẫn phải khớp đúng); với `<title>` ngay dưới gốc kho thì tìm và chọn thư mục như Bước M2 mục 1–2.
-4. Gọi `guroos_customer_create` MỘT lần với `customer` = đường dẫn thư mục deal ở trên và `new_folder` = `true` (tạo thư mục còn thiếu, kể cả `Customers/`, bổ sung `tmp/` và thư mục con chuẩn; thư mục, tệp đã có giữ nguyên). Người dùng từ chối quyền: **Dừng** - "chưa tạo thư mục: người dùng từ chối". Công cụ báo đường dẫn không dùng được hoặc nằm ngoài kho: **Dừng** - nêu nguyên lời công cụ.
+1. Gọi `genation-workspace_deals_get` với `id` của deal. Thư mục deal = `deal.folderPath ?? deal.plannedFolderPath`, bỏ dấu `/` ở đầu (ví dụ `/Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC` → `Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`).
+   - `folderPath` là thư mục CRM đã gắn với deal; luôn dùng nó, kể cả khi có thư mục khác tên gần giống.
+   - Chưa có `folderPath` thì `plannedFolderPath` là thư mục CRM sẽ dùng cho deal (theo quy ước đặt tên của tổ chức); lần ghi nhận tệp đầu tiên ở Bước C6 (kể cả tệp trong `tmp/`) gắn thư mục đó với deal. Không tự đặt hay đoán tên thư mục khác.
+2. Cả hai đều trống (CRM không còn tên thư mục nào dùng được, hoặc CRM cũ): gọi `genation-workspace_deal_files_list` với `dealId`. Mỗi tệp có `document.path`, đường dẫn tính từ thư mục gốc, ví dụ `/Customers/Lan Quach_PUR OO/3. ID/Lan Quach_DL.pdf`.
+   - Có tệp: thư mục deal là phần đường dẫn trước thư mục con (`0. Compliance` … `6. Approval & Settlement`, `Archive`, `tmp`), hoặc trước tên tệp khi tệp nằm ngay trong thư mục deal; bỏ dấu `/` ở đầu. Các tệp cho ra hai thư mục deal khác nhau: **Dừng** - liệt kê và hỏi người dùng dùng thư mục nào.
+   - Chưa có tệp nào: **Dừng** - "CRM chưa cho biết thư mục của deal `<title>`": hỏi người dùng thư mục deal nằm ở đâu trong kho.
+3. Gọi `guroos_customer_create` MỘT lần với `customer` = đường dẫn thư mục deal ở trên và `new_folder` = `true` (tạo thư mục còn thiếu, kể cả `Customers/`, bổ sung `tmp/` và thư mục con chuẩn; thư mục, tệp đã có giữ nguyên). Người dùng từ chối quyền: **Dừng** - "chưa tạo thư mục: người dùng từ chối". Công cụ báo đường dẫn không dùng được hoặc nằm ngoài kho: **Dừng** - nêu nguyên lời công cụ.
 
 **Đầu ra:** đường dẫn thư mục deal (từ gốc kho), vừa tạo hay đã có, các thư mục con vừa bổ sung.
 
@@ -109,6 +109,7 @@ Kho (thư mục làm việc của cuộc trò chuyện) là bản đồng bộ t
    Không truyền `name`, `labels`, `requiredDocumentId`, `replacesDealFileId`.
 3. Kết quả ghi nhận:
    - Thành công: tệp đã lên deal. Ghi nhớ trong cuộc trò chuyện `id` của tệp trên deal và `document.id` (skill `doc-check` dùng để ghi kết quả kiểm tra); không đọc các id này cho người dùng.
+   - Thành công trên deal chưa có thư mục: CRM gắn thư mục deal (`plannedFolderPath`) với deal từ tệp đó, kể cả tệp trong `tmp/`.
    - `404` (tệp chưa đồng bộ lên OneDrive, hoặc kho không phải thư mục gốc của tổ chức): ghi nhận lại một lần sau khi đã thử các tệp khác; vẫn lỗi thì ghi "đã lưu, chưa ghi nhận lên deal: OneDrive chưa đồng bộ xong hoặc kho không phải thư mục của tổ chức".
    - `409` (tài liệu đã có trên deal): ghi "đã có trên deal".
    - `503` (Microsoft 365 của tổ chức chưa kết nối hay đang lỗi): không ghi nhận các tệp còn lại; ghi một lần lý do công cụ nêu.
