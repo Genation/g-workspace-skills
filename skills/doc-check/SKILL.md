@@ -197,6 +197,10 @@ Tổ chức bật module `crm` thì kết quả kiểm tra của từng tài li�
 
 **Có CRM không:** có công cụ `genation-workspace_modules_list` thì gọi một lần; có mục `key` = `crm` là có CRM. Không có công cụ đó, hoặc không có `genation-workspace_document_checks_record` (công cụ chỉ có khi module bật): không có CRM, bỏ mục này. Công cụ báo `module_not_enabled`: bỏ mục này.
 
+**Loại giấy tờ và quy tắc.** `genation-workspace_document_types_list` được gọi theo hai cách:
+- **Danh sách gọn.** Gọi không lọc MỘT lần cho cả lô, khi cần lần đầu. Mỗi loại có `code`, `label`, `categoryFolder`, `fileNamePattern` và `checkRuleCount` (số quy tắc), KHÔNG có quy tắc. Danh sách này dùng để phân loại (10.3), chọn `documentTypeCode` của `request` (10.2) và đọc `fileNamePattern` (12.1). Loại không có `checkRules` ở đây không có nghĩa là loại không có quy tắc.
+- **Quy tắc kiểm tra.** Sau khi 10.3 đã đặt loại cho các tài liệu của lô, gọi lại MỘT lần với `codes` = danh sách các mã loại khác nhau của lô (mã đã có trên tài liệu và mã vừa đặt). Mỗi loại trả về có `checkRules`. Một loại được đặt sau lần gọi đó: gọi thêm một lần, chỉ với các mã còn thiếu. Lô không có tài liệu nào có loại: không gọi. Không gửi `includeRules: true` khi không có `codes` (kết quả rất lớn).
+
 ### 10.1 Tìm tài liệu trên deal
 
 Làm trước khi kiểm tra. Mỗi tệp cần `document.id` (tài liệu đã lưu, KHÔNG phải `id` của tệp trên deal), `dealId` và `id` của tệp trên deal:
@@ -239,11 +243,11 @@ Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài li�
 - **`fact_find` / `deal_date`:** `message` = nguyên văn dòng báo cáo (`<Trường>: <giá trị>`, cả kỳ, nhãn, kết quả tra ABN). `value` = chỉ giá trị, theo dạng của trường: ngày `YYYY-MM-DD` (từ DD/MM/YYYY); tiền là số thập phân không `$`, không dấu phẩy (`"1250.00"`); lãi suất là số phần trăm (`"6.14"`); ABN là 11 chữ số liền; chữ thì như in. Không gửi khi giá trị không phải một giá trị rõ: "không có trên tài liệu", "không áp dụng", "Chưa kiểm tra được", chỉ có tháng/năm, số đã che (`…4821`), nhiều giá trị (khoản vay chia phần, nhiều trợ cấp), hay `KHÔNG HỢP LỆ` / `KHÔNG ĐỌC ĐƯỢC`. `asset.rental_income` là tiền thuê mỗi tháng: chỉ gửi khi tài liệu in theo tháng (per month, calendar month), không tự quy đổi kỳ.
 - **`contactId`:** khách trên deal mà báo cáo nói tài liệu thuộc về (tên KHỚP với `contacts` của `deals_get`); `company.*`: khách là pháp nhân trên deal. Không xác định được: bỏ (CRM dùng khách của tài liệu). Không truyền `entityId`.
 - **`location`:** trang nếu báo cáo nêu (`trang 2`); không thì bỏ.
-- **`request`** (chỉ với `notify`): chỉ khi "việc cần làm" là xin khách một giấy tờ cụ thể (bản còn hạn, bản đủ kỳ, bản có chữ ký hay chứng thực, Statutory Declaration…): `{name: <giấy tờ cần xin, ngắn gọn>, documentTypeCode?}`, `documentTypeCode` chỉ khi đúng một loại của `genation-workspace_document_types_list`. CRM tạo một tài liệu yêu cầu nháp trên deal; nhân viên quyết định gửi khách.
+- **`request`** (chỉ với `notify`): chỉ khi "việc cần làm" là xin khách một giấy tờ cụ thể (bản còn hạn, bản đủ kỳ, bản có chữ ký hay chứng thực, Statutory Declaration…): `{name: <giấy tờ cần xin, ngắn gọn>, documentTypeCode?}`, `documentTypeCode` chỉ khi đúng một loại trong danh sách gọn của `genation-workspace_document_types_list`. CRM tạo một tài liệu yêu cầu nháp trên deal; nhân viên quyết định gửi khách.
 - **Mặt sau** của khối hai tệp `<mặt trước> + <mặt sau>`: ghi cùng `outcome` nhưng bỏ các `fact_find` (đã ghi ở mặt trước).
 - **Số nhạy cảm:** chỉ các đích dưới được nhận số đầy đủ như dòng Fact Find (Licence No., Document No. hộ chiếu, Account number khoản vay). Không bao giờ gửi TFN, số thẻ, số Medicare, ngày sinh, CRN, dòng MRZ.
 
-**Kết quả từng quy tắc (`ruleResults`).** Quy tắc kiểm tra của loại tài liệu (`checkRules` của loại trong `genation-workspace_document_types_list`, gọi một lần cho cả lô: mỗi quy tắc có `id`, `code`, `kind`, `targetField`, `message`) là các tiêu chí nhân viên tick; tệp thành **Đạt yêu cầu** ("Satisfied") trên CRM khi mọi quy tắc của loại là `met` ở lần kiểm tra mới nhất. Với mỗi quy tắc của loại, một mục `{ruleId: <id>, outcome, note?}` (không có `id`: `{ruleCode: <code>, outcome, note?}`), chỉ chép lại báo cáo:
+**Kết quả từng quy tắc (`ruleResults`).** Quy tắc kiểm tra của loại tài liệu là `checkRules` của loại, đọc bằng lần gọi `genation-workspace_document_types_list` với `codes` ("Loại giấy tờ và quy tắc", đầu mục 10). Mỗi quy tắc có `id`, `code`, `kind`, `targetField`, `message`. Đây là các tiêu chí nhân viên tick; tệp thành **Đạt yêu cầu** ("Satisfied") trên CRM khi mọi quy tắc của loại là `met` ở lần kiểm tra mới nhất. Với mỗi quy tắc của loại, một mục `{ruleId: <id>, outcome, note?}` (không có `id`: `{ruleCode: <code>, outcome, note?}`), chỉ chép lại báo cáo:
 - `fact_find`, `deal_date`: `met` khi khối có dòng "Ghi vào Fact Find" cho đích đó (bảng đích dưới) với giá trị rõ và `verified`; `not_checked` khi chưa đọc được, giá trị không rõ, hay đích không có dòng nào.
 - `redact`: `not_met` khi có dòng `[TFN]` (`note` = trang có TFN, không ghi số); `met` khi đã đọc hết các trang mà không thấy TFN; còn lại `not_checked`.
 - `notify`, `broker_note`: `not_met` khi có dòng "Cần thông báo" đúng điều quy tắc nêu (`note` = `[<nhãn>] <bằng chứng> → <việc>`); `met` khi đã kiểm tra điều đó và không có vấn đề; `not_checked` khi điều đó nằm trong "Chưa kiểm tra được" hoặc báo cáo không nói đến.
@@ -270,7 +274,7 @@ Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài li�
 ### 10.3 Phân loại tài liệu và khách của tài liệu
 
 Mỗi tài liệu có dòng `Kết luận:` mà khối đã nhận ra loại, trước khi ghi kết quả của nó ở 10.2 (để kết quả kèm được `ruleResults` theo quy tắc của loại vừa đặt): MỘT lần `genation-workspace_deal_files_update` với `id` = `id` của tệp trên deal và chỉ các trường cần đổi (không có trường nào thì không gọi):
-- `documentTypeCode`: chỉ khi tài liệu chưa có loại; mã theo bảng dưới, chỉ khi mã đó có trong `genation-workspace_document_types_list` (gọi một lần cho cả lô). Không sửa loại đã có.
+- `documentTypeCode`: chỉ khi tài liệu chưa có loại; mã theo bảng dưới, chỉ khi mã đó có trong danh sách gọn của `genation-workspace_document_types_list` ("Loại giấy tờ và quy tắc", đầu mục 10). Không sửa loại đã có.
 - `subjectContactId`: khách của deal mà tài liệu thuộc về, trong `contacts` của `deals_get`: khách có tên KHỚP; không có thì khách duy nhất cùng họ và cùng tên hay preferred name (thiếu hoặc viết tắt tên đệm vẫn tính; dòng `[Sai tên]` của báo cáo giữ nguyên); pháp nhân: khách là pháp nhân đó. Đặt khi tài liệu chưa có khách, hoặc khi khách đang gắn không phải người đó (ví dụ `mail-intake` gắn người gửi thư). Tài liệu đứng tên nhiều khách của deal (tài khoản chung): khách đứng tên đầu tiên. Không xác định được đúng một khách: không đặt, gom vào câu hỏi cuối "tài liệu <tệp> của khách nào?".
 
 Tệp đã có khách mà `assignedContactIds` trống: `genation-workspace_deal_files_assign` (`id`, `contactIds` = khách của tài liệu, cùng các khách cùng đứng tên) để tệp hiện dưới đúng khách ("Assign to"); không thay danh sách đã có. Bước này không đổi tên, không chuyển tệp (việc đó chỉ ở mục 12). Khối "Chưa nhận ra loại", Airbnb và loại không có mã: không đặt loại.
@@ -310,7 +314,10 @@ Khi người dùng nhờ xử lý hay kiểm tra tệp mới, hồ sơ mới kh�
 1. **Deal:** deal đang nói trong cuộc trò chuyện, hoặc `genation-workspace_deals_list` (`search` = tên người dùng nêu, deal chưa lưu trữ). Đúng MỘT deal: dùng nó. Nhiều deal: liệt kê tên (`title`) và hỏi, dừng. Không có: báo và hỏi, dừng. Gọi `genation-workspace_deals_get` để có khách của deal (Applicant, mục 2) và thư mục.
 2. **Thư mục:** thư mục deal = `folderPath ?? plannedFolderPath`, bỏ dấu `/` đầu; xem bằng `guroos_customer_files` (`customer` = đường dẫn đó). `tmp/` có tệp: làm tiếp. Thư mục hay `tmp/` không có, `tmp/` trống, hoặc cả hai trường trống: tìm thư mục ứng viên bằng `guroos_customers` (`query` = tên deal: thư mục cấp cao nhất) và `guroos_customer_files` với thư mục cha của thư mục deal (thường `Customers`: các thư mục deal cùng tên khách). `plannedFolderPath` đổi theo mục đích vay, OO/INV và lender của deal, nên tệp gửi trước khi deal đổi có thể nằm ở thư mục cũ (`…_PUR OO` thay vì `…_PUR OO_WBC`). Liệt kê các thư mục có tệp trong `tmp/` mà tên có tên khách của deal (kèm số tệp), nói rằng tệp chỉ được ghi nhận và lưu hồ sơ khi nằm trong `<thư mục deal>/tmp/`: nhân viên chuyển tệp vào đó, hoặc, khi deal chưa có thư mục, đổi tên thư mục cũ thành tên thư mục deal, rồi nhờ lại. Dừng: không tự chọn, không ghi nhận tệp ở thư mục khác, không chuyển hay đổi tên gì. Không có ứng viên: báo "không có tệp mới trong `<thư mục deal>/tmp/`", dừng.
 3. **Ghi nhận và lô:** theo 10.1 (`deal_files_list`, rồi ghi nhận các tệp trong `tmp/` chưa có trên deal). Lô = tệp trong `tmp/` vừa ghi nhận hoặc đã có trên deal mà chưa kiểm tra (`latestCheck` trống); người dùng nhờ kiểm tra lại: mọi tệp giấy tờ trong `tmp/`. Tệp trong `tmp/` đã kiểm tra: không kiểm tra lại, chỉ lập kế hoạch lưu hồ sơ (mục 12).
-4. **Từng tệp:** đọc và kiểm tra theo mục 3–8, rồi mục 9, rồi mục 10: 10.3 (loại, khách), 10.4 (giấy tờ yêu cầu), 10.2 (kết quả kèm `ruleResults`).
+4. **Từng tệp:** đọc và kiểm tra theo mục 3–8, rồi làm mục 9. Sau đó làm mục 10 theo thứ tự:
+   - 10.3 (loại, khách) cho mọi tệp của lô;
+   - đọc quy tắc của các loại trong lô, MỘT lần với `codes` ("Loại giấy tờ và quy tắc", đầu mục 10);
+   - rồi với từng tệp: 10.4 (giấy tờ yêu cầu), 10.2 (kết quả kèm `ruleResults`).
 5. **Lưu hồ sơ** theo mục 12, cho mọi tệp của deal còn trong `tmp/`.
 6. **Tóm tắt** sau báo cáo (mục 7), một khối cho cả `tmp/`:
 
@@ -334,7 +341,7 @@ Làm khi có CRM và có hai công cụ `genation-workspace_deal_file_filing_get
 
 ### 12.1 Lập kế hoạch
 
-`deal_file_filing_get` với `id` = `id` của tệp trên deal và `facts` = dữ kiện đọc từ tài liệu cho các chỗ có trong `fileNamePattern` của loại (`document_types_list`), theo bảng dưới. Kết quả: `currentPath`, `targetFolderPath`, `targetName`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Ghi nhớ đúng `facts` đã gửi.
+`deal_file_filing_get` với `id` = `id` của tệp trên deal và `facts` = dữ kiện đọc từ tài liệu cho các chỗ có trong `fileNamePattern` của loại (danh sách gọn của `document_types_list`), theo bảng dưới. Kết quả: `currentPath`, `targetFolderPath`, `targetName`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Ghi nhớ đúng `facts` đã gửi.
 
 | Chỗ trong mẫu tên | `facts` |
 |---|---|
@@ -360,7 +367,7 @@ Mọi dữ kiện theo đúng dạng trên, không trộn dạng khác. Không �
 | `document_type_missing`, `subject_contact_missing` | 10.3 chưa đặt được: hỏi nhân viên loại giấy tờ hay khách của tài liệu |
 | `naming_facts_missing` | đọc lại tài liệu tìm các dữ kiện trong `naming.missingFacts` rồi lập lại kế hoạch; vẫn thiếu: hỏi nhân viên giá trị |
 | `check_missing` | ghi kết quả (10.2) rồi lập lại kế hoạch |
-| `check_not_satisfied` | nhân viên quyết định: nêu các tiêu chí `not_met` hay `not_checked` của lần kiểm tra mới nhất (`ruleResults` vừa ghi, hoặc `document_checks_list` với `dealFileId`, `limit` 1). Nhân viên tick tiêu chí trên CRM (cách duyệt bằng tay) hoặc nhờ kiểm tra lại. Trợ lý chỉ tick (`document_check_rules_mark`) khi nhân viên nêu rõ tiêu chí nào của tệp nào; không tự tick để tệp đạt |
+| `check_not_satisfied` | nhân viên quyết định: nêu các tiêu chí `not_met` hay `not_checked` của lần kiểm tra mới nhất (`ruleResults` vừa ghi, hoặc `document_checks_list` với `dealFileId`, `limit` 1). Gọi tiêu chí bằng lời của quy tắc (`condition`, không có thì `subject`), lấy từ `checkRules` đã đọc với `codes`. Loại của tệp chưa có trong lần đọc đó (tệp kiểm tra từ trước): gọi `document_types_list` với `codes` = các loại còn thiếu, một lần cho mọi tệp như vậy. Nhân viên tick tiêu chí trên CRM (cách duyệt bằng tay) hoặc nhờ kiểm tra lại. Trợ lý chỉ tick (`document_check_rules_mark`) khi nhân viên nêu rõ tiêu chí nào của tệp nào; không tự tick để tệp đạt |
 | `file_locked` | nhân viên mở khoá tệp; không tự mở |
 | `deal_folder_missing`, `not_in_deal_folder`, `category_folder_missing`, `file_archived` | không lưu hồ sơ, nêu lý do: deal chưa có thư mục; tệp nằm ngoài thư mục deal; loại giấy tờ chưa có thư mục con (Admin cấu hình); tệp đã lưu trữ |
 
