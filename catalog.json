@@ -16,10 +16,12 @@
     {
       "id": "doc-check",
       "title": "Kiểm tra giấy tờ hồ sơ vay",
-      "summary": "Kiểm tra giấy tờ của khách theo checklist 23 mục và báo việc cần làm; với CRM còn xử lý tệp mới trong tmp/ của deal và lưu hồ sơ khi bạn duyệt.",
-      "details": "Trợ lý kiểm tra tệp gốc (bản phát hành thật, bị sửa, ảnh chụp hay scan), nhận loại giấy tờ, đọc theo quy tắc của loại đó và đối chiếu chéo các giấy tờ. Báo cáo ghi kết luận, thông tin cho Fact Find và việc cần báo khách. Khi tổ chức có CRM, trợ lý xử lý tệp mới khách gửi trong tmp/ của một deal: ghi nhận lên deal, nhận loại giấy tờ và khách, gắn với giấy tờ yêu cầu, ghi kết quả lên deal (giá trị đề xuất, việc cần báo, từng tiêu chí đạt hay chưa). Giấy tờ đạt yêu cầu (đủ tiêu chí, hoặc bạn tick tay) được đề xuất lưu hồ sơ: trợ lý hiện tên mới theo quy tắc đặt tên và thư mục đích, CRM chỉ đổi tên và chuyển tệp bạn đồng ý. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự đổi tên hay di chuyển tệp.",
+      "summary": "Kiểm tra giấy tờ của khách theo checklist 23 mục và báo việc cần làm; với CRM còn cho biết khách nào mới gửi hồ sơ, xử lý tệp mới của deal và lưu hồ sơ khi bạn duyệt.",
+      "details": "Trợ lý kiểm tra tệp gốc (bản phát hành thật, bị sửa, ảnh chụp hay scan), nhận loại giấy tờ, đọc theo quy tắc của loại đó và đối chiếu chéo các giấy tờ. Báo cáo ghi kết luận, thông tin cho Fact Find và việc cần báo khách. Khi tổ chức có CRM, trợ lý liệt kê các deal có tệp khách mới gửi qua cổng khách hàng để bạn chọn, rồi xử lý tệp mới của từng deal một (tệp khách gửi qua cổng, cùng tệp khác trong tmp/ của deal như tệp tải từ thư): ghi nhận lên deal, nhận loại giấy tờ và khách, gắn với giấy tờ yêu cầu, ghi kết quả lên deal (giá trị đề xuất, việc cần báo, từng tiêu chí đạt hay chưa). Giấy tờ đạt yêu cầu (đủ tiêu chí, hoặc bạn tick tay) được đề xuất lưu hồ sơ: trợ lý hiện tên mới theo quy tắc đặt tên và thư mục đích, CRM chỉ đổi tên và chuyển tệp bạn đồng ý. Deal chưa có người phụ trách thì trợ lý nhắc bạn nhận hồ sơ, không tự nhận. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự đổi tên hay di chuyển tệp.",
       "icon": "clipboard-check",
       "examples": [
+        "Có hồ sơ nào khách mới gửi không?",
+        "Xử lý các tệp khách mới gửi",
         "Xử lý các tệp mới khách gửi trong tmp của deal Whitmore",
         "Kiểm tra hồ sơ mới của Whitmore",
         "Kiểm tra giấy tờ trong thư mục của khách Nguyễn Văn A",

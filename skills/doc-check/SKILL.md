@@ -1,6 +1,6 @@
 ---
 name: doc-check
-description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý, rồi lưu kết quả vào hồ sơ và lên deal trên CRM của tổ chức nếu có. Với CRM còn xử lý tệp mới khách gửi trong tmp/ của một deal - ghi nhận lên deal, phân loại giấy tờ và khách, gắn với giấy tờ yêu cầu, kiểm tra - rồi đề xuất lưu hồ sơ (CRM đặt tên theo quy tắc và chuyển vào thư mục theo loại), chỉ lưu khi nhân viên duyệt. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách, hay xử lý tệp mới, hồ sơ mới của một deal.
+description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý, rồi lưu kết quả vào hồ sơ và lên deal trên CRM của tổ chức nếu có. Với CRM còn xử lý tệp mới khách gửi (qua cổng khách hàng, thư, hay có sẵn trong tmp/ của deal) - liệt kê deal có tệp khách mới gửi, ghi nhận lên deal, phân loại giấy tờ và khách, gắn với giấy tờ yêu cầu, kiểm tra - rồi đề xuất lưu hồ sơ (CRM đặt tên theo quy tắc và chuyển vào thư mục theo loại), chỉ lưu khi nhân viên duyệt. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách, hỏi có hồ sơ hay tệp nào khách mới gửi không, hay nhờ xử lý tệp mới, hồ sơ mới khách gửi (của một deal, hoặc chưa nêu deal).
 ---
 
 # Kiểm tra giấy tờ hồ sơ vay
@@ -10,8 +10,8 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 ## 1. Phạm vi
 
 - Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo. Ngoại lệ: lưu kết quả kiểm tra theo mục 9 (vào hồ sơ trên máy), mục 10 (lên CRM của tổ chức: ghi nhận tệp trong `tmp/` lên deal, phân loại, gắn giấy tờ yêu cầu, ghi kết quả) và lưu hồ sơ theo mục 12. Trợ lý không bao giờ tự đổi tên, chuyển, sao chép hay xoá tệp: lưu hồ sơ do CRM làm, đúng kế hoạch nhân viên đã duyệt.
-- Kiểm tra tệp đính kèm trong chat, hoặc tệp trong hồ sơ khi người dùng chỉ thư mục hồ sơ hay đường dẫn tệp trong đó. Người dùng nêu vài tệp: chỉ các tệp đó; nhờ cả hồ sơ: mọi tệp giấy tờ trong thư mục; nhờ xử lý hay kiểm tra tệp mới, hồ sơ mới khách gửi của một deal: lô theo mục 11. Các tài liệu kiểm tra trong lượt là "lô"; đối chiếu chéo chỉ trong lô.
-- Không có tệp đính kèm và không chỉ hồ sơ nào: hỏi người dùng muốn kiểm tra tệp nào (đính kèm hay thư mục hồ sơ), không làm tiếp; không tự quét kho tìm hồ sơ, không đoán từ tên khách.
+- Kiểm tra tệp đính kèm trong chat, hoặc tệp trong hồ sơ khi người dùng chỉ thư mục hồ sơ hay đường dẫn tệp trong đó. Người dùng nêu vài tệp: chỉ các tệp đó; nhờ cả hồ sơ: mọi tệp giấy tờ trong thư mục; hỏi có hồ sơ, tệp nào khách mới gửi, hay nhờ xử lý, kiểm tra tệp mới, hồ sơ mới khách gửi (của một deal hay chưa nêu deal): theo mục 11. Các tài liệu kiểm tra trong lượt là "lô"; đối chiếu chéo chỉ trong lô.
+- Không có tệp đính kèm và không chỉ hồ sơ nào: hỏi người dùng muốn kiểm tra tệp nào (đính kèm hay thư mục hồ sơ), không làm tiếp; không tự quét kho tìm hồ sơ, không đoán từ tên khách. Ngoại lệ: câu hỏi về tệp khách mới gửi theo mục 11 bước 0.
 
 ## 2. Đầu vào
 
@@ -207,7 +207,8 @@ Làm trước khi kiểm tra. Mỗi tệp cần `document.id` (tài liệu đã 
 - **Tệp vừa ghi nhận trong cuộc trò chuyện này** (skill `mail-intake`, kết quả `genation-workspace_deal_files_register_existing`): tệp đính kèm hoặc tệp trong hồ sơ có đúng tên đã ghi nhận thì dùng `id`, `document.id` và `dealId` của kết quả đó.
 - **Đã biết deal của lô** (thư mục hồ sơ là thư mục của deal, mục 2 hay mục 11): `genation-workspace_deal_files_list` (`dealId`, đọc hết các trang theo `cursor`) một lần cho cả lô; tệp trên deal có `document.path` đúng bằng `/<đường dẫn thư mục hồ sơ>/<đường dẫn tệp>` (không phân biệt hoa thường; ví dụ `/Customers/Lan Quach_PUR OO/tmp/Lan_DL.pdf`) là tệp đó.
 - **Tệp trong hồ sơ** khác: `genation-workspace_documents_search` với `search` = tên tệp (không kèm thư mục); chọn mục có `path` đúng như trên. Mục đó có đúng một `dealFiles`: dùng `dealId` của nó; có nhiều deal mà một deal là deal của cuộc trò chuyện: deal đó; còn lại: chưa ghi, gom vào câu hỏi cuối báo cáo "tệp <tệp> nằm trên nhiều deal: <tên các deal>, ghi kết quả cho deal nào?".
-- **Tệp trong `tmp/` của thư mục deal mà chưa có trên deal** (tệp khách gửi, chưa ai ghi nhận): ghi nhận bằng `genation-workspace_deal_files_register_existing` với `dealId` và `path` = `/<thư mục deal>/tmp/<tên tệp>`, tính từ thư mục gốc của tổ chức. Không truyền loại, khách, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId` (10.3 và 10.4 làm sau). Chỉ ghi nhận tệp giấy tờ (PDF, ảnh, DOCX, XLSX, CSV) nằm ngay trong `tmp/` của đúng thư mục deal; không ghi nhận tệp ở thư mục khác. Kết quả:
+- **Tệp khách gửi qua cổng khách hàng** (mục intake `new` của deal, mục 11): ghi nhận bằng `genation-workspace_deal_files_register_existing` với `dealId` và `itemId` = `driveItemId` của mục, không bằng `path` (tệp đã nằm trên OneDrive của tổ chức, OneDrive trên máy có thể chưa đồng bộ). Không truyền loại, khách hay trường nào khác, như dòng dưới. Kết quả như dòng dưới, trừ `404`: tệp không còn trên OneDrive của tổ chức (đã bị xoá hay chuyển ra ngoài), "chưa ghi nhận: tệp không còn trên OneDrive", không thử lại.
+- **Tệp trong `tmp/` của thư mục deal mà chưa có trên deal và không có mục intake** (tệp tải từ thư bằng `mail-intake`, tệp nhân viên chép vào, hay mọi tệp khi không có công cụ cổng khách hàng): ghi nhận bằng `genation-workspace_deal_files_register_existing` với `dealId` và `path` = `/<thư mục deal>/tmp/<tên tệp>`, tính từ thư mục gốc của tổ chức. Không truyền loại, khách, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId` (10.3 và 10.4 làm sau). Chỉ ghi nhận tệp giấy tờ (PDF, ảnh, DOCX, XLSX, CSV) nằm ngay trong `tmp/` của đúng thư mục deal; không ghi nhận tệp ở thư mục khác. Kết quả:
   - Thành công: dùng `id`, `document.id` của kết quả. Deal chưa có thư mục (`folderPath` trống): lần ghi nhận đầu gắn `plannedFolderPath` với deal.
   - `404` (OneDrive chưa đồng bộ xong, hoặc tệp vừa được chuyển đi): ghi nhận lại một lần sau các tệp khác; vẫn lỗi: "chưa ghi nhận: OneDrive chưa đồng bộ xong".
   - `409` (đã có trên deal): đọc lại `deal_files_list` để lấy tệp đó. `503` (Microsoft 365 chưa kết nối hay đang lỗi): không ghi nhận các tệp còn lại, ghi một lần lý do. Lỗi khác: chép nguyên lời công cụ, không thử lại.
@@ -307,13 +308,33 @@ Không tạo, sửa, từ chối hay lưu trữ giấy tờ yêu cầu. Công c�
 
 Thêm dưới báo cáo (sau các dòng của mục 9) một dòng mỗi tệp: `- <tệp> · CRM: đã ghi (<kết luận>)` (vừa ghi nhận lên deal thì thêm `, vừa ghi nhận`; vừa đặt loại hay khách thì thêm `, <nhãn loại> · <tên khách>`; vừa gắn giấy tờ yêu cầu thì thêm `, gắn <tên giấy tờ yêu cầu>`; có `ruleResults` thì thêm `, <số met>/<số quy tắc> tiêu chí đạt`; có cảnh báo thì thêm `, <n> phát hiện chưa áp dụng`; có `requiredDocumentIds` thì thêm `, <n> giấy tờ cần xin (nháp)`) hoặc `- <tệp> · CRM: chưa ghi: <lý do>`. Lô theo mục 11: dùng phần tóm tắt của mục 11 thay cho các dòng này và các dòng của mục 9.
 
-## 11. Tệp mới của một deal (tmp/)
+## 11. Tệp mới khách gửi (tmp/)
 
-Khi người dùng nhờ xử lý hay kiểm tra tệp mới, hồ sơ mới khách gửi của một deal ("xử lý các file mới khách gửi trong tmp của deal Whitmore", "kiểm tra hồ sơ mới của Whitmore"). Tệp khách gửi (cổng tải lên, thư) nằm nguyên trong `<thư mục deal>/tmp/`, chưa có trên deal, chưa đặt tên. Cần CRM (mục 10); không có CRM: kiểm tra các tệp trong `tmp/` như tệp trong hồ sơ (mục 1–9), không ghi nhận, không lưu hồ sơ.
+Khi người dùng hỏi có hồ sơ, tệp nào khách mới gửi ("có hồ sơ nào khách mới gửi không"), hay nhờ xử lý, kiểm tra tệp mới, hồ sơ mới khách gửi, của một deal ("xử lý các file mới khách gửi trong tmp của deal Whitmore", "kiểm tra hồ sơ mới của Whitmore") hoặc chưa nêu deal ("xử lý các tệp khách mới gửi"). Tệp khách gửi nằm nguyên trong `<thư mục deal>/tmp/`, chưa có trên deal, chưa đặt tên. Cần CRM (mục 10); không có CRM: kiểm tra các tệp trong `tmp/` như tệp trong hồ sơ (mục 1–9), không ghi nhận, không lưu hồ sơ. Mỗi lượt chỉ xử lý MỘT deal.
 
-1. **Deal:** deal đang nói trong cuộc trò chuyện, hoặc `genation-workspace_deals_list` (`search` = tên người dùng nêu, deal chưa lưu trữ). Đúng MỘT deal: dùng nó. Nhiều deal: liệt kê tên (`title`) và hỏi, dừng. Không có: báo và hỏi, dừng. Gọi `genation-workspace_deals_get` để có khách của deal (Applicant, mục 2) và thư mục.
-2. **Thư mục:** thư mục deal = `folderPath ?? plannedFolderPath`, bỏ dấu `/` đầu; xem bằng `guroos_customer_files` (`customer` = đường dẫn đó). `tmp/` có tệp: làm tiếp. Thư mục hay `tmp/` không có, `tmp/` trống, hoặc cả hai trường trống: tìm thư mục ứng viên bằng `guroos_customers` (`query` = tên deal: thư mục cấp cao nhất) và `guroos_customer_files` với thư mục cha của thư mục deal (thường `Customers`: các thư mục deal cùng tên khách). `plannedFolderPath` đổi theo mục đích vay, OO/INV và lender của deal, nên tệp gửi trước khi deal đổi có thể nằm ở thư mục cũ (`…_PUR OO` thay vì `…_PUR OO_WBC`). Liệt kê các thư mục có tệp trong `tmp/` mà tên có tên khách của deal (kèm số tệp), nói rằng tệp chỉ được ghi nhận và lưu hồ sơ khi nằm trong `<thư mục deal>/tmp/`: nhân viên chuyển tệp vào đó, hoặc, khi deal chưa có thư mục, đổi tên thư mục cũ thành tên thư mục deal, rồi nhờ lại. Dừng: không tự chọn, không ghi nhận tệp ở thư mục khác, không chuyển hay đổi tên gì. Không có ứng viên: báo "không có tệp mới trong `<thư mục deal>/tmp/`", dừng.
-3. **Ghi nhận và lô:** theo 10.1 (`deal_files_list`, rồi ghi nhận các tệp trong `tmp/` chưa có trên deal). Lô = tệp trong `tmp/` vừa ghi nhận hoặc đã có trên deal mà chưa kiểm tra (`latestCheck` trống); người dùng nhờ kiểm tra lại: mọi tệp giấy tờ trong `tmp/`. Tệp trong `tmp/` đã kiểm tra: không kiểm tra lại, chỉ lập kế hoạch lưu hồ sơ (mục 12).
+Hai nguồn tệp mới:
+- **Mục intake (nguồn chính).** Tệp khách tải lên cổng khách hàng: backend lưu vào `<thư mục deal>/tmp/` và ghi một mục intake (`dealId`, `dealTitle`, `contactName`, `fileName`, `path`, `driveItemId`, `uploadedAt`, `status`). `status` là `new` cho tới khi tệp được ghi nhận lên deal (10.1), rồi tự thành `processed`; `processed` chỉ là đã ghi nhận, chưa phải đã kiểm tra hay đã lưu hồ sơ. Đọc bằng `genation-workspace_deal_intakes_list` (đọc hết các trang theo `cursor`). Không có công cụ đó (tổ chức chưa bật module `client_portal`), hoặc công cụ báo `module_not_enabled`: chỉ dùng nguồn dự phòng.
+- **Thư mục `tmp/` (dự phòng).** Tệp vào `tmp/` không qua cổng (tải từ thư bằng `mail-intake`, nhân viên chép vào) không có mục intake. Xem bằng `guroos_customer_files`.
+- **Không trùng.** Một tệp chỉ là một mục: cùng `driveItemId` (tệp trên deal: `document.driveItemId`) hoặc cùng đường dẫn (mục intake: `path`; tệp trên deal: `document.path`; tệp trong kho: `/<thư mục deal>/tmp/<tên tệp>`; không phân biệt hoa thường) là cùng một tệp.
+
+0. **Chưa nêu deal** (cuộc trò chuyện cũng chưa nói deal nào): có `deal_intakes_list` thì gọi với `status` = `new`, không lọc deal, rồi gom theo `dealId`: tên deal (`dealTitle`), số tệp, tên khách (`contactName`), ngày gửi mới nhất; deal có tệp gửi mới nhất lên trước. Có `genation-workspace_deals_list`: gọi thêm MỘT lần với `unassigned` = `true` (đọc hết các trang) để đánh dấu deal chưa ai nhận. Liệt kê rồi hỏi xử lý deal nào, dừng lượt, kể cả khi chỉ có một deal (deal có thể của nhân viên khác) hay người dùng nhờ xử lý hết:
+
+   ```
+   Tệp khách mới gửi qua cổng khách hàng, chưa xử lý:
+   1. <tên deal> · <n> tệp · <tên khách> · gửi <DD/MM/YYYY> · chưa ai nhận
+   2. <tên deal> · <n> tệp · <tên khách> · gửi <DD/MM/YYYY>
+   Bạn muốn xử lý deal nào?
+   ```
+
+   Không có mục nào: "Không có tệp mới nào khách gửi qua cổng khách hàng." Cả hai trường hợp thêm một dòng: tệp gửi qua thư hay chép vào `tmp/` không có trong danh sách này; nhờ "xử lý tệp mới của deal <tên>" để xem `tmp/` của deal đó. Không có `deal_intakes_list`: hỏi người dùng deal nào, dừng. Không tự quét kho tìm `tmp/`.
+1. **Deal:** deal người dùng chọn ở bước 0 (`dealId` của nhóm đó), deal đang nói trong cuộc trò chuyện, hoặc `genation-workspace_deals_list` (`search` = tên người dùng nêu, deal chưa lưu trữ). Đúng MỘT deal: dùng nó. Nhiều deal: liệt kê tên (`title`) và hỏi, dừng. Không có: báo và hỏi, dừng. Người dùng nêu hay chọn nhiều deal: hỏi làm deal nào trước, dừng. Gọi `genation-workspace_deals_get` để có khách của deal (Applicant, mục 2), thư mục và người phụ trách. `ownerId` trống: deal chưa ai nhận (thường là deal khách tạo trên cổng); vẫn xử lý, nêu ở tóm tắt (bước 6), không tự nhận deal. Chỉ khi người dùng nhờ nhận ("nhận hồ sơ này"): `genation-workspace_deals_update` với `id` và `claim` = `true`; lỗi `deal_already_owned`: báo deal đã có người khác nhận.
+2. **Mục intake và thư mục:** có `deal_intakes_list`: gọi với `dealId` và `status` = `new`. Thư mục deal = `folderPath ?? plannedFolderPath`, bỏ dấu `/` đầu; xem bằng `guroos_customer_files` (`customer` = đường dẫn đó). Có mục intake mới, hoặc `tmp/` có tệp: làm tiếp (mục intake vẫn ghi nhận được khi OneDrive trên máy chưa có tệp). Không có mục intake mới, và thư mục hay `tmp/` không có, `tmp/` trống, hoặc cả hai trường trống: tìm thư mục ứng viên bằng `guroos_customers` (`query` = tên deal: thư mục cấp cao nhất) và `guroos_customer_files` với thư mục cha của thư mục deal (thường `Customers`: các thư mục deal cùng tên khách). `plannedFolderPath` đổi theo mục đích vay, OO/INV và lender của deal, nên tệp gửi trước khi deal đổi có thể nằm ở thư mục cũ (`…_PUR OO` thay vì `…_PUR OO_WBC`). Liệt kê các thư mục có tệp trong `tmp/` mà tên có tên khách của deal (kèm số tệp), nói rằng tệp chỉ được ghi nhận và lưu hồ sơ khi nằm trong `<thư mục deal>/tmp/`: nhân viên chuyển tệp vào đó, hoặc, khi deal chưa có thư mục, đổi tên thư mục cũ thành tên thư mục deal, rồi nhờ lại. Dừng: không tự chọn, không ghi nhận tệp ở thư mục khác, không chuyển hay đổi tên gì. Không có ứng viên: báo "không có tệp mới trong `<thư mục deal>/tmp/`", dừng.
+3. **Ghi nhận và lô:** theo 10.1, đúng thứ tự:
+   - ghi nhận từng mục intake mới bằng `itemId`;
+   - `deal_files_list` (đọc hết các trang) một lần;
+   - tệp trong `tmp/` của kho không trùng tệp nào trên deal hay mục intake nào (kể cả mục chưa ghi nhận được): ghi nhận bằng `path` (dự phòng).
+
+   Lô = tệp trong `tmp/` vừa ghi nhận hoặc đã có trên deal mà chưa kiểm tra (`latestCheck` trống); người dùng nhờ kiểm tra lại: mọi tệp giấy tờ trong `tmp/`. Tệp trong `tmp/` đã kiểm tra: không kiểm tra lại, chỉ lập kế hoạch lưu hồ sơ (mục 12). Đọc tệp trên deal bằng `guroos_document_read` với `customer` = thư mục deal, `file` = `document.path` tính từ thư mục deal (`tmp/<tên tệp>`). Tệp đã ghi nhận mà chưa có trong `guroos_customer_files` (OneDrive trên máy chưa đồng bộ xong): chưa kiểm tra, không lưu hồ sơ; lần nhờ sau tệp vẫn vào lô vì `latestCheck` còn trống.
 4. **Từng tệp:** đọc và kiểm tra theo mục 3–8, rồi làm mục 9. Sau đó làm mục 10 theo thứ tự:
    - 10.3 (loại, khách) cho mọi tệp của lô;
    - đọc quy tắc của các loại trong lô, MỘT lần với `codes` ("Loại giấy tờ và quy tắc", đầu mục 10);
@@ -323,13 +344,19 @@ Khi người dùng nhờ xử lý hay kiểm tra tệp mới, hồ sơ mới kh�
 
 ```
 ### Tệp mới · <tên deal> · <thư mục deal>/tmp/
-- <tên tệp>
+Deal chưa có người phụ trách: bấm "Nhận hồ sơ" trong ứng dụng, hoặc nhờ trợ lý "nhận hồ sơ này".
+- <tên tệp> · <khách gửi qua cổng: <tên khách>, <DD/MM/YYYY> | có trong tmp/>
   - Trên deal: <vừa ghi nhận | đã có | chưa ghi nhận: lý do>
   - Loại · khách: <nhãn loại> · <tên khách> | chưa phân loại: <lý do>
   - Giấy tờ yêu cầu: <tên> (<vừa gắn | đã gắn>) | không có | chưa gắn: <lý do>
-  - Kiểm tra: <Kết luận> · <đạt yêu cầu | cần xem lại | còn tiêu chí chưa đạt | chưa kiểm tra> (<số met>/<số quy tắc> tiêu chí)
+  - Kiểm tra: <Kết luận> · <đạt yêu cầu | cần xem lại | còn tiêu chí chưa đạt | chưa kiểm tra> (<số met>/<số quy tắc> tiêu chí) | chưa kiểm tra: <lý do>
   - Lưu hồ sơ: <chờ duyệt (số n bên dưới) | đã lưu vào <thư mục con>/<tên mới> | đã ở đúng chỗ | để trong tmp/: <lý do>>
+Tệp khách gửi qua cổng còn mới: <tên tệp> (<lý do>), … | không còn
 ```
+
+- Dòng "Deal chưa có người phụ trách" chỉ khi `ownerId` của deal trống. Dòng "còn mới" chỉ khi có `deal_intakes_list`: mục intake ghi nhận được (kể cả `409`) đã thành `processed`; mục chưa ghi nhận được vẫn `new`, kèm lý do.
+- Mỗi mục intake mới một mục `- <tên tệp>` (`fileName`), kể cả khi chưa ghi nhận được; tệp có từ trước trong `tmp/` ghi "có trong tmp/".
+- Có tệp chưa kiểm tra vì OneDrive trên máy chưa đồng bộ: thêm dòng "Nhờ lại "xử lý tệp mới của deal <tên deal>" sau ít phút để kiểm tra các tệp còn lại."
 
 Trạng thái kiểm tra theo `checkStatus` của tệp: `satisfied` đạt yêu cầu, `needs_attention` cần xem lại, `incomplete` còn tiêu chí chưa đạt, `unchecked` chưa kiểm tra. Tệp không phải giấy tờ: một dòng `- <tên tệp> · không phải giấy tờ, để nguyên trong tmp/`. Sau khối: danh sách xin duyệt của mục 12.3 (nếu có), rồi MỘT câu hỏi cuối gộp câu hỏi duyệt với mọi điều cần nhân viên quyết định (câu hỏi cuối của mục 7, của 10.3, 10.4, 12.2).
 
