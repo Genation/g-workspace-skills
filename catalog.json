@@ -38,7 +38,7 @@
       "id": "mail-intake",
       "title": "Tiếp nhận thư khách hàng",
       "summary": "Tìm khách và deal theo email người gửi (trên CRM nếu tổ chức có, không thì trên Monday), lưu tệp đính kèm vào thư mục deal và ghi nhận lên deal.",
-      "details": "Với thư bạn chỉ định, trợ lý tìm khách và deal trên CRM của tổ chức theo địa chỉ email người gửi (tổ chức chưa bật CRM thì tìm Deal trên Monday), tìm thư mục deal (thư mục CRM gắn hoặc sẽ gắn với deal, thường nằm trong Customers/; chưa có thì tạo mới kèm thư mục tmp/), tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau, rồi ghi nhận các tệp đó lên deal trên CRM. Chưa có khách hay deal thì trợ lý đề xuất tạo và chỉ tạo khi bạn đồng ý. Mỗi lần tạo thư mục, lưu tệp hay ghi lên CRM ứng dụng đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư.",
+      "details": "Với thư bạn chỉ định, trợ lý tìm khách và deal trên CRM của tổ chức theo địa chỉ email người gửi (tổ chức chưa bật CRM thì tìm Deal trên Monday), tìm thư mục deal (thư mục CRM gắn hoặc sẽ gắn với deal, thường nằm trong Customers/; chưa có thì tạo mới kèm thư mục tmp/), tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau, rồi ghi nhận các tệp đó lên deal trên CRM. Chưa có khách hay deal thì trợ lý đề xuất tạo và chỉ tạo khi bạn đồng ý. Mỗi lần tạo thư mục, lưu tệp hay ghi lên CRM ứng dụng đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư; tệp ở lại tmp/ cho tới khi được kiểm tra và bạn duyệt lưu hồ sơ.",
       "default": true,
       "icon": "inbox",
       "examples": [
@@ -49,10 +49,12 @@
     {
       "id": "doc-check",
       "title": "Kiểm tra giấy tờ hồ sơ vay",
-      "summary": "Kiểm tra từng giấy tờ của khách theo checklist 23 mục, đối chiếu chéo rồi báo việc cần làm.",
-      "details": "Trợ lý kiểm tra tệp gốc trước (có phải bản phát hành thật, có bị sửa, có phải ảnh chụp hay bản scan), rồi nhận loại giấy tờ và đọc theo đúng quy tắc của loại đó: tùy thân, nhà đất, phiếu lương, thuế, thuê nhà, trợ cấp, sao kê và khoản vay. Giấy tờ đạt được đối chiếu chéo với nhau (tên, địa chỉ, kỳ, số liệu). Báo cáo ghi kết luận cho từng giấy tờ, thông tin ghi vào Fact Find và việc cần báo khách. Khi tổ chức có CRM và giấy tờ đã nằm trên một deal, kết quả còn được ghi lên deal: thông tin Fact Find thành giá trị đề xuất để nhân viên duyệt, việc cần báo hiện cho nhân viên, và từng tiêu chí của loại giấy tờ được đánh dấu đạt hay chưa, để tệp đạt yêu cầu khi đủ mọi tiêu chí. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự sửa hay di chuyển tệp.",
+      "summary": "Kiểm tra giấy tờ của khách theo checklist 23 mục và báo việc cần làm; với CRM còn xử lý tệp mới trong tmp/ của deal và lưu hồ sơ khi bạn duyệt.",
+      "details": "Trợ lý kiểm tra tệp gốc (bản phát hành thật, bị sửa, ảnh chụp hay scan), nhận loại giấy tờ, đọc theo quy tắc của loại đó và đối chiếu chéo các giấy tờ. Báo cáo ghi kết luận, thông tin cho Fact Find và việc cần báo khách. Khi tổ chức có CRM, trợ lý xử lý tệp mới khách gửi trong tmp/ của một deal: ghi nhận lên deal, nhận loại giấy tờ và khách, gắn với giấy tờ yêu cầu, ghi kết quả lên deal (giá trị đề xuất, việc cần báo, từng tiêu chí đạt hay chưa). Giấy tờ đạt yêu cầu (đủ tiêu chí, hoặc bạn tick tay) được đề xuất lưu hồ sơ: trợ lý hiện tên mới theo quy tắc đặt tên và thư mục đích, CRM chỉ đổi tên và chuyển tệp bạn đồng ý. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự đổi tên hay di chuyển tệp.",
       "icon": "clipboard-check",
       "examples": [
+        "Xử lý các tệp mới khách gửi trong tmp của deal Whitmore",
+        "Kiểm tra hồ sơ mới của Whitmore",
         "Kiểm tra giấy tờ trong thư mục của khách Nguyễn Văn A",
         "Kiểm tra phiếu lương và sao kê tôi vừa đính kèm",
         "Tờ khai thuế này có phải bản gốc tải từ myGov không?"

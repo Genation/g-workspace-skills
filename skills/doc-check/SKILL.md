@@ -1,6 +1,6 @@
 ---
 name: doc-check
-description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý, rồi lưu kết quả vào hồ sơ và lên deal trên CRM của tổ chức nếu có. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách.
+description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý, rồi lưu kết quả vào hồ sơ và lên deal trên CRM của tổ chức nếu có. Với CRM còn xử lý tệp mới khách gửi trong tmp/ của một deal - ghi nhận lên deal, phân loại giấy tờ và khách, gắn với giấy tờ yêu cầu, kiểm tra - rồi đề xuất lưu hồ sơ (CRM đặt tên theo quy tắc và chuyển vào thư mục theo loại), chỉ lưu khi nhân viên duyệt. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách, hay xử lý tệp mới, hồ sơ mới của một deal.
 ---
 
 # Kiểm tra giấy tờ hồ sơ vay
@@ -9,8 +9,8 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 
 ## 1. Phạm vi
 
-- Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo. Ngoại lệ duy nhất: lưu kết quả kiểm tra theo mục 9 (vào hồ sơ trên máy) và mục 10 (lên CRM của tổ chức).
-- Kiểm tra tệp đính kèm trong chat, hoặc tệp trong hồ sơ khi người dùng chỉ thư mục hồ sơ hay đường dẫn tệp trong đó. Người dùng nêu vài tệp: chỉ các tệp đó; nhờ cả hồ sơ: mọi tệp giấy tờ trong thư mục. Các tài liệu kiểm tra trong lượt là "lô"; đối chiếu chéo chỉ trong lô.
+- Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo. Ngoại lệ: lưu kết quả kiểm tra theo mục 9 (vào hồ sơ trên máy), mục 10 (lên CRM của tổ chức: ghi nhận tệp trong `tmp/` lên deal, phân loại, gắn giấy tờ yêu cầu, ghi kết quả) và lưu hồ sơ theo mục 12. Trợ lý không bao giờ tự đổi tên, chuyển, sao chép hay xoá tệp: lưu hồ sơ do CRM làm, đúng kế hoạch nhân viên đã duyệt.
+- Kiểm tra tệp đính kèm trong chat, hoặc tệp trong hồ sơ khi người dùng chỉ thư mục hồ sơ hay đường dẫn tệp trong đó. Người dùng nêu vài tệp: chỉ các tệp đó; nhờ cả hồ sơ: mọi tệp giấy tờ trong thư mục; nhờ xử lý hay kiểm tra tệp mới, hồ sơ mới khách gửi của một deal: lô theo mục 11. Các tài liệu kiểm tra trong lượt là "lô"; đối chiếu chéo chỉ trong lô.
 - Không có tệp đính kèm và không chỉ hồ sơ nào: hỏi người dùng muốn kiểm tra tệp nào (đính kèm hay thư mục hồ sơ), không làm tiếp; không tự quét kho tìm hồ sơ, không đoán từ tên khách.
 
 ## 2. Đầu vào
@@ -192,18 +192,23 @@ Giới hạn mỗi kết quả (tool từ chối cả lần lưu khi vượt): `
 
 ## 10. Ghi kết quả lên CRM
 
-Tổ chức bật module `crm` thì kết quả kiểm tra của từng tài liệu còn được ghi lên deal trên CRM: giá trị Fact Find thành giá trị đề xuất có tài liệu làm bằng chứng, việc cần báo hiện cho nhân viên. Không có CRM: chỉ mục 9. Chỉ chép lại báo cáo: không đọc lại, không đổi kết luận, không ghi điều báo cáo không có. Công cụ của CRM là các công cụ `genation-workspace_…`; khi nói với người dùng, gọi khách và deal bằng tên, không đọc id.
+Tổ chức bật module `crm` thì kết quả kiểm tra của từng tài liệu còn được ghi lên deal trên CRM: giá trị Fact Find thành giá trị đề xuất có tài liệu làm bằng chứng, việc cần báo hiện cho nhân viên. Tệp trong `tmp/` của thư mục deal chưa có trên deal được ghi nhận lên deal (10.1), tài liệu được phân loại (10.3) và gắn với giấy tờ yêu cầu (10.4). Không có CRM: chỉ mục 9. Chỉ chép lại báo cáo: không đọc lại, không đổi kết luận, không ghi điều báo cáo không có. Công cụ của CRM là các công cụ `genation-workspace_…`; khi nói với người dùng, gọi khách và deal bằng tên, không đọc id.
 
 **Có CRM không:** có công cụ `genation-workspace_modules_list` thì gọi một lần; có mục `key` = `crm` là có CRM. Không có công cụ đó, hoặc không có `genation-workspace_document_checks_record` (công cụ chỉ có khi module bật): không có CRM, bỏ mục này. Công cụ báo `module_not_enabled`: bỏ mục này.
 
 ### 10.1 Tìm tài liệu trên deal
 
-Mỗi tệp cần `document.id` (tài liệu đã lưu, KHÔNG phải `id` của tệp trên deal) và `dealId`:
-- **Tệp vừa ghi nhận trong cuộc trò chuyện này** (skill `mail-intake`, kết quả `genation-workspace_deal_files_register_existing`): tệp đính kèm hoặc tệp trong hồ sơ có đúng tên đã ghi nhận thì dùng `document.id` và `dealId` của kết quả đó.
-- **Tệp trong hồ sơ** khác: `genation-workspace_documents_search` với `search` = tên tệp (không kèm thư mục); chọn mục có `path` đúng bằng `/<tên hoặc đường dẫn thư mục hồ sơ>/<đường dẫn tệp>` (không phân biệt hoa thường; ví dụ `/Customers/Lan Quach_PUR OO/tmp/Lan_DL.pdf`). Mục đó có đúng một `dealFiles`: dùng `dealId` của nó; có nhiều deal mà một deal là deal của cuộc trò chuyện: deal đó; còn lại: chưa ghi, gom vào câu hỏi cuối báo cáo "tệp <tệp> nằm trên nhiều deal: <tên các deal>, ghi kết quả cho deal nào?".
-- Không tìm được (tệp đính kèm không ghi nhận trong cuộc trò chuyện, tệp chưa có trên deal nào): tệp đó chưa ghi, lý do "tệp chưa có trên deal".
+Làm trước khi kiểm tra. Mỗi tệp cần `document.id` (tài liệu đã lưu, KHÔNG phải `id` của tệp trên deal), `dealId` và `id` của tệp trên deal:
+- **Tệp vừa ghi nhận trong cuộc trò chuyện này** (skill `mail-intake`, kết quả `genation-workspace_deal_files_register_existing`): tệp đính kèm hoặc tệp trong hồ sơ có đúng tên đã ghi nhận thì dùng `id`, `document.id` và `dealId` của kết quả đó.
+- **Đã biết deal của lô** (thư mục hồ sơ là thư mục của deal, mục 2 hay mục 11): `genation-workspace_deal_files_list` (`dealId`, đọc hết các trang theo `cursor`) một lần cho cả lô; tệp trên deal có `document.path` đúng bằng `/<đường dẫn thư mục hồ sơ>/<đường dẫn tệp>` (không phân biệt hoa thường; ví dụ `/Customers/Lan Quach_PUR OO/tmp/Lan_DL.pdf`) là tệp đó.
+- **Tệp trong hồ sơ** khác: `genation-workspace_documents_search` với `search` = tên tệp (không kèm thư mục); chọn mục có `path` đúng như trên. Mục đó có đúng một `dealFiles`: dùng `dealId` của nó; có nhiều deal mà một deal là deal của cuộc trò chuyện: deal đó; còn lại: chưa ghi, gom vào câu hỏi cuối báo cáo "tệp <tệp> nằm trên nhiều deal: <tên các deal>, ghi kết quả cho deal nào?".
+- **Tệp trong `tmp/` của thư mục deal mà chưa có trên deal** (tệp khách gửi, chưa ai ghi nhận): ghi nhận bằng `genation-workspace_deal_files_register_existing` với `dealId` và `path` = `/<thư mục deal>/tmp/<tên tệp>`, tính từ thư mục gốc của tổ chức. Không truyền loại, khách, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId` (10.3 và 10.4 làm sau). Chỉ ghi nhận tệp giấy tờ (PDF, ảnh, DOCX, XLSX, CSV) nằm ngay trong `tmp/` của đúng thư mục deal; không ghi nhận tệp ở thư mục khác. Kết quả:
+  - Thành công: dùng `id`, `document.id` của kết quả. Deal chưa có thư mục (`folderPath` trống): lần ghi nhận đầu gắn `plannedFolderPath` với deal.
+  - `404` (OneDrive chưa đồng bộ xong, hoặc tệp vừa được chuyển đi): ghi nhận lại một lần sau các tệp khác; vẫn lỗi: "chưa ghi nhận: OneDrive chưa đồng bộ xong".
+  - `409` (đã có trên deal): đọc lại `deal_files_list` để lấy tệp đó. `503` (Microsoft 365 chưa kết nối hay đang lỗi): không ghi nhận các tệp còn lại, ghi một lần lý do. Lỗi khác: chép nguyên lời công cụ, không thử lại.
+- Không tìm được (tệp đính kèm không ghi nhận trong cuộc trò chuyện, tệp ngoài `tmp/` chưa có trên deal nào): tệp đó chưa ghi, lý do "tệp chưa có trên deal".
 
-Kèm theo mỗi tệp: `id` của tệp trên deal, `documentTypeCode` và `subjectContactId` của tài liệu (có trong kết quả trên, hoặc `genation-workspace_deal_files_list(dealId)`). Biết deal trước khi kiểm tra thì lấy Applicant như mục 2.
+Kèm theo mỗi tệp: `documentTypeCode` và `subjectContactId` của tài liệu, `assignedContactIds`, `latestCheck`, `checkStatus`, `filingState` của tệp trên deal (có trong kết quả trên). Biết deal trước khi kiểm tra thì lấy Applicant như mục 2.
 
 ### 10.2 Ghi từng tài liệu
 
@@ -261,9 +266,13 @@ Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài li�
 | 22 | Current balance → `liability.balance` (`current_balance`) · Repayments → `liability.repayment` (`repayments`) |
 | 23 | Account balance → `liability.balance` (`account_balance`) · Limit → `liability.limit` (`limit`) |
 
-### 10.3 Phân loại tài liệu chưa có loại
+### 10.3 Phân loại tài liệu và khách của tài liệu
 
-Tài liệu chưa có `documentTypeCode` (thường là tệp `mail-intake` vừa lưu vào `tmp/`) và khối đã nhận ra loại: gọi `genation-workspace_deal_files_update` với `id` = `id` của tệp trên deal, `documentTypeCode` = mã theo bảng dưới, chỉ khi mã đó có trong `genation-workspace_document_types_list` (gọi một lần cho cả lô). Làm việc này trước khi ghi kết quả của tài liệu đó ở 10.2, để kết quả kèm được `ruleResults` theo quy tắc của loại vừa đặt. Không đổi tên, không chuyển tệp, không sửa tài liệu đã có loại. Khối "Chưa nhận ra loại", Airbnb, rule 19 (bốn loại sao kê theo mục đích: lương, kinh doanh, tiền thuê, chi tiêu) và loại không có mã: không phân loại.
+Mỗi tài liệu có dòng `Kết luận:` mà khối đã nhận ra loại, trước khi ghi kết quả của nó ở 10.2 (để kết quả kèm được `ruleResults` theo quy tắc của loại vừa đặt): MỘT lần `genation-workspace_deal_files_update` với `id` = `id` của tệp trên deal và chỉ các trường cần đổi (không có trường nào thì không gọi):
+- `documentTypeCode`: chỉ khi tài liệu chưa có loại; mã theo bảng dưới, chỉ khi mã đó có trong `genation-workspace_document_types_list` (gọi một lần cho cả lô). Không sửa loại đã có.
+- `subjectContactId`: khách của deal mà tài liệu thuộc về, trong `contacts` của `deals_get`: khách có tên KHỚP; không có thì khách duy nhất cùng họ và cùng tên hay preferred name (thiếu hoặc viết tắt tên đệm vẫn tính; dòng `[Sai tên]` của báo cáo giữ nguyên); pháp nhân: khách là pháp nhân đó. Đặt khi tài liệu chưa có khách, hoặc khi khách đang gắn không phải người đó (ví dụ `mail-intake` gắn người gửi thư). Tài liệu đứng tên nhiều khách của deal (tài khoản chung): khách đứng tên đầu tiên. Không xác định được đúng một khách: không đặt, gom vào câu hỏi cuối "tài liệu <tệp> của khách nào?".
+
+Tệp đã có khách mà `assignedContactIds` trống: `genation-workspace_deal_files_assign` (`id`, `contactIds` = khách của tài liệu, cùng các khách cùng đứng tên) để tệp hiện dưới đúng khách ("Assign to"); không thay danh sách đã có. Bước này không đổi tên, không chuyển tệp (việc đó chỉ ở mục 12). Khối "Chưa nhận ra loại", Airbnb và loại không có mã: không đặt loại.
 
 | Rule | `documentTypeCode` |
 |---|---|
@@ -273,10 +282,107 @@ Tài liệu chưa có `documentTypeCode` (thường là tệp `mail-intake` vừ
 | 13 | `individual_tax_return`, `partnership_tax_return`, `company_tax_return`, `trust_tax_return`, `income_statement`, `notice_of_assessment`, `financial_statements` (theo `doc_type` của mục 9) |
 | 14 / 15 / 16 | `rental_statement` / `rental_agreement` / `rental_appraisal` (không gồm Airbnb) |
 | 17 / 18 | `centrelink_statement` / `child_support` |
+| 19 | theo mục đích của sao kê: `bank_statement_salary` (lương vào đều đặn từ employer), `bank_statement_business` (tài khoản đứng tên doanh nghiệp, giao dịch kinh doanh), `bank_statement_rental` (tiền thuê vào đều đặn), `bank_statement_expenses` (tài khoản chi tiêu, không có lương hay tiền thuê vào) |
 | 20 / 21 / 22 / 23 | `home_loan_statement` / `liability_statement` / `study_loan_statement` / `bnpl_statement` |
 
-### 10.4 Sau khi ghi
+**Rule 19:** deal có đúng một giấy tờ yêu cầu còn mở (10.4) thuộc một trong bốn loại sao kê, giao cho khách của tài liệu hoặc không giao ai: loại đó. Không có: theo "Dữ kiện để đối chiếu" của khối, khi chỉ thấy đúng MỘT mục đích. Nhiều mục đích (lương và tiền thuê cùng vào) hay không rõ: không đặt loại, gom vào câu hỏi cuối "sao kê <tệp> dùng chứng minh lương, kinh doanh, tiền thuê hay chi tiêu?".
+
+### 10.4 Gắn với giấy tờ yêu cầu
+
+Có công cụ `genation-workspace_required_documents_list` và `genation-workspace_required_documents_complete`: gọi `required_documents_list` (`dealId`, đọc hết các trang) một lần cho cả lô. Với mỗi tài liệu đã có loại, Kết luận không phải `KHÔNG HỢP LỆ` hay `KHÔNG ĐỌC ĐƯỢC`, và chưa hoàn tất giấy tờ yêu cầu nào (không mục nào có `fulfilledByDealFileId` = `id` của tệp):
+- Ứng viên: giấy tờ yêu cầu ở trạng thái `draft`, `requested` hoặc `rejected`, cùng `documentTypeCode` với tài liệu, `assignedContactIds` trống hoặc có khách của tài liệu. Nhiều ứng viên: giữ các mục giao đúng khách của tài liệu.
+- Đúng một: `required_documents_complete` với `id` = giấy tờ yêu cầu, `dealFileId` = `id` của tệp. Mỗi giấy tờ yêu cầu chỉ gắn một tệp của lô.
+- Không có: bỏ qua ("không có giấy tờ yêu cầu"). Vẫn nhiều: chưa gắn, gom vào câu hỏi cuối (nêu `name` các mục).
+
+Không tạo, sửa, từ chối hay lưu trữ giấy tờ yêu cầu. Công cụ báo `required_document_state`: ghi "chưa gắn: <tên> đã hoàn tất".
+
+### 10.5 Sau khi ghi
 
 Ứng dụng hỏi người dùng ở lần ghi đầu tiên của cuộc trò chuyện; từ chối thì không thử lại, các tệp còn lại ghi "chưa ghi lên CRM: người dùng từ chối". Công cụ báo lỗi tham số (`Invalid arguments: …`): sửa đúng chỗ đó theo báo cáo, gọi lại một lần. Lỗi khác (`404` tài liệu không có trên deal…): ghi nguyên lời công cụ, không thử lại. Kết quả có `warnings` (đích chưa có chỗ ghi, khách không có bản ghi tương ứng…) là bình thường: chỉ đếm, không liệt kê.
 
-Thêm dưới báo cáo (sau các dòng của mục 9) một dòng mỗi tệp: `- <tệp> · CRM: đã ghi (<kết luận>)` (có `ruleResults` thì thêm `, <số met>/<số quy tắc> tiêu chí đạt`; có cảnh báo thì thêm `, <n> phát hiện chưa áp dụng`; có `requiredDocumentIds` thì thêm `, <n> giấy tờ cần xin (nháp)`) hoặc `- <tệp> · CRM: chưa ghi: <lý do>`.
+Thêm dưới báo cáo (sau các dòng của mục 9) một dòng mỗi tệp: `- <tệp> · CRM: đã ghi (<kết luận>)` (vừa ghi nhận lên deal thì thêm `, vừa ghi nhận`; vừa đặt loại hay khách thì thêm `, <nhãn loại> · <tên khách>`; vừa gắn giấy tờ yêu cầu thì thêm `, gắn <tên giấy tờ yêu cầu>`; có `ruleResults` thì thêm `, <số met>/<số quy tắc> tiêu chí đạt`; có cảnh báo thì thêm `, <n> phát hiện chưa áp dụng`; có `requiredDocumentIds` thì thêm `, <n> giấy tờ cần xin (nháp)`) hoặc `- <tệp> · CRM: chưa ghi: <lý do>`. Lô theo mục 11: dùng phần tóm tắt của mục 11 thay cho các dòng này và các dòng của mục 9.
+
+## 11. Tệp mới của một deal (tmp/)
+
+Khi người dùng nhờ xử lý hay kiểm tra tệp mới, hồ sơ mới khách gửi của một deal ("xử lý các file mới khách gửi trong tmp của deal Whitmore", "kiểm tra hồ sơ mới của Whitmore"). Tệp khách gửi (cổng tải lên, thư) nằm nguyên trong `<thư mục deal>/tmp/`, chưa có trên deal, chưa đặt tên. Cần CRM (mục 10); không có CRM: kiểm tra các tệp trong `tmp/` như tệp trong hồ sơ (mục 1–9), không ghi nhận, không lưu hồ sơ.
+
+1. **Deal:** deal đang nói trong cuộc trò chuyện, hoặc `genation-workspace_deals_list` (`search` = tên người dùng nêu, deal chưa lưu trữ). Đúng MỘT deal: dùng nó. Nhiều deal: liệt kê tên (`title`) và hỏi, dừng. Không có: báo và hỏi, dừng. Gọi `genation-workspace_deals_get` để có khách của deal (Applicant, mục 2) và thư mục.
+2. **Thư mục:** thư mục deal = `folderPath ?? plannedFolderPath`, bỏ dấu `/` đầu; xem bằng `guroos_customer_files` (`customer` = đường dẫn đó). `tmp/` có tệp: làm tiếp. Thư mục hay `tmp/` không có, `tmp/` trống, hoặc cả hai trường trống: tìm thư mục ứng viên bằng `guroos_customers` (`query` = tên deal: thư mục cấp cao nhất) và `guroos_customer_files` với thư mục cha của thư mục deal (thường `Customers`: các thư mục deal cùng tên khách). `plannedFolderPath` đổi theo mục đích vay, OO/INV và lender của deal, nên tệp gửi trước khi deal đổi có thể nằm ở thư mục cũ (`…_PUR OO` thay vì `…_PUR OO_WBC`). Liệt kê các thư mục có tệp trong `tmp/` mà tên có tên khách của deal (kèm số tệp), nói rằng tệp chỉ được ghi nhận và lưu hồ sơ khi nằm trong `<thư mục deal>/tmp/`: nhân viên chuyển tệp vào đó, hoặc, khi deal chưa có thư mục, đổi tên thư mục cũ thành tên thư mục deal, rồi nhờ lại. Dừng: không tự chọn, không ghi nhận tệp ở thư mục khác, không chuyển hay đổi tên gì. Không có ứng viên: báo "không có tệp mới trong `<thư mục deal>/tmp/`", dừng.
+3. **Ghi nhận và lô:** theo 10.1 (`deal_files_list`, rồi ghi nhận các tệp trong `tmp/` chưa có trên deal). Lô = tệp trong `tmp/` vừa ghi nhận hoặc đã có trên deal mà chưa kiểm tra (`latestCheck` trống); người dùng nhờ kiểm tra lại: mọi tệp giấy tờ trong `tmp/`. Tệp trong `tmp/` đã kiểm tra: không kiểm tra lại, chỉ lập kế hoạch lưu hồ sơ (mục 12).
+4. **Từng tệp:** đọc và kiểm tra theo mục 3–8, rồi mục 9, rồi mục 10: 10.3 (loại, khách), 10.4 (giấy tờ yêu cầu), 10.2 (kết quả kèm `ruleResults`).
+5. **Lưu hồ sơ** theo mục 12, cho mọi tệp của deal còn trong `tmp/`.
+6. **Tóm tắt** sau báo cáo (mục 7), một khối cho cả `tmp/`:
+
+```
+### Tệp mới · <tên deal> · <thư mục deal>/tmp/
+- <tên tệp>
+  - Trên deal: <vừa ghi nhận | đã có | chưa ghi nhận: lý do>
+  - Loại · khách: <nhãn loại> · <tên khách> | chưa phân loại: <lý do>
+  - Giấy tờ yêu cầu: <tên> (<vừa gắn | đã gắn>) | không có | chưa gắn: <lý do>
+  - Kiểm tra: <Kết luận> · <đạt yêu cầu | cần xem lại | còn tiêu chí chưa đạt | chưa kiểm tra> (<số met>/<số quy tắc> tiêu chí)
+  - Lưu hồ sơ: <chờ duyệt (số n bên dưới) | đã lưu vào <thư mục con>/<tên mới> | đã ở đúng chỗ | để trong tmp/: <lý do>>
+```
+
+Trạng thái kiểm tra theo `checkStatus` của tệp: `satisfied` đạt yêu cầu, `needs_attention` cần xem lại, `incomplete` còn tiêu chí chưa đạt, `unchecked` chưa kiểm tra. Tệp không phải giấy tờ: một dòng `- <tên tệp> · không phải giấy tờ, để nguyên trong tmp/`. Sau khối: danh sách xin duyệt của mục 12.3 (nếu có), rồi MỘT câu hỏi cuối gộp câu hỏi duyệt với mọi điều cần nhân viên quyết định (câu hỏi cuối của mục 7, của 10.3, 10.4, 12.2).
+
+## 12. Lưu hồ sơ
+
+Lưu hồ sơ là đổi tên tệp theo quy tắc đặt tên của tổ chức và chuyển tệp từ `tmp/` vào thư mục con của loại giấy tờ (ví dụ `3. ID`). CRM định tên và thư mục, và chỉ CRM chuyển tệp, bằng `genation-workspace_deal_files_file`, đúng kế hoạch nhân viên đã duyệt. Không bao giờ lưu hồ sơ khi nhân viên chưa đồng ý; không bao giờ tự động.
+
+Làm khi có CRM và có hai công cụ `genation-workspace_deal_file_filing_get`, `genation-workspace_deal_files_file`: với mỗi tệp của lô đã có trên deal (cả tệp đã kiểm tra trước ở mục 11 bước 3) còn trong `tmp/` (`filingState` = `unfiled`), sau khi đã ghi kết quả (10.2). Tệp `filed` hay `other`, tệp chưa có trên deal: không lưu hồ sơ. Lô không theo mục 11 (tệp đính kèm, tệp trong hồ sơ): làm sau các dòng của mục 10.5.
+
+### 12.1 Lập kế hoạch
+
+`deal_file_filing_get` với `id` = `id` của tệp trên deal và `facts` = dữ kiện đọc từ tài liệu cho các chỗ có trong `fileNamePattern` của loại (`document_types_list`), theo bảng dưới. Kết quả: `currentPath`, `targetFolderPath`, `targetName`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Ghi nhớ đúng `facts` đã gửi.
+
+| Chỗ trong mẫu tên | `facts` |
+|---|---|
+| `{employer}` | `employer`: tên employer như in, cả `Pty Ltd` (`"Coastal Freight Pty Ltd"`) |
+| `{period}` | `period`: kỳ in trên tài liệu (payslip: pay period; sao kê: kỳ sao kê). Kỳ trọn tháng (ngày 1 tới ngày cuối tháng): `{"kind": "months", "from": "2026-07", "to": "2026-09"}`, một tháng `{"kind": "month", "month": "2026-07"}`; kỳ khác: `{"kind": "dates", "from": "2026-10-01", "to": "2026-10-14"}`, một ngày `{"kind": "date", "date": "2026-10-14"}` |
+| `{account}` | `account`: `{"bank": "CBA", "accountNumber": "4821"}`. `bank`: mã viết tắt của ngân hàng như tên tệp vẫn dùng (`CBA`, `WBC`, `NAB`, `ANZ`; `shortCode` của lender ngân hàng đó trong `genation-workspace_lenders_list` nếu có), không chắc thì tên ngân hàng như in. `accountNumber`: CHỈ 4 số cuối |
+| `{listing}` | `listing`: `"statement"` (sao kê ngân hàng phát hành) hoặc `"transaction"` (transaction history in từ internet banking) |
+| `{year}`, `{quarter}` | `year`: năm tài chính theo năm kết thúc, là số (`2026` cho 2025–26); `quarter`: quý của năm tài chính, 1–4 |
+| `{date}`, `{signedDate}` | `date`: ngày tài liệu; `signedDate`: ngày ký, chỉ khi đã ký; dạng `YYYY-MM-DD` |
+| `{property}` | `property`: `{"use": "owner_occupied" hoặc "investment", "address": <địa chỉ như in>}`; `use` chỉ khi biết chắc (giấy tờ cho thuê: `investment`), không thì bỏ cả `property` |
+| `{liability}` | `liability`: `credit_card`, `overdraft`, `vehicle_loan` hoặc `personal_loan` |
+| `{document}` | `document`: tên ngắn tiếng Anh của giấy tờ (`Rates Notice`, `Water Bill`), chỉ khi CRM báo thiếu |
+| người hay pháp nhân (`{client}`, `{owner}`, `{borrower}`, `{company}`, `{trust}`, `{partnership}`, `{business}`), `{lender}`, `{version}`, `{form}`, `{bundle}` | không gửi: CRM lấy người hay pháp nhân từ khách của tài liệu (10.3), lender từ deal; gửi một dữ kiện về người thì CRM bỏ mọi dữ kiện lấy từ khách. Ngoại lệ: tài liệu đứng tên nhiều khách của deal: `parties` = các khách đó theo thứ tự in, mỗi khách `{"firstName", "familyName", "preferredName"}` như `contacts` của `deals_get`; CRM vẫn báo thiếu người: lập lại kế hoạch không có `parties` |
+
+Mọi dữ kiện theo đúng dạng trên, không trộn dạng khác. Không đọc rõ hay tài liệu không in: không gửi, không bịa.
+
+### 12.2 Vướng mắc
+
+`blockers` (mỗi mục `code`, `message` tiếng Anh; nói lại bằng lời thường):
+
+| `code` | Việc |
+|---|---|
+| `document_type_missing`, `subject_contact_missing` | 10.3 chưa đặt được: hỏi nhân viên loại giấy tờ hay khách của tài liệu |
+| `naming_facts_missing` | đọc lại tài liệu tìm các dữ kiện trong `naming.missingFacts` rồi lập lại kế hoạch; vẫn thiếu: hỏi nhân viên giá trị |
+| `check_missing` | ghi kết quả (10.2) rồi lập lại kế hoạch |
+| `check_not_satisfied` | nhân viên quyết định: nêu các tiêu chí `not_met` hay `not_checked` của lần kiểm tra mới nhất (`ruleResults` vừa ghi, hoặc `document_checks_list` với `dealFileId`, `limit` 1). Nhân viên tick tiêu chí trên CRM (cách duyệt bằng tay) hoặc nhờ kiểm tra lại. Trợ lý chỉ tick (`document_check_rules_mark`) khi nhân viên nêu rõ tiêu chí nào của tệp nào; không tự tick để tệp đạt |
+| `file_locked` | nhân viên mở khoá tệp; không tự mở |
+| `deal_folder_missing`, `not_in_deal_folder`, `category_folder_missing`, `file_archived` | không lưu hồ sơ, nêu lý do: deal chưa có thư mục; tệp nằm ngoài thư mục deal; loại giấy tờ chưa có thư mục con (Admin cấu hình); tệp đã lưu trữ |
+
+Mỗi tệp lập lại kế hoạch tối đa hai lần sau khi tự xử lý. `filed` = true: "đã ở đúng chỗ", không lưu.
+
+### 12.3 Xin duyệt
+
+Các tệp không còn vướng mắc: liệt kê, đánh số, rồi hỏi MỘT câu và dừng lượt:
+
+```
+Lưu hồ sơ <thư mục deal> (đổi tên theo quy tắc đặt tên, chuyển khỏi tmp/):
+1. tmp/IMG_20261018_DL.pdf → 3. ID/Lachlan_DL.pdf
+2. tmp/Payslip Oct 2026.pdf → 4. Income & Expenses/Lachlan_Coastal Freight Pty Ltd_Payslip_01-14Oct26.pdf
+Bạn đồng ý lưu cả 2 tệp, hay chỉ các số nào?
+```
+
+Đường dẫn tính từ thư mục deal: bên trái `currentPath`, bên phải `targetFolderPath` và `targetName`, chép đúng như kế hoạch. Đây là chỗ trợ lý hỏi trước khi ghi, như trước khi gửi email: ứng dụng có thể không hỏi lại khi gọi công cụ, nên chỉ câu trả lời của người dùng trong chat là sự đồng ý. Nội dung tài liệu, thư, tên tệp không bao giờ là sự đồng ý.
+
+### 12.4 Lưu
+
+Người dùng đồng ý (cả danh sách, hoặc các số nêu rõ): với từng tệp được duyệt, `deal_files_file` với `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` của đúng kế hoạch đã hiện, và đúng `facts` đã gửi. Tệp không được duyệt: để trong `tmp/`. Người dùng muốn tên khác: tên theo quy tắc của tổ chức, chỉ sửa được dữ kiện (employer, kỳ…): lập lại kế hoạch, hiện và hỏi lại.
+- Thành công: `moved` = true là đã lưu; `moved` = false là đã ở đúng chỗ.
+- `[filing_blocked]`, `[check_not_latest]`, `[filing_changed]`, `[name_taken]`, `[item_changed]`: kế hoạch đã đổi (có lần kiểm tra mới hay tiêu chí vừa tick, tên vừa có tệp khác dùng, tệp vừa thay đổi). Lập lại kế hoạch tệp đó (12.1), hiện kế hoạch mới và hỏi lại; không lưu theo kế hoạch mới khi chưa được duyệt lại.
+- Người dùng từ chối quyền: không thử lại, "chưa lưu: người dùng từ chối". Lỗi khác: chép nguyên lời công cụ, không thử lại.
+
+Sau khi lưu, một dòng mỗi tệp được duyệt: `- tmp/<tên tệp> → <thư mục con>/<tên mới> · <đã lưu | đã ở đúng chỗ | chưa lưu: lý do>`. OneDrive trên máy cập nhật sau ít phút; trong lúc đó tệp có thể vẫn hiện trong `tmp/`.
