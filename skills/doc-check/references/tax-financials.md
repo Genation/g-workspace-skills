@@ -1,143 +1,143 @@
-# Thuế và báo cáo tài chính (rule 13)
+# Tax and financial statements (rule 13)
 
-## Phạm vi
+## Scope
 
-| Loại | Gồm |
+| Type | Includes |
 |---|---|
-| Tax Return | tờ khai Individual, Company, Partnership, Trust do tax agent hoặc phần mềm thuế xuất ra (cả bản tự nộp qua myTax) |
-| Notice of Assessment (NOA) | thông báo tính thuế của ATO, kể cả `Notice of amended assessment` |
-| ATO Income Statement | income statement trên myGov / ATO online services |
-| Financial Statements | bộ báo cáo tài chính: Profit and Loss, Balance Sheet và phần kèm theo (mục 1); cả P&L hoặc Balance Sheet rời, management accounts ("chưa chắc", mục 1) |
+| Tax Return | Individual, Company, Partnership, Trust returns produced by a tax agent or tax software (including self-lodged via myTax) |
+| Notice of Assessment (NOA) | ATO notice of assessment, including `Notice of amended assessment` |
+| ATO Income Statement | income statement on myGov / ATO online services |
+| Financial Statements | set of financial statements: Profit and Loss, Balance Sheet and accompanying parts (section 1); also a standalone P&L or Balance Sheet, management accounts ("uncertain", section 1) |
 
-Đọc theo trang:
-- Tax Return: trang 1 (tiêu đề, năm, tên) → trang tổng hợp (`Taxable income`, thường kèm "Taxation estimate") → trang declaration (thường ở cuối).
-- Financial Statements: mục lục → Profit and Loss → Balance Sheet → Notes / declaration / Compilation Report.
-- NOA, ATO Income Statement: đọc hết.
+Read by page:
+- Tax Return: page 1 (title, year, name) → summary page (`Taxable income`, usually with "Taxation estimate") → declaration page (usually at the end).
+- Financial Statements: contents → Profit and Loss → Balance Sheet → Notes / declaration / Compilation Report.
+- NOA, ATO Income Statement: read in full.
 
-## 1. Dấu hiệu cấu trúc bắt buộc
+## 1. Required structural signs
 
-| Loại | Dấu hiệu bắt buộc |
+| Type | Required signs |
 |---|---|
-| Tax Return | (1) tiêu đề `Individual` / `Company` / `Partnership` / `Trust tax return` kèm năm; (2) các mục đánh số theo mẫu ATO (ví dụ `1 Salary or wages`, `D1`…`D10`, `L1`) có nhãn ô chữ cái cạnh số tiền; (3) phần tổng hợp `Total income or loss`, `Total deductions`, `Taxable income` (hoặc `Taxable income or loss`; pháp nhân: `Total income` hoặc `Total business income`, `Total expenses`, `Total profit or loss` hoặc `Net income or loss (from business)`); (4) phần khai báo của người nộp thuế hoặc tax agent, ví dụ `Taxpayer's declaration`, `Electronic lodgement declaration`; (5) tên người nộp thuế lặp ở đầu các trang của tờ khai |
-| NOA | (1) tiêu đề `Notice of assessment` kèm tên ATO (`Australian Taxation Office`, `ato.gov.au` hoặc địa chỉ ATO); (2) `Year ended 30 June YYYY` (kỳ thay thế: `Year ended` ngày khác); (3) `Date of issue`; (4) bảng tính thuế: `Taxable income`, `Tax on taxable income`, `Medicare levy`, các khoản credit (ví dụ PAYG withholding) và dòng kết quả phải trả hoặc được hoàn |
-| ATO Income Statement | (1) ATO, myGov hoặc ATO online services; (2) tiêu đề `Income statement`; (3) payer / employer và `Payer ABN` / `Employer ABN/Branch`; (4) số tiền gộp (`Gross payments`, `Total gross amount`), thuế khấu trừ (`Total tax withheld`, `Tax withheld`, `PAYGW amount`); (5) năm tài chính và trạng thái (ví dụ `Tax ready`) |
-| Financial Statements | (1) tên tổ chức kèm ABN/ACN và kỳ (`For the year ended …` hoặc `Year ended …`); (2) `Profit and Loss` (hoặc `Statement of profit or loss`) có dòng lãi/lỗ (`Net profit`, `Profit before / after income tax`…); (3) `Balance Sheet` (hoặc `Statement of Financial Position`) có `Total assets`, `Total liabilities`, `Net assets` và Equity; (4) ít nhất một trong: `Notes to the financial statements`, declaration của Directors / Trustee / Partners, `Compilation Report` |
+| Tax Return | (1) title `Individual` / `Company` / `Partnership` / `Trust tax return` with the year; (2) items numbered per the ATO form (e.g. `1 Salary or wages`, `D1`…`D10`, `L1`) with letter box labels next to the amounts; (3) summary `Total income or loss`, `Total deductions`, `Taxable income` (or `Taxable income or loss`; entity: `Total income` or `Total business income`, `Total expenses`, `Total profit or loss` or `Net income or loss (from business)`); (4) taxpayer or tax agent declaration, e.g. `Taxpayer's declaration`, `Electronic lodgement declaration`; (5) taxpayer name repeated at the top of the return's pages |
+| NOA | (1) title `Notice of assessment` with the ATO name (`Australian Taxation Office`, `ato.gov.au` or ATO address); (2) `Year ended 30 June YYYY` (substitute period: `Year ended` another date); (3) `Date of issue`; (4) tax calculation table: `Taxable income`, `Tax on taxable income`, `Medicare levy`, credits (e.g. PAYG withholding) and the result line, payable or refundable |
+| ATO Income Statement | (1) ATO, myGov or ATO online services; (2) title `Income statement`; (3) payer / employer and `Payer ABN` / `Employer ABN/Branch`; (4) gross amount (`Gross payments`, `Total gross amount`), tax withheld (`Total tax withheld`, `Tax withheld`, `PAYGW amount`); (5) financial year and status (e.g. `Tax ready`) |
+| Financial Statements | (1) organisation name with ABN/ACN and period (`For the year ended …` or `Year ended …`); (2) `Profit and Loss` (or `Statement of profit or loss`) with a profit/loss line (`Net profit`, `Profit before / after income tax`…); (3) `Balance Sheet` (or `Statement of Financial Position`) with `Total assets`, `Total liabilities`, `Net assets` and Equity; (4) at least one of: `Notes to the financial statements`, Directors / Trustee / Partners declaration, `Compilation Report` |
 
-- Năm ở tiêu đề Tax Return là năm tài chính kết thúc 30 June năm đó (`2025` = 2024–25). Ô ngày trống ở trang 1 (`If not a resident for a full year`, `approved substitute period`) không phải thiếu dấu hiệu.
-- Thiếu một dấu hiệu bắt buộc → DỪNG `[Cấu trúc] Thiếu <dấu hiệu>`. Rule 13 không hạ xuống "chưa chắc", trừ các trường hợp ngay dưới.
-- NOA và ATO Income Statement chưa đủ mẫu để chốt dấu hiệu: chỉ DỪNG khi thiếu (1) hoặc (2); thiếu dấu hiệu khác → tiêu đề "chưa chắc: thiếu <dấu hiệu>", Ghi chú "chưa đủ mẫu để chốt".
-- Tệp thiếu trang: dấu hiệu nằm ở trang thiếu không làm DỪNG; dấu hiệu (1) và dấu hiệu ở các trang có mặt vẫn phải đủ. Dấu hiệu ở trang scan chưa đọc được, kể cả (1), không làm DỪNG.
-- **P&L hoặc Balance Sheet rời**, management accounts (Financial Statements có (1) và ít nhất một trong (2), (3), thiếu phần còn lại hoặc (4)): không DỪNG `[Cấu trúc]`. Tiêu đề `<tệp> — Profit and Loss rời` (hoặc `Balance Sheet rời`, `Management accounts`) `(rule 13) · chưa chắc: thiếu <dấu hiệu>`; BÁO `[Tệp gốc]` (mục 4); vẫn ghi Fact Find (mục 3) và làm phép so 2C của phần có in. Thiếu (1), hoặc không có cả (2) lẫn (3): DỪNG `[Cấu trúc]`. Bước 0 (mục 2) vẫn áp như Financial Statements.
-- Gửi thay cho loại chính thì thiếu dấu hiệu, nên DỪNG `[Cấu trúc]`: trang "Taxation estimate" hoặc "Lodgement summary" đứng riêng, bảng tóm tắt tự gõ (thay Tax Return).
-- "Income statement" trong bộ Financial Statements là tên khác của P&L, không phải ATO Income Statement.
-- PAYG payment summary do employer phát hành (mẫu cũ, không phải của ATO): một dòng "Ngoài phạm vi".
+- The year in the Tax Return title is the financial year ending 30 June of that year (`2025` = 2024–25). Empty date boxes on page 1 (`If not a resident for a full year`, `approved substitute period`) are not a missing sign.
+- A required sign missing → STOP `[Structure] Missing <sign>`. Rule 13 does not downgrade to "uncertain", except in the cases just below.
+- NOA and ATO Income Statement do not yet have enough samples to fix their signs: STOP only when (1) or (2) is missing; another sign missing → heading "uncertain: missing <sign>", Notes "not enough samples to confirm".
+- File with missing pages: a sign on a missing page does not cause STOP; sign (1) and the signs on the pages present must still be complete. A sign on a scanned page not yet readable, including (1), does not cause STOP.
+- **Standalone P&L or Balance Sheet**, management accounts (Financial Statements with (1) and at least one of (2), (3), missing the rest or (4)): no STOP `[Structure]`. Heading `<file> — Standalone Profit and Loss` (or `Standalone Balance Sheet`, `Management accounts`) `(rule 13) · uncertain: missing <sign>`; FLAG `[Source file]` (section 4); still write Fact Find (section 3) and do the 2C comparisons for the parts printed. (1) missing, or neither (2) nor (3): STOP `[Structure]`. Step 0 (section 2) still applies as for Financial Statements.
+- Sent in place of the main type, so signs are missing, hence STOP `[Structure]`: a standalone "Taxation estimate" or "Lodgement summary" page, a self-typed summary table (instead of a Tax Return).
+- "Income statement" within a set of Financial Statements is another name for the P&L, not an ATO Income Statement.
+- PAYG payment summary issued by the employer (old form, not from the ATO): one "Out of scope" line.
 
-## 2. Bước 0 của nhóm
+## 2. Step 0 for this group
 
-Ghi mọi lý do DỪNG đã thấy. Đã có lý do DỪNG thì không cần làm thêm phép so; phép so đã làm mà lệch vẫn ghi.
+Record every STOP reason found. Once there is a STOP reason, no further comparisons are needed; a comparison already done that fails is still recorded.
 
-PDF không có khối, hoặc khối "Không đo được tệp: …": DỪNG `[Nguồn] Chưa đo được tệp gốc`, `[Tệp gốc]` → "gửi lại đúng tệp PDF trong ô chat của Guroos; vẫn không có khối thì báo người quản trị cập nhật ứng dụng".
+PDF with no check block, or block "Could not measure the file: …": STOP `[Source] Source file not measured`, `[Source file]` → "resend the exact PDF in the Guroos chat box; if there is still no block, tell the admin to update the app".
 
-### 2A. Nguồn tệp
+### 2A. File source
 
-| Loại | DỪNG khi "Nhóm nguồn" là |
+| Type | STOP when "Source group" is |
 |---|---|
-| Tax Return, NOA | trình duyệt in ra PDF, bộ chuyển HTML sang PDF, máy in PDF, công cụ văn phòng, công cụ thiết kế, trình sửa/xử lý PDF, không phải PDF (DOCX, XLSX…) |
-| ATO Income Statement | công cụ văn phòng, công cụ thiết kế, trình sửa/xử lý PDF, không phải PDF |
-| Financial Statements | công cụ thiết kế, trình sửa/xử lý PDF, không phải PDF |
+| Tax Return, NOA | browser printing to PDF, HTML-to-PDF converter, PDF printer, office tool, design tool, PDF editor/processor, not a PDF (DOCX, XLSX…) |
+| ATO Income Statement | office tool, design tool, PDF editor/processor, not a PDF |
+| Financial Statements | design tool, PDF editor/processor, not a PDF |
 
-- Ảnh (JPG/PNG): BÁO.
-- Nguồn khác: GHI CHÚ (ví dụ ATO Income Statement in từ myGov; Financial Statements từ phần mềm kế toán trên web, Word/Excel).
-- `trang có chữ: 0/N` không kèm đuôi "— mọi trang là ảnh scan…": có trang ảnh → BÁO; `trang có ảnh: không có` → DỪNG `[Nguồn] Tệp không có lớp chữ`.
+- Image (JPG/PNG): FLAG.
+- Other sources: NOTE (e.g. ATO Income Statement printed from myGov; Financial Statements from web accounting software, Word/Excel).
+- `pages with text: 0/N` without the suffix "— every page is a scanned image…": has image pages → FLAG; `pages with images: none` → STOP `[Source] File has no text layer`.
 
-### 2B. Dấu hiệu xét theo loại
+### 2B. Signs checked by type
 
-- `[Ảnh chụp/scan]` (một hay mọi trang) → BÁO.
-- Mọi nhãn khác ở mục "Dấu hiệu xét theo loại tài liệu" → DỪNG: `[Sửa nội dung]`, `[Che chữ]`, `[Chữ vẽ bằng nét]`, `[Sửa ảnh]` và nhãn chưa nêu ở đây.
-- "Ghi chú kỹ thuật" → GHI CHÚ.
+- `[Photo/scan]` (one or every page) → FLAG.
+- Every other tag in the "Signs to weigh by document type" section → STOP: `[Content edited]`, `[Text covered]`, `[Text as outlines]`, `[Image edited]` and tags not listed here.
+- "Technical notes" → NOTE.
 
-### 2C. Kiểm tra số và ngày
+### 2C. Figure and date checks
 
-Lệch quá $1 → DỪNG `[Số liệu] <phép so>: <các số in> lệch <số chênh>`. Loss có thể in kèm `L`, `LOSS`, dấu ngoặc hoặc dấu trừ.
+Difference over $1 → STOP `[Figures] <comparison>: <printed figures> differ by <difference>`. A loss may be printed with `L`, `LOSS`, brackets or a minus sign.
 
-Số, ngày đọc từ ảnh (tệp ảnh, ảnh trang) hay lớp chữ OCR của trang `[Ảnh chụp/scan]` không DỪNG `[Số liệu]`: lệch → `[Lệch số liệu]`.
+Figures and dates read from an image (image file, page image) or the OCR text layer of a `[Photo/scan]` page do not STOP `[Figures]`: mismatch → `[Figures mismatch]`.
 
-| Loại | Phép so |
+| Type | Comparison |
 |---|---|
-| Tax Return cá nhân, NOA | `Total income or loss` − `Total deductions` = `Taxable income` |
-| Tax Return cá nhân, NOA có in `Tax on (your) taxable income` | gọi `guroos_tax_estimate(financial_year="<năm tài chính in trên tài liệu, dạng 2024-25>", taxable_income=<số in>, entity="individual")`; số in = dòng "Thuế thu nhập theo biểu thuế". Bỏ phép so khi tool báo "chưa có biểu thuế cho năm này", hoặc tài liệu cho thấy người không cư trú, cư trú một phần năm (`Part-year tax-free threshold`), working holiday maker |
-| Tax Return cá nhân, NOA in đủ các dòng | tổng thuế phải trả − tổng credit và offset = số được hoàn hoặc phải trả |
-| Tax Return pháp nhân (company / partnership / trust) | `Total income` − `Total expenses` = `Total profit or loss` (hoặc `Net income or loss`); trust, partnership: `Total business income` − `Total expenses` = `Net income or loss from business` khi mục Reconciliation trống hoặc 0 (có số: bỏ phép so, Ghi chú). Company: thuế trên Taxable income bằng một trong hai mức ("Base rate entity", "Công ty khác 30%") của `guroos_tax_estimate(…, entity="company")`; bỏ phép so khi tool báo "chưa có thuế suất công ty cho năm này" |
-| Financial Statements (chỉ cột năm của tiêu đề) | Gross profit = Sales − Cost of goods sold; lợi nhuận trước thuế = Gross profit (+ thu nhập khác) − tổng chi phí; lợi nhuận sau thuế = trước thuế − Income tax; `Total assets` − `Total liabilities` = `Net assets` = Total equity |
-| ATO Income Statement | thuế khấu trừ không lớn hơn số tiền gộp (dấu hiệu (4)) |
+| Individual Tax Return, NOA | `Total income or loss` − `Total deductions` = `Taxable income` |
+| Individual Tax Return, NOA printing `Tax on (your) taxable income` | call `guroos_tax_estimate(financial_year="<financial year printed on the document, as 2024-25>", taxable_income=<printed figure>, entity="individual")`; printed figure = the "Income tax from the tax table" line. Skip the comparison when the tool reports "no tax table for this year yet", or the document shows a non-resident, part-year resident (`Part-year tax-free threshold`), working holiday maker |
+| Individual Tax Return, NOA printing all the lines | total tax payable − total credits and offsets = amount refundable or payable |
+| Entity Tax Return (company / partnership / trust) | `Total income` − `Total expenses` = `Total profit or loss` (or `Net income or loss`); trust, partnership: `Total business income` − `Total expenses` = `Net income or loss from business` when the Reconciliation item is empty or 0 (has a figure: skip the comparison, Notes). Company: tax on Taxable income equals one of the two rates ("Base rate entity", "Other companies 30%") of `guroos_tax_estimate(…, entity="company")`; skip the comparison when the tool reports "no company tax rate for this year yet" |
+| Financial Statements (title year column only) | Gross profit = Sales − Cost of goods sold; profit before tax = Gross profit (+ other income) − total expenses; profit after tax = before tax − Income tax; `Total assets` − `Total liabilities` = `Net assets` = Total equity |
+| ATO Income Statement | tax withheld not greater than the gross amount (sign (4)) |
 
-**Ngày.** Lấy ngày in trên trang: `Date of issue`, ngày ký declaration, ngày lodgement hoặc ngày xuất tệp; không lấy ngày của kỳ (`30 June YYYY`, `as at …`).
-- Tax Return, NOA, Financial Statements: so trực tiếp ngày đó với ngày kết thúc năm tài chính: `Year ended …` nếu in, không thì 30 June của năm ở tiêu đề; kỳ thay thế chỉ khi ô có ngày. Trùng hoặc trước ngày kết thúc → DỪNG `[Số liệu] <nhãn ngày> <ngày> không sau ngày kết thúc năm tài chính <ngày kết thúc>`.
-- Mọi loại: gọi `guroos_date_check(document_date="<ngày>")` chỉ để xét ngày trong tương lai; bỏ qua "QUÁ" / "TRONG" 30 ngày.
-- ATO Income Statement của năm đang chạy (chưa `Tax ready`) vẫn hợp lệ; ghi trạng thái vào Ghi chú.
-- P&L, Balance Sheet rời: ngày kết thúc là ngày cuối kỳ in ("to …", "as at …"), không phải 30 June. Xuất trước ngày đó (báo cáo của kỳ đang chạy) không DỪNG; Ghi chú "kỳ chưa kết thúc khi xuất, số liệu tạm tính".
-- Kỳ in trong thân (`1 July … to 30 June …`, ô kỳ thay thế có ngày, `Year ended …`) thuộc năm tài chính khác tiêu đề → DỪNG `[Số liệu]`; ô ngày trống, kỳ ngắn hơn trong cùng năm, cột năm trước không tính. Không có ngày nào để so → Ghi chú.
+**Dates.** Use the date printed on the page: `Date of issue`, declaration signing date, lodgement date or file export date; not the period dates (`30 June YYYY`, `as at …`).
+- Tax Return, NOA, Financial Statements: compare that date directly with the financial year end date: `Year ended …` if printed, otherwise 30 June of the title year; substitute period only when its box has a date. Same as or before the end date → STOP `[Figures] <date label> <date> not after financial year end <end date>`.
+- Every type: call `guroos_date_check(document_date="<date>")` only to check for a future date; ignore "OVER" / "WITHIN" 30 days.
+- ATO Income Statement for the current year (not yet `Tax ready`) is still valid; record the status in Notes.
+- Standalone P&L, Balance Sheet: the end date is the printed period end ("to …", "as at …"), not 30 June. Exported before that date (report for a running period) does not STOP; Notes "period not ended at export, figures provisional".
+- Period printed in the body (`1 July … to 30 June …`, substitute period box with a date, `Year ended …`) in a different financial year from the title → STOP `[Figures]`; empty date boxes, a shorter period within the same year, prior-year columns do not count. No date to compare → Notes.
 
-## 3. Ghi vào Fact Find
+## 3. Record in Fact Find
 
-| Loại | Trường | Không có thì ghi |
+| Type | Field | If absent, write |
 |---|---|---|
-| Tax Return cá nhân, NOA | Taxable income (hoặc loss, như in) kèm năm tài chính, ví dụ "88,320 (2024–25)" | "không có trên tài liệu" |
-| Tax Return pháp nhân (company, partnership, trust) | Total income (số của `Total income` hoặc `Total business income`); Total expenses; Net profit / loss (số của `Total profit or loss` hoặc `Net income or loss`); tên trường giữ đúng như cột này, nhãn in và năm tài chính ghi trong ngoặc | "không có trên tài liệu" |
-| Financial Statements — Profit and Loss (cả P&L rời, management accounts) | Total income; Total expenses; Net profit / loss | "không có trên tài liệu" |
-| Financial Statements — Balance Sheet (cả Balance Sheet rời) | Total assets; Total liabilities; Net assets | "không có trên tài liệu" |
-| ATO Income Statement | không có trường Fact Find | — |
+| Individual Tax Return, NOA | Taxable income (or loss, as printed) with the financial year, e.g. "88,320 (2024–25)" | "not on the document" |
+| Entity Tax Return (company, partnership, trust) | Total income (figure of `Total income` or `Total business income`); Total expenses; Net profit / loss (figure of `Total profit or loss` or `Net income or loss`); keep field names exactly as in this column, printed label and financial year in brackets | "not on the document" |
+| Financial Statements — Profit and Loss (including standalone P&L, management accounts) | Total income; Total expenses; Net profit / loss | "not on the document" |
+| Financial Statements — Balance Sheet (including standalone Balance Sheet) | Total assets; Total liabilities; Net assets | "not on the document" |
+| ATO Income Statement | no Fact Find field | — |
 
-- Kèm nhãn in khi khác tên trường (ví dụ "Total revenue"); có cột năm trước thì chỉ lấy cột năm của tiêu đề. P&L, Balance Sheet rời: kèm kỳ in ("1 July 2025 to 31 March 2026", "as at 31 March 2026"); chỉ ghi trường của phần có in, phần không có thì không ghi dòng.
+- Add the printed label when it differs from the field name (e.g. "Total revenue"); with a prior-year column, take only the title year column. Standalone P&L, Balance Sheet: add the printed period ("1 July 2025 to 31 March 2026", "as at 31 March 2026"); write only the fields of the parts printed, no line for absent parts.
 
-## 4. Cần thông báo
+## 4. Notices
 
-| Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
+| Condition | Tag | Safe evidence | Action |
 |---|---|---|---|
-| Có in TFN: trang ở dòng "Mã số" của khối, trang có `[đã che TFN]` hoặc TFN thấy trên ảnh. Chú thích chỉ che số TFN không xóa số khỏi tệp, nên vẫn ghi | TFN | chỉ số trang; khối liệt kê "…" thì viết "trang 1, 3, … và các trang sau" | che TFN (redact) trước khi lưu hoặc chia sẻ |
-| Tên người nộp thuế khác Applicant; tài liệu của pháp nhân: tên pháp lý khác pháp nhân của hồ sơ (SKILL.md mục 2) | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
-| Profit and Loss có Net profit âm | Loss | dòng lãi/lỗ nguyên văn và năm | báo nhân viên xem xét |
-| Bước 6 lệch quá $1: Tax Return pháp nhân với Financial Statements; Tax Return cá nhân với NOA | Lệch số liệu | theo `cross-checks.md` | báo nhân viên xem xét |
-| Có điểm BÁO ở Bước 0 (mục 2) | Tệp gốc | nguồn, hoặc nhãn và trang như khối | xác minh với nơi phát hành hoặc xin bản PDF gốc |
-| P&L hoặc Balance Sheet rời, management accounts (mục 1) | Tệp gốc | "<loại> rời, thiếu <dấu hiệu>"; cùng khối có điểm BÁO ở Bước 0 thì gộp một dòng | xin khách bộ Financial Statements đầy đủ do kế toán lập (có Notes, declaration hoặc Compilation Report), hoặc xác minh số liệu với kế toán |
+| TFN printed: pages on the block's "ID numbers" line, pages with `[TFN hidden]` or TFN visible on an image. An annotation that only covers the TFN does not remove it from the file, so still record | TFN | page numbers only; if the block lists "…", write "pages 1, 3, … and following pages" | redact the TFN before saving or sharing |
+| Taxpayer name differs from the Applicant; entity document: legal name differs from the profile's entity (SKILL.md section 2) | Name mismatch | both names verbatim, where they differ | refer to staff for review |
+| Profit and Loss with negative Net profit | Loss | profit/loss line verbatim and year | refer to staff for review |
+| Step 6 difference over $1: entity Tax Return vs Financial Statements; individual Tax Return vs NOA | Figures mismatch | per `cross-checks.md` | refer to staff for review |
+| A FLAG point in Step 0 (section 2) | Source file | source, or tag and page as in the block | verify with the issuer or request the original PDF |
+| Standalone P&L or Balance Sheet, management accounts (section 1) | Source file | "standalone <type>, missing <sign>"; if the same block has a FLAG point in Step 0, merge into one line | request from the client the full set of Financial Statements prepared by the accountant (with Notes, declaration or Compilation Report), or verify the figures with the accountant |
 
-Khối `KHÔNG HỢP LỆ` (trừ khi không có khối, xem mục 2): `[Tệp gốc] <tóm tắt lý do> → yêu cầu khách gửi bản PDF gốc tải trực tiếp từ myGov/ATO, hoặc nhờ kế toán/tax agent gửi trực tiếp cho văn phòng`. Lý do có `[Sửa nội dung]`, `[Che chữ]`, `[Mã số sai]` hoặc `[Số liệu]` thì thêm "; đối chiếu trực tiếp với kế toán/tax agent hoặc ATO trước khi dùng số liệu của khách".
+`INVALID` block (except when there is no check block, see section 2): `[Source file] <summary of reasons> → ask the client to send the original PDF downloaded directly from myGov/ATO, or have the accountant/tax agent send it directly to the office`. If the reasons include `[Content edited]`, `[Text covered]`, `[Invalid number]` or `[Figures]`, add "; verify directly with the accountant/tax agent or the ATO before using the client's figures".
 
-Chỉ ghi chú:
-- Tax Return in Taxable income âm hoặc lỗ kinh doanh (`[Loss]` chỉ dành cho Profit and Loss).
-- Medicare levy khác 2% Taxable income (có thể được giảm hoặc miễn); NOA là bản sửa đổi (amended).
-- Các phép so đã làm và kết quả.
+Notes only:
+- Tax Return showing negative Taxable income or a business loss (`[Loss]` is only for Profit and Loss).
+- Medicare levy other than 2% of Taxable income (may be reduced or exempt); NOA is an amended assessment.
+- The comparisons done and their results.
 
-## 5. Lưu ý riêng
+## 5. Special notes
 
-- **Pháp nhân:** partner, trustee, beneficiary in trên tờ khai không so với Applicant.
-- **Tệp có nhiều tài liệu** (bộ hồ sơ kế toán, NOA nhiều năm): mỗi phần một khối `<tệp> (phần n)`, nhận loại và xét cấu trúc theo phần. Khối kiểm tra là của cả tệp: điểm DỪNG ở 2A (cột của bất kỳ loại nào trong tệp) hoặc 2B làm mọi phần `KHÔNG HỢP LỆ`. `[TFN]` ghi ở phần chứa trang có TFN.
-- **Dữ kiện để đối chiếu** theo loại:
-  - Tax Return cá nhân: `<tên> · năm … · Total income … · Taxable income …`
-  - Tax Return pháp nhân: `<tên pháp nhân> · năm … · Total income … · Total profit or loss …`
-  - NOA: `<tên> · năm … · Taxable income … · Date of issue …`
-  - ATO Income Statement: `<tên> · năm … · payer <tên>, ABN đúng số kiểm tra · Gross payments … · Tax withheld …`
-  - Financial Statements: `<tên pháp nhân> · năm kết thúc … · Total income … · Net profit / loss … · Net assets …` (P&L, Balance Sheet rời: kỳ in thay năm, chỉ phần có in)
+- **Entity:** partners, trustees, beneficiaries printed on the return are not compared with the Applicant.
+- **File with several documents** (accountant's pack, NOAs for several years): one block `<file> (part n)` per part; recognise the type and check the structure per part. The check block covers the whole file: a STOP point in 2A (the row of any type in the file) or 2B makes every part `INVALID`. `[TFN]` goes in the part containing the page with the TFN.
+- **Facts for cross-checking** by type:
+  - Individual Tax Return: `<name> · year … · Total income … · Taxable income …`
+  - Entity Tax Return: `<entity name> · year … · Total income … · Total profit or loss …`
+  - NOA: `<name> · year … · Taxable income … · Date of issue …`
+  - ATO Income Statement: `<name> · year … · payer <name>, ABN check digits valid · Gross payments … · Tax withheld …`
+  - Financial Statements: `<entity name> · year ended … · Total income … · Net profit / loss … · Net assets …` (standalone P&L, Balance Sheet: printed period instead of year, only the parts printed)
 
-## 6. Ví dụ
+## 6. Example
 
-Dữ liệu giả. Hôm nay 11/10/2026. Người dùng nêu trong chat: Applicant "Thi Mai Tran". Lô chỉ có tệp này.
+Fake data. Today 11/10/2026. The user states in chat: Applicant "Thi Mai Tran". The batch has only this file.
 
-**Tax Return cá nhân của tax agent.** Khối kiểm tra: "Nhóm nguồn: phần mềm đã biết (phần mềm thuế/kế toán XReport, theo Producer).", "Mã số (không hiện số): TFN 15 lần (trang 1, 3, 4, 5, 6, 7, 8, 9, …), 1 số khác nhau, số kiểm tra đúng.", các mục dấu hiệu và ghi chú kỹ thuật đều "không có.". Nội dung: "Individual tax return 1 July 2024 to 30 June 2025"; mục `1 Salary or wages … C 92,500`, `D3`, `D5`; "TRAN, THI MAI" đầu mỗi trang; "Total income or loss 92,500 · Total deductions 4,180 · Taxable income 88,320"; Taxation estimate "Tax on your taxable income 17,284.00 · Medicare levy 1,766.40 · PAYG credits 19,200.00 · Refund 149.60"; "Electronic lodgement declaration" ký 14/08/2025.
+**Individual Tax Return from a tax agent.** Check block: "Source group: known software (XReport tax/accounting software, from Producer).", "ID numbers (digits not shown): TFN 15 times (pages 1, 3, 4, 5, 6, 7, 8, 9, …), 1 different number, check digits correct.", the sign sections and Technical notes all "none.". Content: "Individual tax return 1 July 2024 to 30 June 2025"; items `1 Salary or wages … C 92,500`, `D3`, `D5`; "TRAN, THI MAI" at the top of each page; "Total income or loss 92,500 · Total deductions 4,180 · Taxable income 88,320"; Taxation estimate "Tax on your taxable income 17,284.00 · Medicare levy 1,766.40 · PAYG credits 19,200.00 · Refund 149.60"; "Electronic lodgement declaration" signed 14/08/2025.
 
 ```
-### tax return 2025.pdf — Individual Tax Return (rule 13) · chắc chắn
-Kết luận: CẦN XỬ LÝ
-Kiểm tra tệp gốc: đạt (nguồn: phần mềm đã biết (phần mềm thuế/kế toán XReport, theo Producer)) · quy tắc: references/tax-financials.md
-Ghi vào Fact Find
+### tax return 2025.pdf — Individual Tax Return (rule 13) · certain
+Conclusion: ACTION NEEDED
+Source file check: passed (source: known software (XReport tax/accounting software, from Producer)) · rules: references/tax-financials.md
+Record in Fact Find
 - Taxable income: 88,320 (2024–25)
-Cần thông báo
-- [TFN] Trang 1, 3, 4, 5, 6, 7, 8, 9 và các trang sau có in TFN → che TFN (redact) trước khi lưu hoặc chia sẻ.
-Chưa kiểm tra được
-- Không có
-Ghi chú
-- Tên "TRAN, THI MAI" khớp Applicant Thi Mai Tran, khác thứ tự từ.
-- Đã đối chiếu: Total income − Total deductions = Taxable income; thuế − PAYG credits = Refund; thuế theo biểu thuế 2024–25 khớp $17,284.00; ngày declaration 14/08/2025 sau 30 June 2025.
-- Lô chưa có Notice of Assessment cùng năm để đối chiếu.
-Dữ kiện để đối chiếu: Thi Mai Tran · năm 2024–25 · Total income 92,500 · Taxable income 88,320
+Notices
+- [TFN] Pages 1, 3, 4, 5, 6, 7, 8, 9 and following pages show a TFN → redact the TFN before saving or sharing.
+Could not check
+- None
+Notes
+- Name "TRAN, THI MAI" matches Applicant Thi Mai Tran, different word order.
+- Compared: Total income − Total deductions = Taxable income; tax − PAYG credits = Refund; tax per the 2024–25 tax table matches $17,284.00; declaration date 14/08/2025 after 30 June 2025.
+- The batch has no Notice of Assessment for the same year to compare.
+Facts for cross-checking: Thi Mai Tran · year 2024–25 · Total income 92,500 · Taxable income 88,320
 ```

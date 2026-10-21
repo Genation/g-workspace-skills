@@ -1,93 +1,93 @@
-# Đối chiếu chéo (nhiều tài liệu)
+# Cross-checks (multiple documents)
 
-## Khi nào dùng
+## When to use
 
-Bước 6 của SKILL.md: MỘT lần cho cả lô của một khách, sau bước 1–5 của mọi tài liệu.
+Step 6 of SKILL.md: ONCE for the whole batch of one client, after steps 1–5 of every document.
 
-- **Ai tham gia:** tài liệu đã qua Bước 0 và đọc được; KHÔNG HỢP LỆ, KHÔNG ĐỌC ĐƯỢC coi như không có. Tài liệu có `[Tệp gốc]` hoặc "chưa chắc" vẫn tham gia, nêu điều đó trong bằng chứng. Ngoại lệ: giấy nối tên ngoài phạm vi (Marriage, Change of Name, Birth Certificate) đọc được vẫn dùng ở dòng cuối bảng 3.
-- **Số liệu** lấy từ "Dữ kiện để đối chiếu"; thiếu thì đọc lại đúng trang.
-- **Chỉ ghép cùng chủ thể:** cùng người (tên trên hai tài liệu KHỚP, kể cả khi chưa có Applicant), cùng pháp nhân (tên pháp lý; ABN/ACN nếu cả hai cùng in), cùng tài khoản (tổ chức và 4 số cuối), cùng địa chỉ nhà, cùng năm tài chính (so theo dạng 2024–25: `Company tax return 2025`, `Year ended 30 June 2025`, `For the year ended 30 June 2025` cùng là 2024–25).
-- **Ghi ở khối A**, không lặp ở khối B. Quy tắc theo bộ ghi MỘT lần ở khối mới nhất của bộ; khối cũ hơn ghi Ghi chú "xét theo bộ ở khối <tệp>".
-- **Lệch** → Cần thông báo `[<Nhãn>] <số/ngày trên A> · <số/ngày trên B> (<tệp B>) · lệch <số chênh> → báo nhân viên xem xét` (trừ khi bảng nêu việc khác). **Khớp** → Ghi chú "đã đối chiếu <gì> với <tệp B>: khớp". Lệch không quá $1 là khớp. Lệch không làm tài liệu nào KHÔNG HỢP LỆ.
+- **Who takes part:** documents that passed Step 0 and are readable; INVALID, UNREADABLE count as absent. A document with `[Source file]` or "uncertain" still takes part; state that in the evidence. Exception: readable out-of-scope name-linking documents (Marriage, Change of Name, Birth Certificate) are still used in the last row of table 3.
+- **Figures** come from "Facts for cross-checking"; if missing, re-read the exact page.
+- **Pair only the same subject:** same person (names on the two documents MATCH, even when there is no Applicant yet), same entity (legal name; ABN/ACN if both print it), same account (institution and last 4 digits), same property address, same financial year (compare in the form 2024–25: `Company tax return 2025`, `Year ended 30 June 2025`, `For the year ended 30 June 2025` are all 2024–25).
+- **Write in block A**, do not repeat in block B. Set rules are written ONCE in the newest block of the set; older blocks get a Notes line "checked as a set in block <file>".
+- **Mismatch** → Notices `[<Tag>] <figure/date on A> · <figure/date on B> (<file B>) · differs by <difference> → refer to staff for review` (unless the table states another action). **Match** → Notes "compared <what> with <file B>: match". A difference of no more than $1 is a match. A mismatch never makes any document INVALID.
 
-## Các cặp đối chiếu
+## Cross-check pairs
 
-### 1. Bộ cùng nguồn: gộp kỳ
+### 1. Same-source sets: combined periods
 
-Mỗi bộ gọi tool MỘT lần (bộ một tài liệu dùng lại kết quả bước 4):
-`guroos_date_check(document_date=<ngày tài liệu mới nhất>, max_age_days=30, periods=[<{start, end} của từng tài liệu>], min_months=<N>)`
-Chỉ tài liệu mới nhất xét 30 ngày; số tháng xét trên đoạn liền mạch chứa nó. Bảng này thay quy tắc 30 ngày và kỳ của từng tài liệu.
+Call the tool ONCE per set (a one-document set reuses the step 4 result):
+`guroos_date_check(document_date=<date of the newest document>, max_age_days=30, periods=[<{start, end} of each document>], min_months=<N>)`
+Only the newest document is checked against 30 days; the number of months is checked on the continuous span containing it. This table replaces each document's 30-day and period rules.
 
-| Bộ (khối nhận: mới nhất) | Cùng bộ khi | Xét | Nhãn |
+| Set (receiving block: newest) | Same set when | Check | Tag |
 |---|---|---|---|
-| Payslip (12) | cùng Employee, cùng employer (so ABN; không có thì so tên) | 30 ngày từ Pay date (không có thì ngày cuối kỳ); kỳ liên tiếp, không truyền `min_months`. Từng cặp liền kỳ cùng năm tài chính: YTD Gross sau − YTD Gross trước = Gross kỳ sau | Quá 30 ngày · Không liên tiếp · Lệch số liệu |
-| Sao kê rule 19, 20, 21 | cùng tài khoản | 30 ngày; `min_months` 3 (19, 21) hoặc 6 (20). Sao kê liền kỳ: Closing kỳ trước = Opening kỳ sau, khớp đúng | Quá 30 ngày · Kỳ dưới 3 tháng · Kỳ dưới 6 tháng · Lệch số liệu |
-| Centrelink (17), cấp dưỡng (18) | cùng Applicant, cùng khoản, cùng bên trả; bộ 18 có thể gồm Assessment, statement, Court Order, Child Support Agreement | `min_months=3`; 30 ngày tính từ tài liệu mới nhất mà quy tắc 30 ngày áp dụng (Court Order, Child Support Agreement: chỉ ghi chú ngày). Khoảng hở trước đoạn đã ĐỦ 3 tháng: Ghi chú | Quá 30 ngày · Kỳ dưới 3 tháng |
-| Rental Statement (14), Airbnb (16) | 14: cùng địa chỉ nhà; 16: cùng Host và listing | 30 ngày, không xét kỳ. Rental Appraisal xét từng tài liệu | Quá 30 ngày |
+| Payslip (12) | same Employee, same employer (compare ABN; if absent, compare name) | 30 days from Pay date (if absent, period end); consecutive periods, do not pass `min_months`. Each pair of adjacent periods in the same financial year: later YTD Gross − earlier YTD Gross = later period's Gross | Over 30 days · Not consecutive · Figures mismatch |
+| Statements rule 19, 20, 21 | same account | 30 days; `min_months` 3 (19, 21) or 6 (20). Adjacent statements: earlier period's Closing = later period's Opening, exact match | Over 30 days · Under 3 months · Under 6 months · Figures mismatch |
+| Centrelink (17), child support (18) | same Applicant, same payment, same payer; a set 18 may include Assessment, statement, Court Order, Child Support Agreement | `min_months=3`; 30 days counted from the newest document the 30-day rule applies to (Court Order, Child Support Agreement: note the date only). A gap before a span that is already "COVERS 3 months": Notes | Over 30 days · Under 3 months |
+| Rental Statement (14), Airbnb (16) | 14: same property address; 16: same Host and listing | 30 days, period not checked. Rental Appraisal checked per document | Over 30 days |
 
-### 2. Cặp khác nhóm theo checklist
+### 2. Cross-group pairs per the checklist
 
-| A (khối nhận) | B | So gì (lệch > $1: ghi hai số) | Nhãn |
+| A (receiving block) | B | Compare what (difference > $1: write both figures) | Tag |
 |---|---|---|---|
-| Bank Statement (19) có lương vào | Payslip (12) cùng người | Khoản lương = mô tả có tên employer hoặc "SALARY", "WAGES", "PAY", "PAYROLL"; ghép payslip có Pay date trùng ngày hoặc trước tối đa 3 ngày; không ghép được thì không so. Số vào ↔ `Net pay` (payslip chia nhiều tài khoản: phần vào tài khoản này) | Lệch lương |
-| Bank Statement (19) có tiền thuê vào, Applicant là Landlord | Rental Agreement (15), Rental Statement (14) nếu có, cùng địa chỉ | Tenant trả thẳng: số vào = `Rent amount` cùng kỳ (chỉ nhân số tuần nguyên). Agency trả: số vào = Paid / Net to owner của statement kỳ đó; tiền thuê mỗi tuần trên statement = `Rent amount`; không có statement thì so với `Rent amount`, thêm "khoản từ agency có thể đã trừ phí quản lý" | Lệch tiền thuê |
-| Non-Australian Passport (6) | Visa Grant Notice / VEVO (8); Australian Passport (5) | Cùng người = tên KHỚP, hoặc trùng 4 ký tự cuối số hộ chiếu in trên visa. Không có visa dùng được và không có hộ chiếu Úc của chính người đó → xin khách visa hiện tại | Visa |
-| Tax Return company / partnership / trust (13) | Financial Statements (13) cùng pháp nhân, cùng năm | `Total income` ↔ tổng thu nhập trên Profit and Loss; `Total profit or loss` / `Net income or loss` ↔ `Net profit / loss` trước thuế. Không so `Taxable income` với Net profit | Lệch số liệu |
-| Individual Tax Return (13) | Notice of Assessment (13) cùng người, cùng năm | `Taxable income`; lệch thì thêm Ghi chú "ATO có thể đã điều chỉnh khi tính thuế" | Lệch số liệu |
+| Bank Statement (19) with pay credits | Payslip (12) of the same person | Pay credit = description has the employer name or "SALARY", "WAGES", "PAY", "PAYROLL"; pair with the payslip whose Pay date is the same day or up to 3 days earlier; if it cannot be paired, do not compare. Amount credited ↔ `Net pay` (payslip split across several accounts: the part paid into this account) | Pay mismatch |
+| Bank Statement (19) with rent credits, Applicant is Landlord | Rental Agreement (15), Rental Statement (14) if any, same address | Tenant pays directly: amount credited = `Rent amount` for the same period (multiply only by whole weeks). Agency pays: amount credited = Paid / Net to owner on that period's statement; weekly rent on the statement = `Rent amount`; no statement: compare with `Rent amount`, add "agency payment may be net of management fees" | Rent mismatch |
+| Non-Australian Passport (6) | Visa Grant Notice / VEVO (8); Australian Passport (5) | Same person = names MATCH, or the last 4 characters of the passport number printed on the visa are the same. No usable visa and no Australian passport of that same person → request the current visa from the client | Visa |
+| Tax Return company / partnership / trust (13) | Financial Statements (13) of the same entity, same year | `Total income` ↔ total income on the Profit and Loss; `Total profit or loss` / `Net income or loss` ↔ pre-tax `Net profit / loss`. Do not compare `Taxable income` with Net profit | Figures mismatch |
+| Individual Tax Return (13) | Notice of Assessment (13) of the same person, same year | `Taxable income`; if different, add Notes "the ATO may have adjusted it when assessing" | Figures mismatch |
 
-Rule 6, khối hộ chiếu khi lô có visa hoặc hộ chiếu Úc của cùng người (tên KHỚP, số hộ chiếu trên visa khác: vẫn tính, Ghi chú "visa gắn với hộ chiếu …<4 ký tự cuối>"):
-- Visa còn hiệu lực → không `[Visa]`; Ghi chú "đã có visa kèm theo (<tệp>)".
-- Visa hết hiệu lực (status khác "In Effect", hoặc HẾT HẠN theo tool): khối visa đã báo `[Visa]`; ở đây Ghi chú "visa kèm theo không còn hiệu lực, xem khối <tệp>".
-- Có Australian Passport, kể cả hết hạn → không `[Visa]`; Ghi chú "có hộ chiếu Úc (<tệp>)".
+Rule 6, passport block when the batch has a visa or an Australian passport of the same person (names MATCH but the passport number on the visa differs: still counts, Notes "visa linked to passport …<last 4 characters>"):
+- Visa in effect → no `[Visa]`; Notes "visa included (<file>)".
+- Visa no longer in effect (status other than "In Effect", or EXPIRED per the tool): the visa block already flags `[Visa]`; here Notes "included visa no longer in effect, see block <file>".
+- Australian Passport present, even if expired → no `[Visa]`; Notes "has an Australian passport (<file>)".
 
-### 3. Cặp chỉ ghi chú
+### 3. Notes-only pairs
 
-Một dòng Ghi chú ở khối A; nhãn sẵn có giữ nguyên.
+One Notes line in block A; existing tags stay unchanged.
 
-| A ↔ B | So gì → Ghi chú nêu |
+| A ↔ B | Compare what → Notes state |
 |---|---|
-| Equifax (11) có Current Directorship ↔ Company Extract (10), entity hồ sơ (SKILL.md mục 2: `guroos_case_profile` hay người dùng nêu trong chat) | tên công ty → trùng entity hồ sơ hay có extract trong lô không |
-| Equifax (11) ↔ sao kê khoản nợ (20–23) | Credit Enquiry trong `guroos_date_check(window_months=6, reference_date=<ngày lập báo cáo>)` → enquiry chưa có sao kê khoản nợ cùng lender, cùng loại |
-| Trust Deed (9), Trustee là công ty ↔ Company Extract (10) | tên Trustee ↔ tên công ty → có extract của trustee (nêu tệp) hay chưa |
-| Bank Statement (19) có trả nợ định kỳ ↔ sao kê khoản nợ (20–21) cùng lender | số tiền ra ↔ `Repayment` (khác tần suất: không quy đổi) → khớp hay lệch, kèm hai số; hoặc khoản trả nợ chưa có sao kê |
-| Bank Statement (19) ↔ Contract of Sale (2) | khoản chuyển ra lớn ↔ `Deposit` → trùng (±$1): thêm "trùng Deposit trên <tệp>" vào bằng chứng `[Giao dịch bất thường]` |
-| Bank Statement (19) ↔ Centrelink (17), cấp dưỡng (18) | khoản vào ↔ số mỗi kỳ của `Income received` → khớp hay lệch, kèm hai số |
-| Rental (14–16), Applicant là Landlord ↔ Rates Notice, Land Title (1) | địa chỉ nhà cho thuê → lô có giấy tờ nhà đất của địa chỉ đó chưa |
-| Land Title (1) có mortgage ↔ Home Loan Statement (20) | bên nhận mortgage ↔ `Lender` → khác lender, hoặc chưa có sao kê của bên đó |
-| Payslip (12) ↔ ATO Income Statement (13) gần nhất | employer (ABN) → không có trong Income Statement (có thể là việc mới) |
-| Medicare (7) xanh dương, vàng ↔ Visa / VEVO (8) cùng người | tình trạng cư trú → lô không có visa của người đó, hoặc visa Permanent mà thẻ chưa đổi |
-| Tài liệu có `[Sai tên]` ↔ giấy đổi tên, kết hôn, khai sinh, giấy tờ tùy thân mang tên đó | giấy nối hai tên → thêm tên tệp vào bằng chứng `[Sai tên]` |
+| Equifax (11) with Current Directorship ↔ Company Extract (10), profile entity (SKILL.md section 2: `guroos_case_profile` or what the user states in chat) | company name → whether it matches the profile entity or has an extract in the batch |
+| Equifax (11) ↔ liability statements (20–23) | Credit Enquiry within `guroos_date_check(window_months=6, reference_date=<report date>)` → enquiries with no liability statement from the same lender, of the same type |
+| Trust Deed (9), Trustee is a company ↔ Company Extract (10) | Trustee name ↔ company name → whether the trustee's extract is present (name the file) or not |
+| Bank Statement (19) with regular repayments ↔ liability statement (20–21) from the same lender | amount debited ↔ `Repayment` (different frequency: do not convert) → match or mismatch, with both figures; or a repayment with no statement yet |
+| Bank Statement (19) ↔ Contract of Sale (2) | large transfer out ↔ `Deposit` → equal (±$1): add "matches Deposit on <file>" to the `[Unusual transactions]` evidence |
+| Bank Statement (19) ↔ Centrelink (17), child support (18) | credit ↔ per-period amount of `Income received` → match or mismatch, with both figures |
+| Rental (14–16), Applicant is Landlord ↔ Rates Notice, Land Title (1) | rental property address → whether the batch has property documents for that address |
+| Land Title (1) with a mortgage ↔ Home Loan Statement (20) | mortgagee ↔ `Lender` → different lender, or no statement from that mortgagee yet |
+| Payslip (12) ↔ latest ATO Income Statement (13) | employer (ABN) → not in the Income Statement (may be a new job) |
+| Medicare (7) blue, yellow ↔ Visa / VEVO (8) of the same person | residency status → the batch has no visa for that person, or the visa is Permanent but the card has not been changed |
+| Document with `[Name mismatch]` ↔ change of name, marriage, birth certificate, ID document in that name | document linking the two names → add its file name to the `[Name mismatch]` evidence |
 
-## Thiếu tài liệu đối ứng
+## Missing counterpart document
 
-"Thiếu" = lô không có B, B thuộc người, tài khoản, năm khác, hoặc B KHÔNG HỢP LỆ / KHÔNG ĐỌC ĐƯỢC (thêm "<tệp B> KHÔNG HỢP LỆ, không dùng để đối chiếu"). Ghi ở khối A:
-- Lương vào, không có payslip dùng được → Chưa kiểm tra được "so lương với Net pay: lô chưa có payslip"; có payslip mà không khoản nào ghép được theo Pay date → "so lương: không có khoản lương trùng kỳ payslip", Ghi chú Net pay và khoản lương gần nhất.
-- Tiền thuê vào, không có Rental Agreement của địa chỉ → Chưa kiểm tra được "so tiền thuê: lô chưa có Rental Agreement"; khác kỳ với hợp đồng hoặc statement chỉ in tổng tháng → "so tiền thuê: khác kỳ, không quy đổi", Ghi chú hai số.
-- Tax Return hoặc Financial Statements pháp nhân thiếu tài liệu còn lại cùng năm → Chưa kiểm tra được "đối chiếu Tax Return với Financial Statements: thiếu <tài liệu>".
-- Individual Tax Return không có NOA cùng năm, hoặc ngược lại → Ghi chú "lô chưa có <loại> cùng năm để đối chiếu".
+"Missing" = the batch has no B, B belongs to another person, account or year, or B is INVALID / UNREADABLE (add "<file B> INVALID, not used for cross-check"). Write in block A:
+- Pay credits, no usable payslip → Could not check "compare pay with Net pay: no payslip in the batch"; payslips present but no credit pairs by Pay date → "compare pay: no pay credit matching a payslip period", Notes the Net pay and the nearest pay credit.
+- Rent credits, no Rental Agreement for the address → Could not check "compare rent: no Rental Agreement in the batch"; period differs from the agreement or the statement prints only a monthly total → "compare rent: different period, not converted", Notes both figures.
+- Entity Tax Return or Financial Statements without the other document for the same year → Could not check "cross-check Tax Return with Financial Statements: missing <document>".
+- Individual Tax Return without a NOA for the same year, or the reverse → Notes "batch has no <type> for the same year to compare".
 
-Người dùng đã cho số trong chat: so với số đó, bằng chứng ghi "theo người dùng, không có tài liệu". Không tự mở tệp ngoài lô; tệp trong `guroos_customer_files` có thể là B: nêu tên ở dòng "Chưa kiểm tra được", hỏi ở cuối báo cáo (lô đính kèm: xin đính kèm B).
+User gave the figure in chat: compare with that figure; evidence says "per the user, no document". Do not open files outside the batch yourself; a file in `guroos_customer_files` may be B: name it in the "Could not check" line, ask at the end of the report (attached batch: ask for B to be attached).
 
-## Ví dụ
+## Example
 
-Dữ liệu giả. Hôm nay 11/10/2026. Applicant: Thi Mai Tran. Lô: payslip_1.pdf, payslip_2.pdf (Sample Logistics Pty Ltd, Pay date 16/09 và 30/09/2026, Net pay đều $2,150.00); lease.pdf (Rent $620.00 per week, Applicant là Landlord, 12 Sample Street, Sampleton VIC 3000); rental_aug.pdf (cùng địa chỉ, Paid to owner $2,289.04); everyday_q3.pdf (…4821).
+Fake data. Today 11/10/2026. Applicant: Thi Mai Tran. Batch: payslip_1.pdf, payslip_2.pdf (Sample Logistics Pty Ltd, Pay date 16/09 and 30/09/2026, Net pay $2,150.00 on both); lease.pdf (Rent $620.00 per week, Applicant is Landlord, 12 Sample Street, Sampleton VIC 3000); rental_aug.pdf (same address, Paid to owner $2,289.04); everyday_q3.pdf (…4821).
 
-Bộ payslip: `guroos_date_check(document_date=30/09/2026, max_age_days=30, periods=[{start: 31/08/2026, end: 13/09/2026}, {start: 14/09/2026, end: 27/09/2026}])` → `Ngày tài liệu: 30/09/2026 → 11 ngày → TRONG 30 ngày`, `Gộp: liền mạch, không có khoảng hở`.
+Payslip set: `guroos_date_check(document_date=30/09/2026, max_age_days=30, periods=[{start: 31/08/2026, end: 13/09/2026}, {start: 14/09/2026, end: 27/09/2026}])` → `Document date: 30/09/2026 → 11 days → WITHIN 30 days`, `Merged: continuous, no gaps`.
 
 ```text
-### everyday_q3.pdf — Bank Statement (rule 19) · chắc chắn
-Kết luận: CẦN XỬ LÝ
-Kiểm tra tệp gốc: đạt (nguồn: chưa biết) · quy tắc: references/bank-liabilities.md
-Ghi vào Fact Find
-- Không có
-Cần thông báo
-- [Lệch lương] 30/09/2026 SAMPLE LOGISTICS PAY $2,000.00 · Net pay $2,150.00 (payslip_2.pdf, Pay date 30/09/2026) · lệch $150.00 → báo nhân viên xem xét
-Chưa kiểm tra được
-- Không có
-Ghi chú
-- Kỳ 01/07/2026–30/09/2026 ĐỦ 3 tháng; Statement date 01/10/2026, hôm nay 11/10/2026: TRONG 30 ngày (theo tool).
-- Đã đối chiếu lương 16/09/2026 $2,150.00 với payslip_1.pdf: khớp.
-- Đã đối chiếu tiền thuê 05/09/2026 $2,289.04 với Paid to owner của rental_aug.pdf: khớp; $620.00 mỗi tuần khớp Rent amount của lease.pdf.
-- Trả nợ SAMPLE AUTO FINANCE $412.00 hàng tháng: lô chưa có sao kê khoản vay này.
-Dữ kiện để đối chiếu: …4821 · kỳ 01/07–30/09/2026 · lương 16/09 $2,150.00, 30/09 $2,000.00 · tiền thuê 05/09 $2,289.04 · trả nợ $412.00 hàng tháng
+### everyday_q3.pdf — Bank Statement (rule 19) · certain
+Conclusion: ACTION NEEDED
+Source file check: passed (source: unknown) · rules: references/bank-liabilities.md
+Record in Fact Find
+- None
+Notices
+- [Pay mismatch] 30/09/2026 SAMPLE LOGISTICS PAY $2,000.00 · Net pay $2,150.00 (payslip_2.pdf, Pay date 30/09/2026) · differs by $150.00 → refer to staff for review
+Could not check
+- None
+Notes
+- Period 01/07/2026–30/09/2026 COVERS 3 months; Statement date 01/10/2026, today 11/10/2026: WITHIN 30 days (per the tool).
+- Compared pay 16/09/2026 $2,150.00 with payslip_1.pdf: match.
+- Compared rent 05/09/2026 $2,289.04 with Paid to owner on rental_aug.pdf: match; $620.00 per week matches Rent amount on lease.pdf.
+- SAMPLE AUTO FINANCE repayment $412.00 monthly: the batch has no statement for this loan yet.
+Facts for cross-checking: …4821 · period 01/07–30/09/2026 · pay 16/09 $2,150.00, 30/09 $2,000.00 · rent 05/09 $2,289.04 · repayment $412.00 monthly
 ```

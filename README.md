@@ -4,7 +4,7 @@
 
 ## Genation Workspace: size rule for skills
 
-**SKILL.md ≤ 35 KiB, each reference ≤ 45 KiB; the engine truncates tool output at 50 KiB.** Sizes are UTF-8 bytes with LF line ends (Vietnamese text is multi-byte). Also at most 2,000 lines per file and 2,000 characters per line (the engine's `read` cuts longer lines).
+**SKILL.md ≤ 35 KiB, each reference ≤ 45 KiB; the engine truncates tool output at 50 KiB.** Sizes are UTF-8 bytes with LF line ends (non-ASCII text, such as accented Vietnamese names, is multi-byte). Also at most 2,000 lines per file and 2,000 characters per line (the engine's `read` cuts longer lines).
 
 The app's agent engine (OpenCode 2.0.14) keeps only the first 50 KiB (51,200 bytes) or 2,000 lines of any tool output, and loading a skill or reading one of its files is a tool output. The rest goes to the engine's overflow folder, which the app does not let the assistant read: the model then asks for an "external folder" every time, or works without the cut part. The engine also prints the skill's base directory *after* SKILL.md, so a long SKILL.md loses it too. Keep SKILL.md to the scope, the routing table, the per-document procedure and the safety rules; move long, situational sections to `references/` and say exactly when to read each one. Reads under the skill's own folder are allowed without a prompt.
 

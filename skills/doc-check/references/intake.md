@@ -1,59 +1,59 @@
-# 11. Tệp mới khách gửi (tmp/)
+# 11. New client files (tmp/)
 
-Mục 11 của kỹ năng doc-check, tách khỏi SKILL.md; đọc khi bảng ở SKILL.md mục 1 nêu. "Mục 1–9" là mục của SKILL.md; mục 10 ở `references/crm-recording.md`, 12 ở `references/filing.md`, 13 ở `references/old-folder.md`: mỗi tệp đọc đúng bước dưới nêu (chưa có trong hội thoại thì đọc, cùng cách).
+Section 11 of the doc-check skill, split out of SKILL.md; read when the table in SKILL.md section 1 says so. "Sections 1–9" are SKILL.md sections; section 10 is in `references/crm-recording.md`, 12 in `references/filing.md`, 13 in `references/old-folder.md`: read each file exactly at the step below that names it (if not yet in the conversation, read it, the same way).
 
-Khi người dùng hỏi có hồ sơ, tệp nào khách mới gửi ("có hồ sơ nào khách mới gửi không"), hay nhờ xử lý, kiểm tra tệp mới, hồ sơ mới khách gửi, của một deal ("xử lý các file mới khách gửi trong tmp của deal Whitmore", "kiểm tra hồ sơ mới của Whitmore") hoặc chưa nêu deal ("xử lý các tệp khách mới gửi"). Tệp khách gửi nằm nguyên trong `<thư mục deal>/tmp/`, chưa có trên deal, chưa đặt tên. Cần CRM (SKILL.md mục 1); không có CRM: kiểm tra các tệp trong `tmp/` như tệp trong hồ sơ (mục 1–9), không ghi nhận, không lưu hồ sơ. Mỗi lượt chỉ xử lý MỘT deal.
+When the user asks whether any client has sent new documents or files ("any new documents from clients?"), or asks to process or check new files or new documents a client sent, for one deal ("process the new files the client sent in the tmp of deal Whitmore", "check Whitmore's new documents") or without naming a deal ("process the new client files"). Client files sit as-is in `<deal folder>/tmp/`, not yet on the deal, not yet named. Needs the CRM (SKILL.md section 1); without the CRM: check the files in `tmp/` like files in the client folder (sections 1–9), do not register, do not file. Each turn handles only ONE deal.
 
-Hai nguồn tệp mới:
-- **Mục intake (nguồn chính).** Tệp khách tải lên cổng khách hàng: backend lưu vào `<thư mục deal>/tmp/` và ghi một mục intake (`dealId`, `dealTitle`, `contactName`, `fileName`, `path`, `driveItemId`, `uploadedAt`, `status`). `status` là `new` cho tới khi tệp được ghi nhận lên deal (10.1), rồi tự thành `processed` kèm `dealFileId`; `processed` chỉ là đã ghi nhận, chưa phải đã kiểm tra hay đã lưu hồ sơ. `checkStatus` của mục là trạng thái kiểm tra của tệp trên deal (`null` khi còn `new`). Lọc `status` = `unchecked`: các mục đã ghi nhận mà chưa kiểm tra lần nào (ví dụ OneDrive trên máy chưa đồng bộ ở lần xử lý trước), vẫn chờ kiểm tra và lưu hồ sơ. Đọc bằng `genation-workspace_deal_intakes_list` (đọc hết các trang theo `cursor`). Không có công cụ đó (tổ chức chưa bật module `client_portal`), hoặc công cụ báo `module_not_enabled`: chỉ dùng nguồn dự phòng.
-- **Thư mục `tmp/` (dự phòng).** Tệp vào `tmp/` không qua cổng (tải từ thư bằng `mail-intake`, nhân viên chép vào) không có mục intake. Xem bằng `guroos_customer_files`.
-- **Không trùng.** Một tệp chỉ là một mục: cùng `driveItemId` (tệp trên deal: `document.driveItemId`) hoặc cùng đường dẫn (mục intake: `path`; tệp trên deal: `document.path`; tệp trong kho: `/<thư mục deal>/tmp/<tên tệp>`; không phân biệt hoa thường) là cùng một tệp.
+Two sources of new files:
+- **Intake items (main source).** Files the client uploads to the client portal: the backend saves them in `<deal folder>/tmp/` and records an intake item (`dealId`, `dealTitle`, `contactName`, `fileName`, `path`, `driveItemId`, `uploadedAt`, `status`). `status` is `new` until the file is registered on the deal (10.1), then becomes `processed` automatically with `dealFileId`; `processed` only means registered, not yet checked or filed. The item's `checkStatus` is the check status of the file on the deal (`null` while still `new`). Filter `status` = `unchecked`: items registered but never checked (e.g. OneDrive on this computer had not synced at the previous run), still waiting for check and filing. Read with `genation-workspace_deal_intakes_list` (read all pages by `cursor`). No such tool (the organisation has not enabled the `client_portal` module), or the tool reports `module_not_enabled`: use the fallback source only.
+- **`tmp/` folder (fallback).** Files that reach `tmp/` without the portal (downloaded from email by `mail-intake`, copied in by staff) have no intake item. View with `guroos_customer_files`.
+- **No duplicates.** A file is only one item: same `driveItemId` (file on the deal: `document.driveItemId`) or same path (intake item: `path`; file on the deal: `document.path`; file in the vault: `/<deal folder>/tmp/<file name>`; case-insensitive) means the same file.
 
-0. **Chưa nêu deal** (cuộc trò chuyện cũng chưa nói deal nào): có `deal_intakes_list` thì gọi hai lần, không lọc deal: `status` = `new` (tệp mới, chưa ghi nhận) và `status` = `unchecked` (đã ghi nhận, chưa kiểm tra). Gom theo `dealId`: tên deal (`dealTitle`), số tệp mới, số tệp chưa kiểm tra, tên khách (`contactName`), ngày gửi mới nhất; deal có tệp gửi mới nhất lên trước. Có `genation-workspace_deals_list`: gọi thêm MỘT lần với `unassigned` = `true` (đọc hết các trang) để đánh dấu deal chưa ai nhận. Liệt kê rồi hỏi xử lý deal nào, dừng lượt, kể cả khi chỉ có một deal (deal có thể của nhân viên khác) hay người dùng nhờ xử lý hết:
+0. **No deal named** (the conversation has not named one either): with `deal_intakes_list`, call it twice, no deal filter: `status` = `new` (new files, not registered) and `status` = `unchecked` (registered, not checked). Group by `dealId`: deal name (`dealTitle`), number of new files, number of unchecked files, client name (`contactName`), latest upload date; the deal with the latest upload first. With `genation-workspace_deals_list`: call it ONE more time with `unassigned` = `true` (read all pages) to flag deals nobody has claimed. List, then ask which deal to process, end the turn, even when there is only one deal (the deal may belong to another staff member) or the user asks to process all:
 
    ```
-   Tệp khách gửi qua cổng khách hàng, chưa xử lý:
-   1. <tên deal> · <n> tệp mới · <m> tệp chưa kiểm tra · <tên khách> · gửi <DD/MM/YYYY> · chưa ai nhận
-   2. <tên deal> · <n> tệp mới · <tên khách> · gửi <DD/MM/YYYY>
-   Bạn muốn xử lý deal nào?
+   Files clients sent through the client portal, not yet processed:
+   1. <deal name> · <n> new files · <m> files not checked · <client name> · sent <DD/MM/YYYY> · unassigned
+   2. <deal name> · <n> new files · <client name> · sent <DD/MM/YYYY>
+   Which deal would you like to process?
    ```
 
-   Số bằng 0 thì bỏ phần đó. Không có mục nào: "Không có tệp mới hay tệp chưa kiểm tra nào khách gửi qua cổng khách hàng." Cả hai trường hợp thêm một dòng: tệp gửi qua thư hay chép vào `tmp/` không có trong danh sách này; nhờ "xử lý tệp mới của deal <tên>" để xem `tmp/` của deal đó. Không có `deal_intakes_list`: hỏi người dùng deal nào, dừng. Không tự quét kho tìm `tmp/`.
-1. **Deal:** deal người dùng chọn ở bước 0 (`dealId` của nhóm đó), deal đang nói trong cuộc trò chuyện, hoặc `genation-workspace_deals_list` (`search` = tên người dùng nêu, deal chưa lưu trữ). Đúng MỘT deal: dùng nó. Nhiều deal: liệt kê tên (`title`) và hỏi, dừng. Không có: báo và hỏi, dừng. Người dùng nêu hay chọn nhiều deal: hỏi làm deal nào trước, dừng. Gọi `genation-workspace_deals_get` để có khách của deal (Applicant, mục 2), thư mục và người phụ trách. `ownerId` trống: deal chưa ai nhận (thường là deal khách tạo trên cổng); vẫn xử lý, nêu ở tóm tắt (bước 6), không tự nhận deal. Chỉ khi người dùng nhờ nhận ("nhận hồ sơ này"): `genation-workspace_deals_update` với `id` và `claim` = `true`; lỗi `deal_already_owned`: báo deal đã có người khác nhận.
-2. **Mục intake và thư mục:**
-   - Có `deal_intakes_list`: gọi với `dealId`, một lần `status` = `new` (chưa ghi nhận) và một lần `status` = `unchecked` (đã ghi nhận, chưa kiểm tra). Mục `unchecked` đã có trên deal: không ghi nhận lại, vào thẳng phân loại và kiểm tra (bước 3, 4).
-   - Thư mục deal = `folderPath`. Chưa có `folderPath`: làm mục 13 trước (thư mục cũ của khách: đọc `references/old-folder.md`); gắn được thì thư mục deal = `folderPath` vừa gắn; không có ứng viên hay nhân viên không gắn: `plannedFolderPath`; cả hai trống: báo deal chưa có thư mục, dừng. Bỏ dấu `/` đầu; xem bằng `guroos_customer_files` (`customer` = đường dẫn đó).
-   - Có mục intake mới hay chưa kiểm tra, hoặc `tmp/` có tệp: làm tiếp (mục intake vẫn ghi nhận được khi OneDrive trên máy chưa có tệp).
-   - Không có mục intake nào, và thư mục hay `tmp/` không có, hoặc `tmp/` trống: deal chưa có `folderPath` thì mục 13 đã tìm, không tìm lại: báo "không có tệp mới trong `<thư mục deal>/tmp/`", dừng. Deal đã có `folderPath`: tìm thư mục ứng viên bằng `guroos_customers` (`query` = tên deal: thư mục cấp cao nhất) và `guroos_customer_files` với thư mục cha của thư mục deal (thường `Customers`: các thư mục deal cùng tên khách); tệp gửi trước khi deal có thư mục có thể nằm ở thư mục khác (`…_PUR OO` thay vì `…_PUR OO_WBC`, vì `plannedFolderPath` đổi theo mục đích vay, OO/INV và lender). Liệt kê các thư mục có tệp trong `tmp/` mà tên có tên khách của deal (kèm số tệp), nói rằng tệp chỉ được ghi nhận và lưu hồ sơ khi nằm trong `<thư mục deal>/tmp/`: nhân viên chuyển tệp vào đó rồi nhờ lại. Dừng: không tự chọn, không ghi nhận tệp ở thư mục khác, không chuyển hay đổi tên gì. Không có ứng viên: báo "không có tệp mới trong `<thư mục deal>/tmp/`", dừng.
-3. **Ghi nhận và lô:** đọc `references/crm-recording.md` (mục 10), rồi theo 10.1, đúng thứ tự:
-   - ghi nhận từng mục intake mới bằng `itemId`; mục intake chưa kiểm tra (`unchecked`) không ghi nhận lại;
-   - `deal_files_list` (đọc hết các trang) một lần;
-   - tệp trong `tmp/` của kho không trùng tệp nào trên deal hay mục intake nào (kể cả mục chưa ghi nhận được): ghi nhận bằng `path` (dự phòng).
+   Drop any part whose count is 0. No items: "No new or unchecked files from clients through the client portal." In both cases add one line: files sent by email or copied into `tmp/` are not in this list; ask to "process new files for deal <name>" to see that deal's `tmp/`. No `deal_intakes_list`: ask the user which deal, stop. Do not scan the vault for `tmp/` yourself.
+1. **Deal:** the deal the user chose at step 0 (that group's `dealId`), the deal being discussed in the conversation, or `genation-workspace_deals_list` (`search` = the name the user gave, deals not archived). Exactly ONE deal: use it. Several deals: list the names (`title`) and ask, stop. None: say so and ask, stop. The user names or chooses several deals: ask which deal first, stop. Call `genation-workspace_deals_get` to get the deal's clients (Applicant, section 2), folder and owner. `ownerId` empty: nobody has claimed the deal (usually a deal the client created on the portal); still process it, mention it in the summary (step 6), do not claim the deal yourself. Only when the user asks to claim it ("claim this deal"): `genation-workspace_deals_update` with `id` and `claim` = `true`; error `deal_already_owned`: say someone else has already claimed the deal.
+2. **Intake items and folder:**
+   - With `deal_intakes_list`: call it with `dealId`, once `status` = `new` (not registered) and once `status` = `unchecked` (registered, not checked). `unchecked` items are already on the deal: do not register them again, go straight to classify and check (steps 3, 4).
+   - Deal folder = `folderPath`. No `folderPath`: do section 13 first (the client's old folder: read `references/old-folder.md`); attached: deal folder = the `folderPath` just attached; no candidate or staff do not attach: `plannedFolderPath`; both empty: say the deal has no folder yet, stop. Drop the leading `/`; view with `guroos_customer_files` (`customer` = that path).
+   - New or unchecked intake items exist, or `tmp/` has files: continue (intake items can still be registered when OneDrive on this computer does not have the file yet).
+   - No intake items, and the folder or `tmp/` does not exist, or `tmp/` is empty: deal without `folderPath`: section 13 has already searched, do not search again: say "no new files in `<deal folder>/tmp/`", stop. Deal already has `folderPath`: find candidate folders with `guroos_customers` (`query` = deal name: top-level folders) and `guroos_customer_files` on the parent of the deal folder (usually `Customers`: deal folders with the same client name); files sent before the deal had a folder may sit in another folder (`…_PUR OO` instead of `…_PUR OO_WBC`, because `plannedFolderPath` changes with loan purpose, OO/INV and lender). List the folders with files in `tmp/` whose name contains the deal's client name (with file count), say that files are only registered and filed when they are in `<deal folder>/tmp/`: staff move the files there, then ask again. Stop: do not choose yourself, do not register files in another folder, do not move or rename anything. No candidate: say "no new files in `<deal folder>/tmp/`", stop.
+3. **Register and batch:** read `references/crm-recording.md` (section 10), then follow 10.1, in this order:
+   - register each new intake item by `itemId`; unchecked intake items (`unchecked`) are not registered again;
+   - `deal_files_list` (read all pages) once;
+   - files in the vault's `tmp/` that match no file on the deal and no intake item (including items that could not be registered): register by `path` (fallback).
 
-   Lô = tệp trong `tmp/` vừa ghi nhận hoặc đã có trên deal mà chưa kiểm tra (`latestCheck` trống), cùng tệp của mọi mục intake chưa kiểm tra (tệp trên deal có `id` = `dealFileId`); người dùng nhờ kiểm tra lại: mọi tệp giấy tờ trong `tmp/`. Tệp trong `tmp/` đã kiểm tra: không kiểm tra lại, chỉ lập kế hoạch lưu hồ sơ (mục 12). Đọc tệp trên deal bằng `guroos_document_read` với `customer` = thư mục deal, `file` = `document.path` tính từ thư mục deal (`tmp/<tên tệp>`). Tệp đã ghi nhận mà chưa có trong `guroos_customer_files` (OneDrive trên máy chưa đồng bộ xong): chưa kiểm tra, không lưu hồ sơ; lần nhờ sau tệp vẫn vào lô vì `latestCheck` còn trống.
-4. **Từng tệp:** đọc và kiểm tra theo mục 3–8 (không làm mục 9: có CRM). Sau đó làm mục 10 theo thứ tự:
-   - 10.3 (loại, khách) cho mọi tệp của lô;
-   - đọc quy tắc của các loại trong lô, MỘT lần với `codes` ("Loại giấy tờ và quy tắc", đầu mục 10);
-   - rồi với từng tệp: 10.4 (giấy tờ yêu cầu), 10.2 (kết quả kèm `ruleResults`).
-5. **Lưu hồ sơ** theo mục 12 (đọc `references/filing.md`), cho mọi tệp của deal còn trong `tmp/`.
-6. **Tóm tắt** sau báo cáo (mục 7), một khối cho cả `tmp/`:
+   Batch = files in `tmp/` just registered or already on the deal but not checked (`latestCheck` empty), plus the files of every unchecked intake item (the file on the deal with `id` = `dealFileId`); the user asks for a re-check: every document file in `tmp/`. Files in `tmp/` already checked: do not check again, only plan filing (section 12). Read files on the deal with `guroos_document_read` with `customer` = deal folder, `file` = `document.path` relative to the deal folder (`tmp/<file name>`). Files registered but not yet in `guroos_customer_files` (OneDrive on this computer has not finished syncing): not checked, not filed; the next time the user asks, the file is still in the batch because `latestCheck` is still empty.
+4. **Each file:** read and check per sections 3–8 (not section 9: CRM present). Then do section 10 in this order:
+   - 10.3 (type, client) for every file in the batch;
+   - read the rules of the types in the batch, ONCE with `codes` ("Document types and rules", start of section 10);
+   - then for each file: 10.4 (required document), 10.2 (result with `ruleResults`).
+5. **Filing** per section 12 (read `references/filing.md`), for every file of the deal still in `tmp/`.
+6. **Summary** after the report (section 7), one block for the whole `tmp/`:
 
 ```
-### Tệp mới · <tên deal> · <thư mục deal>/tmp/
-Deal chưa có người phụ trách: bấm "Nhận hồ sơ" trong ứng dụng, hoặc nhờ trợ lý "nhận hồ sơ này".
-Vừa gắn thư mục cũ của khách vào deal: <thư mục deal>.
-- <tên tệp> · <khách gửi qua cổng: <tên khách>, <DD/MM/YYYY> | có trong tmp/>
-  - Trên deal: <vừa ghi nhận | đã có | chưa ghi nhận: lý do>
-  - Loại · khách: <nhãn loại> · <tên khách> | chưa phân loại: <lý do>
-  - Giấy tờ yêu cầu: <tên> (<vừa gắn | đã gắn>) | không có | chưa gắn: <lý do>
-  - Kiểm tra: <Kết luận> · <đạt yêu cầu | cần xem lại | còn tiêu chí chưa đạt | chưa kiểm tra> (<số met>/<số quy tắc> tiêu chí) | chưa kiểm tra: <lý do>
-  - Lưu hồ sơ: <chờ duyệt (số n bên dưới) | đã lưu vào <thư mục con>/<tên mới> | đã ở đúng chỗ | để trong tmp/: <lý do>>
-Tệp khách gửi qua cổng còn mới: <tên tệp> (<lý do>), … | không còn
-Tệp khách gửi qua cổng còn chưa kiểm tra: <tên tệp> (<lý do>), … | không còn
+### New files · <deal name> · <deal folder>/tmp/
+Deal has no owner: click "Claim deal" in the app, or ask the assistant to "claim this deal".
+Just attached the client's old folder to the deal: <deal folder>.
+- <file name> · <client sent via portal: <client name>, <DD/MM/YYYY> | in tmp/>
+  - On the deal: <just registered | already there | not registered: reason>
+  - Type · client: <type label> · <client name> | not classified: <reason>
+  - Required document: <name> (<just linked | already linked>) | none | not linked: <reason>
+  - Check: <Conclusion> · <satisfied | needs attention | incomplete | not checked> (<met count>/<rule count> criteria) | not checked: <reason>
+  - Filing: <awaiting approval (no. n below) | filed in <subfolder>/<new name> | already in place | left in tmp/: <reason>>
+Portal files from the client still new: <file name> (<reason>), … | none left
+Portal files from the client still not checked: <file name> (<reason>), … | none left
 ```
 
-- Dòng "Deal chưa có người phụ trách" chỉ khi `ownerId` của deal trống. Dòng "Vừa gắn thư mục cũ" chỉ khi lượt này gắn thư mục theo mục 13. Hai dòng "còn mới", "còn chưa kiểm tra" chỉ khi có `deal_intakes_list`: mục intake ghi nhận được (kể cả `409`) đã thành `processed`; mục chưa ghi nhận được vẫn `new`, kèm lý do; mục đã ghi nhận mà chưa ghi được kết quả kiểm tra (10.2) vẫn `unchecked`, kèm lý do.
-- Mỗi mục intake mới hay chưa kiểm tra một mục `- <tên tệp>` (`fileName`), kể cả khi chưa ghi nhận được; tệp có từ trước trong `tmp/` ghi "có trong tmp/".
-- Có tệp chưa kiểm tra vì OneDrive trên máy chưa đồng bộ: thêm dòng "Nhờ lại "xử lý tệp mới của deal <tên deal>" sau ít phút để kiểm tra các tệp còn lại."
+- The "Deal has no owner" line only when the deal's `ownerId` is empty. The "Just attached the client's old folder" line only when this turn attached a folder per section 13. The two lines "still new", "still not checked" only with `deal_intakes_list`: intake items registered (including `409`) have become `processed`; items not registered stay `new`, with the reason; items registered but whose check result could not be recorded (10.2) stay `unchecked`, with the reason.
+- Each new or unchecked intake item gets one `- <file name>` entry (`fileName`), even when not registered; files already in `tmp/` beforehand say "in tmp/".
+- Some files not checked because OneDrive on this computer has not synced: add the line "Ask again to "process new files for deal <deal name>" in a few minutes to check the remaining files."
 
-Trạng thái kiểm tra theo `checkStatus` của tệp: `satisfied` đạt yêu cầu, `needs_attention` cần xem lại, `incomplete` còn tiêu chí chưa đạt, `unchecked` chưa kiểm tra. Tệp không phải giấy tờ: một dòng `- <tên tệp> · không phải giấy tờ, để nguyên trong tmp/`. Sau khối: danh sách xin duyệt của mục 12.3 (nếu có), rồi MỘT câu hỏi cuối gộp câu hỏi duyệt với mọi điều cần nhân viên quyết định (câu hỏi cuối của mục 7, của 10.3, 10.4, 12.2).
+Check status by the file's `checkStatus`: `satisfied` satisfied, `needs_attention` needs attention, `incomplete` incomplete (criteria not yet met), `unchecked` not checked. Non-document file: one line `- <file name> · not a document, left in tmp/`. After the block: the approval list of section 12.3 (if any), then ONE final question combining the approval question with everything staff need to decide (the final question of section 7, of 10.3, 10.4, 12.2).

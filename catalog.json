@@ -3,42 +3,42 @@
   "skills": [
     {
       "id": "mail-intake",
-      "title": "Tiếp nhận thư khách hàng",
-      "summary": "Tìm khách và deal theo email người gửi (trên CRM nếu tổ chức có, không thì trên Monday), lưu tệp đính kèm vào thư mục deal và ghi nhận lên deal.",
-      "details": "Với thư bạn chỉ định, trợ lý tìm khách và deal trên CRM của tổ chức theo địa chỉ email người gửi (tổ chức chưa bật CRM thì tìm Deal trên Monday), tìm thư mục deal (thư mục CRM gắn hoặc sẽ gắn với deal, thường nằm trong Customers/; chưa có thì tạo mới kèm thư mục tmp/), tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau, rồi ghi nhận các tệp đó lên deal trên CRM. Chưa có khách hay deal thì trợ lý đề xuất tạo và chỉ tạo khi bạn đồng ý. Mỗi lần tạo thư mục, lưu tệp hay ghi lên CRM ứng dụng đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư; tệp ở lại tmp/ cho tới khi được kiểm tra và bạn duyệt lưu hồ sơ.",
+      "title": "Client email intake",
+      "summary": "Find the client and deal by the sender's email (on the CRM if your organisation has one, otherwise on Monday), save the attachments to the deal folder and register them on the deal.",
+      "details": "For the email you choose, the assistant finds the client and deal on your organisation's CRM by the sender's email address (if the organisation has no CRM, it finds the Deal on Monday), finds the deal folder (the folder the CRM has linked or will link to the deal, usually under Customers/; if there is none, it creates one with a tmp/ folder), saves the attachments that aren't there yet into tmp/ to be checked later, then registers those files on the deal on the CRM. If there is no client or deal yet, the assistant proposes creating them and only creates them when you agree. The app asks you each time it creates a folder, saves a file or writes to the CRM. The assistant doesn't rename files, change Monday or reply to the email; files stay in tmp/ until they are checked and you approve filing.",
       "default": true,
       "icon": "inbox",
       "examples": [
-        "Xử lý thư này và lưu tệp vào hồ sơ",
-        "Lưu giấy tờ khách gửi trong thư này vào hồ sơ"
+        "Process this email and save the files to the deal",
+        "Save the documents the client sent in this email to the deal"
       ]
     },
     {
       "id": "doc-check",
-      "title": "Kiểm tra giấy tờ hồ sơ vay",
-      "summary": "Kiểm tra giấy tờ của khách theo checklist 23 mục và báo việc cần làm; với CRM còn cho biết khách nào mới gửi hồ sơ, xử lý tệp mới của deal và lưu hồ sơ khi bạn duyệt.",
-      "details": "Trợ lý kiểm tra tệp gốc (bản phát hành thật, bị sửa, ảnh chụp hay scan), nhận loại giấy tờ, đọc theo quy tắc của loại đó và đối chiếu chéo các giấy tờ. Báo cáo ghi kết luận, thông tin cho Fact Find và việc cần báo khách. Khi tổ chức có CRM, trợ lý liệt kê các deal có tệp khách gửi qua cổng khách hàng còn chờ xử lý (tệp mới, và tệp đã ghi nhận nhưng chưa kiểm tra) để bạn chọn, rồi xử lý tệp mới của từng deal một (tệp khách gửi qua cổng, cùng tệp khác trong tmp/ của deal như tệp tải từ thư): ghi nhận lên deal, nhận loại giấy tờ và khách, gắn với giấy tờ yêu cầu, ghi kết quả lên deal (giá trị đề xuất, việc cần báo, từng tiêu chí đạt hay chưa). Giấy tờ đạt yêu cầu (đủ tiêu chí, hoặc bạn tick tay) được đề xuất lưu hồ sơ: trợ lý hiện tên mới theo quy tắc đặt tên và thư mục đích, CRM chỉ đổi tên và chuyển tệp bạn đồng ý. Deal chưa có người phụ trách thì trợ lý nhắc bạn nhận hồ sơ, không tự nhận. Khách cũ quay lại mà deal chưa có thư mục: trợ lý tìm thư mục cũ của khách trên OneDrive, đề xuất gắn vào deal (giữ nguyên tên thư mục) và chỉ gắn khi bạn xác nhận. Khi bạn nhờ, trợ lý chuyển tài khoản cổng khách hàng của khách đã tự kích hoạt sang liên hệ có sẵn (chỉ chủ sở hữu hay quản trị viên), sau khi bạn chỉ đúng liên hệ và đồng ý. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự đổi tên hay di chuyển tệp.",
+      "title": "Check loan documents",
+      "summary": "Check a client's documents against the 23-item checklist and report what needs doing; with the CRM it also shows which clients have sent new documents, processes a deal's new files and files them when you approve.",
+      "details": "The assistant checks the source file (genuine issued copy, edited, photo or scan), recognises the document type, reads it by that type's rules and cross-checks the documents. The report gives the conclusion, the details for the Fact Find and what to tell the client. When your organisation has the CRM, the assistant lists the deals with files clients sent through the client portal that are still waiting (new files, and files registered but not checked yet) for you to choose from, then processes each deal's new files one deal at a time (files sent through the client portal, plus other files in the deal's tmp/ such as files saved from email): registers them on the deal, recognises the document type and client, links them to required documents, and records the results on the deal (suggested values, items to tell the client, whether each criterion is met). Satisfied documents (all criteria met, or marked by you) are proposed for filing: the assistant shows the new name under the naming rule and the target folder, and the CRM only renames and moves the files you agree to. If the deal has no owner, the assistant reminds you to claim the deal; it doesn't claim it itself. For a returning client whose deal has no folder, the assistant looks for the client's old folder on OneDrive, proposes attaching it to the deal (keeping the folder name) and only attaches it when you confirm. When you ask, the assistant moves the client portal account of a client who activated the client portal themselves to an existing contact (owners or admins only), after you point to the right contact and agree. The assistant doesn't copy TFNs, Medicare numbers or card numbers, and never renames or moves files on its own.",
       "icon": "clipboard-check",
       "examples": [
-        "Có hồ sơ nào khách mới gửi không?",
-        "Xử lý các tệp khách mới gửi",
-        "Xử lý các tệp mới khách gửi trong tmp của deal Whitmore",
-        "Kiểm tra hồ sơ mới của Whitmore",
-        "Kiểm tra giấy tờ trong thư mục của khách Nguyễn Văn A",
-        "Kiểm tra phiếu lương và sao kê tôi vừa đính kèm",
-        "Tờ khai thuế này có phải bản gốc tải từ myGov không?"
+        "Has any client sent new documents?",
+        "Process the files clients just sent",
+        "Process the new files the client sent in the Whitmore deal's tmp",
+        "Check Whitmore's new documents",
+        "Check the documents in client Nguyễn Văn A's folder",
+        "Check the payslip and statement I just attached",
+        "Is this tax return the original downloaded from myGov?"
       ],
       "default": true
     },
     {
       "id": "abn-lookup",
-      "title": "Tra cứu doanh nghiệp Úc (ABN)",
-      "summary": "Tra ABN, ACN hoặc tên doanh nghiệp: còn hoạt động hay đã huỷ, GST, có khớp tên trên tài liệu không.",
-      "details": "Trợ lý tra doanh nghiệp trên ABN Lookup của Australian Business Register, nêu tên pháp nhân, loại hình, trạng thái ABN (đang hoạt động hay đã huỷ và từ ngày nào), GST và tên thương mại, rồi báo các điểm cần xử lý: ABN đã huỷ, sai số ABN, sai tên doanh nghiệp so với tài liệu (có tính đến tên trust và tên cá nhân kinh doanh). Bản in hoặc ảnh chụp kết quả ABN Lookup khách gửi được tra lại, không dùng làm bằng chứng. Trạng thái đăng ký với ASIC (công ty đã giải thể hay chưa) không có trong ABR nên trợ lý nêu rõ là chưa kiểm tra được. Trợ lý không đoán thông tin doanh nghiệp từ trí nhớ.",
+      "title": "Australian business lookup (ABN)",
+      "summary": "Look up an ABN, ACN or business name: active or cancelled, GST, and whether it matches the name on the document.",
+      "details": "The assistant looks up the business on the Australian Business Register's ABN Lookup, gives the entity name, entity type, ABN status (active or cancelled, and since when), GST and business names, then lists what needs action: a cancelled ABN, a wrong ABN number, or a business name that differs from the document (allowing for trust names and sole traders' names). A printout or screenshot of an ABN Lookup result sent by the client is looked up again, not used as evidence. Registration status with ASIC (whether a company has been deregistered) isn't in the ABR, so the assistant says clearly that it couldn't check it. The assistant never guesses business details from memory.",
       "icon": "building-2",
       "examples": [
-        "Tra cứu ABN 51 824 753 556",
-        "Công ty ABC Pty Ltd còn hoạt động không?"
+        "Look up ABN 51 824 753 556",
+        "Is ABC Pty Ltd still active?"
       ]
     }
   ]

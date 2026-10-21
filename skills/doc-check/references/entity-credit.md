@@ -1,148 +1,148 @@
-# Trust, công ty và báo cáo tín dụng (rule 9–11)
+# Trusts, companies and credit reports (rule 9–11)
 
-## Phạm vi
+## Scope
 
-| Loại | Rule | Gồm |
+| Type | Rule | Includes |
 |---|---|---|
-| Trust Deed | 9 | Trust Deed, Deed of Settlement; deed đi kèm: Deed of Variation, Deed of Appointment/Retirement of Trustee |
-| Company Extract | 10 | ASIC Current (& Historical) Company Extract, từ ASIC hoặc dịch vụ tra cứu |
-| Equifax | 11 | Báo cáo tín dụng của một người. Báo cáo illion, Experian áp như Equifax, ghi chú tên bureau; chữ "Equifax" dưới đây gồm cả hai |
+| Trust Deed | 9 | Trust Deed, Deed of Settlement; accompanying deeds: Deed of Variation, Deed of Appointment/Retirement of Trustee |
+| Company Extract | 10 | ASIC Current (& Historical) Company Extract, from ASIC or a search service |
+| Equifax | 11 | One person's credit report. illion and Experian reports are treated like Equifax, note the bureau name; "Equifax" below covers both |
 
-Ngoài phạm vi: bản in kết quả ABN Lookup (kể cả "The Trustee for …"), Certificate of Registration, kết quả tìm tên trên ASIC Connect, ứng dụng chỉ hiện điểm tín dụng.
+Out of scope: ABN Lookup result printouts (including "The Trustee for …"), Certificate of Registration, ASIC Connect name search results, apps that only show a credit score.
 
-Đọc theo thứ tự (tệp trong hồ sơ: `guroos_document_read(customer, file, pages)`):
-- **Trust Deed**: trang 1–2 (tên trust, ngày, các bên) → Schedule (thường ở cuối) → trang ký → dòng chứng thực (đầu, cuối hoặc mọi trang). Schedule không nêu beneficiary thì đọc Definitions.
-- **Company Extract**: đọc hết.
-- **Equifax**: trang 1 (ngày lập, tóm tắt) → Credit Enquiries → Accounts / Repayment History → Defaults, Court, Insolvency → Directorships.
+Read in this order (files in the client folder: `guroos_document_read(customer, file, pages)`):
+- **Trust Deed**: pages 1–2 (trust name, date, parties) → Schedule (usually at the end) → signing page → certification line (first, last or every page). If the Schedule does not name beneficiaries, read Definitions.
+- **Company Extract**: read all of it.
+- **Equifax**: page 1 (report date, summary) → Credit Enquiries → Accounts / Repayment History → Defaults, Court, Insolvency → Directorships.
 
-**Trang scan** (hay gặp ở deed cũ) đến dạng ảnh trang (SKILL.md): đọc chữ ký, dấu chứng thực trên ảnh như trang thường. Deed scan dài: mở trang 1–2 và 3 trang cuối trước (Schedule, trang ký, chứng thực thường ở đó), chỉ mở thêm khi còn thiếu, tối đa 8 trang ảnh cho một deed. Trang chưa có ảnh: xem cuối mục 4.
+**Scanned pages** (common in old deeds) arrive as page images (SKILL.md): read signatures and certification stamps on the image like a normal page. Long scanned deed: open pages 1–2 and the last 3 pages first (Schedule, signing page and certification are usually there), open more only if something is still missing, at most 8 page images per deed. Pages with no image yet: see the end of section 4.
 
-## 1. Dấu hiệu cấu trúc bắt buộc
+## 1. Required structural signs
 
-Mọi loại: có (1) và ít nhất 3 dấu hiệu còn lại là "chắc chắn". Mất Schedule hay trang ký tính là thiếu trang.
+Every type: (1) plus at least 3 of the other signs is "certain". A missing Schedule or signing page counts as missing pages.
 
-| Loại | Dấu hiệu bắt buộc |
+| Type | Required signs |
 |---|---|
-| Trust Deed | (1) tiêu đề "Trust Deed" / "Deed of Settlement"; (2) các bên gồm Settlor và Trustee; (3) điều khoản đánh số, định nghĩa Beneficiaries, Appointor, Vesting Date; (4) Schedule: tên trust, Settled Sum, Trustee; (5) trang ký "Executed as a deed" có người làm chứng |
-| Deed đi kèm | (1) tiêu đề "Deed of Variation" / "Deed of Appointment" / "Deed of Retirement"; (2) các bên; (3) dẫn chiếu tên trust và deed gốc; (4) điều khoản sửa đổi, bổ nhiệm hoặc rút lui; (5) như Trust Deed |
-| Company Extract | (1) "Extracted from ASIC's database at … on …" hoặc tiêu đề ASIC; (2) "Current Company Extract" / "Current & Historical Company Extract"; (3) Organisation details: tên, ACN, Type, Registration date, Status; (4) Officeholders có ngày bổ nhiệm; (5) Share structure và Members |
-| Equifax | (1) tên bureau và ngày lập báo cáo; (2) thông tin người được báo cáo; (3) Credit Enquiries; (4) Accounts có Repayment History theo tháng; (5) mục Defaults, Court/Insolvency, Directorships (kể cả ghi "None") |
+| Trust Deed | (1) title "Trust Deed" / "Deed of Settlement"; (2) parties include Settlor and Trustee; (3) numbered clauses, definitions of Beneficiaries, Appointor, Vesting Date; (4) Schedule: trust name, Settled Sum, Trustee; (5) signing page "Executed as a deed" with a witness |
+| Accompanying deed | (1) title "Deed of Variation" / "Deed of Appointment" / "Deed of Retirement"; (2) parties; (3) reference to the trust name and the original deed; (4) variation, appointment or retirement clauses; (5) as Trust Deed |
+| Company Extract | (1) "Extracted from ASIC's database at … on …" or ASIC heading; (2) "Current Company Extract" / "Current & Historical Company Extract"; (3) Organisation details: name, ACN, Type, Registration date, Status; (4) Officeholders with appointment dates; (5) Share structure and Members |
+| Equifax | (1) bureau name and report date; (2) details of the person reported on; (3) Credit Enquiries; (4) Accounts with monthly Repayment History; (5) Defaults, Court/Insolvency, Directorships sections (even if they say "None") |
 
-## 2. Bước 0 của nhóm
+## 2. Step 0 for this group
 
-### 2A. Nguồn tệp
+### 2A. File source
 
-| Nguồn | Trust Deed, deed đi kèm | Company Extract, Equifax |
+| Source | Trust Deed, accompanying deed | Company Extract, Equifax |
 |---|---|---|
-| công cụ văn phòng | CHẤP NHẬN (luật sư soạn bằng Word) | BÁO |
-| công cụ thiết kế | BÁO | BÁO |
-| trình sửa/xử lý PDF | BÁO | BÁO |
-| máy in PDF | GHI CHÚ | BÁO |
-| bộ chuyển HTML sang PDF | GHI CHÚ | CHẤP NHẬN |
-| ảnh (JPG/PNG) | GHI CHÚ | BÁO |
-| không phải PDF (DOCX…) | BÁO | BÁO |
+| office tool | ACCEPT (lawyers draft in Word) | FLAG |
+| design tool | FLAG | FLAG |
+| PDF editor/processor | FLAG | FLAG |
+| PDF printer | NOTE | FLAG |
+| HTML-to-PDF converter | NOTE | ACCEPT |
+| image (JPG/PNG) | NOTE | FLAG |
+| not a PDF (DOCX…) | FLAG | FLAG |
 
-Apple, trình duyệt in ra PDF, chưa biết: GHI CHÚ. Ảnh theo dòng "ảnh (JPG/PNG)"; khối kiểm tra ảnh chỉ thêm 5.2 và `[Sửa ảnh]` (2B).
+Apple, browser printing to PDF, unknown: NOTE. Images follow the "image (JPG/PNG)" row; the image check block only adds 5.2 and `[Image edited]` (2B).
 
-### 2B. Dấu hiệu xét theo loại
+### 2B. Signs checked by type
 
-| Dấu hiệu | Trust Deed, deed đi kèm | Company Extract, Equifax |
+| Sign | Trust Deed, accompanying deed | Company Extract, Equifax |
 |---|---|---|
-| `[Che chữ]` | DỪNG | DỪNG |
-| `[Sửa nội dung]` | BÁO | DỪNG |
-| `[Sửa ảnh]` | BÁO | BÁO |
-| `[Chữ vẽ bằng nét]` | GHI CHÚ | BÁO |
-| `[Ảnh chụp/scan]` | GHI CHÚ | GHI CHÚ |
+| `[Text covered]` | STOP | STOP |
+| `[Content edited]` | FLAG | STOP |
+| `[Image edited]` | FLAG | FLAG |
+| `[Text as outlines]` | NOTE | FLAG |
+| `[Photo/scan]` | NOTE | NOTE |
 
-### 2C. Kiểm tra số và ngày
+### 2C. Figure and date checks
 
-- **ACN** (extract, hoặc Trustee là công ty): dựa vào dòng "Mã số (không hiện số)" của khối, không tự tính số kiểm tra. "số kiểm tra đúng" → ghi "ACN đúng số kiểm tra" vào Dữ kiện; có lần sai mà không thành `[Mã số sai]` → Ghi chú; khối không đếm ACN (ảnh, trang scan) → Ghi chú "ACN đọc từ ảnh, chưa kiểm số kiểm tra". ABN và ACN của cùng công ty: 9 số cuối ABN phải trùng ACN.
-- **Cổ phần**: tổng số cổ phần Members đang giữ theo từng class phải bằng số đã phát hành ở Share structure, khớp đúng.
-- **Mốc 6 tháng Equifax**: `guroos_date_check(window_months=6, reference_date=<ngày lập báo cáo>)`; lấy enquiry từ ngày đầu của dòng "Cửa sổ 6 tháng: …" trở đi.
-- **Equifax tự khớp**: enquiry hay tháng trả chậm sau ngày lập báo cáo là lệch; số default, enquiry ở phần tóm tắt khác số dòng chi tiết (đã đọc hết các trang) là lệch.
-- Nhóm này không có hạn tuổi tài liệu, không gắn `[Quá 30 ngày]`.
+- **ACN** (extract, or Trustee is a company): rely on the block's "ID numbers (digits not shown)" line, do not compute check digits yourself. "check digits correct" → record "ACN check digit valid" in Facts for cross-checking; failures that did not become `[Invalid number]` → Notes; block does not count the ACN (image, scanned page) → Notes "ACN read from image, check digit not verified". ABN and ACN of the same company: the last 9 digits of the ABN must equal the ACN.
+- **Shares**: for each class, the total shares held by Members must equal the number issued in Share structure, exactly.
+- **Equifax 6-month mark**: `guroos_date_check(window_months=6, reference_date=<report date>)`; take enquiries from the first date of the "6-month window: …" line onwards.
+- **Equifax internal consistency**: an enquiry or late-payment month after the report date is a mismatch; default or enquiry counts in the summary that differ from the number of detail lines (all pages read) are a mismatch.
+- This group has no document age limit; do not tag `[Over 30 days]`.
 
-## 3. Ghi vào Fact Find
+## 3. Record in Fact Find
 
-| Loại | Trường | Không có thì ghi |
+| Type | Field | If absent, write |
 |---|---|---|
-| Trust Deed | Trust Name; Trustee Name (công ty thì ghi tên công ty) | Chưa kiểm tra được |
-| Trust Deed | Beneficiary Name: chỉ người nêu đích danh (Primary, Specified, Named) | "Không có beneficiary nêu đích danh"; nhóm chung ("spouse, children") ghi vào Ghi chú |
-| Company Extract | ACN; Director Name (mọi director hiện tại); Shareholder Name (mọi member hiện tại) | Chưa kiểm tra được |
-| Equifax | (không có) | "- Không có" |
+| Trust Deed | Trust Name; Trustee Name (company: write the company name) | Could not check |
+| Trust Deed | Beneficiary Name: only people named specifically (Primary, Specified, Named) | "No specifically named beneficiary"; general classes ("spouse, children") go in Notes |
+| Company Extract | ACN; Director Name (every current director); Shareholder Name (every current member) | Could not check |
+| Equifax | (none) | "- None" |
 
-Extract "Current & Historical": bỏ qua mục Former, Ceased, Previous.
+"Current & Historical" extract: ignore the Former, Ceased, Previous sections.
 
-**Tra ACN** (Company Extract; ABN Lookup, SKILL.md 5.5): `guroos_abn_lookup(acn=<ACN như in>, name_to_match=<tên công ty như in ở Organisation details>)`.
-- Fact Find ACN: ACN như in, kèm "(ABN Lookup <ngày tra>: ABN <ABN tool trả>, <trạng thái ABN>)".
-- ABR chỉ có trạng thái ABN; trạng thái đăng ký với ASIC (Status), director, shareholder vẫn lấy từ extract. Dòng "Trạng thái đăng ký công ty với ASIC … không có trong ABR" của tool không ghi lại, vì extract đã in Status.
-- "ABR không có bản ghi" cho ACN: Ghi chú "ABN Lookup không có ABN cho ACN này (công ty có thể chưa đăng ký ABN)", không gắn nhãn. ACN đọc từ ảnh mà tool vẫn báo không hợp lệ sau khi đọc lại: "Chưa kiểm tra được: tra ACN: ACN đọc từ ảnh không hợp lệ".
-- "Lưu ý thẩm định" khác của tool (không đăng ký GST; Active có hiệu lực dưới 12 tháng) → Ghi chú, giữ đúng ý tool.
+**ACN lookup** (Company Extract; ABN Lookup, SKILL.md 5.5): `guroos_abn_lookup(acn=<ACN as printed>, name_to_match=<company name as printed in Organisation details>)`.
+- Fact Find ACN: ACN as printed, plus "(ABN Lookup <lookup date>: ABN <ABN returned by the tool>, <ABN status>)".
+- ABR only has the ABN status; ASIC registration status (Status), directors and shareholders still come from the extract. Do not record the tool's "The company's ASIC registration status … is not in ABR" line, because the extract already prints Status.
+- "ABR has no record" for the ACN: Notes "ABN Lookup has no ABN for this ACN (the company may not have registered an ABN)", no tag. ACN read from an image and the tool still says invalid after re-reading: "Could not check: ACN lookup: ACN read from image is invalid".
+- The tool's other "Due diligence notes" (not registered for GST; Active for less than 12 months) → Notes, keeping the tool's meaning.
 
-**Ghi vào Broker's Notes** (chỉ Equifax):
-- Ngày lập báo cáo.
-- Mọi Credit Enquiry (consumer và commercial) trong 6 tháng: ngày, tổ chức, loại, số tiền. Không có → "Không có enquiry trong 6 tháng".
-- Mọi Default và tháng trả chậm: tổ chức, loại tài khoản, 4 số cuối nếu có, tháng, mã. Không có → "Không có default, không có tháng trả chậm".
+**Record in Broker's Notes** (Equifax only):
+- Report date.
+- Every Credit Enquiry (consumer and commercial) in 6 months: date, organisation, type, amount. None → "No enquiries in 6 months".
+- Every Default and late-payment month: organisation, account type, last 4 digits if any, month, code. None → "No defaults, no late-payment months".
 
-Trả chậm = mã 1–6 hoặc X trong Repayment History, hoặc "Worst repayment status" khác "Current". Mã 0 là đúng hạn; mã chữ khác (C, R, P…) là trạng thái tài khoản.
+Late payment = code 1–6 or X in Repayment History, or "Worst repayment status" other than "Current". Code 0 is on time; other letter codes (C, R, P…) are account statuses.
 
-## 4. Cần thông báo
+## 4. Notices
 
-| Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
+| Condition | Tag | Safe evidence | Action |
 |---|---|---|---|
-| Deed: Beneficiary nêu đích danh không khớp Applicant nào | Sai tên | tên, trang | báo nhân viên xem xét |
-| Deed: bên ký nào (Settlor, Trustee; deed đi kèm: mọi bên) thiếu chữ ký hoặc ngày ký | Chưa ký | bên nào thiếu gì, trang | báo nhân viên xem xét |
-| Deed: không có dấu chứng thực ("Certified true copy" kèm chữ ký, tên, chức danh, ngày) | Chưa chứng thực | các trang đã xem | xin khách chứng thực (certify) bản sao |
-| Extract: Director hoặc Shareholder hiện tại không khớp Applicant nào | Sai tên | tên, vai trò | báo nhân viên xem xét |
-| Extract: Status khác "Registered" | Trạng thái công ty | status nguyên văn | báo nhân viên xem xét |
-| Extract: ABN Lookup, trạng thái ABN của công ty là Cancelled | ABN đã huỷ | ABN, ngày huỷ theo tool | báo nhân viên xem xét |
-| Extract: ABN Lookup, "Đối chiếu tên" là KHÁC | Sai tên doanh nghiệp | tên trên extract và tên ABR nguyên văn | báo nhân viên xem xét |
-| Tên trust hay công ty khác entity hồ sơ (SKILL.md mục 2: `guroos_case_profile` hay người dùng nêu trong chat) | Sai tên | hai tên | báo nhân viên xem xét |
-| Equifax: có Current Directorship | Directorship | tên công ty | xin khách Accountant Letter nếu không dùng thu nhập từ công ty đó để tính khả năng trả nợ (servicing) |
-| Equifax: có Default, tháng trả chậm, Court Judgement, Personal Insolvency hoặc Serious Credit Infringement | Tín dụng xấu | tổ chức, loại, tháng, mã | báo nhân viên xem xét |
-| Lệch theo 2C | Lệch số liệu | phép so, số in, số chênh, trang | báo nhân viên xem xét |
+| Deed: a specifically named Beneficiary does not match any Applicant | Name mismatch | name, page | refer to staff for review |
+| Deed: a signing party (Settlor, Trustee; accompanying deed: every party) is missing a signature or signing date | Not signed | which party is missing what, page | refer to staff for review |
+| Deed: no certification ("Certified true copy" with signature, name, title, date) | Not certified | pages viewed | request a certified copy from the client |
+| Extract: a current Director or Shareholder does not match any Applicant | Name mismatch | name, role | refer to staff for review |
+| Extract: Status other than "Registered" | Company status | status verbatim | refer to staff for review |
+| Extract: ABN Lookup, the company's ABN status is Cancelled | ABN cancelled | ABN, cancellation date per the tool | refer to staff for review |
+| Extract: ABN Lookup, "Name check" is NO MATCH | Business name mismatch | name on the extract and ABR name verbatim | refer to staff for review |
+| Trust or company name different from the profile entity (SKILL.md section 2: `guroos_case_profile` or what the user said in chat) | Name mismatch | both names | refer to staff for review |
+| Equifax: has a Current Directorship | Directorship | company name | request an Accountant Letter from the client if income from that company is not used in the servicing calculation |
+| Equifax: has a Default, late-payment month, Court Judgement, Personal Insolvency or Serious Credit Infringement | Adverse credit | organisation, type, month, code | refer to staff for review |
+| Mismatch per 2C | Figures mismatch | comparison, printed figure, difference, page | refer to staff for review |
 
-Chữ ký điện tử (DocuSign…) tính là đã ký. Chữ ký, dấu chứng thực trên trang có lớp chữ thường là ảnh hay nét vẽ: xem trang ký, trang chứng thực bằng `guroos_attachment_page` (SKILL.md mục 2) trước khi kết luận. Chưa đọc hết phần liên quan (tool không vẽ được trang) thì không kết luận "chưa ký", "chưa chứng thực", "không có default"; ghi vào "Chưa kiểm tra được".
+Electronic signatures (DocuSign…) count as signed. Signatures and certification stamps on pages with a text layer are usually images or drawn strokes: view the signing and certification pages with `guroos_attachment_page` (SKILL.md section 2) before concluding. Relevant part not fully read (the tool cannot render the page): do not conclude "not signed", "not certified", "no defaults"; record it under "Could not check".
 
-Chỉ ghi chú khi:
-- Một Applicant vắng tên trên deed hay extract (người có tên mà không khớp Applicant nào vẫn là `[Sai tên]`).
-- Tên trên Equifax khác Applicant; tên Settlor, Appointor, Trustee cá nhân, Secretary (checklist không so các tên này).
-- Previous Directorships; enquiry trước mốc 6 tháng.
-- Hồ sơ chưa có entity: ghi tên trust hoặc công ty.
+Notes only when:
+- An Applicant's name is absent from the deed or extract (a named person who matches no Applicant is still `[Name mismatch]`).
+- Name on the Equifax report differs from the Applicant; names of Settlor, Appointor, individual Trustee, Secretary (the checklist does not compare these names).
+- Previous Directorships; enquiries before the 6-month mark.
+- Profile has no entity yet: record the trust or company name.
 
-## 5. Lưu ý riêng
+## 5. Special notes
 
-- **Nhiều người.** So từng beneficiary, director, shareholder với từng Applicant.
-- **Tên entity.** Phần "ATF …" là tên trust, so riêng. Tên thương mại không phải tên pháp lý.
-- **Deed đi kèm.** Mỗi văn bản một khối (rule 9), kiểm tra chữ ký, ngày ký, chứng thực như deed. Fact Find chỉ ghi trường văn bản đó nêu (Deed of Appointment: Trust Name, Trustee Name mới). Khối Trust Deed lấy `Trustee Name` theo văn bản mới nhất trong lô, ghi chú tên văn bản và ngày.
-- **Equifax.** Mỗi người một báo cáo, một khối. Không chép địa chỉ cũ.
-- **Đối chiếu chéo**: bảng 3 của `references/cross-checks.md` (Trustee là công ty, Current Directorship, enquiry 6 tháng); kết quả là Ghi chú của khối này.
+- **Several people.** Compare each beneficiary, director and shareholder with each Applicant.
+- **Entity name.** The "ATF …" part is the trust name, compared separately. A trading name is not the legal name.
+- **Accompanying deeds.** One block per document (rule 9); check signatures, signing dates and certification as for a deed. Fact Find records only the fields that document states (Deed of Appointment: Trust Name, new Trustee Name). The Trust Deed block takes `Trustee Name` from the latest document in the batch, noting the document name and date.
+- **Equifax.** One report per person, one block. Do not copy old addresses.
+- **Cross-check**: table 3 of `references/cross-checks.md` (Trustee is a company, Current Directorship, 6-month enquiries); the results are Notes of this block.
 
-## 6. Ví dụ
+## 6. Example
 
-Dữ liệu giả. Hôm nay 11/10/2026. Người dùng nêu trong chat: Applicant "Thi Mai Tran"; pháp nhân Mai Tran Pty Ltd (công ty). Lô không có Company Extract, không có sao kê khoản nợ.
+Fake data. Today 11/10/2026. User said in chat: Applicant "Thi Mai Tran"; entity Mai Tran Pty Ltd (company). The batch has no Company Extract and no liability statements.
 
-Tệp `equifax-thi-mai-tran.pdf`. Khối: "Nhóm nguồn: trình duyệt in ra PDF (trình duyệt (Chrome/Edge), theo Producer).", không có dấu hiệu. Lập 01/10/2026; `guroos_date_check(window_months=6, reference_date="01/10/2026")` trả "Cửa sổ 6 tháng: 01/04/2026–01/10/2026 (tính lùi từ 01/10/2026)". Enquiry: 15/08/2026 ABC Bank, Credit Card, $10,000; 02/02/2026 XYZ Finance, Personal Loan, $20,000. Thẻ ABC Bank (…4821): 05/2026 mã 1, tháng khác mã 0. Defaults, Court, Insolvency: None. Current Directorships: MAI TRAN PTY LTD.
+File `equifax-thi-mai-tran.pdf`. Block: "Source group: browser printing to PDF (browser (Chrome/Edge), from Producer).", no signs. Prepared 01/10/2026; `guroos_date_check(window_months=6, reference_date="01/10/2026")` returns "6-month window: 01/04/2026–01/10/2026 (counted back from 01/10/2026)". Enquiries: 15/08/2026 ABC Bank, Credit Card, $10,000; 02/02/2026 XYZ Finance, Personal Loan, $20,000. ABC Bank card (…4821): 05/2026 code 1, other months code 0. Defaults, Court, Insolvency: None. Current Directorships: MAI TRAN PTY LTD.
 
 ```
-### equifax-thi-mai-tran.pdf — Equifax Credit Report (rule 11) · chắc chắn
-Kết luận: CẦN XỬ LÝ
-Kiểm tra tệp gốc: đạt (nguồn: trình duyệt in ra PDF (trình duyệt (Chrome/Edge), theo Producer)) · quy tắc: references/entity-credit.md
-Ghi vào Fact Find
-- Không có
-Ghi vào Broker's Notes
-- Ngày lập báo cáo: 01/10/2026.
-- Credit Enquiry trong 6 tháng (từ 01/04/2026): 15/08/2026, ABC Bank, Credit Card, $10,000.
-- Trả chậm: ABC Bank Credit Card (…4821), 05/2026, mã 1. Default: không có.
-Cần thông báo
-- [Directorship] Current Directorship: MAI TRAN PTY LTD → xin khách Accountant Letter nếu không dùng thu nhập từ công ty này để tính khả năng trả nợ.
-- [Tín dụng xấu] ABC Bank Credit Card (…4821) trả chậm 05/2026, mã 1 → báo nhân viên xem xét.
-Chưa kiểm tra được
-- Không có
-Ghi chú
-- Nguồn trình duyệt in ra PDF (trình duyệt (Chrome/Edge)).
-- Enquiry 02/02/2026 (XYZ Finance) trước mốc 6 tháng nên không ghi.
-- MAI TRAN PTY LTD trùng entity của hồ sơ; lô chưa có Company Extract của công ty này.
-- Enquiry 15/08/2026 ABC Bank Credit Card: lô chưa có sao kê thẻ ABC Bank.
-Dữ kiện để đối chiếu: lập 01/10/2026 · Current Directorship MAI TRAN PTY LTD · enquiry 15/08/2026 ABC Bank Credit Card $10,000 · trả chậm 05/2026 thẻ …4821 · default: không
+### equifax-thi-mai-tran.pdf — Equifax Credit Report (rule 11) · certain
+Conclusion: ACTION NEEDED
+Source file check: passed (source: browser printing to PDF (browser (Chrome/Edge), from Producer)) · rules: references/entity-credit.md
+Record in Fact Find
+- None
+Record in Broker's Notes
+- Report date: 01/10/2026.
+- Credit Enquiry in 6 months (from 01/04/2026): 15/08/2026, ABC Bank, Credit Card, $10,000.
+- Late payment: ABC Bank Credit Card (…4821), 05/2026, code 1. Default: none.
+Notices
+- [Directorship] Current Directorship: MAI TRAN PTY LTD → request an Accountant Letter from the client if income from this company is not used in the servicing calculation.
+- [Adverse credit] ABC Bank Credit Card (…4821) late payment 05/2026, code 1 → refer to staff for review.
+Could not check
+- None
+Notes
+- Source browser printing to PDF (browser (Chrome/Edge)).
+- Enquiry 02/02/2026 (XYZ Finance) is before the 6-month mark, so not recorded.
+- MAI TRAN PTY LTD is the profile's entity; the batch has no Company Extract for this company yet.
+- Enquiry 15/08/2026 ABC Bank Credit Card: the batch has no ABC Bank card statement yet.
+Facts for cross-checking: prepared 01/10/2026 · Current Directorship MAI TRAN PTY LTD · enquiry 15/08/2026 ABC Bank Credit Card $10,000 · late payment 05/2026 card …4821 · default: none
 ```
