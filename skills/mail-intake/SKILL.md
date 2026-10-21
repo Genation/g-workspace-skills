@@ -69,7 +69,7 @@ Không bao giờ tự tạo khách hay deal. Chỉ đề xuất, rồi **Dừng*
 Người dùng đồng ý (có thể kèm tên sửa lại):
 
 1. Chưa có khách: `genation-workspace_contacts_create` với `kind` = `person`, `person` = `{firstName, familyName, email, mobilePhone}` (bỏ trường không có). Người dùng nói khách là công ty: `kind` = `company`, `company` = `{name, email}`.
-2. `genation-workspace_deals_create` với `title` = tên deal đã thống nhất, `contacts` = `[{contactId: <id khách>, contactType: "client"}]`. Không truyền quy trình, giai đoạn, người phụ trách (để mặc định của tổ chức).
+2. `genation-workspace_deals_create` với `title` = tên deal đã thống nhất, `contacts` = `[{contactId: <id khách>, contactType: "client"}]`. Không truyền quy trình, giai đoạn (để mặc định của tổ chức) và người phụ trách (mặc định là người dùng đang trò chuyện).
 
 Người dùng không đồng ý: **Dừng** - "không lưu: chưa có deal". Công cụ báo lỗi: **Dừng** với lỗi đó, không thử cách khác.
 
