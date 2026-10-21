@@ -1,6 +1,6 @@
 ---
 name: doc-check
-description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách.
+description: Kiểm tra giấy tờ hồ sơ vay theo checklist 23 mục của Guroos - kiểm tra tệp gốc, trích Fact Find, đối chiếu chéo, nêu việc cần xử lý, rồi lưu kết quả vào hồ sơ và lên deal trên CRM của tổ chức nếu có. Dùng khi người dùng nhờ kiểm tra hoặc đối chiếu giấy tờ của khách.
 ---
 
 # Kiểm tra giấy tờ hồ sơ vay
@@ -9,7 +9,7 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 
 ## 1. Phạm vi
 
-- Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo.
+- Chỉ báo cáo: không sửa Fact Find, ghi Monday, soạn hay gửi thư, lưu, đổi tên, di chuyển hay che tệp, trừ khi người dùng yêu cầu sau khi đọc báo cáo. Ngoại lệ duy nhất: lưu kết quả kiểm tra theo mục 9 (vào hồ sơ trên máy) và mục 10 (lên CRM của tổ chức).
 - Kiểm tra tệp đính kèm trong chat, hoặc tệp trong hồ sơ khi người dùng chỉ thư mục hồ sơ hay đường dẫn tệp trong đó. Người dùng nêu vài tệp: chỉ các tệp đó; nhờ cả hồ sơ: mọi tệp giấy tờ trong thư mục. Các tài liệu kiểm tra trong lượt là "lô"; đối chiếu chéo chỉ trong lô.
 - Không có tệp đính kèm và không chỉ hồ sơ nào: hỏi người dùng muốn kiểm tra tệp nào (đính kèm hay thư mục hồ sơ), không làm tiếp; không tự quét kho tìm hồ sơ, không đoán từ tên khách.
 
@@ -19,7 +19,7 @@ Kết quả đi vào hồ sơ vay: chỉ kết luận từ nội dung đọc đ�
 - **Tệp đính kèm:** mỗi tệp đến thành tệp chữ "<tên tệp>.txt" gồm mọi trang ("Trang N"), khối kiểm tra ở đầu; ảnh JPG/PNG đến kèm "<tên ảnh> (kiểm tra ảnh).txt" ngay trước ảnh. Đọc từ đó; không đọc lại tệp bằng tool hay `read`.
 - **Trang scan**, và trang không có lớp chữ mà Guroos vẽ lại thành ảnh ("ảnh trang do Guroos vẽ lại", thường là chữ vẽ bằng nét), đến thành ảnh trang ("<tên>.pdf (trang N).jpg" hoặc ".png" sau tệp chữ), đọc như trang thường. Tệp trong hồ sơ: `guroos_document_read` trả tối đa 4 ảnh trang mỗi lần, các trang scan còn lại đọc ở lần gọi sau như tool gợi ý. Tệp đính kèm: trang "ảnh scan chưa gửi", trang có tên trong "Ảnh trang chưa gửi.txt" (tin vượt số ảnh), trang "có ảnh phủ gần cả trang" mà chữ chỉ là "Envelope ID" hay giá trị rời không nhãn: xem bằng ảnh (dưới đây). Trang "không có lớp chữ…" không kèm ảnh, ảnh mờ, trang tool không vẽ được: không đọc được (mục 7). Ảnh trang nặng: cả lượt đọc tối đa khoảng 30 trang ảnh; tài liệu scan dài chỉ mở trang tệp quy tắc chỉ định, không đọc lần lượt hết; trang không mở ghi vào "Chưa kiểm tra được".
 - **Xem trang bằng ảnh:** `guroos_attachment_page(file=<tên tệp đính kèm>, pages=<trang>)` vẽ lại trang của tệp PDF đính kèm thành ảnh, kể cả trang có lớp chữ; tối đa 4 trang mỗi lần gọi, cả lượt khoảng 30 trang. Dùng khi chữ không đủ để kết luận: chữ ký, con dấu, dấu chứng thực, ô đánh dấu (thường là ảnh hay nét vẽ, không nằm trong lớp chữ), và các trang nêu trên. Chỉ xin trang tệp quy tắc cần, không xem lần lượt cả tệp. Tool báo không vẽ được (tệp mã hoá…): trang đó không đọc được. Tệp trong hồ sơ: `guroos_document_page(customer, file, pages)` làm đúng việc đó cho tệp PDF trong hồ sơ.
-- **Applicant, entity** (tên, other names, địa chỉ, pháp nhân): có thư mục hồ sơ thì `guroos_case_profile(customer)`, cộng điều người dùng gõ trong chat; chỉ có tệp đính kèm thì theo người dùng gõ (không lấy tên người gửi thư, tên tệp, tên thư mục; không tự tìm hồ sơ để lấy). "Hồ sơ" trong tệp quy tắc là thông tin này. Chưa có thì so tên, địa chỉ ghi "Chưa kiểm tra được", hỏi cuối báo cáo.
+- **Applicant, entity** (tên, other names, địa chỉ, pháp nhân): có thư mục hồ sơ thì `guroos_case_profile(customer)`, cộng điều người dùng gõ trong chat; có CRM và đã biết deal của lô (mục 10.1, làm trước khi kiểm tra) thì cộng thêm các khách trên deal: `genation-workspace_deals_get(id=<deal>)`, mỗi mục `contacts` có hồ sơ của khách trên deal (`person`: tên, tên đệm, họ, preferred / previous name; `company`: tên pháp nhân, trading name) và `addresses` (`current` là địa chỉ hiện tại); chỉ có tệp đính kèm thì theo người dùng gõ (không lấy tên người gửi thư, tên tệp, tên thư mục; không tự tìm hồ sơ để lấy). "Hồ sơ" trong tệp quy tắc là thông tin này. Chưa có thì so tên, địa chỉ ghi "Chưa kiểm tra được", hỏi cuối báo cáo.
 - **Hôm nay:** dòng "Hôm nay" của `guroos_date_check`, không tự giả định; tool lỗi: quy tắc ngày ghi "Chưa kiểm tra được", hỏi hôm nay.
 
 ## 3. Quy trình
@@ -148,7 +148,7 @@ Tệp ngoài phạm vi chỉ một dòng, không Kết luận: `### <tệp> — 
 
 ## 9. Lưu kết quả vào hồ sơ
 
-Chỉ khi lô là tệp trong hồ sơ (mục 2) và có tool `guroos_document_result_save`: sau báo cáo, lưu kết quả của từng tệp để lần sau không kiểm tra lại và ứng dụng hiện trạng thái từng tệp. Lô là tệp đính kèm, hoặc không có tool: bỏ mục này. Chỉ chép lại báo cáo: không đọc lại, không đổi kết luận; không đổi tên, không chuyển tệp, không ghi Monday, không sửa Fact Find.
+Chỉ khi lô là tệp trong hồ sơ (mục 2) và có tool `guroos_document_result_save`: sau báo cáo, lưu kết quả của từng tệp để lần sau không kiểm tra lại và ứng dụng hiện trạng thái từng tệp. Lô là tệp đính kèm, hoặc không có tool: bỏ mục này. Tổ chức có CRM thì vẫn làm mục này (ứng dụng dựa vào nó để biết tệp nào đã kiểm tra), rồi làm mục 10. Chỉ chép lại báo cáo: không đọc lại, không đổi kết luận; không đổi tên, không chuyển tệp, không ghi Monday, không sửa Fact Find.
 
 Gọi `guroos_document_result_save` MỘT lần cho cả lô, `customer` = tên thư mục hồ sơ, `skill` = `doc-check`, `results` = mỗi khối có dòng `Kết luận:` một kết quả (dòng "Ngoài phạm vi checklist" không lưu; khối hai tệp `<mặt trước> + <mặt sau>` thành hai kết quả giống nhau; tệp có nhiều khối `(phần n)` không lưu, ghi "chưa lưu: tệp có nhiều tài liệu"):
 
@@ -189,3 +189,86 @@ Giới hạn mỗi kết quả (tool từ chối cả lần lưu khi vượt): `
 | — | `other`: khối "Chưa nhận ra loại" |
 
 Ứng dụng hỏi người dùng trước khi lưu; từ chối thì không thử lại. Tool báo lỗi một kết quả (`CẦN XỬ LÝ` thiếu `notices`, ngày sai dạng…): sửa đúng chỗ đó theo báo cáo, gọi lại một lần. Sau khi lưu, thêm dưới báo cáo một dòng mỗi tệp: `- <tệp> · <trạng thái tool trả: Approve | Reject | Need Review> (<kết luận>)` hoặc `- <tệp> · chưa lưu: <lý do>`.
+
+## 10. Ghi kết quả lên CRM
+
+Tổ chức bật module `crm` thì kết quả kiểm tra của từng tài liệu còn được ghi lên deal trên CRM: giá trị Fact Find thành giá trị đề xuất có tài liệu làm bằng chứng, việc cần báo hiện cho nhân viên. Không có CRM: chỉ mục 9. Chỉ chép lại báo cáo: không đọc lại, không đổi kết luận, không ghi điều báo cáo không có. Công cụ của CRM là các công cụ `genation-workspace_…`; khi nói với người dùng, gọi khách và deal bằng tên, không đọc id.
+
+**Có CRM không:** có công cụ `genation-workspace_modules_list` thì gọi một lần; có mục `key` = `crm` là có CRM. Không có công cụ đó, hoặc không có `genation-workspace_document_checks_record` (công cụ chỉ có khi module bật): không có CRM, bỏ mục này. Công cụ báo `module_not_enabled`: bỏ mục này.
+
+### 10.1 Tìm tài liệu trên deal
+
+Mỗi tệp cần `document.id` (tài liệu đã lưu, KHÔNG phải `id` của tệp trên deal) và `dealId`:
+- **Tệp vừa ghi nhận trong cuộc trò chuyện này** (skill `mail-intake`, kết quả `genation-workspace_deal_files_register_existing`): tệp đính kèm hoặc tệp trong hồ sơ có đúng tên đã ghi nhận thì dùng `document.id` và `dealId` của kết quả đó.
+- **Tệp trong hồ sơ** khác: `genation-workspace_documents_search` với `search` = tên tệp (không kèm thư mục); chọn mục có `path` đúng bằng `/<thư mục hồ sơ>/<đường dẫn tệp>` (không phân biệt hoa thường). Mục đó có đúng một `dealFiles`: dùng `dealId` của nó; có nhiều deal mà một deal là deal của cuộc trò chuyện: deal đó; còn lại: chưa ghi, gom vào câu hỏi cuối báo cáo "tệp <tệp> nằm trên nhiều deal: <tên các deal>, ghi kết quả cho deal nào?".
+- Không tìm được (tệp đính kèm không ghi nhận trong cuộc trò chuyện, tệp chưa có trên deal nào): tệp đó chưa ghi, lý do "tệp chưa có trên deal".
+
+Kèm theo mỗi tệp: `id` của tệp trên deal, `documentTypeCode` và `subjectContactId` của tài liệu (có trong kết quả trên, hoặc `genation-workspace_deal_files_list(dealId)`). Biết deal trước khi kiểm tra thì lấy Applicant như mục 2.
+
+### 10.2 Ghi từng tài liệu
+
+Gọi `genation-workspace_document_checks_record` MỘT lần cho mỗi tài liệu có dòng `Kết luận:` (dòng "Ngoài phạm vi checklist" không ghi; tệp có nhiều khối `(phần n)` không ghi, lý do "tệp có nhiều tài liệu"):
+
+| Trường | Giá trị |
+|---|---|
+| `documentId` | `document.id` ở 10.1 |
+| `dealId` | deal ở 10.1 |
+| `kind` | `deep` (kiểm tra đầy đủ theo checklist) |
+| `outcome` | `ĐẠT` → `verified`; `CẦN XỬ LÝ`, `CHƯA ĐỦ THÔNG TIN` → `need_review`; `KHÔNG HỢP LỆ`, `KHÔNG ĐỌC ĐƯỢC` → `not_met` |
+| `model` | mã model đang chạy khi hệ thống cho biết; không biết chắc thì bỏ |
+| `findings` | theo bảng dưới, tối đa 200 mục |
+
+**Phát hiện (`findings`)**, mỗi mục một `kind`:
+
+| Báo cáo | Phát hiện |
+|---|---|
+| Dòng "Ghi vào Fact Find" có đích ở bảng đích dưới | `{kind: "fact_find", target, value, message, ruleCode, contactId?, location?}` |
+| Rule 2: Finance Clause / Loan Approval Date, Settlement Date | `{kind: "deal_date", target, value, message, ruleCode}` (không thêm `fact_find` cho hai dòng này) |
+| Dòng "Cần thông báo" `[TFN]` | `{kind: "redact", message: <bằng chứng: trang có TFN>, location?}`; không bao giờ ghi số TFN |
+| Dòng "Cần thông báo" khác | `{kind: "notify", message: "[<nhãn>] <bằng chứng> → <việc>", request?}` |
+| Dòng "Chưa kiểm tra được" | `{kind: "notify", message: "Chưa kiểm tra được: <mục>: <thiếu gì>"}` |
+| Dòng "Ghi vào Broker's Notes" (rule 11) | `{kind: "broker_note", message: <dòng đó>}` |
+
+- **`fact_find` / `deal_date`:** `message` = nguyên văn dòng báo cáo (`<Trường>: <giá trị>`, cả kỳ, nhãn, kết quả tra ABN). `value` = chỉ giá trị, theo dạng của trường: ngày `YYYY-MM-DD` (từ DD/MM/YYYY); tiền là số thập phân không `$`, không dấu phẩy (`"1250.00"`); lãi suất là số phần trăm (`"6.14"`); ABN là 11 chữ số liền; chữ thì như in. Không gửi khi giá trị không phải một giá trị rõ: "không có trên tài liệu", "không áp dụng", "Chưa kiểm tra được", chỉ có tháng/năm, số đã che (`…4821`), nhiều giá trị (khoản vay chia phần, nhiều trợ cấp), hay `KHÔNG HỢP LỆ` / `KHÔNG ĐỌC ĐƯỢC`. `asset.rental_income` là tiền thuê mỗi tháng: chỉ gửi khi tài liệu in theo tháng (per month, calendar month), không tự quy đổi kỳ.
+- **`contactId`:** khách trên deal mà báo cáo nói tài liệu thuộc về (tên KHỚP với `contacts` của `deals_get`); `company.*`: khách là pháp nhân trên deal. Không xác định được: bỏ (CRM dùng khách của tài liệu). Không truyền `entityId`.
+- **`location`:** trang nếu báo cáo nêu (`trang 2`); không thì bỏ.
+- **`request`** (chỉ với `notify`): chỉ khi "việc cần làm" là xin khách một giấy tờ cụ thể (bản còn hạn, bản đủ kỳ, bản có chữ ký hay chứng thực, Statutory Declaration…): `{name: <giấy tờ cần xin, ngắn gọn>, documentTypeCode?}`, `documentTypeCode` chỉ khi đúng một loại của `genation-workspace_document_types_list`. CRM tạo một tài liệu yêu cầu nháp trên deal; nhân viên quyết định gửi khách.
+- **Mặt sau** của khối hai tệp `<mặt trước> + <mặt sau>`: ghi cùng `outcome` nhưng bỏ các `fact_find` (đã ghi ở mặt trước).
+- **Số nhạy cảm:** chỉ các đích dưới được nhận số đầy đủ như dòng Fact Find (Licence No., Document No. hộ chiếu, Account number khoản vay). Không bao giờ gửi TFN, số thẻ, số Medicare, ngày sinh, CRN, dòng MRZ.
+
+**Đích (`target`) và `ruleCode` theo rule và trường Fact Find** (đích của gói `lending` và hồ sơ CRM; trường không có ở đây thì không gửi `fact_find`):
+
+| Rule | Trường báo cáo → `target` (`ruleCode`) |
+|---|---|
+| 2 | Finance Clause / Loan Approval Date → `deal.finance_due_date` (`finance_clause_date`) · Settlement Date → `deal.estimated_settlement_date` (`settlement_date`) |
+| 4 | Licence No. → `person.drivers_license_number` (`licence_number`) · Name on document → `person.drivers_license_name_on_document` (`name_on_document`) · Expiry Date → `person.drivers_license_expiry_date` (`expiry_date`) |
+| 5, 6 | Document No. → `person.passport_number` (`document_number`) · Name on document → `person.passport_name_on_document` (`name_on_document`) · Expiry Date → `person.passport_expiry_date` (`expiry_date`) |
+| 7 | Name on document → `person.medicare_name_on_card` (`name_on_document`) · Expiry Date → `person.medicare_expiry_date` (`expiry_date`) |
+| 8 | Active Visa subclass → `person.visa_subclass` (`visa_subclass`) · Visa type → `person.visa_type` (`visa_type`) · Name on document → `person.visa_name_on_document` (`name_on_document`) |
+| 9 | Trust Name → `company.trust_name` (`trust_name`) · Trustee Name → `company.name` (`trustee_name`) |
+| 12 | Employer ABN → `employment.employer_abn` (`employer_abn`) · Employer address → `employment.employer_address` (`employer_address`) · Employer phone no. → `employment.employer_phone` (`employer_phone`) |
+| 14, 15, 16 | Rent amount → `asset.rental_income` (`rent_amount`) |
+| 17, 18 | Income received → `income.gross_value` (`income_received`) |
+| 20, 21 | Lender → `liability.lender` (`lender`) · Account name → `liability.name` (`account_name`) · Account number → `liability.account_number` (`account_number`) · Interest rate → `liability.interest_rate` (`interest_rate`) · Repayment → `liability.repayment` (`repayment`) · Loan Expiry date → `liability.end_date` (`expiry_date`) |
+| 22 | Current balance → `liability.balance` (`current_balance`) · Repayments → `liability.repayment` (`repayments`) |
+| 23 | Account balance → `liability.balance` (`account_balance`) · Limit → `liability.limit` (`limit`) |
+
+### 10.3 Phân loại tài liệu chưa có loại
+
+Tài liệu chưa có `documentTypeCode` (thường là tệp `mail-intake` vừa lưu vào `tmp/`) và khối đã nhận ra loại: gọi `genation-workspace_deal_files_update` với `id` = `id` của tệp trên deal, `documentTypeCode` = mã theo bảng dưới, chỉ khi mã đó có trong `genation-workspace_document_types_list` (gọi một lần cho cả lô). Không đổi tên, không chuyển tệp, không sửa tài liệu đã có loại. Khối "Chưa nhận ra loại", Airbnb, rule 19 (bốn loại sao kê theo mục đích: lương, kinh doanh, tiền thuê, chi tiêu) và loại không có mã: không phân loại.
+
+| Rule | `documentTypeCode` |
+|---|---|
+| 1 / 2 / 3 | `proof_of_ownership` / `contract_of_sale` / `building_contract` |
+| 4 / 5 / 6 / 7 / 8 | `drivers_licence` / `australian_passport` / `foreign_passport` / `medicare_card` / `visa` |
+| 9 / 10 / 11 / 12 | `trust_deed` / `company_extract` / `credit_report` / `payslip` |
+| 13 | `individual_tax_return`, `partnership_tax_return`, `company_tax_return`, `trust_tax_return`, `income_statement`, `notice_of_assessment`, `financial_statements` (theo `doc_type` của mục 9) |
+| 14 / 15 / 16 | `rental_statement` / `rental_agreement` / `rental_appraisal` (không gồm Airbnb) |
+| 17 / 18 | `centrelink_statement` / `child_support` |
+| 20 / 21 / 22 / 23 | `home_loan_statement` / `liability_statement` / `study_loan_statement` / `bnpl_statement` |
+
+### 10.4 Sau khi ghi
+
+Ứng dụng hỏi người dùng ở lần ghi đầu tiên của cuộc trò chuyện; từ chối thì không thử lại, các tệp còn lại ghi "chưa ghi lên CRM: người dùng từ chối". Công cụ báo lỗi tham số (`Invalid arguments: …`): sửa đúng chỗ đó theo báo cáo, gọi lại một lần. Lỗi khác (`404` tài liệu không có trên deal…): ghi nguyên lời công cụ, không thử lại. Kết quả có `warnings` (đích chưa có chỗ ghi, khách không có bản ghi tương ứng…) là bình thường: chỉ đếm, không liệt kê.
+
+Thêm dưới báo cáo (sau các dòng của mục 9) một dòng mỗi tệp: `- <tệp> · CRM: đã ghi (<kết luận>)` (có cảnh báo thì thêm `, <n> phát hiện chưa áp dụng`; có `requiredDocumentIds` thì thêm `, <n> giấy tờ cần xin (nháp)`) hoặc `- <tệp> · CRM: chưa ghi: <lý do>`.
