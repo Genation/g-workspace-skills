@@ -100,12 +100,14 @@ Ngoài danh sách của SKILL.md, không chép thêm: Visa grant number; số h�
 
 ## 4. Cần thông báo
 
+So tên theo SKILL.md mục 6. **Tên đệm:** tên và họ khớp mà tên đệm chỉ in chữ cái đầu đúng, hay thiếu ở một bên (Medicare thường chỉ in chữ cái đầu: "ISLA M BRENNAN" = Isla Margaret Brennan; "ISLA BRENNAN" cũng vậy) là KHỚP: không `[Sai tên]`, không xin Statutory Declaration. Chỉ A, B, C (giấy tờ lender dùng xác minh danh tính, tên trên đơn vay theo tên in đầy đủ) thêm Ghi chú `tên đệm khác hồ sơ: "<tên in>" / "<tên hồ sơ>"`; D, E không ghi gì. Chữ cái đầu sai, tên đệm khác chữ, viết tắt tên (first name) hay họ vẫn là KHÁC.
+
 So địa chỉ (chỉ A): bỏ qua hoa/thường, dấu câu, viết tắt (St = Street, VIC = Victoria, "Unit 3, 12" = "3/12"); khác số căn, số nhà, tên đường, suburb hoặc postcode là KHÁC. Địa chỉ dán hoặc in ở mặt sau thẻ là địa chỉ mới nhất.
 
 | Điều kiện | Nhãn | Bằng chứng | Việc cần làm |
 |---|---|---|---|
-| A, B: tên KHÁC Applicant | Sai tên | Hai tên nguyên văn, khác ở đâu | chuẩn bị Statutory Declaration / Name Change Certificate |
-| C, D, E: tên KHÁC | Sai tên | Như trên | chuẩn bị Statutory Declaration |
+| A, B: tên KHÁC Applicant (chỉ khác tên đệm như trên: không tính) | Sai tên | Hai tên nguyên văn, khác ở đâu | chuẩn bị Statutory Declaration / Name Change Certificate |
+| C, D, E: tên KHÁC (như trên) | Sai tên | Như trên | chuẩn bị Statutory Declaration |
 | A: địa chỉ KHÁC hồ sơ | Sai địa chỉ | Hai địa chỉ, khác ở phần nào | xin khách địa chỉ cập nhật |
 | A, C, D: hết hạn; B: hết hạn quá 2 năm | Hết hạn | Expiry Date, hôm nay (B thêm mốc 2 năm) | xin khách giấy tờ còn hạn hoặc giấy tờ thay thế |
 | C: luôn luôn, trừ khi lô có Visa/VEVO hợp lệ hoặc hộ chiếu Úc của chính người đó | Visa | Mã nước; lô không có visa hay hộ chiếu Úc của người này | xin khách visa hiện tại |
@@ -143,7 +145,7 @@ Ghi vào Fact Find
 - Expiry Date: 03/02/2026
 Cần thông báo
 - [Hết hạn] Expiry Date 03/02/2026, hôm nay 11/10/2026 → xin khách giấy tờ còn hạn hoặc giấy tờ thay thế
-- [Sai tên] Giấy tờ ghi "TRAN, Mai", hồ sơ ghi "Thi Mai Tran": thiếu tên đệm "Thi" → chuẩn bị Statutory Declaration / Name Change Certificate
+- [Sai tên] Giấy tờ ghi "TRAN, Mai", hồ sơ ghi "Thi Mai Tran": thiếu tên "Thi" → chuẩn bị Statutory Declaration / Name Change Certificate
 Chưa kiểm tra được
 - Không có
 Ghi chú

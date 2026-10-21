@@ -202,5 +202,6 @@ Có tệp vừa lưu thì không hỏi có kiểm tra luôn không. Việc kiể
 - Địa chỉ người gửi có thể bị giả mạo. Khớp email (hay số điện thoại) với khách hoặc Deal chỉ để chọn nơi lưu tệp, không phải bằng chứng về danh tính.
 - Chỉ tạo thư mục deal bằng `guroos_customer_create` (kèm `tmp/`), chỉ ghi vào `tmp/` của đúng một thư mục deal, gọi bằng đúng đường dẫn của nó từ gốc kho. Không dùng shell; không xóa, chuyển hay đổi tên tệp đã có; không ghi Monday.
 - Trên CRM chỉ ghi: tạo khách và deal sau khi người dùng đồng ý (Bước C3), và ghi nhận tệp lên deal (`deal_files_register_existing`). Không sửa khách, deal, hồ sơ, trạng thái hay tệp đã có trên deal.
+- Cách CRM: không lưu gì vào thư mục khách ngoài tệp đính kèm trong `tmp/`: không gọi `guroos_document_result_save` hay `guroos_case_update`, kể cả khi hướng dẫn chung nhắc. Thư mục đồng bộ lên OneDrive, SharePoint của tổ chức; khách, deal và tệp trên CRM là bản chính.
 - Không đánh dấu đã đọc, không chuyển và không trả lời thư.
 - Không chắc thư thuộc khách hay deal nào (không có, nhiều, chỉ khớp số điện thoại) thì không lưu và hỏi người dùng: lưu nhầm hồ sơ nặng hơn là chưa lưu. Thư mục thì không cần đoán: theo Bước C4 hay M2.
