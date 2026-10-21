@@ -107,7 +107,7 @@ Chỉ ghi chú:
 ## 5. Lưu ý riêng
 
 - **Ai được so tên.** Từng người TRÊN tài liệu so với Applicant và entity của hồ sơ (SKILL.md mục 2). Đồng sở hữu hoặc đồng mua không phải Applicant cũng là `[Sai tên]`. Vendor, Builder không so tên, chỉ xét chữ ký.
-- **Tên in tắt.** Hóa đơn rule 1 hay in "T M TRAN": vẫn là KHÁC. Bỏ qua phần "C/- <đơn vị quản lý>".
+- **Tên in tắt.** Hóa đơn rule 1 hay in "T M TRAN": tên (first name) in tắt vẫn là KHÁC; chỉ tên đệm in tắt hay thiếu ("THI M TRAN", "THI TRAN" với Thi Mai Tran) là khớp (SKILL.md mục 6), không ghi chú. Bỏ qua phần "C/- <đơn vị quản lý>".
 - **Chữ ký.** Chưa xem được trang ký (tool không vẽ được trang) thì ghi "Chưa kiểm tra được", không kết luận "Chưa ký". Chữ ký trên Section 32 không thay chữ ký hợp đồng. Mẫu chỉ có một ô ngày chung thì ngày đó tính cho mọi bên. Bản counterpart chỉ có chữ ký một bên: vẫn `[Chưa ký]`, ghi chú có thể là counterpart.
 - **Trang ký chỉ có lớp chữ.** Chữ ký tay hay ký điện tử thường là ảnh hoặc nét vẽ, không nằm trong lớp chữ. Chữ ký có trong lớp chữ ("DocuSigned by…", "Signed by…") là đã ký, không cần xem ảnh. Còn lại: xem trang ký bằng `guroos_attachment_page` (SKILL.md mục 2), xét chữ ký từng bên trên ảnh. Ghi `[Chưa ký]` khi ảnh cho thấy ô ký của một bên trống, hoặc ô ngày ký của bên đó để trống (thiếu ngày ký). Tool không vẽ được: "Chưa kiểm tra được: chữ ký trang <n> (chỉ đọc được lớp chữ)", không kết luận `[Chưa ký]` chỉ vì lớp chữ không có chữ ký. Tên, ngày gõ sẵn không phải chữ ký.
 - **Đối chiếu chéo.** Ghi vào "Dữ kiện để đối chiếu" những gì `references/cross-checks.md` dùng: địa chỉ tài sản, bên nhận mortgage (Land Title), Deposit (Contract of Sale).

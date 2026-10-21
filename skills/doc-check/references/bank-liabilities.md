@@ -83,7 +83,7 @@ Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ v�
 
 | Điều kiện | Rule | Nhãn | Bằng chứng an toàn |
 |---|---|---|---|
-| Người đứng tên không khớp Applicant nào (tài khoản chung: xét từng người, kể cả đồng sở hữu không phải Applicant). Applicant vắng tên trên tài khoản: chỉ Ghi chú | 19–23 | Sai tên | hai tên nguyên văn, khác ở đâu |
+| Người đứng tên không khớp Applicant nào (tài khoản chung: xét từng người, kể cả đồng sở hữu không phải Applicant; chỉ khác tên đệm: khớp, SKILL.md mục 6, không ghi chú). Applicant vắng tên trên tài khoản: chỉ Ghi chú | 19–23 | Sai tên | hai tên nguyên văn, khác ở đâu |
 | Đoạn kỳ liền mạch mới nhất của bộ CHƯA ĐỦ 3 tháng | 19, 21 | Kỳ dưới 3 tháng | các dòng "Kỳ …" và "Khoảng hở" của tool |
 | Như trên, CHƯA ĐỦ 6 tháng | 20 | Kỳ dưới 6 tháng | như trên |
 | Sao kê mới nhất của bộ QUÁ 30 ngày | 19–21 | Quá 30 ngày | loại ngày, ngày tài liệu, hôm nay theo tool |

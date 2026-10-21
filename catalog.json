@@ -2,43 +2,10 @@
   "schemaVersion": 1,
   "skills": [
     {
-      "id": "doc-coauthoring",
-      "title": "Cùng soạn tài liệu",
-      "summary": "Dẫn dắt từng bước khi viết đề xuất, quy trình hay tài liệu dài.",
-      "details": "Trợ lý hỏi về người đọc và mục đích, cùng bạn dựng dàn ý, viết từng phần, rồi đọc lại như một người chưa biết gì để tìm chỗ khó hiểu.",
-      "icon": "pen-line",
-      "examples": [
-        "Giúp tôi viết quy trình tiếp nhận hồ sơ khách hàng mới",
-        "Tôi cần soạn một bản đề xuất gửi ban giám đốc"
-      ],
-      "default": true
-    },
-    {
-      "id": "internal-comms",
-      "title": "Viết thông báo nội bộ",
-      "summary": "Soạn báo cáo tuần, thông báo và bản tin cho cả nhóm.",
-      "details": "Trợ lý viết báo cáo tiến độ (đã làm, sẽ làm, vướng mắc), bản tin công ty, câu trả lời cho câu hỏi thường gặp và các thông báo nội bộ khác theo mẫu có sẵn.",
-      "icon": "message-square-text",
-      "examples": [
-        "Viết báo cáo tuần của nhóm: đã làm, sẽ làm, vướng mắc",
-        "Viết thông báo lịch nghỉ lễ cho cả văn phòng"
-      ]
-    },
-    {
-      "id": "discernment-nudge",
-      "title": "Gợi ý câu hỏi kiểm tra lại",
-      "summary": "Sau câu trả lời quan trọng, gợi ý vài câu hỏi để bạn kiểm chứng.",
-      "details": "Khi trợ lý đưa ra lời khuyên, con số ước tính hay bản nháp mà bạn sẽ dựa vào để quyết định, trợ lý thêm hai ba câu hỏi ngắn giúp bạn kiểm tra dữ kiện, lập luận và những điều còn thiếu. Mỗi cuộc trò chuyện chỉ gợi ý một lần.",
-      "icon": "shield-check",
-      "examples": [
-        "Ước tính giúp tôi thời gian xử lý một bộ hồ sơ mới"
-      ]
-    },
-    {
       "id": "mail-intake",
       "title": "Tiếp nhận thư khách hàng",
       "summary": "Tìm khách và deal theo email người gửi (trên CRM nếu tổ chức có, không thì trên Monday), lưu tệp đính kèm vào thư mục deal và ghi nhận lên deal.",
-      "details": "Với thư bạn chỉ định, trợ lý tìm khách và deal trên CRM của tổ chức theo địa chỉ email người gửi (tổ chức chưa bật CRM thì tìm Deal trên Monday), tìm thư mục deal (thư mục CRM gắn hoặc sẽ gắn với deal, thường nằm trong Customers/; chưa có thì tạo mới kèm thư mục tmp/), tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau, rồi ghi nhận các tệp đó lên deal trên CRM. Chưa có khách hay deal thì trợ lý đề xuất tạo và chỉ tạo khi bạn đồng ý. Mỗi lần tạo thư mục, lưu tệp hay ghi lên CRM ứng dụng đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư.",
+      "details": "Với thư bạn chỉ định, trợ lý tìm khách và deal trên CRM của tổ chức theo địa chỉ email người gửi (tổ chức chưa bật CRM thì tìm Deal trên Monday), tìm thư mục deal (thư mục CRM gắn hoặc sẽ gắn với deal, thường nằm trong Customers/; chưa có thì tạo mới kèm thư mục tmp/), tải các tệp đính kèm chưa có vào tmp/ để kiểm tra sau, rồi ghi nhận các tệp đó lên deal trên CRM. Chưa có khách hay deal thì trợ lý đề xuất tạo và chỉ tạo khi bạn đồng ý. Mỗi lần tạo thư mục, lưu tệp hay ghi lên CRM ứng dụng đều hỏi bạn. Trợ lý không đổi tên tệp, không sửa Monday và không trả lời thư; tệp ở lại tmp/ cho tới khi được kiểm tra và bạn duyệt lưu hồ sơ.",
       "default": true,
       "icon": "inbox",
       "examples": [
@@ -49,59 +16,19 @@
     {
       "id": "doc-check",
       "title": "Kiểm tra giấy tờ hồ sơ vay",
-      "summary": "Kiểm tra từng giấy tờ của khách theo checklist 23 mục, đối chiếu chéo rồi báo việc cần làm.",
-      "details": "Trợ lý kiểm tra tệp gốc trước (có phải bản phát hành thật, có bị sửa, có phải ảnh chụp hay bản scan), rồi nhận loại giấy tờ và đọc theo đúng quy tắc của loại đó: tùy thân, nhà đất, phiếu lương, thuế, thuê nhà, trợ cấp, sao kê và khoản vay. Giấy tờ đạt được đối chiếu chéo với nhau (tên, địa chỉ, kỳ, số liệu). Báo cáo ghi kết luận cho từng giấy tờ, thông tin ghi vào Fact Find và việc cần báo khách. Khi tổ chức có CRM và giấy tờ đã nằm trên một deal, kết quả còn được ghi lên deal: thông tin Fact Find thành giá trị đề xuất để nhân viên duyệt, việc cần báo hiện cho nhân viên, và từng tiêu chí của loại giấy tờ được đánh dấu đạt hay chưa, để tệp đạt yêu cầu khi đủ mọi tiêu chí. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự sửa hay di chuyển tệp.",
+      "summary": "Kiểm tra giấy tờ của khách theo checklist 23 mục và báo việc cần làm; với CRM còn cho biết khách nào mới gửi hồ sơ, xử lý tệp mới của deal và lưu hồ sơ khi bạn duyệt.",
+      "details": "Trợ lý kiểm tra tệp gốc (bản phát hành thật, bị sửa, ảnh chụp hay scan), nhận loại giấy tờ, đọc theo quy tắc của loại đó và đối chiếu chéo các giấy tờ. Báo cáo ghi kết luận, thông tin cho Fact Find và việc cần báo khách. Khi tổ chức có CRM, trợ lý liệt kê các deal có tệp khách gửi qua cổng khách hàng còn chờ xử lý (tệp mới, và tệp đã ghi nhận nhưng chưa kiểm tra) để bạn chọn, rồi xử lý tệp mới của từng deal một (tệp khách gửi qua cổng, cùng tệp khác trong tmp/ của deal như tệp tải từ thư): ghi nhận lên deal, nhận loại giấy tờ và khách, gắn với giấy tờ yêu cầu, ghi kết quả lên deal (giá trị đề xuất, việc cần báo, từng tiêu chí đạt hay chưa). Giấy tờ đạt yêu cầu (đủ tiêu chí, hoặc bạn tick tay) được đề xuất lưu hồ sơ: trợ lý hiện tên mới theo quy tắc đặt tên và thư mục đích, CRM chỉ đổi tên và chuyển tệp bạn đồng ý. Deal chưa có người phụ trách thì trợ lý nhắc bạn nhận hồ sơ, không tự nhận. Khách cũ quay lại mà deal chưa có thư mục: trợ lý tìm thư mục cũ của khách trên OneDrive, đề xuất gắn vào deal (giữ nguyên tên thư mục) và chỉ gắn khi bạn xác nhận. Khi bạn nhờ, trợ lý chuyển tài khoản cổng khách hàng của khách đã tự kích hoạt sang liên hệ có sẵn (chỉ chủ sở hữu hay quản trị viên), sau khi bạn chỉ đúng liên hệ và đồng ý. Trợ lý không chép TFN, số Medicare hay số thẻ, và không tự đổi tên hay di chuyển tệp.",
       "icon": "clipboard-check",
       "examples": [
+        "Có hồ sơ nào khách mới gửi không?",
+        "Xử lý các tệp khách mới gửi",
+        "Xử lý các tệp mới khách gửi trong tmp của deal Whitmore",
+        "Kiểm tra hồ sơ mới của Whitmore",
         "Kiểm tra giấy tờ trong thư mục của khách Nguyễn Văn A",
         "Kiểm tra phiếu lương và sao kê tôi vừa đính kèm",
         "Tờ khai thuế này có phải bản gốc tải từ myGov không?"
       ],
       "default": true
-    },
-    {
-      "id": "doc-check-identity",
-      "title": "Kiểm tra giấy tờ tùy thân",
-      "summary": "Nhận diện bằng lái, hộ chiếu, Medicare, visa và báo điểm cần xử lý.",
-      "details": "Khi khách gửi giấy tờ tùy thân, trợ lý xác định loại giấy tờ, trích số giấy tờ, họ tên và ngày hết hạn để ghi vào Fact Find, rồi đối chiếu với tên và địa chỉ của người vay. Trợ lý báo rõ giấy tờ hết hạn, sai tên, sai địa chỉ hoặc visa tạm thời để bạn xử lý; trợ lý không tự gửi thư hay sửa Monday.",
-      "icon": "clipboard-check",
-      "examples": [
-        "Kiểm tra giấy tờ tùy thân khách vừa gửi trong thư này",
-        "Bằng lái này còn hạn và có khớp tên người vay không?"
-      ]
-    },
-    {
-      "id": "doc-check-property",
-      "title": "Kiểm tra giấy tờ nhà đất",
-      "summary": "Kiểm tra rates notice, giấy chủ quyền, hợp đồng mua bán và hợp đồng xây dựng.",
-      "details": "Trợ lý xác định loại giấy tờ nhà đất, tìm ngày settlement, hạn duyệt vay (finance clause) và thông tin conveyancer trong hợp đồng, rồi báo các điểm cần xử lý: nợ quá hạn, tên chủ sở hữu hoặc người mua khác tên người vay, hợp đồng thiếu chữ ký hay ngày ký. Trợ lý không tự gửi thư hay sửa Monday.",
-      "icon": "file-search",
-      "examples": [
-        "Kiểm tra hợp đồng mua bán khách vừa gửi",
-        "Rates notice này có nợ quá hạn không?"
-      ]
-    },
-    {
-      "id": "doc-check-entity-credit",
-      "title": "Kiểm tra trust, công ty và tín dụng",
-      "summary": "Kiểm tra Trust Deed, Company Extract của ASIC và báo cáo tín dụng Equifax.",
-      "details": "Trợ lý trích tên trust, trustee, beneficiary, ACN, director và shareholder để ghi vào Fact Find, rồi báo các điểm cần xử lý: người không phải người vay, deed thiếu chữ ký hoặc chưa chứng thực, công ty không còn đăng ký hoặc ABN đã huỷ. Với báo cáo Equifax, trợ lý liệt kê enquiry trong 6 tháng, default và các tháng trả chậm.",
-      "icon": "users",
-      "examples": [
-        "Kiểm tra company extract này",
-        "Báo cáo Equifax của khách có gì cần lưu ý?"
-      ]
-    },
-    {
-      "id": "doc-check-income",
-      "title": "Kiểm tra giấy tờ thu nhập",
-      "summary": "Kiểm tra payslip, giấy tờ thuế, giấy tờ cho thuê nhà, Centrelink và child support.",
-      "details": "Trợ lý xác định loại giấy tờ thu nhập, trích thông tin employer, lợi nhuận, tiền thuê hoặc trợ cấp để ghi vào Fact Find, tra ABN của employer trên ABN Lookup, rồi báo các điểm cần xử lý: giấy tờ quá 30 ngày, payslip không liên tiếp, có salary sacrifice, ABN đã huỷ hoặc khác tên employer, lỗ, sai tên. Trợ lý nhắc che Tax File Number và không chép số này vào báo cáo.",
-      "icon": "receipt",
-      "examples": [
-        "Kiểm tra hai payslip khách vừa gửi",
-        "Notice of Assessment này có cần che TFN không?"
-      ]
     },
     {
       "id": "abn-lookup",
@@ -112,83 +39,6 @@
       "examples": [
         "Tra cứu ABN 51 824 753 556",
         "Công ty ABC Pty Ltd còn hoạt động không?"
-      ]
-    },
-    {
-      "id": "doc-check-tax-and-financial-statements",
-      "title": "Kiểm tra giấy tờ thuế và báo cáo tài chính",
-      "summary": "Kiểm tra Tax Return, ATO Income Statement, Notice of Assessment, Profit & Loss và Balance Sheet.",
-      "details": "Trước hết trợ lý xác nhận tệp là bản PDF gốc, tải từ myGov/ATO hoặc do phần mềm kế toán xuất ra: không bị gõ lại, sửa số, che chữ hay chụp ảnh, và các con số khớp nhau. Tệp không đạt thì trợ lý dừng, nêu lý do và đề nghị xin bản gốc. Tệp đạt thì trợ lý ghi số liệu Profit & Loss và Balance Sheet vào Fact Find, rồi báo tên khác, khoản lỗ, số liệu Tax Return lệch Financial Statements hoặc Tax File Number cần che. TFN không bao giờ được chép vào báo cáo.",
-      "icon": "file-search",
-      "examples": [
-        "Tax Return này có phải bản gốc không? Kiểm tra và báo TFN cần che",
-        "Đối chiếu Notice of Assessment này với Applicant trên Fact Find"
-      ]
-    },
-    {
-      "id": "doc-check-rental-statement",
-      "title": "Kiểm tra Rental Statement",
-      "summary": "Trích tiền thuê nhận được và kiểm tra ngày trên Rental Statement.",
-      "details": "Trợ lý ghi tiền thuê và kỳ nhận vào Fact Find, rồi báo nhân viên nếu tài liệu đã quá 30 ngày.",
-      "icon": "receipt",
-      "examples": [
-        "Kiểm tra Rental Statement này và ghi tiền thuê vào Fact Find",
-        "Rental Statement này có quá 30 ngày chưa?"
-      ]
-    },
-    {
-      "id": "doc-check-rental-agreement",
-      "title": "Kiểm tra Rental Agreement",
-      "summary": "Trích tiền thuê và đối chiếu Applicant với bên thuê hoặc bên cho thuê.",
-      "details": "Trợ lý ghi số tiền thuê và kỳ hạn vào Fact Find, xác định Applicant là Landlord hay Tenant, rồi báo khi tên của bên có Applicant không khớp hoặc Applicant không có tên trong các bên của hợp đồng.",
-      "icon": "file-text",
-      "examples": [
-        "Kiểm tra hợp đồng thuê nhà này và ghi tiền thuê vào Fact Find",
-        "Tên bên thuê trong Rental Agreement có khớp Applicant không?"
-      ]
-    },
-    {
-      "id": "doc-check-rental-appraisal-airbnb",
-      "title": "Kiểm tra Rental Appraisal và Airbnb",
-      "summary": "Trích giá thuê ước tính hoặc payout Airbnb, kiểm tra ngày và tên chủ nhà/Host.",
-      "details": "Trợ lý ghi rent amount vào Fact Find, rồi báo tài liệu quá 30 ngày hoặc tên chủ nhà/Host khác Applicant. Với appraisal, ghi khoảng giá ước tính; với Airbnb, ghi payout và kỳ.",
-      "icon": "house",
-      "examples": [
-        "Kiểm tra Rental Appraisal này và trích khoảng giá thuê",
-        "Kiểm tra Airbnb Rental Statement, payout và tên Host"
-      ]
-    },
-    {
-      "id": "doc-check-centrelink-statement",
-      "title": "Kiểm tra Centrelink Statement",
-      "summary": "Trích khoản trợ cấp và kiểm tra tên, thời lượng kỳ và ngày tài liệu.",
-      "details": "Trợ lý ghi tên trợ cấp, số tiền và kỳ vào Fact Find, rồi báo khi kỳ ngắn hơn 3 tháng, tài liệu quá 30 ngày hoặc tên khác Applicant. Không chép Customer Reference Number.",
-      "icon": "landmark",
-      "examples": [
-        "Kiểm tra Centrelink Statement và ghi khoản trợ cấp vào Fact Find",
-        "Statement Centrelink này có đủ kỳ 3 tháng không?"
-      ]
-    },
-    {
-      "id": "doc-check-child-support-documents",
-      "title": "Kiểm tra giấy tờ cấp dưỡng",
-      "summary": "Kiểm tra Child Support Assessment, Family Court Order và thư về khoản cấp dưỡng.",
-      "details": "Trợ lý ghi khoản income received vào Fact Find, rồi báo kỳ dưới 3 tháng, tài liệu quá 30 ngày hoặc tên Applicant không xuất hiện trên tài liệu. Nếu Applicant là người trả, ghi đây là khoản chi trong Ghi chú thay vì Income received.",
-      "icon": "scale",
-      "examples": [
-        "Kiểm tra Child Support Assessment này",
-        "Đọc Family Court Order và cho biết khoản cấp dưỡng cần ghi thế nào"
-      ]
-    },
-    {
-      "id": "doc-check-liabilities",
-      "title": "Kiểm tra sao kê và khoản nợ",
-      "summary": "Kiểm tra sao kê ngân hàng, khoản vay nhà, vay cá nhân, thẻ tín dụng, HECS và BNPL.",
-      "details": "Trợ lý xác định loại sao kê, trích lender, số tài khoản, lãi suất, khoản trả và hạn vay để ghi vào Fact Find, rồi báo các điểm cần xử lý: sao kê chưa đủ kỳ hoặc quá 30 ngày, sai tên, trả chậm, cá cược, giao dịch nước ngoài, nộp tiền mặt lớn, lương hoặc tiền thuê lệch với giấy tờ khác.",
-      "icon": "list-checks",
-      "examples": [
-        "Kiểm tra sao kê 3 tháng của khách",
-        "Sao kê thẻ tín dụng này có trả chậm không?"
       ]
     }
   ]

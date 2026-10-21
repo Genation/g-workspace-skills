@@ -74,7 +74,7 @@ Net pay, kỳ, Pay date không vào Fact Find; ghi ở dòng "Dữ kiện để 
 
 | Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
 |---|---|---|---|
-| Tên Employee không khớp Applicant nào | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
+| Tên Employee không khớp Applicant nào (chỉ khác tên đệm, như "ISLA M BRENNAN": khớp, SKILL.md mục 6; không ghi chú) | Sai tên | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
 | Có Salary Sacrifice, Salary Packaging, khoản trừ trước thuế (pre-tax deduction, RESC), novated lease; kể cả khoản mang tên nhà cung cấp salary packaging, khoản có chữ `Pre Tax` / `Pre-Tax` / `Bef.Tax`, phí packaging trừ trước thuế | Salary sacrifice | tên khoản và số tiền như in | xin khách Statement hoặc Employment Letter / Contract |
 | Payslip MỚI NHẤT của bộ quá 30 ngày, tính từ Pay date (không có thì ngày cuối kỳ) | Quá 30 ngày | Pay date và hôm nay theo tool | báo nhân viên xem xét |
 | Các payslip trong bộ không liên tiếp | Không liên tiếp | các dòng "Khoảng hở" của tool | báo nhân viên xem xét |
