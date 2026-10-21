@@ -1,120 +1,120 @@
-# Thuê nhà: Rental Statement, Rental Agreement, Rental Appraisal, Airbnb (rule 14–16)
+# Rental: Rental Statement, Rental Agreement, Rental Appraisal, Airbnb (rule 14–16)
 
-## Phạm vi
+## Scope
 
-| Loại | Rule | Đọc trước (tệp trong hồ sơ: `guroos_document_read` với `pages`) |
+| Type | Rule | Read first (files in the client folder: `guroos_document_read` with `pages`) |
 |---|---|---|
-| Rental Statement: Owner / Ownership / Rental Statement, EOFY statement của agency | 14 | Trang 1 (đầu trang, kỳ, bảng tổng). Trang chi tiết chỉ khi cần cho 2C. |
-| Rental Agreement: Residential Tenancy / Rental Agreement, Lease | 15 | Trang 1–3 (các bên, địa chỉ, thời hạn, tiền thuê), rồi 1–2 trang cuối (chữ ký). Chưa thấy tiền thuê hay các bên thì đọc phần Schedule / Item. |
-| Rental Appraisal / Rental Estimate của agency | 16 | Trang 1. |
-| Airbnb Rental Statement: Earnings, Transaction history, Payouts | 16 | Trang có tổng (đầu hoặc cuối), danh sách payout khi cần cho 2C. |
+| Rental Statement: Owner / Ownership / Rental Statement, agency EOFY statement | 14 | Page 1 (header, period, summary table). Detail pages only when needed for 2C. |
+| Rental Agreement: Residential Tenancy / Rental Agreement, Lease | 15 | Pages 1–3 (parties, address, term, rent), then the last 1–2 pages (signatures). Rent or parties not found: read the Schedule / Item section. |
+| Agency Rental Appraisal / Rental Estimate | 16 | Page 1. |
+| Airbnb Rental Statement: Earnings, Transaction history, Payouts | 16 | The page with totals (first or last), the payout list when needed for 2C. |
 
-Stayz, Booking.com: xử lý như Airbnb, ghi "chưa chắc: nền tảng <tên>".
+Stayz, Booking.com: handle like Airbnb, write "uncertain: platform <name>".
 
-**Trang scan** đến dạng ảnh trang (SKILL.md): đọc các bên, tiền thuê, chữ ký trên ảnh như trang thường. Trang ký có lớp chữ, hay trang "ảnh scan chưa gửi": xem bằng `guroos_attachment_page` (tệp đính kèm) hay đọc tiếp bằng `guroos_document_read` với `pages` (tệp trong hồ sơ; SKILL.md mục 2). Trang vẫn không có ảnh đọc được ("không có lớp chữ; <lý do>", tool không vẽ được): các trang đó vào "Chưa kiểm tra được", không kết luận dòng ký để trống.
+**Scanned pages** arrive as page images (SKILL.md): read parties, rent, signatures on the image like a normal page. Signing page with a text layer, or a "scanned image not sent" page: view with `guroos_attachment_page` (attachments) or keep reading with `guroos_document_read` with `pages` (files in the client folder; SKILL.md section 2). Pages still without a readable image ("no text layer; <reason>", tool cannot render): those pages go to "Could not check", do not conclude a signature line is blank.
 
-Ngoài phạm vi: Tenant ledger (lịch sử trả tiền của người thuê, không có phí và số trả owner); Management Agreement / Agency Authority (không có Tenant); Rental application; Bond lodgement form; Sales appraisal, CMA (giá bán); ước tính trên website không có đầu trang agency; biên nhận đặt phòng mà Applicant là khách.
+Out of scope: Tenant ledger (tenant's payment history, no fees and no amount paid to owner); Management Agreement / Agency Authority (no Tenant); Rental application; Bond lodgement form; Sales appraisal, CMA (sale price); website estimates without an agency header; booking receipts where the Applicant is the guest.
 
-## 1. Dấu hiệu cấu trúc bắt buộc
+## 1. Required structural signs
 
-| Loại | Dấu hiệu bắt buộc |
+| Type | Required signs |
 |---|---|
-| Rental Statement | (1) đầu trang agency quản lý nhà (tên, địa chỉ hoặc ABN / licence); (2) tiêu đề statement kèm kỳ hoặc statement date; (3) tên owner và địa chỉ nhà cho thuê; (4) bảng tiền có Rent received, phí (Management fee, Letting fee…) và số trả owner (Paid / EFT / Net to owner) |
-| Rental Agreement | (1) tiêu đề hợp đồng thuê; (2) các bên: Landlord / Lessor / Rental provider và Tenant / Lessee / Renter; (3) địa chỉ nhà thuê; (4) thời hạn: ngày bắt đầu, ngày kết thúc hoặc periodic; (5) tiền thuê kèm kỳ trả; (6) điều khoản đánh số và phần ký |
-| Rental Appraisal | (1) đầu trang agency; (2) tiêu đề Rental Appraisal / Estimate / Market rent; (3) địa chỉ nhà; (4) giá thuê ước tính (một mức hoặc khoảng) kèm kỳ; (5) ngày và tên property manager / agent |
-| Airbnb Rental Statement | (1) Airbnb; (2) tiêu đề Earnings / Transaction history / Payouts; (3) Host và khoảng ngày; (4) bảng đặt phòng hoặc payout có số tiền, Host service fee và tổng (Total paid out, Gross earnings) |
+| Rental Statement | (1) header of the property management agency (name, address or ABN / licence); (2) statement heading with period or statement date; (3) owner name and rental property address; (4) money table with Rent received, fees (Management fee, Letting fee…) and amount paid to owner (Paid / EFT / Net to owner) |
+| Rental Agreement | (1) tenancy agreement heading; (2) parties: Landlord / Lessor / Rental provider and Tenant / Lessee / Renter; (3) rental property address; (4) term: start date, end date or periodic; (5) rent with payment period; (6) numbered clauses and signing section |
+| Rental Appraisal | (1) agency header; (2) Rental Appraisal / Estimate / Market rent heading; (3) property address; (4) estimated rent (one figure or a range) with period; (5) date and property manager / agent name |
+| Airbnb Rental Statement | (1) Airbnb; (2) Earnings / Transaction history / Payouts heading; (3) Host and date range; (4) booking or payout table with amounts, Host service fee and total (Total paid out, Gross earnings) |
 
-## 2. Bước 0 của nhóm
+## 2. Step 0 for this group
 
-### 2A. Nguồn tệp
+### 2A. File source
 
-| Loại | BÁO khi Nhóm nguồn là | Lý do |
+| Type | FLAG when Source group is | Reason |
 |---|---|---|
-| Rental Statement | công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF (DOCX, XLSX…) | statement do phần mềm quản lý nhà xuất, không làm bằng công cụ thiết kế |
-| Rental Agreement, Rental Appraisal | trình sửa/xử lý PDF; không phải PDF | agency hay soạn hợp đồng bằng Word, appraisal bằng Canva |
-| Airbnb Rental Statement | công cụ văn phòng; công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF | Airbnb không phát hành bằng Word/Canva |
+| Rental Statement | design tool; PDF editor/processor; not a PDF (DOCX, XLSX…) | statements are exported by property management software, not made with design tools |
+| Rental Agreement, Rental Appraisal | PDF editor/processor; not a PDF | agencies often draft agreements in Word, appraisals in Canva |
+| Airbnb Rental Statement | office tool; design tool; PDF editor/processor; not a PDF | Airbnb does not issue in Word/Canva |
 
-Ảnh (JPG/PNG): GHI CHÚ; khối kiểm tra ảnh chỉ thêm 5.2 và `[Sửa ảnh]` (2B).
+Image (JPG/PNG): NOTE; the image check block only adds 5.2 and `[Image edited]` (2B).
 
-### 2B. Dấu hiệu xét theo loại (cả bốn loại)
+### 2B. Signs checked by type (all four types)
 
-| Nhãn | Xử lý |
+| Tag | Handling |
 |---|---|
-| [Che chữ] | DỪNG |
-| [Sửa nội dung], [Sửa ảnh] | BÁO. Lưu thêm chỉ để ký tay, ký số hay highlight là dòng "Ghi chú kỹ thuật", không mang nhãn này |
-| [Ảnh chụp/scan], [Chữ vẽ bằng nét] | GHI CHÚ |
+| [Text covered] | STOP |
+| [Content edited], [Image edited] | FLAG. A save made only for a handwritten signature, digital signature or highlight is a "Technical notes" line, without this tag |
+| [Photo/scan], [Text as outlines] | NOTE |
 
-### 2C. Kiểm tra số và ngày
+### 2C. Figure and date checks
 
-Sai số $1; lệch thì `[Lệch số liệu]`. Không tự tính lại % phí hay GST.
-- **Rental Statement:** tổng các dòng tiền thuê = tổng thu in; tổng thu − tổng phí và chi = số trả owner; có Opening và Closing balance thì Opening + thu − chi − trả owner = Closing.
-- **Airbnb:** tổng các payout = tổng in; Gross earnings − Host service fee − điều chỉnh in trên tài liệu = Total paid out.
-- **Ngày** (`guroos_date_check`):
-  - Statement, Appraisal, Airbnb: `document_date=<statement date / Date of issue / ngày lập; không có thì ngày cuối kỳ (EOFY in FY2026 hay 2025–26: 30/06/2026)>`, `max_age_days=30`.
-  - Agreement: `document_date=<ngày ký>` chỉ để xét ngày trong tương lai, bỏ qua "QUÁ"/"TRONG" 30 ngày (Agreement không có quy tắc 30 ngày); `expiry_date=<ngày kết thúc>` chỉ để ghi chú. Ngày bắt đầu thuê sau hôm nay là bình thường.
+Tolerance $1; mismatch: `[Figures mismatch]`. Do not recalculate fee % or GST.
+- **Rental Statement:** sum of rent lines = printed total income; total income − total fees and expenses = amount paid to owner; with Opening and Closing balance: Opening + income − expenses − paid to owner = Closing.
+- **Airbnb:** sum of payouts = printed total; Gross earnings − Host service fee − adjustments printed on the document = Total paid out.
+- **Dates** (`guroos_date_check`):
+  - Statement, Appraisal, Airbnb: `document_date=<statement date / Date of issue / date prepared; if none, the period end (EOFY printed as FY2026 or 2025–26: 30/06/2026)>`, `max_age_days=30`.
+  - Agreement: `document_date=<signing date>` only to check for a future date, ignore "OVER"/"WITHIN" 30 days (Agreement has no 30-day rule); `expiry_date=<end date>` for notes only. A tenancy start date after today is normal.
 
-## 3. Ghi vào Fact Find
+## 3. Record in Fact Find
 
-| Loại | `Rent amount` |
+| Type | `Rent amount` |
 |---|---|
-| Rental Statement | Rent received (trước phí) và kỳ statement; thêm mức thuê nếu có in (ví dụ "$620.00 per week") |
-| Rental Agreement | số tiền và kỳ trả (per week / fortnight / month / calendar month) |
-| Rental Appraisal | mức hoặc khoảng ước tính và kỳ |
-| Airbnb Rental Statement | tổng payout / earnings và khoảng ngày |
+| Rental Statement | Rent received (before fees) and the statement period; add the rent rate if printed (e.g. "$620.00 per week") |
+| Rental Agreement | amount and payment period (per week / fortnight / month / calendar month) |
+| Rental Appraisal | estimated figure or range and period |
+| Airbnb Rental Statement | total payout / earnings and date range |
 
-Không in thì ghi "không có trên tài liệu". Statement nhiều nhà: một dòng cho mỗi địa chỉ.
+Not printed: write "not on the document". Statement covering several properties: one line per address.
 
-## 4. Cần thông báo
+## 4. Notices
 
-| Điều kiện | Nhãn | Bằng chứng an toàn | Việc cần làm |
+| Condition | Tag | Safe evidence | Action |
 |---|---|---|---|
-| Statement, Airbnb: tài liệu mới nhất của bộ QUÁ 30 ngày. Appraisal: xét từng tài liệu | [Quá 30 ngày] | loại ngày, ngày tài liệu, hôm nay | báo nhân viên xem xét |
-| Agreement: tên ở bên của Applicant KHÁC Applicant | [Sai tên] | hai tên nguyên văn, khác ở đâu | báo nhân viên xem xét |
-| Agreement: không Applicant nào ở bên Landlord hay Tenant | [Sai tên] | tên các bên trên hợp đồng | báo nhân viên xem xét |
-| Appraisal: chủ nhà / owner KHÁC Applicant; Airbnb: Host KHÁC Applicant | [Sai tên] | hai tên nguyên văn | báo nhân viên xem xét |
-| Bước 0 ra BÁO (2A, 2B) | [Tệp gốc] | dòng của khối | xác minh với nơi phát hành (agency, Airbnb) hoặc xin bản gốc |
+| Statement, Airbnb: the set's latest document is OVER 30 days. Appraisal: check each document | [Over 30 days] | date type, document date, today | refer to staff for review |
+| Agreement: name on the Applicant's side DIFFERENT from the Applicant | [Name mismatch] | both names verbatim, where they differ | refer to staff for review |
+| Agreement: no Applicant on the Landlord or Tenant side | [Name mismatch] | names of the parties on the agreement | refer to staff for review |
+| Appraisal: landlord / owner DIFFERENT from the Applicant; Airbnb: Host DIFFERENT from the Applicant | [Name mismatch] | both names verbatim | refer to staff for review |
+| Step 0 gives FLAG (2A, 2B) | [Source file] | the block's line | verify with the issuer (agency, Airbnb) or request the original |
 
-**Bộ** = Rental Statement cùng địa chỉ nhà; Airbnb cùng Host và listing. Quy tắc 30 ngày của bộ chỉ xét tài liệu mới nhất và ghi MỘT lần ở khối của nó; khối cũ hơn ghi Ghi chú "xét theo bộ ở khối <tệp>".
+**Set** = Rental Statements for the same property address; Airbnb with the same Host and listing. The set's 30-day rule checks only the latest document and is written ONCE in its block; older blocks write the Note "checked as a set in the block for <file>".
 
-Chỉ ghi chú:
-- Rental Statement có tên owner khác Applicant (rule 14 không có dòng về tên): ghi hai tên.
-- Agreement: Applicant là Landlord hay Tenant; không so tên bên còn lại. Applicant là Tenant thì Rent amount là tiền thuê phải trả.
-- Agreement HẾT HẠN theo tool (có thể đã chuyển periodic).
-- Agreement có dòng ký để trống.
+Notes only:
+- Rental Statement with an owner name different from the Applicant (rule 14 has no name row): write both names.
+- Agreement: whether the Applicant is Landlord or Tenant; do not compare the other party's name. Applicant is Tenant: Rent amount is the rent payable.
+- Agreement EXPIRED per the tool (may have rolled over to periodic).
+- Agreement has a blank signature line.
 
-Ghi "Chưa kiểm tra được":
-- Agreement không rõ Applicant ở bên nào (ví dụ chỉ in "c/- <agency> as agent for the landlord") → "bên của Applicant".
-- Appraisal không in tên chủ nhà → "tên chủ nhà: tài liệu không in".
+Write "Could not check":
+- Agreement where the Applicant's side is unclear (e.g. only "c/- <agency> as agent for the landlord" printed) → "Applicant's side".
+- Appraisal does not print the landlord's name → "landlord name: not printed on the document".
 
-## 5. Lưu ý riêng
+## 5. Special notes
 
-- **Vai trò:** Landlord = Lessor = Rental provider (VIC) = Owner; Tenant = Lessee = Renter (VIC). Managing agent / Landlord's agent không phải Landlord.
-- **Bên của Applicant:** bên có tên trùng hoặc gần trùng một Applicant (cùng họ, có tên chung), hay bên mà hồ sơ cho biết (nhà của Applicant cho thuê → Landlord). Không đoán.
-- **Nhiều người:** so từng Applicant. Một Applicant ở đúng bên là đủ; Applicant khác vắng tên, hay người cùng đứng tên không phải Applicant → Ghi chú. Bên là company / trust ("<tên> Pty Ltd ATF <tên> Trust"): so tên pháp lý với entity của hồ sơ.
-- **Nhà đang mua:** appraisal có thể gửi cho người bán hoặc không gửi ai. Vẫn theo mục 4, ghi chú "có thể là nhà đang mua".
-- **Dữ kiện để đối chiếu** (cho `references/cross-checks.md`): mức thuê và kỳ, địa chỉ nhà, Applicant là Landlord hay Tenant, kỳ statement, tổng thu, số trả owner, Host.
+- **Roles:** Landlord = Lessor = Rental provider (VIC) = Owner; Tenant = Lessee = Renter (VIC). Managing agent / Landlord's agent is not the Landlord.
+- **Applicant's side:** the party whose name matches or nearly matches an Applicant (same surname, a shared given name), or the side the profile indicates (Applicant's property rented out → Landlord). Do not guess.
+- **Several people:** compare each Applicant. One Applicant on the right side is enough; another Applicant not named, or a co-named person who is not an Applicant → Notes. Party is a company / trust ("<name> Pty Ltd ATF <name> Trust"): compare the legal name with the profile's entity.
+- **Property being purchased:** the appraisal may be addressed to the vendor or to no one. Still follow section 4, note "may be the property being purchased".
+- **Facts for cross-checking** (for `references/cross-checks.md`): rent rate and period, property address, whether the Applicant is Landlord or Tenant, statement period, total income, amount paid to owner, Host.
 
-## 6. Ví dụ
+## 6. Example
 
-Dữ liệu giả. Hôm nay 11/10/2026; Applicant: Thi Mai Tran.
+Fake data. Today 11/10/2026; Applicant: Thi Mai Tran.
 
-lease.pdf 14 trang, đọc trang 1–3 và 13–14. Khối: "Nhóm nguồn: công cụ văn phòng (Microsoft Office, theo Creator gốc).", dưới "Dấu hiệu xét theo loại tài liệu:" có "- [Sửa nội dung] Tệp được lưu thêm 1 lần sau khi tạo và lần lưu sau viết thêm chữ vào nội dung trang.", Ghi chú kỹ thuật "- 2 nét vẽ/chú thích thêm ở chỗ trống (Ink) trang 14, ví dụ chữ ký tay.". Nội dung: "Residential Rental Agreement · Rental provider: Mai Tran, c/- Sample Realty · Renter: Jordan Sample · 12 Sample Street, Sampleton VIC 3000 · Rent $620.00 per week · 01/11/2025 to 31/10/2026 · trang 14: hai bên ký ngày 20/10/2025". `guroos_date_check(document_date=20/10/2025, expiry_date=31/10/2026)` → "Hạn: 31/10/2026 → CÒN HẠN (còn 20 ngày)"; ngày ký không ở tương lai.
+lease.pdf, 14 pages, pages 1–3 and 13–14 read. Check block: "Source group: office tool (Microsoft Office, from original Creator).", under "Signs to weigh by document type:" there is "- [Content edited] The file was saved 1 more time after it was made, and a later save wrote new text into the page content.", Technical notes "- 2 drawings or annotations added in empty space (Ink) on page 14, for example a hand signature.". Content: "Residential Rental Agreement · Rental provider: Mai Tran, c/- Sample Realty · Renter: Jordan Sample · 12 Sample Street, Sampleton VIC 3000 · Rent $620.00 per week · 01/11/2025 to 31/10/2026 · page 14: both parties signed on 20/10/2025". `guroos_date_check(document_date=20/10/2025, expiry_date=31/10/2026)` → "Expiry: 31/10/2026 → CURRENT (20 days left)"; signing date not in the future.
 
 ```
-### lease.pdf — Rental Agreement (rule 15) · chắc chắn
-Kết luận: CẦN XỬ LÝ
-Kiểm tra tệp gốc: đạt (nguồn: công cụ văn phòng (Microsoft Office, theo Creator gốc)) · quy tắc: references/rental.md
-Ghi vào Fact Find
+### lease.pdf — Rental Agreement (rule 15) · certain
+Conclusion: ACTION NEEDED
+Source file check: passed (source: office tool (Microsoft Office, from original Creator)) · rules: references/rental.md
+Record in Fact Find
 - Rent amount: $620.00 per week
-Cần thông báo
-- [Tệp gốc] [Sửa nội dung] Tệp được lưu thêm 1 lần sau khi tạo và lần lưu sau viết thêm chữ vào nội dung trang. → xác minh với Sample Realty hoặc xin bản gốc.
-- [Sai tên] Rental provider "Mai Tran", Applicant "Thi Mai Tran": thiếu tên "Thi" → báo nhân viên xem xét.
-Chưa kiểm tra được
-- Không có
-Ghi chú
-- Nguồn công cụ văn phòng (Microsoft Office).
-- 2 nét vẽ/chú thích thêm ở chỗ trống (Ink) trang 14, ví dụ chữ ký tay.
-- Applicant ở bên Rental provider (Landlord): cùng họ, có tên chung; không so tên Renter.
-- Hợp đồng đến 31/10/2026, còn hạn theo tool.
-Dữ kiện để đối chiếu: Rent $620.00 per week · Applicant là Landlord · thời hạn 01/11/2025–31/10/2026 · 12 Sample Street, Sampleton VIC 3000
+Notices
+- [Source file] [Content edited] The file was saved 1 more time after it was made, and a later save wrote new text into the page content. → verify with Sample Realty or request the original.
+- [Name mismatch] Rental provider "Mai Tran", Applicant "Thi Mai Tran": first name "Thi" missing → refer to staff for review.
+Could not check
+- None
+Notes
+- Source office tool (Microsoft Office).
+- 2 drawings or annotations added in empty space (Ink) on page 14, for example a hand signature.
+- Applicant is on the Rental provider (Landlord) side: same surname, shared given name; Renter name not compared.
+- Agreement runs to 31/10/2026, current per the tool.
+Facts for cross-checking: Rent $620.00 per week · Applicant is Landlord · term 01/11/2025–31/10/2026 · 12 Sample Street, Sampleton VIC 3000
 ```

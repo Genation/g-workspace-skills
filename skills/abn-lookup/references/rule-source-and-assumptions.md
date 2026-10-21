@@ -1,37 +1,37 @@
-# Nguồn quy tắc và các điểm bổ sung
+# Rule source and additions
 
-Dành cho người bảo trì kỹ năng. Trợ lý không cần đọc tệp này khi tra cứu.
+For skill maintainers. The assistant does not need to read this file when looking up.
 
-## Nguồn
+## Source
 
-- Công cụ `guroos_abn_lookup` và `guroos_abn_search` của ứng dụng Guroos (g-workspace-tauri, `host/src/mcp/abn-tools.ts`), đọc dữ liệu ABN Lookup của Australian Business Register (ABR). Các câu báo lỗi, dòng "Trạng thái ABN" và mục "Lưu ý thẩm định" do công cụ tạo; SKILL.md dựa vào đúng các câu đó. Đổi chữ trong công cụ thì xem lại mục "Công cụ" và Bước 1, Bước 2 của SKILL.md.
-- Checklist "Documents & Verification" của Guroos chỉ ghi "(ABN lookup)" ở mục payslip; không có quy tắc riêng cho việc tra doanh nghiệp. Mọi quy tắc dưới đây là điểm bổ sung.
+- The `guroos_abn_lookup` and `guroos_abn_search` tools of the Guroos app (g-workspace-tauri, `host/src/mcp/abn-tools.ts`), reading ABN Lookup data from the Australian Business Register (ABR). The error messages, the "ABN status" line and the "Due diligence notes" section are produced by the tool; SKILL.md relies on that exact wording. If the tool's wording changes, review the "Tools" section and Steps 1 and 2 of SKILL.md.
+- Guroos's "Documents & Verification" checklist only says "(ABN lookup)" under payslip; there is no specific rule for business lookups. Every rule below is an addition.
 
-## Bổ sung ngoài checklist (chờ Guroos xác nhận)
+## Additions beyond the checklist (awaiting Guroos confirmation)
 
-| # | Điểm bổ sung | Lý do | Nếu Guroos không đồng ý |
+| # | Addition | Reason | If Guroos disagrees |
 |---|---|---|---|
-| 1 | Bốn nhãn thông báo: ABN đã huỷ, Không tìm thấy, ABN không hợp lệ, Sai tên doanh nghiệp | ABN đã huỷ thì không được dùng để giao dịch; số sai thường do đọc nhầm | Sửa danh sách ở Bước 2 |
-| 2 | So tên doanh nghiệp: bỏ hoa/thường, dấu câu, "The" ở đầu, đuôi loại hình; khớp tên pháp nhân hoặc một tên thương mại; viết tắt là KHÁC | Tên trên payslip, hoá đơn thường là tên thương mại | Sửa đoạn "So tên" |
-| 3 | Trust: bỏ "The Trustee for" trước khi so; không so trustee | ABR ghi tên trust dạng "The Trustee for X" và không có tên trustee | Bỏ ngoại lệ trust |
-| 4 | Sole trader: so tên pháp nhân như tên người, giống `doc-check-identity` (bỏ thứ tự từ, dấu phẩy; thiếu tên đệm là KHÁC) | ABR ghi tên cá nhân dạng "HỌ, Tên" | So như tên doanh nghiệp |
-| 5 | Trạng thái ABN không phải Active hay Cancelled: "Chưa kiểm tra được", không kết luận | Công cụ không phân loại được trạng thái đó | Thêm cách hiểu cho từng trạng thái |
-| 6 | Có ACN: luôn ghi trạng thái ASIC vào "Chưa kiểm tra được" | ABR không có trạng thái đăng ký với ASIC; "ABN đang hoạt động" không có nghĩa là công ty còn đăng ký | Chỉ ghi khi người dùng hỏi công ty còn hoạt động không |
-| 7 | Active dưới 12 tháng, không đăng ký GST, sole trader: chỉ ghi chú | Mức chấp nhận tuỳ lender và tuỳ hồ sơ; nhân viên quyết định | Đưa thành nhãn thông báo |
-| 8 | Bản in / ảnh chụp ABN Lookup: tra lại, bản in chỉ là gợi ý | Bản in có thể cũ hoặc đã bị sửa | Xử lý như giấy tờ, có kiểm tra tệp gốc |
-| 9 | Ngày hôm nay lấy theo hệ thống | Giống các kỹ năng `doc-check-*` | Lấy từ công cụ ngày |
-| 10 | Không có dòng "Kết luận" (khác các kỹ năng `doc-check-*`) | Kỹ năng để tra cứu, không thẩm định cả hồ sơ; các mục "Cần thông báo", "Chưa kiểm tra được", "Ghi chú" đủ để nhân viên tự quyết định | Thêm Kết luận 4 mức như `doc-check-*` |
+| 1 | Four notify tags: ABN cancelled, Not found, Invalid ABN, Business name mismatch | A cancelled ABN must not be used to trade; a wrong number is usually a misread | Change the list in Step 2 |
+| 2 | Business name comparison: ignore case, punctuation, a leading "The", the entity-type suffix; match the entity name or one business name; abbreviations are DIFFERENT | The name on payslips and invoices is usually a business name | Change the "Name comparison" paragraph |
+| 3 | Trust: drop "The Trustee for" before comparing; do not compare the trustee | ABR records trust names as "The Trustee for X" and has no trustee name | Remove the trust exception |
+| 4 | Sole trader: compare the entity name as a person's name, like `doc-check-identity` (ignore word order, commas; a missing middle name is DIFFERENT) | ABR records individuals' names as "SURNAME, Given names" | Compare as a business name |
+| 5 | ABN status neither Active nor Cancelled: "Could not check", no conclusion | The tool cannot classify that status | Add a reading for each status |
+| 6 | ACN present: always write the ASIC status under "Could not check" | ABR has no ASIC registration status; "ABN active" does not mean the company is still registered | Write it only when the user asks whether the company is still operating |
+| 7 | Active under 12 months, not registered for GST, sole trader: Notes only | Acceptability depends on the lender and the application; staff decide | Make them notify tags |
+| 8 | ABN Lookup printout / photo: look up again, the printout is only a hint | A printout may be old or altered | Handle it as a document, with a source file check |
+| 9 | Today's date taken from the system | Same as the `doc-check-*` skills | Take it from a date tool |
+| 10 | No "Conclusion" line (unlike the `doc-check-*` skills) | The skill is for lookups, not for assessing the whole application; the "Notices", "Could not check", "Notes" sections are enough for staff to decide | Add a 4-level Conclusion like `doc-check-*` |
 
-## Đồng bộ với các kỹ năng doc-check-*
+## Alignment with the doc-check-* skills
 
-Hai kỹ năng tự gọi `guroos_abn_lookup` và có bản quy tắc riêng, không đọc tệp này:
-- `doc-check-income`, phần A (Payslip): tra ABN in trên payslip; nhãn `[ABN đã huỷ]`, `[ABN không hợp lệ]`, `[Sai tên employer]`.
-- `doc-check-entity-credit`, phần B (Company Extract): tra theo ACN trên extract; trạng thái ABN ghi vào Ghi chú.
+Two skills call `guroos_abn_lookup` themselves and have their own rules; they do not read this file:
+- `doc-check-income`, part A (Payslip): looks up the ABN printed on the payslip; tags `[ABN cancelled]`, `[Invalid ABN]`, `[Employer name mismatch]`.
+- `doc-check-entity-credit`, part B (Company Extract): looks up by the ACN on the extract; ABN status goes under Notes.
 
-Điểm đang khác với kỹ năng này (chưa sửa):
-- Quy tắc so tên của `doc-check-income` chưa có ngoại lệ trust (điểm 3) và sole trader (điểm 4), và chưa bỏ "The" ở đầu, "Pty. Ltd.".
-- `doc-check-income` gộp "không có bản ghi" vào `[ABN không hợp lệ]`; kỹ năng này tách thành `[Không tìm thấy]`.
-- Mẫu kết quả của `doc-check-entity-credit` chưa có nhãn `[ABN đã huỷ]` dù phần B yêu cầu thông báo khi ABN đã huỷ.
-- Trạng thái ABN không rõ (điểm 5) chưa được nêu ở cả hai kỹ năng.
+Current differences from this skill (not yet fixed):
+- The name comparison rule of `doc-check-income` has no trust (item 3) or sole trader (item 4) exception yet, and does not yet drop a leading "The" or "Pty. Ltd.".
+- `doc-check-income` folds "no record" into `[Invalid ABN]`; this skill separates it as `[Not found]`.
+- The result template of `doc-check-entity-credit` has no `[ABN cancelled]` tag yet, although part B requires notifying when the ABN is cancelled.
+- An unclear ABN status (item 5) is not yet covered in either skill.
 
-Khi sửa quy tắc ở đây, xem lại hai chỗ trên.
+When changing the rules here, review those two places.

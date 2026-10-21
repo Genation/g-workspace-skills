@@ -1,150 +1,150 @@
-# Sao kê ngân hàng và khoản nợ (rule 19–23)
+# Bank statements and liabilities (rule 19–23)
 
-## Phạm vi
+## Scope
 
-| Mã | Rule | Loại |
+| Code | Rule | Type |
 |---|---|---|
-| A | 19 | Bank Statement: Everyday, Savings, Spending, Salary Credits, Rent Income; tài khoản offset; Transaction history in từ internet banking |
+| A | 19 | Bank Statement: Everyday, Savings, Spending, Salary Credits, Rent Income; offset account; Transaction history printed from internet banking |
 | B | 20 | Home Loan Statement (Mortgage, Loan account statement) |
-| C | 21 | Personal Loan, Car Loan, Credit Card Statement (kể cả thẻ cửa hàng) |
-| D | 22 | Study loans: HELP (HECS-HELP, FEE-HELP, SA-HELP, OS-HELP), VSL / VET FEE-HELP, SSL, ABSTUDY SSL, TSL / Apprenticeship Support Loan, SFSS; CAN của trường |
+| C | 21 | Personal Loan, Car Loan, Credit Card Statement (including store cards) |
+| D | 22 | Study loans: HELP (HECS-HELP, FEE-HELP, SA-HELP, OS-HELP), VSL / VET FEE-HELP, SSL, ABSTUDY SSL, TSL / Apprenticeship Support Loan, SFSS; the institution's CAN |
 | E | 23 | Buy Now Pay Later: Afterpay, Zip, Klarna, humm, PayPal Pay in 4… |
 
-- **Đọc trước:** A, B, C trang 1 (tài khoản, kỳ, số dư, lãi suất, Repayment; lãi suất thẻ thường ở trang cuối), rồi MỌI trang giao dịch đến trang cuối. D, E đọc hết.
-- Chưa đọc hết trang giao dịch thì không kết luận "không có giao dịch bất thường" hay "không trả chậm": "Chưa kiểm tra được: <giao dịch bất thường | trả chậm>: chưa đọc trang …".
-- Khoản vay học của ngân hàng (không phải ATO) là Personal Loan (C).
-- CAN của trường (nợ một kỳ học, không có số dư): "chưa chắc", Ghi chú "cần số dư HELP từ myGov".
+- **Read first:** A, B, C page 1 (account, period, balance, interest rate, Repayment; card interest rates are usually on the last page), then EVERY transaction page to the last page. D, E read in full.
+- Transaction pages not all read: do not conclude "no unusual transactions" or "no late payments": "Could not check: <unusual transactions | late payments>: page … not read".
+- A study loan from a bank (not the ATO) is a Personal Loan (C).
+- The institution's CAN (debt for one study period, no balance): "uncertain", Notes "HELP balance from myGov needed".
 
-## 1. Dấu hiệu cấu trúc bắt buộc
+## 1. Required structural signs
 
-| Loại | Dấu hiệu bắt buộc | Dễ nhầm với |
+| Type | Required signs | Easily confused with |
 |---|---|---|
-| A | (1) tên ngân hàng; (2) Statement / Transaction history; (3) Account name; (4) BSB, số tài khoản (có thể che); (5) kỳ; (6) Opening, Closing balance (Transaction history: cột Balance hay "Balance B/F"); (7) bảng giao dịch Date, Description, Debit, Credit (hoặc cột Amount có dấu +/−), Balance; không có lãi suất vay | B (có "% p.a.", Loan balance); thẻ tín dụng (Credit limit); thư xác nhận số dư (không kỳ, không giao dịch) → Ngoài phạm vi |
-| B | (1) lender; (2) "Home Loan" / "Mortgage" / "Loan account"; (3) người đứng tên, số tài khoản vay; (4) kỳ; (5) "Interest rate … % p.a."; (6) Opening / Closing hoặc Loan balance; (7) giao dịch repayment, "Interest charged"; (8) Repayment amount | sao kê offset (A); Letter of Offer, hợp đồng vay (không kỳ, không giao dịch) → Ngoài phạm vi |
-| C · Personal / Car Loan | như B, tiêu đề "Personal Loan", "Car Loan", "Vehicle / Motor finance"; có Repayment và tần suất | hợp đồng vay → Ngoài phạm vi |
-| C · Credit Card | (1) tổ chức phát hành; (2) "Credit Card Statement"; (3) chủ thẻ, số thẻ đã che; (4) kỳ hoặc Statement date; (5) Credit limit; (6) Opening / Closing balance; (7) "Minimum payment due", Due date; (8) Purchase rate (hoặc `Annual percentage rate` của Purchases); (9) giao dịch | sao kê thẻ ghi nợ (A) |
-| D | (1) ATO hoặc myGov; (2) tên khoản vay ở mục Phạm vi; (3) tên người vay; (4) số dư (Current balance, Accumulated HELP debt); (5) ngày của số dư ("as at", "Balance at", ngày in); (6) các dòng Indexation, Compulsory / Voluntary repayment đã phát sinh (khoản nợ mới có thể chưa có dòng nào) | — |
-| E | (1) nhà cung cấp; (2) chủ tài khoản; (3) Account balance / Amount owing; (4) Spending / Credit limit; (5) lịch trả (Instalments); (6) ngày lập hoặc kỳ | email xác nhận đơn hàng → Ngoài phạm vi; Latitude Gem, 28° là thẻ tín dụng (C) |
+| A | (1) bank name; (2) Statement / Transaction history; (3) Account name; (4) BSB, account number (may be masked); (5) period; (6) Opening, Closing balance (Transaction history: Balance column or "Balance B/F"); (7) transaction table Date, Description, Debit, Credit (or Amount column with +/−), Balance; no loan interest rate | B (has "% p.a.", Loan balance); credit card (Credit limit); balance confirmation letter (no period, no transactions) → Out of scope |
+| B | (1) lender; (2) "Home Loan" / "Mortgage" / "Loan account"; (3) account holder(s), loan account number; (4) period; (5) "Interest rate … % p.a."; (6) Opening / Closing or Loan balance; (7) repayment transactions, "Interest charged"; (8) Repayment amount | offset statement (A); Letter of Offer, loan contract (no period, no transactions) → Out of scope |
+| C · Personal / Car Loan | as B, title "Personal Loan", "Car Loan", "Vehicle / Motor finance"; has Repayment and frequency | loan contract → Out of scope |
+| C · Credit Card | (1) issuer; (2) "Credit Card Statement"; (3) cardholder, masked card number; (4) period or Statement date; (5) Credit limit; (6) Opening / Closing balance; (7) "Minimum payment due", Due date; (8) Purchase rate (or `Annual percentage rate` for Purchases); (9) transactions | debit card statement (A) |
+| D | (1) ATO or myGov; (2) loan name from the Scope section; (3) borrower name; (4) balance (Current balance, Accumulated HELP debt); (5) balance date ("as at", "Balance at", print date); (6) Indexation, Compulsory / Voluntary repayment lines that have occurred (a new debt may have none yet) | — |
+| E | (1) provider; (2) account holder; (3) Account balance / Amount owing; (4) Spending / Credit limit; (5) payment schedule (Instalments); (6) issue date or period | order confirmation email → Out of scope; Latitude Gem, 28° are credit cards (C) |
 
-- **Sao kê gộp nhiều tài khoản của cùng ngân hàng:** một khối `<tệp> — Home Loan Statement + Bank Statement (rule 20, 19)`; áp quy tắc từng loại cho từng tài khoản, mở đầu mỗi bộ trường Fact Find và mỗi dòng thông báo bằng 4 số cuối; mỗi tài khoản một bộ (mục 5).
-- **Transaction history** không in kỳ: kỳ = ngày giao dịch đầu → cuối, ghi chú cách tính; không in tên chủ tài khoản: "chưa chắc: thiếu (3)", so tên vào "Chưa kiểm tra được".
-- **Một tệp nhiều sao kê của cùng tài khoản** (nhiều tháng): một khối; so số dư từng sao kê; mỗi sao kê một kỳ trong `periods`.
+- **Combined statement of several accounts at the same bank:** one block `<file> — Home Loan Statement + Bank Statement (rule 20, 19)`; apply each type's rules to each account, start each Fact Find field set and each notify line with the last 4 digits; each account is its own set (section 5).
+- **Transaction history** with no printed period: period = first → last transaction date, note how it was worked out; no account holder name printed: "uncertain: missing (3)", name comparison goes to "Could not check".
+- **One file with several statements of the same account** (several months): one block; check the balances of each statement; each statement is one period in `periods`.
 
-## 2. Bước 0 của nhóm
+## 2. Step 0 for this group
 
-### 2A. Nguồn tệp
+### 2A. File source
 
-| Nhóm nguồn | A (19) | B–E (20–23) |
+| Source group | A (19) | B–E (20–23) |
 |---|---|---|
-| máy in PDF | BÁO | BÁO |
-| ảnh (JPG/PNG), dù khối ảnh ghi nguồn nào | BÁO | GHI CHÚ (ảnh chụp app BNPL) |
-| công cụ văn phòng; công cụ thiết kế; trình sửa/xử lý PDF; không phải PDF (DOCX, XLSX, CSV…) | DỪNG `[Nguồn]` | BÁO |
+| PDF printer | FLAG | FLAG |
+| image (JPG/PNG), whatever source the image block shows | FLAG | NOTE (screenshot of a BNPL app) |
+| office tool; design tool; PDF editor/processor; not a PDF (DOCX, XLSX, CSV…) | STOP `[Source]` | FLAG |
 
-Nguồn khác: GHI CHÚ, gồm trình duyệt in ra PDF, bộ chuyển HTML sang PDF, Apple (in từ internet banking, ATO online, myGov). Cột A chỉ cho sao kê tài khoản (rule 19); sao kê khoản vay, thẻ, HELP, BNPL (rule 20–23) dùng cột B–E: công cụ văn phòng là BÁO, không DỪNG.
+Other sources: NOTE, including browser printing to PDF, HTML-to-PDF converter, Apple (printed from internet banking, ATO online, myGov). Column A is only for account statements (rule 19); loan, card, HELP, BNPL statements (rule 20–23) use column B–E: office tool is FLAG, not STOP.
 
-### 2B. Dấu hiệu xét theo loại
+### 2B. Signs checked by type
 
-| Nhãn trong khối | A (19) | B–E (20–23) |
+| Tag in the block | A (19) | B–E (20–23) |
 |---|---|---|
-| `[Sửa nội dung]`, `[Che chữ]` | DỪNG | DỪNG |
-| `[Sửa ảnh] Thông tin tệp ghi tên trình sửa ảnh: …` | DỪNG | BÁO |
-| `[Sửa ảnh] Ảnh nhỏ lưu trong EXIF (…) khác tỉ lệ khung với ảnh chính …` | BÁO | BÁO |
-| `[Ảnh chụp/scan]`, `[Chữ vẽ bằng nét]` (dù phần mềm scan/gộp ảnh nào tạo tệp) | BÁO | GHI CHÚ |
+| `[Content edited]`, `[Text covered]` | STOP | STOP |
+| `[Image edited] The file information names an image editor: …` | STOP | FLAG |
+| `[Image edited] The EXIF thumbnail (…) has a different aspect ratio from the main image …` | FLAG | FLAG |
+| `[Photo/scan]`, `[Text as outlines]` (whatever scan/image-merge software created the file) | FLAG | NOTE |
 
-Trang scan: đọc trên ảnh trang gửi kèm. Trang không có lớp chữ và không có ảnh đọc được ("không có lớp chữ; <lý do>", "ảnh scan chưa gửi" mà `guroos_attachment_page` không vẽ được, tệp trong hồ sơ mà `guroos_document_read` không trả ảnh trang (SKILL.md mục 2), ảnh mờ): mục cần trang đó vào "Chưa kiểm tra được"; không đọc được trang nào → `KHÔNG ĐỌC ĐƯỢC`.
+Scanned pages: read from the attached page images. Pages with no text layer and no readable image ("no text layer; <reason>", "scanned image not sent" that `guroos_attachment_page` cannot render, files in the client folder for which `guroos_document_read` returns no page image (SKILL.md section 2), blurry images): items needing that page go to "Could not check"; no page readable → `UNREADABLE`.
 
-### 2C. Kiểm tra số và ngày
+### 2C. Figure and date checks
 
-| Phép so (khi in đủ số; lệch tối đa $1) | Đạt khi |
+| Comparison (when all figures are printed; max difference $1) | Passes when |
 |---|---|
-| Số dư A | Opening + Total credits − Total debits = Closing. Chỉ khi sao kê IN tổng; không tự cộng danh sách giao dịch |
-| Số dư B, C | Opening + tổng ghi nợ (lãi, phí, chi tiêu) − tổng ghi có (trả nợ) = Closing, khi có in tổng; giữ dấu như in |
-| Chuyển trang | "Balance carried forward" = "brought forward" ở trang sau, khớp đúng |
+| Balance A | Opening + Total credits − Total debits = Closing. Only when the statement PRINTS the totals; do not add up the transaction list yourself |
+| Balance B, C | Opening + total debits (interest, fees, spending) − total credits (repayments) = Closing, when totals are printed; keep signs as printed |
+| Page carry-over | "Balance carried forward" = "brought forward" on the next page, exact match |
 
-- **Không đạt sau khi đọc lại:** Số dư A, Chuyển trang của A, đọc từ lớp chữ gốc → DỪNG `[Số liệu] <phép so>: <các số in> lệch <số chênh>`. Còn lại (A đọc từ ảnh hay lớp chữ OCR của trang `[Ảnh chụp/scan]`; B, C) → `[Lệch số liệu]` theo mẫu chung, không DỪNG.
-- **Ngày tài liệu** = Statement date; không có (bản in Transaction history) → ngày cuối kỳ; ngày in chỉ ghi chú.
-- A, B, C: 30 ngày và kỳ xét theo bộ (mục 5); một tệp lẻ cũng là một bộ.
-- D, E: không xét kỳ và 30 ngày; `guroos_date_check(document_date=<ngày "as at" hoặc ngày lập>)` chỉ để xét ngày ở tương lai, bỏ qua "QUÁ"/"TRONG".
+- **Fails after re-reading:** Balance A, Page carry-over of A, read from the original text layer → STOP `[Figures] <comparison>: <printed figures> differ by <difference>`. Otherwise (A read from an image or the OCR text layer of a `[Photo/scan]` page; B, C) → `[Figures mismatch]` per the common template, no STOP.
+- **Document date** = Statement date; none (Transaction history printout) → period end date; print date in Notes only.
+- A, B, C: 30 days and period checked per set (section 5); a single file is also a set.
+- D, E: no period or 30-day check; `guroos_date_check(document_date=<"as at" date or issue date>)` only to check for a future date, ignore "OVER"/"WITHIN".
 
-## 3. Ghi vào Fact Find
+## 3. Record in Fact Find
 
-| Loại | Trường |
+| Type | Field |
 |---|---|
-| A | (không có): "- Không có" |
-| B, C | `Lender` · `Account name` (mọi người đứng tên) · `Account number` (khoản vay: đủ như in, số in đã che một phần thì chép đúng phần in; Credit card: dưới bảng) · `Interest rate` (số và nhãn; Comparison rate không phải Interest rate) · `Repayment` (số tiền, tần suất) · `Loan Expiry date` (Loan end / maturity / Final repayment date; chỉ in thời hạn còn lại thì chép nguyên văn, không tự tính) |
-| D | `Current balance` (kèm nhãn, ngày "as at") · `Repayments` (Compulsory / Voluntary repayment của năm tài chính gần nhất có in) |
-| E | `Account balance` · `Limit` ("Available to spend" không phải Limit) |
+| A | (none): "- None" |
+| B, C | `Lender` · `Account name` (every account holder) · `Account number` (loan: in full as printed; if the printed number is partly masked, copy exactly the printed part; Credit card: below the table) · `Interest rate` (figure and label; Comparison rate is not Interest rate) · `Repayment` (amount, frequency) · `Loan Expiry date` (Loan end / maturity / Final repayment date; if only the remaining term is printed, copy it verbatim, do not calculate) |
+| D | `Current balance` (with label, "as at" date) · `Repayments` (Compulsory / Voluntary repayment for the most recent financial year printed) |
+| E | `Account balance` · `Limit` ("Available to spend" is not Limit) |
 
-- Trường không in trên tài liệu: "không có trên tài liệu".
-- **Credit card:** `Account number` = số tài khoản nếu sao kê in riêng, khác số thẻ ("Account number", "Account No."), đủ như in; chỉ có số thẻ thì 4 số cuối kèm "(số thẻ)", ví dụ "…4821 (số thẻ)", không chép số thẻ đầy đủ dù sao kê in đủ. `Repayment` = "Minimum payment due" (kèm Due date); `Loan Expiry date` = "không áp dụng"; `Interest rate` = Purchase rate (dấu hiệu (8)); Credit limit ghi vào Ghi chú.
-- Khoản vay chia phần (split): bộ trường cho từng phần, mở đầu bằng 4 số cuối. Fixed rate expiry, Interest-only end date không phải `Loan Expiry date` (Ghi chú).
+- Field not printed on the document: "not on the document".
+- **Credit card:** `Account number` = the account number if the statement prints it separately from the card number ("Account number", "Account No."), in full as printed; only a card number: last 4 digits with "(card number)", e.g. "…4821 (card number)", never copy the full card number even if the statement prints it in full. `Repayment` = "Minimum payment due" (with Due date); `Loan Expiry date` = "not applicable"; `Interest rate` = Purchase rate (sign (8)); Credit limit goes in Notes.
+- Split loan: a field set for each split, starting with the last 4 digits. Fixed rate expiry, Interest-only end date are not `Loan Expiry date` (Notes).
 
-## 4. Cần thông báo
+## 4. Notices
 
-| Điều kiện | Rule | Nhãn | Bằng chứng an toàn |
+| Condition | Rule | Tag | Safe evidence |
 |---|---|---|---|
-| Người đứng tên không khớp Applicant nào (tài khoản chung: xét từng người, kể cả đồng sở hữu không phải Applicant; chỉ khác tên đệm: khớp, SKILL.md mục 6, không ghi chú). Applicant vắng tên trên tài khoản: chỉ Ghi chú | 19–23 | Sai tên | hai tên nguyên văn, khác ở đâu |
-| Đoạn kỳ liền mạch mới nhất của bộ CHƯA ĐỦ 3 tháng | 19, 21 | Kỳ dưới 3 tháng | các dòng "Kỳ …" và "Khoảng hở" của tool |
-| Như trên, CHƯA ĐỦ 6 tháng | 20 | Kỳ dưới 6 tháng | như trên |
-| Sao kê mới nhất của bộ QUÁ 30 ngày | 19–21 | Quá 30 ngày | loại ngày, ngày tài liệu, hôm nay theo tool |
-| Giao dịch bất thường (4A) | 19 | Giao dịch bất thường | mỗi nhóm một dòng: ngày, mô tả, số tiền |
-| Lương vào khác Net pay của Payslip; tiền thuê vào khác Rent amount (`cross-checks.md` bảng 2) | 19 | Lệch lương; Lệch tiền thuê | theo mẫu ở `cross-checks.md` |
-| "Late payment fee", "Dishonour fee", "Payment reversal", "Missed payment" | 20, 21 | Trả chậm | ngày, mô tả, số tiền |
-| "Arrears", "Overdue", "Past due" với số tiền lớn hơn $0 | 20, 21 | Nợ quá hạn | ngày, số tiền |
-| Dòng "Mã số" của khối có TFN, trang có `[đã che TFN]` hoặc TFN thấy trên ảnh | 22 | TFN | chỉ số trang |
+| Account holder matches no Applicant (joint account: check each person, including co-owners who are not Applicants; only the middle name differs: matches, SKILL.md section 6, no note). Applicant not named on the account: Notes only | 19–23 | Name mismatch | both names verbatim, where they differ |
+| Latest continuous period span of the set is UNDER 3 months | 19, 21 | Under 3 months | the tool's "Period …" and "Gap" lines |
+| As above, UNDER 6 months | 20 | Under 6 months | as above |
+| Latest statement of the set is OVER 30 days old | 19–21 | Over 30 days | date type, document date, today per the tool |
+| Unusual transactions (4A) | 19 | Unusual transactions | one line per group: date, description, amount |
+| Pay credited differs from Payslip Net pay; rent credited differs from Rent amount (`cross-checks.md` table 2) | 19 | Pay mismatch; Rent mismatch | per the template in `cross-checks.md` |
+| "Late payment fee", "Dishonour fee", "Payment reversal", "Missed payment" | 20, 21 | Late payments | date, description, amount |
+| "Arrears", "Overdue", "Past due" with an amount greater than $0 | 20, 21 | Arrears | date, amount |
+| The block's "ID numbers" line has a TFN, pages with `[TFN hidden]` or TFN visible on an image | 22 | TFN | page numbers only |
 
-Việc cần làm của `[TFN]`: "che TFN trước khi lưu hoặc gửi đi".
+Action for `[TFN]`: "redact the TFN before saving or sending".
 
-### 4A. Giao dịch bất thường (rule 19)
+### 4A. Unusual transactions (rule 19)
 
-| Nhóm | Nhận ra bằng | Ghi |
+| Group | Recognised by | Record |
 |---|---|---|
-| Chuyển tiền lớn | không phải lương, tiền thuê, trả nợ định kỳ hay chuyển giữa tài khoản cùng tên Applicant; và từ $5,000, hoặc lớn hơn khoản lương đều đặn lớn nhất của sao kê | từng khoản |
-| Nước ngoài | ngoại tệ (USD, VND…), "Foreign transaction fee", "International transfer", "Telegraphic transfer", SWIFT, Western Union, MoneyGram, Wise, Remitly, WorldRemit, OFX, Ria | từng khoản chuyển tiền; mua hàng bằng thẻ: 5 khoản lớn nhất và "N khoản khác" |
-| Tiền mặt nộp vào | "Cash deposit", "ATM deposit"; mỗi khoản từ $1,000, hoặc từ 3 lần trong kỳ | từng khoản |
-| Cờ bạc | TAB, Sportsbet, Ladbrokes, bet365, Neds, PointsBet, Betfair, Unibet, BlueBet, casino, Crown, The Star, The Lott, Lotterywest, Tatts, Lottoland, Keno, pokies, gaming | mọi khoản, kể cả số nhỏ và tiền thắng |
+| Large transfers | not pay, rent, regular loan repayments or transfers between accounts in the Applicant's own name; and from $5,000, or larger than the largest regular pay credit on the statement | each one |
+| Overseas | foreign currency (USD, VND…), "Foreign transaction fee", "International transfer", "Telegraphic transfer", SWIFT, Western Union, MoneyGram, Wise, Remitly, WorldRemit, OFX, Ria | each transfer; card purchases: the 5 largest and "N others" |
+| Cash deposits | "Cash deposit", "ATM deposit"; each from $1,000, or 3 or more times in the period | each one |
+| Gambling | TAB, Sportsbet, Ladbrokes, bet365, Neds, PointsBet, Betfair, Unibet, BlueBet, casino, Crown, The Star, The Lott, Lotterywest, Tatts, Lottoland, Keno, pokies, gaming | every one, including small amounts and winnings |
 
-Chỉ chép giao dịch cần thông báo.
+Copy only the transactions to notify.
 
-**Chỉ ghi chú khi:**
-- Chuyển giữa tài khoản cùng tên Applicant; giao dịch tài sản mã hóa (CoinSpot, Binance…) dưới ngưỡng chuyển tiền lớn.
-- Tài khoản A có "Dishonour fee", "Overdrawn fee".
+**Notes only when:**
+- Transfers between accounts in the Applicant's own name; crypto asset transactions (CoinSpot, Binance…) below the large transfer threshold.
+- Type A account with "Dishonour fee", "Overdrawn fee".
 - Credit card: Credit limit, "Overlimit fee", "Cash advance". Home loan: Fixed rate expiry, offset, redraw.
-- BNPL có phí trả chậm (rule 23 chỉ xét tên).
+- BNPL with late fees (rule 23 checks the name only).
 
-## 5. Lưu ý riêng
+## 5. Special notes
 
-- **Bộ sao kê** = mọi sao kê của CÙNG tài khoản (cùng tổ chức và 4 số cuối; số che hết thì cùng tên tài khoản và sản phẩm) trong lô. Bước 6 gọi một lần mỗi bộ:
-  `guroos_date_check(document_date=<ngày tài liệu của sao kê mới nhất>, max_age_days=30, periods=[<kỳ của từng sao kê>], min_months=3)` (rule 20: `min_months=6`).
-  - Đoạn liền mạch mới nhất "CHƯA ĐỦ N tháng" → `[Kỳ dưới 3 tháng]` / `[Kỳ dưới 6 tháng]`, nêu các đoạn và "Khoảng hở". Khoảng hở trước đoạn đã ĐỦ: chỉ ghi chú.
-  - Sao kê liền kỳ: Closing kỳ trước = Opening kỳ sau, khớp đúng. Lệch → `[Lệch số liệu]` ở khối mới nhất, không DỪNG.
-- Sao kê `KHÔNG HỢP LỆ` không vào bộ; khối mới nhất ghi Ghi chú "<tệp> không tính vào bộ (KHÔNG HỢP LỆ)".
-- **Dữ kiện để đối chiếu.** A: …NNNN (tổ chức, loại) · người đứng tên · kỳ · Opening / Closing · lương, tiền thuê, Centrelink vào (người trả, số tiền, nhịp, ngày) · trả nợ định kỳ ra (tên, số tiền). B, C: lender · …NNNN (4 số cuối của Account number, kể cả khi nhãn là Contract / Loan / Card Number; Fact Find ghi đủ thì ở đây vẫn chỉ 4 số cuối) · người đứng tên · Repayment · Closing balance và ngày · Credit limit. D: Current balance và ngày. E: nhà cung cấp · Account balance · Limit.
+- **Statement set** = every statement of the SAME account (same institution and last 4 digits; if fully masked, same account name and product) in the batch. Step 6 calls once per set:
+  `guroos_date_check(document_date=<document date of the latest statement>, max_age_days=30, periods=[<period of each statement>], min_months=3)` (rule 20: `min_months=6`).
+  - Latest continuous span "SHORT OF N months" → `[Under 3 months]` / `[Under 6 months]`, state the spans and "Gap". A gap before a span that is already "COVERS": note only.
+  - Consecutive statements: Closing of the earlier period = Opening of the next, exact match. Mismatch → `[Figures mismatch]` in the latest block, no STOP.
+- An `INVALID` statement is not in the set; the latest block has the note "<file> not counted in the set (INVALID)".
+- **Facts for cross-checking.** A: …NNNN (institution, type) · account holder · period · Opening / Closing · pay, rent, Centrelink credited (payer, amount, frequency, dates) · regular loan repayments out (name, amount). B, C: lender · …NNNN (last 4 digits of the Account number, even when the label is Contract / Loan / Card Number; even if Fact Find has it in full, here still only the last 4 digits) · account holder · Repayment · Closing balance and date · Credit limit. D: Current balance and date. E: provider · Account balance · Limit.
 
-## 6. Ví dụ
+## 6. Example
 
-Dữ liệu giả. Hôm nay 11/10/2026 (theo `guroos_date_check`). Applicant: Thi Mai Tran.
+Fake data. Today 11/10/2026 (per `guroos_date_check`). Applicant: Thi Mai Tran.
 
-**Bank Statement, lương lệch payslip.** everyday_q3.pdf, 8 trang. Khối: `Nhóm nguồn: chưa biết.`, hai mục dấu hiệu "không có.", Ghi chú kỹ thuật chỉ có `Phần mềm tạo tệp chưa có trong danh sách đã biết.` Statement date 01/10/2026; Total credits $15,350.00, Total debits $14,604.30. Tool: `Ngày tài liệu: 01/10/2026 → 10 ngày → TRONG 30 ngày`, `Kỳ 01/07/2026–30/09/2026 → ĐỦ 3 tháng`. Lô có payslip_2.pdf (Pay date 30/09/2026, Net pay $2,150.00), không có payslip khác hay sao kê khoản nợ.
+**Bank Statement, pay differs from payslip.** everyday_q3.pdf, 8 pages. Block: `Source group: unknown.`, both sign sections "none.", Technical notes has only `The creating software is not on the known list.` Statement date 01/10/2026; Total credits $15,350.00, Total debits $14,604.30. Tool: `Document date: 01/10/2026 → 10 days → WITHIN 30 days`, `Period 01/07/2026–30/09/2026 → COVERS 3 months`. The batch has payslip_2.pdf (Pay date 30/09/2026, Net pay $2,150.00), no other payslip and no liability statement.
 
 ```
-### everyday_q3.pdf — Bank Statement (rule 19) · chắc chắn
-Kết luận: CẦN XỬ LÝ
-Kiểm tra tệp gốc: đạt (nguồn: chưa biết) · quy tắc: references/bank-liabilities.md
-Ghi vào Fact Find
-- Không có
-Cần thông báo
-- [Giao dịch bất thường] Cờ bạc: 12/08/2026 SPORTSBET $200.00; 25/08/2026 SPORTSBET $300.00 → báo nhân viên xem xét
-- [Giao dịch bất thường] Tiền mặt: 14/08/2026 CASH DEPOSIT $1,350.00 → báo nhân viên xem xét
-- [Giao dịch bất thường] Nước ngoài: 03/09/2026 WISE INTL TRANSFER $1,500.00 → báo nhân viên xem xét
-- [Lệch lương] 30/09/2026 SAMPLE LOGISTICS PAY $2,000.00 · Net pay $2,150.00 (payslip_2.pdf, Pay date 30/09/2026) · lệch $150.00 → báo nhân viên xem xét
-Chưa kiểm tra được
-- Không có
-Ghi chú
-- Đã đọc hết 8 trang. Nguồn chưa biết (phần mềm tạo tệp chưa có trong danh sách đã biết).
-- $3,210.55 + $15,350.00 − $14,604.30 = Closing $3,956.25: khớp.
-- Bộ chỉ có sao kê này: kỳ 01/07/2026–30/09/2026 ĐỦ 3 tháng; Statement date 01/10/2026, hôm nay 11/10/2026: TRONG 30 ngày (theo tool). Tên "THI MAI TRAN" khớp Applicant.
-- Lương trước 30/09/2026: lô không có payslip trùng kỳ, không so.
-- Trả nợ "SAMPLE AUTO FINANCE" $412.00 hàng tháng: lô chưa có sao kê khoản nợ này.
-Dữ kiện để đối chiếu: …4821 (Sample Mutual Bank, Everyday) · THI MAI TRAN · kỳ 01/07–30/09/2026 · Opening $3,210.55 · Closing $3,956.25 · lương "SAMPLE LOGISTICS PAY" $2,000.00 mỗi 14 ngày (7 lần, 08/07–30/09/2026) · trả nợ "SAMPLE AUTO FINANCE" $412.00 ngày 15 hàng tháng · không có tiền thuê, Centrelink vào
+### everyday_q3.pdf — Bank Statement (rule 19) · certain
+Conclusion: ACTION NEEDED
+Source file check: passed (source: unknown) · rules: references/bank-liabilities.md
+Record in Fact Find
+- None
+Notices
+- [Unusual transactions] Gambling: 12/08/2026 SPORTSBET $200.00; 25/08/2026 SPORTSBET $300.00 → refer to staff for review
+- [Unusual transactions] Cash: 14/08/2026 CASH DEPOSIT $1,350.00 → refer to staff for review
+- [Unusual transactions] Overseas: 03/09/2026 WISE INTL TRANSFER $1,500.00 → refer to staff for review
+- [Pay mismatch] 30/09/2026 SAMPLE LOGISTICS PAY $2,000.00 · Net pay $2,150.00 (payslip_2.pdf, Pay date 30/09/2026) · difference $150.00 → refer to staff for review
+Could not check
+- None
+Notes
+- Read all 8 pages. Source unknown (the creating software is not on the known list).
+- $3,210.55 + $15,350.00 − $14,604.30 = Closing $3,956.25: matches.
+- Set has only this statement: period 01/07/2026–30/09/2026 COVERS 3 months; Statement date 01/10/2026, today 11/10/2026: WITHIN 30 days (per the tool). Name "THI MAI TRAN" matches Applicant.
+- Pay before 30/09/2026: the batch has no payslip for the same period, not compared.
+- Repayment "SAMPLE AUTO FINANCE" $412.00 monthly: the batch has no statement for this liability yet.
+Facts for cross-checking: …4821 (Sample Mutual Bank, Everyday) · THI MAI TRAN · period 01/07–30/09/2026 · Opening $3,210.55 · Closing $3,956.25 · pay "SAMPLE LOGISTICS PAY" $2,000.00 every 14 days (7 times, 08/07–30/09/2026) · repayment "SAMPLE AUTO FINANCE" $412.00 on the 15th of each month · no rent, Centrelink credited
 ```

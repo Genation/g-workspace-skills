@@ -1,131 +1,131 @@
-# Ví dụ đã làm sẵn
+# Worked examples
 
-Dữ liệu doanh nghiệp trong ví dụ 2 đến 5 là giả. Mọi ví dụ dùng chung: hôm nay 12/10/2026.
+Business data in examples 2 to 5 is fake. All examples share: today is 12/10/2026.
 
-## 1. ABN đang hoạt động, tên khớp
+## 1. ABN active, name matches
 
-Người dùng: "Tra cứu ABN 51 824 753 556, tên trên tài liệu là Australian Taxation Office."
+User: "Look up ABN 51 824 753 556, the name on the document is Australian Taxation Office."
 
-`guroos_abn_lookup` (abn = "51 824 753 556") trả về: Doanh nghiệp AUSTRALIAN TAXATION OFFICE · Loại hình Commonwealth Government Entity · Trạng thái ABN: Đang hoạt động (Active) từ 01/07/2000 · GST đăng ký từ 01/07/2000 · ACT 2600 · Tên thương mại: ATO.
+`guroos_abn_lookup` (abn = "51 824 753 556") returns: Business: AUSTRALIAN TAXATION OFFICE · Entity type: Commonwealth Government Entity · ABN status: Active from 01/07/2000 · GST: registered from 01/07/2000 · ACT 2600 · Business names: ATO.
 
 ```
 ### Australian Taxation Office
-Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
-- Tên pháp nhân: AUSTRALIAN TAXATION OFFICE
-- ABN: 51 824 753 556 · ACN: không có
-- Loại hình: Commonwealth Government Entity
-- Trạng thái ABN: Đang hoạt động từ 01/07/2000
-- GST: đăng ký từ 01/07/2000
-- Bang / postcode: ACT 2600
-- Tên thương mại: ATO
+Business details (ABN Lookup, checked 12/10/2026)
+- Entity name: AUSTRALIAN TAXATION OFFICE
+- ABN: 51 824 753 556 · ACN: none
+- Entity type: Commonwealth Government Entity
+- ABN status: Active from 01/07/2000
+- GST: registered from 01/07/2000
+- State / postcode: ACT 2600
+- Business names: ATO
 
-Cần thông báo
-- Không có
+Notices
+- None
 
-Chưa kiểm tra được
-- Không có
+Could not check
+- None
 
-Ghi chú
-- Tên trên tài liệu "Australian Taxation Office" khớp tên pháp nhân.
+Notes
+- Name on the document "Australian Taxation Office" matches the entity name.
 ```
 
-## 2. ABN đã huỷ, tên trên payslip là tên thương mại
+## 2. ABN cancelled, name on the payslip is a business name
 
-Payslip in "Sunrise Cafe · ABN 11 123 456 780". `guroos_abn_lookup` trả về: Doanh nghiệp SUNRISE HOLDINGS PTY LTD · ACN 123 456 780 · Australian Private Company · Trạng thái ABN: ĐÃ HUỶ (Cancelled) từ 30/06/2026 · không đăng ký GST · VIC 3000 · Tên thương mại: Sunrise Cafe.
+Payslip shows "Sunrise Cafe · ABN 11 123 456 780". `guroos_abn_lookup` returns: Business: SUNRISE HOLDINGS PTY LTD · ACN 123 456 780 · Australian Private Company · ABN status: CANCELLED from 30/06/2026 · not registered for GST · VIC 3000 · Business names: Sunrise Cafe.
 
 ```
 ### Sunrise Cafe
-Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
-- Tên pháp nhân: SUNRISE HOLDINGS PTY LTD
+Business details (ABN Lookup, checked 12/10/2026)
+- Entity name: SUNRISE HOLDINGS PTY LTD
 - ABN: 11 123 456 780 · ACN: 123 456 780
-- Loại hình: Australian Private Company
-- Trạng thái ABN: Đã huỷ từ 30/06/2026
-- GST: không đăng ký
-- Bang / postcode: VIC 3000
-- Tên thương mại: Sunrise Cafe
+- Entity type: Australian Private Company
+- ABN status: Cancelled from 30/06/2026
+- GST: not registered
+- State / postcode: VIC 3000
+- Business names: Sunrise Cafe
 
-Cần thông báo
-- [ABN đã huỷ] ABN 11 123 456 780 bị huỷ từ 30/06/2026 → báo nhân viên xem xét.
+Notices
+- [ABN cancelled] ABN 11 123 456 780 cancelled from 30/06/2026 → refer to staff for review.
 
-Chưa kiểm tra được
-- Trạng thái đăng ký công ty với ASIC: ABR không có; cần ASIC Company Extract hoặc tra ACN 123 456 780 trên ASIC Connect.
+Could not check
+- ASIC company registration status: not in ABR; needs an ASIC Company Extract or a search of ACN 123 456 780 on ASIC Connect.
 
-Ghi chú
-- Tên trên payslip "Sunrise Cafe" khớp tên thương mại.
-- Không đăng ký GST.
+Notes
+- Name on the payslip "Sunrise Cafe" matches a business name.
+- Not registered for GST.
 ```
 
-ABN đã huỷ không có nghĩa là công ty đã giải thể; vì vậy trạng thái ASIC nằm ở "Chưa kiểm tra được".
+A cancelled ABN does not mean the company is deregistered; so the ASIC status goes under "Could not check".
 
-## 3. Chưa cấu hình ABN Lookup
+## 3. ABN Lookup not configured
 
-`guroos_abn_lookup` báo: "Chưa cấu hình ABN Lookup trên máy này (chưa có GUID của ABR). Hướng dẫn người dùng đăng ký miễn phí tại https://abr.business.gov.au/Tools/WebServices…".
+`guroos_abn_lookup` reports: "ABN Lookup is not set up on this computer (no ABR GUID yet). Tell the user to register for free at https://abr.business.gov.au/Tools/WebServices…".
 
 ```
 ### ABN 11 123 456 780
-Cần thông báo
-- Không có
+Notices
+- None
 
-Chưa kiểm tra được
-- Tra ABN: chưa có GUID ABN Lookup. Đăng ký miễn phí tại https://abr.business.gov.au/Tools/WebServices, ABR gửi GUID qua email, rồi nhập ở Cài đặt → Tra cứu ABN (chỉ một lần). Trong lúc chờ có thể tự tra tại https://abr.business.gov.au.
+Could not check
+- ABN lookup: no ABN Lookup GUID yet. Register free at https://abr.business.gov.au/Tools/WebServices, ABR emails the GUID, then enter it in Settings → ABN Lookup (once only). Meanwhile you can look it up yourself at https://abr.business.gov.au.
 
-Ghi chú
-- Không có
+Notes
+- None
 ```
 
-Không điền tên hay trạng thái từ trí nhớ, kể cả với doanh nghiệp nổi tiếng.
+Do not fill in a name or status from memory, even for a well-known business.
 
-## 4. Trust, tên trên tài liệu không có "The Trustee for"
+## 4. Trust, name on the document without "The Trustee for"
 
-Payslip in "Tran Family Trust · ABN 18 123 456 789". `guroos_abn_lookup` trả về: Doanh nghiệp The Trustee for TRAN FAMILY TRUST · Loại hình Discretionary Trading Trust · Trạng thái ABN: Đang hoạt động (Active) từ 01/07/2018 · GST đăng ký từ 01/07/2018 · NSW 2000 · không có tên thương mại.
+Payslip shows "Tran Family Trust · ABN 18 123 456 789". `guroos_abn_lookup` returns: Business: The Trustee for TRAN FAMILY TRUST · Entity type: Discretionary Trading Trust · ABN status: Active from 01/07/2018 · GST: registered from 01/07/2018 · NSW 2000 · no business names.
 
 ```
 ### Tran Family Trust
-Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
-- Tên pháp nhân: The Trustee for TRAN FAMILY TRUST
-- ABN: 18 123 456 789 · ACN: không có
-- Loại hình: Discretionary Trading Trust
-- Trạng thái ABN: Đang hoạt động từ 01/07/2018
-- GST: đăng ký từ 01/07/2018
-- Bang / postcode: NSW 2000
-- Tên thương mại: không có
+Business details (ABN Lookup, checked 12/10/2026)
+- Entity name: The Trustee for TRAN FAMILY TRUST
+- ABN: 18 123 456 789 · ACN: none
+- Entity type: Discretionary Trading Trust
+- ABN status: Active from 01/07/2018
+- GST: registered from 01/07/2018
+- State / postcode: NSW 2000
+- Business names: none
 
-Cần thông báo
-- Không có
+Notices
+- None
 
-Chưa kiểm tra được
-- Không có
+Could not check
+- None
 
-Ghi chú
-- Tên trên payslip "Tran Family Trust" khớp tên pháp nhân sau khi bỏ "The Trustee for".
-- ABR không có tên trustee: chưa so được trustee.
+Notes
+- Name on the payslip "Tran Family Trust" matches the entity name after dropping "The Trustee for".
+- ABR has no trustee name: trustee not compared.
 ```
 
-## 5. Sole trader, tên trên tài liệu thiếu tên đệm
+## 5. Sole trader, name on the document missing the middle name
 
-Hoá đơn in "Mai Tran · ABN 80 987 654 321". `guroos_abn_lookup` trả về: Doanh nghiệp TRAN, THI MAI · Loại hình Individual/Sole Trader · Trạng thái ABN: Đang hoạt động (Active) từ 15/03/2026 · không đăng ký GST · VIC 3170 · không có tên thương mại. Lưu ý thẩm định: Trạng thái Active mới có hiệu lực 211 ngày (dưới 12 tháng); Không đăng ký GST; Là cá nhân kinh doanh (sole trader).
+Invoice shows "Mai Tran · ABN 80 987 654 321". `guroos_abn_lookup` returns: Business: TRAN, THI MAI · Entity type: Individual/Sole Trader · ABN status: Active from 15/03/2026 · not registered for GST · VIC 3170 · no business names. Due diligence notes: The Active status has applied for only 211 days (under 12 months); Not registered for GST; An individual in business (sole trader).
 
 ```
 ### Mai Tran
-Thông tin doanh nghiệp (ABN Lookup, tra ngày 12/10/2026)
-- Tên pháp nhân: TRAN, THI MAI
-- ABN: 80 987 654 321 · ACN: không có
-- Loại hình: Individual/Sole Trader
-- Trạng thái ABN: Đang hoạt động từ 15/03/2026
-- GST: không đăng ký
-- Bang / postcode: VIC 3170
-- Tên thương mại: không có
+Business details (ABN Lookup, checked 12/10/2026)
+- Entity name: TRAN, THI MAI
+- ABN: 80 987 654 321 · ACN: none
+- Entity type: Individual/Sole Trader
+- ABN status: Active from 15/03/2026
+- GST: not registered
+- State / postcode: VIC 3170
+- Business names: none
 
-Cần thông báo
-- [Sai tên doanh nghiệp] Hoá đơn in "Mai Tran", ABR ghi "TRAN, THI MAI": thiếu tên đệm "Thi" → báo nhân viên xem xét.
+Notices
+- [Business name mismatch] Invoice shows "Mai Tran", ABR has "TRAN, THI MAI": middle name "Thi" missing → refer to staff for review.
 
-Chưa kiểm tra được
-- Không có
+Could not check
+- None
 
-Ghi chú
-- Trạng thái Active có hiệu lực từ 15/03/2026, dưới 12 tháng: có thể là ABN mới hoặc ABN cũ vừa hoạt động lại; xem lịch sử trên ABR trước khi kết luận.
-- Không đăng ký GST.
-- Cá nhân kinh doanh (sole trader): không có ACN, không đăng ký với ASIC.
+Notes
+- Active status in effect from 15/03/2026, under 12 months: may be a new ABN or an old ABN just reactivated; check the history on ABR before concluding.
+- Not registered for GST.
+- Individual (sole trader): no ACN, not registered with ASIC.
 ```
 
-Tên cá nhân so như tên người: đổi thứ tự từ không sao, nhưng thiếu tên đệm là KHÁC.
+An individual's name is compared as a person's name: a different word order is fine, but a missing middle name is DIFFERENT.
