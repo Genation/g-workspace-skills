@@ -20,7 +20,7 @@ Read first: passport information page (photo, MRZ); Visa Grant Notice page 1, th
 | A · Proof of Age / Photo Card / ID card | Issuing agency (Service NSW, VicRoads, TMR, Australia Post "Keypass"…) + card title; photo; card number; expiry date |
 | B · Australian Passport | "AUSTRALIA" + "PASSPORT"; Type P, Code AUS; Passport No.; Surname, Given names; Date of expiry; 2 MRZ lines of 44 characters, line 1 starts with `P<AUS` |
 | C · Non-Australian Passport | As B, country code other than AUS (`P<VNM`, `P<CHN`, `P<NZL`…) |
-| D · Medicare | The word "medicare"; 10-digit card number (printed 4-5-1); name lines numbered 1, 2, 3… (that number is the IRN); "VALID TO" |
+| D · Medicare | The word "medicare"; 10-digit card number (printed 4-5-1); name lines numbered 1, 2, 3… (that number is the IRN, not part of the name); "VALID TO" |
 | E · Visa Grant Notice | Department of Home Affairs letter (formerly DIBP); "Visa grant notice"; "Visa grant number"; "Date of grant"; visa class/subclass; visa holder's name |
 | E · VEVO | "Visa Entitlement Verification Online"/"VEVO"; "Visa class / subclass"; "Visa status"; "Visa expiry date" or "Period of stay"; work rights or visa conditions |
 
@@ -66,6 +66,7 @@ ACCEPT: images (JPG/PNG) for A–D, with or without an image check block (the im
 
 - Passport "15 AUG 2025" = 15/08/2025. Expiry printed only as month/year (Medicare "VALID TO 08/2027", Keypass "EXPIRY 08-27"): current until the end of that month, send the tool 31/08/2027.
 - **Medicare.** The card number has 10 digits, usually printed in three groups 4-5-1 (`2123 45670 1`). The last digit (the one-digit group) is the issue number and is part of the card number: `number` = all 10 digits as printed (`"2123 45670 1"`), do not split off the last digit as the IRN. The IRN is the digit printed next to each person's name (at the start of the name line: "1 ISLA M BRENNAN" has IRN 1): `irn` = the digit next to the Applicant's name line (no Applicant yet and the card has only 1 name line: that line), read on the name line, not taken from the card number. Cannot tell which line: omit `irn`, do not use the last digit of the card number instead.
+- **Medicare name.** The leading digit on a Medicare name line is the IRN. It is not part of the name. The name is the text after the IRN, as printed: name line "1 ISLA M BRENNAN" → name "ISLA M BRENNAN", IRN 1. Fact Find "Name on document", Notices evidence, Facts for cross-checking and `ruleResults` notes all use that name ("ISLA M BRENNAN", never "1 ISLA M BRENNAN"); the IRN goes in the `irn` field of `guroos_identity_check` only.
 - `mrz`: every MRZ line as read on the image, one line per row, every letter and digit, keep `<` between parts (such as `<<` between surname and given names); do not correct it to be "right". Long runs of `<` (end of the name line, empty personal number field) need not be counted exactly: the tool recounts and confirms against the printed text; a note "miscount of <" without `[Re-read needed]`: do not call the tool again. Do not run commands (shell, python) to build, count or fix MRZ lines. `printed`: copy as printed; omit fields not printed; document does not print surname and given names separately: use `name`. Send every part of one document in one call. Do not compute check digits yourself.
 - Take the expiry only from `guroos_date_check` with the printed date; ignore the `[Expired]` "According to the MRZ" line of `guroos_identity_check` (an MRZ expiry that differs from the printed expiry already gives `[MRZ mismatch]`).
 - Compare the name with the Applicant using the printed name, not the MRZ name (upper case, no diacritics, may be truncated).
@@ -86,7 +87,7 @@ Field not clearly readable: "Could not check".
 | A, B, C | Name on document | Verbatim as printed; passports use "Surname, Given names" on the printed page, not the MRZ |
 | A, B, C | Expiry Date | DD/MM/YYYY; card printing only month/year: MM/YYYY |
 | B, C | Document No. | The "Passport No." field on the printed page, not the MRZ |
-| D | Name on document | The Applicant's line, with its line number (IRN); none → "no name line for <Applicant>", raise `[Name mismatch]`. No Applicant yet: section 5 |
+| D | Name on document | The name on the Applicant's line, without the leading IRN digit, as printed (**Medicare name**, 2C): "ISLA M BRENNAN", not "1 ISLA M BRENNAN"; none → "no name line for <Applicant>", raise `[Name mismatch]`. No Applicant yet: section 5 |
 | D | Expiry Date | As printed: MM/YYYY (green card) or DD/MM/YYYY |
 | E | Active Visa subclass | Subclass of the "In Effect" visa |
 | E | Visa type | Visa name as printed + group |
@@ -127,9 +128,9 @@ Notes only:
 
 ## 5. Special notes
 
-- **Medicare with several people.** For each Applicant take the line whose name is closest to that person to compare, record one "Name on document" line. Lines of people not in the profile: "card has N other name lines, ignored", do not copy the names. No Applicant yet: card has only 1 name line → "Name on document" copies that name verbatim with "(line 1)", name comparison "Could not check", ask the user; 2 or more name lines → "not determined (card has N name lines)", copy no name, ask the user.
+- **Medicare with several people.** For each Applicant take the line whose name is closest to that person to compare, record one "Name on document" line. Lines of people not in the profile: "card has N other name lines, ignored", do not copy the names. No Applicant yet: card has only 1 name line → "Name on document" copies that name as printed, without the IRN (**Medicare name**, 2C), Notes "card has 1 name line, no Applicant yet", name comparison "Could not check", ask the user; 2 or more name lines → "not determined (card has N name lines)", copy no name, ask the user.
 - **Several Applicants, none MATCH:** `[Name mismatch]` against the closest person; cannot choose → "Could not check: name".
-- **Facts for cross-checking**: A name · address · expiry; B, C country code · name · last 4 characters of passport number · expiry; D card colour · name on the Applicant line (no Applicant yet, 1-line card: line 1 name) · expiry; E subclass · group · status · expiry · name · last 4 characters of passport number.
+- **Facts for cross-checking**: A name · address · expiry; B, C country code · name · last 4 characters of passport number · expiry; D card colour · name on the Applicant line without the IRN (no Applicant yet, 1-line card: that line's name) · expiry; E subclass · group · status · expiry · name · last 4 characters of passport number.
 
 ## 6. Example
 

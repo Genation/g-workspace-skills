@@ -70,7 +70,7 @@ Call `genation-workspace_document_checks_record` ONCE for each document with a `
 | 2 | Finance Clause / Loan Approval Date → `deal.finance_due_date` (`finance_clause_date`) · Settlement Date → `deal.estimated_settlement_date` (`settlement_date`) |
 | 4 | Licence No. → `person.drivers_license_number` (`licence_number`) · Name on document → `person.drivers_license_name_on_document` (`name_on_document`) · Expiry Date → `person.drivers_license_expiry_date` (`expiry_date`) |
 | 5, 6 | Document No. → `person.passport_number` (`document_number`) · Name on document → `person.passport_name_on_document` (`name_on_document`) · Expiry Date → `person.passport_expiry_date` (`expiry_date`) |
-| 7 | Name on document → `person.medicare_name_on_card` (`name_on_document`) · Expiry Date → `person.medicare_expiry_date` (`expiry_date`) |
+| 7 | Name on document → `person.medicare_name_on_card` (`name_on_document`; `message`, `value` and `ruleResults` notes use the name after the leading IRN digit, as printed: "ISLA M BRENNAN", never "1 ISLA M BRENNAN"; references/identity.md 2C) · Expiry Date → `person.medicare_expiry_date` (`expiry_date`) |
 | 8 | Active Visa subclass → `person.visa_subclass` (`visa_subclass`) · Visa type → `person.visa_type` (`visa_type`) · Name on document → `person.visa_name_on_document` (`name_on_document`) |
 | 9 | Trust Name → `company.trust_name` (`trust_name`) · Trustee Name → `company.name` (`trustee_name`) |
 | 12 | Employer ABN → `employment.employer_abn` (`employer_abn`) · Employer address → `employment.employer_address` (`employer_address`) · Employer phone no. → `employment.employer_phone` (`employer_phone`) |
