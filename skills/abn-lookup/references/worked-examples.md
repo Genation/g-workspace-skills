@@ -59,7 +59,7 @@ A cancelled ABN does not mean the company is deregistered; so the ASIC status go
 
 ## 3. ABN Lookup not configured
 
-`guroos_abn_lookup` reports: "ABN Lookup is not set up on this computer (no ABR GUID yet). Tell the user to register for free at https://abr.business.gov.au/Tools/WebServices…".
+`guroos_abn_lookup` reports: "ABN Lookup is not set up for this organisation, or the saved ABR GUID can no longer be read: an organisation admin (owner or admin) must add it again in Settings → ABN Lookup…".
 
 ```
 ### ABN 11 123 456 780
@@ -67,7 +67,7 @@ Notices
 - None
 
 Could not check
-- ABN lookup: no ABN Lookup GUID yet. Register free at https://abr.business.gov.au/Tools/WebServices, ABR emails the GUID, then enter it in Settings → ABN Lookup (once only). Meanwhile you can look it up yourself at https://abr.business.gov.au.
+- ABN lookup: ABN Lookup isn't set up for your organisation yet. Ask an organisation admin to add the ABR GUID in Settings → ABN Lookup, once for everyone (admins register free at https://abr.business.gov.au/Tools/WebServices). Meanwhile you can look it up yourself at https://abr.business.gov.au.
 
 Notes
 - None
