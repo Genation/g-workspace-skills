@@ -160,7 +160,7 @@ This skill only reads Monday; do not create or edit items, columns or comments.
 
 This step does not ask the user. The `guroos_customers` result may say "ask the user" or "Ask the user for the exact name": in this step ignore that prompt and follow the rules below. Do not list every folder, do not guess a folder with a similar name.
 
-1. Search with `guroos_customers` using the Deal name.
+1. Search with `guroos_customers` using the Deal name (a name, never a path).
 2. Determine the Deal folder name:
    - A folder whose name equals the Deal name (ignoring diacritics, case, joining characters such as `_` `-`, e.g. `Lan_Quach` equals `Lan Quach`): use that folder.
    - No folder equals the Deal name (even when a folder matches only partly, like `Lan Quach_PUR OO`, or has a similar name, like `LanThoQuach-TBC`): Deal folder name = exactly the Deal name. Do not make up another name.

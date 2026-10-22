@@ -16,17 +16,15 @@
     {
       "id": "doc-check",
       "title": "Check loan documents",
-      "summary": "Check a client's documents against the 23-item checklist and report what needs doing; with the CRM it also shows which clients have sent new documents, processes a deal's new files and files them when you approve.",
-      "details": "The assistant checks the source file (genuine issued copy, edited, photo or scan), recognises the document type, reads it by that type's rules and cross-checks the documents. The report gives the conclusion, the details for the Fact Find and what to tell the client. When your organisation has the CRM, the assistant lists the deals with files clients sent through the client portal that are still waiting (new files, and files registered but not checked yet) for you to choose from, then processes each deal's new files one deal at a time (files sent through the client portal, plus other files in the deal's tmp/ such as files saved from email): registers them on the deal, recognises the document type and client, links them to required documents, and records the results on the deal (suggested values, items to tell the client, whether each criterion is met). Satisfied documents (all criteria met, or ticked or accepted by you) are proposed for filing: the assistant shows the name the naming rule suggests and the target folder, you keep the name or give your own, and the CRM only renames and moves the files you agree to in Ask first mode, or the files you asked it to file in Full access mode. For a document with open items you decide, in one answer: accept it as it is with your reason (and file it, or accept only), tick specific criteria, request a new one or leave it. When you ask, the assistant renames a filed file. If the deal has no owner, the assistant reminds you to claim the deal; it doesn't claim it itself. For a returning client whose deal has no folder, or only the empty folder the CRM made when the deal was created, the assistant looks for the client's old folder on OneDrive, proposes attaching it to the deal (keeping the folder name; the CRM's empty folder is then removed) and only attaches it when you confirm. When you ask, the assistant moves the client portal account of a client who activated the client portal themselves to an existing contact (owners or admins only), after you point to the right contact and agree. The assistant doesn't copy TFNs, Medicare numbers or card numbers, and never renames or moves files on its own.",
+      "summary": "Check a client's documents against the 23-item checklist and report what needs doing; with the CRM, process a deal's new files from any source and file them when you approve.",
+      "details": "The assistant checks the source file (genuine issued copy, edited, photo or scan), recognises the document type, reads it by that type's rules and cross-checks the documents; the report gives the conclusion, Fact Find details and what to tell the client. With the CRM, it lists the deals with new files, and when you ask it to process, handle or check a deal it takes every new file in the deal's tmp/, whatever its source (client portal, email, your upload, files dropped into OneDrive): it registers each file on the deal, recognises the type and client, links it to a required document, records the results and proposes filing. Files not yet synced to your computer are checked when you ask again. It files, renames or accepts only when you agree and never copies TFNs, Medicare or card numbers.",
       "icon": "clipboard-check",
       "examples": [
+        "Process the Whitmore deal",
+        "What's new for the Whitmore deal?",
         "Has any client sent new documents?",
-        "Process the files clients just sent",
-        "Process the new files the client sent in the Whitmore deal's tmp",
-        "Check Whitmore's new documents",
-        "Check the documents in client Nguyễn Văn A's folder",
-        "Check the payslip and statement I just attached",
-        "Is this tax return the original downloaded from myGov?"
+        "Check the Whitmore deal's documents",
+        "Check the payslip and statement I just attached"
       ],
       "default": true
     },
