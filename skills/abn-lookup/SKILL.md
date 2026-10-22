@@ -16,9 +16,9 @@ The tools may return:
 - "… is not a valid ABN" / "… is not a valid ACN": wrong number of digits or failed checksum (Step 1).
 - "ABR has no record for …": valid number but not in ABR → `[Not found]`.
 - "ABN Lookup has no business matching …" (name search): no candidates → `[Not found]`.
-- "ABN Lookup is not set up", "ABR does not accept the GUID", "ABN Lookup could not be reached / took too long to answer / is having problems / returned data that could not be read", "ABN Lookup says: …", "The ABN Lookup search failed": lookup failed.
+- "ABN Lookup is not set up", "ABR does not accept the … GUID", "ABN Lookup is not available / is not turned on / could not be used: …", "ABN Lookup could not be reached / took too long to answer / is having problems", "ABN Lookup says: …", "ABN Lookup refused the request", "The ABN Lookup search failed": lookup failed.
 
-Neither tool available, or the lookup failed: do not look it up elsewhere, do not answer from memory. Write "ABN lookup" under "Could not check", with the reason the tool gave, and suggest the user looks it up at https://abr.business.gov.au. Tool reports "ABN Lookup is not set up" or "ABR does not accept the GUID": pass on to the user the tool's instructions for getting and entering a GUID (register free at https://abr.business.gov.au/Tools/WebServices, ABR emails the GUID, enter it in Settings → ABN Lookup). Do not tell the user to contact whoever installed the app.
+Neither tool available, or the lookup failed: do not look it up elsewhere, do not answer from memory. Write "ABN lookup" under "Could not check", with the reason the tool gave, and suggest the user looks it up at https://abr.business.gov.au. Tool reports "ABN Lookup is not set up" or "ABR does not accept the … GUID": the GUID belongs to the organisation, not to each user. Tell the user to ask an organisation admin (owner or admin) to add a valid ABR GUID in Settings → ABN Lookup, once for everyone; admins register free at https://abr.business.gov.au/Tools/WebServices (ABR emails the GUID). Do not tell the user to register a GUID of their own, or to contact whoever installed the app.
 
 ## Needed before the lookup
 
