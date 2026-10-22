@@ -11,7 +11,10 @@ There are two paths, chosen in Step 1: the **CRM path** when the organisation ha
 
 Each step does exactly one job, takes its input from the previous step and returns exactly the output written below. A step that hits a **Stop** condition: do not do the later steps; only report the result (Result section) with the stop reason.
 
-Ask the user only where **Stop** is written below. Do everything else straight away, without asking for confirmation in the reply: the app itself asks for consent to create folders, save files and write to the CRM when needed (in Automatic mode it does not ask). Only creating a new client or deal on the CRM always asks the user first (Step C3).
+**Approval.** The chat's mode (latest `chat-mode` context; none: Ask first) is the only permission; the app shows no card for these tools.
+- Asking to process an email (typed, or started from the app's mail screen) plainly covers what this skill does: creating the deal folder, saving the attachments into `tmp/`, registering them on the deal. In Ask first and Full access, do these straight away, without asking.
+- Ask the user only where **Stop** is written below. Creating a client or deal is not part of the request: never on your own initiative, in either mode; propose it and ask with the `question` tool (Step C3), unless the user already asked for it in this chat.
+- Plan only: change nothing; say which folder, files and registrations you would make, and that the chat must be in Ask first or Full access for it.
 
 The CRM tools are the `genation-workspace_…` tools (the app's server, for the organisation the user has selected). When talking to the user, refer to clients and deals by name; do not read out ids.
 
@@ -61,12 +64,12 @@ Search only by the sender's email address, and by the signature phone number whe
 
 ### Step C3 - Propose creating a client or deal
 
-Never create a client or deal on your own. Only propose, then **Stop** and wait for the user's reply:
+Never create a client or deal on your own initiative, in either mode. Propose, then ask with the `question` tool (options: "Create client and deal" or "Create deal", "Change…", "No"), unless the user already asked in this chat to create them; **Stop** until the user answers:
 
 - No client yet: propose creating a client with the full name split from the sender display name (last word is the surname - `familyName`, the rest is the given name - `firstName`), `email` = sender address, and the signature phone number if any; plus a deal named with the client's full name, the client as `client`. State the names you will use so the user can correct them. Display name empty or not a person's name (company name, "info", an email address): ask the user for the client's full name.
 - Client exists but no open deal: propose creating a deal named with the client's name, the client as `client`.
 
-User agrees (possibly with corrected names):
+User agrees (possibly with corrected names, typed as their answer):
 
 1. No client yet: `genation-workspace_contacts_create` with `kind` = `person`, `person` = `{firstName, familyName, email, mobilePhone}` (omit absent fields). User says the client is a company: `kind` = `company`, `company` = `{name, email}`.
 2. `genation-workspace_deals_create` with `title` = the agreed deal name, `contacts` = `[{contactId: <client id>, contactType: "client"}]`. Do not pass workflow, stage (leave the organisation's default) or owner (defaults to the user in the conversation).
@@ -85,7 +88,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
 2. Both empty (the CRM has no usable folder name left, or an old CRM): call `genation-workspace_deal_files_list` with `dealId`. Each file has `document.path`, the path from the root folder, e.g. `/Customers/Lan Quach_PUR OO/3. ID/Lan Quach_DL.pdf`.
    - Files exist: the deal folder is the part of the path before the subfolder (`0. Compliance` … `6. Approval & Settlement`, `Archive`, `tmp`), or before the file name when the file sits directly in the deal folder; drop the leading `/`. Files give two different deal folders: **Stop** - list them and ask the user which folder to use.
    - No files yet: **Stop** - "CRM has not given the folder of deal `<title>`": ask the user where the deal folder is in the vault.
-3. Call `guroos_customer_create` ONCE with `customer` = the deal folder path above and `new_folder` = `true` (creates missing folders, including `Customers/`, adds `tmp/` and the standard subfolders; existing folders and files stay unchanged). User declines consent: **Stop** - "folder not created: user declined". Tool reports the path unusable or outside the vault: **Stop** - quote the tool's words verbatim.
+3. Call `guroos_customer_create` ONCE with `customer` = the deal folder path above and `new_folder` = `true` (creates missing folders, including `Customers/`, adds `tmp/` and the standard subfolders; existing folders and files stay unchanged). Tool reports the path unusable or outside the vault: **Stop** - quote the tool's words verbatim.
 
 **Output:** deal folder path (from the vault root), just created or existing, the subfolders just added.
 
@@ -99,7 +102,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
 
 ### Step C6 - Save files and register them on the deal
 
-1. For each file to save, call `guroos_mail_save_attachment` with `ref` = the `a.…` ref, `customer` = deal folder path (Step C4), `subfolder` = `tmp`. Keep the original file name (do not pass `filename`). Note the file name the tool reports as saved (it may add a suffix such as ` (2)` on a name clash). Consent declined, file already saved from this email before, compressed or password-protected file: as in Step M4.
+1. For each file to save, call `guroos_mail_save_attachment` with `ref` = the `a.…` ref, `customer` = deal folder path (Step C4), `subfolder` = `tmp`. Keep the original file name (do not pass `filename`). Note the file name the tool reports as saved (it may add a suffix such as ` (2)` on a name clash). File already saved from this email before, compressed or password-protected file: as in Step M4.
 2. Once all files are saved, register each file just saved or already there with `genation-workspace_deal_files_register_existing` with:
    - `dealId` = the deal from Step C2/C3;
    - `path` = `/<deal folder path>/tmp/<saved file name>`, from the organisation's root folder (e.g. `/Customers/Lan Quach_PUR OO/tmp/Lan_DL.pdf`);
@@ -145,7 +148,6 @@ This step does not ask the user. The `guroos_customers` result may say "ask the 
 3. Call `guroos_customer_create` ONCE with `customer` = the Deal folder name from item 2 and `new_folder` = `true`. The tool does exactly what is missing:
    - Folder does not exist: creates the Deal folder with `tmp/` and the standard subfolders (`0. Compliance`, `1. Application`, `2. Security`, `3. ID`, `4. Income & Expenses`, `5. Assets & Liabilities`, `6. Approval & Settlement`, `Archive`).
    - Folder exists: only adds `tmp/` and any missing standard subfolders; existing folders and files stay unchanged. Nothing missing: the tool reports "Nothing created".
-4. User declines consent to create the folder: **Stop** - "folder not created: user declined".
 
 **Output:** the name of exactly one Deal folder, whether it was just created or existed, and the subfolders just added (if any).
 
@@ -160,7 +162,6 @@ This step does not ask the user. The `guroos_customers` result may say "ask the 
 
 For each file to save from Step M3, call `guroos_mail_save_attachment` with `ref` = the `a.…` ref, `customer` = Deal folder name, `subfolder` = `tmp`. Keep the original file name (do not pass `filename`).
 
-- In Ask first mode, the app asks for consent on each save. User declines: do not retry; write "not saved: user declined".
 - Tool reports the file was already saved from this email before: write "already there".
 - Compressed or password-protected file: save as is, note it in the report.
 
