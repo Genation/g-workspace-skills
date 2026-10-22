@@ -87,7 +87,7 @@ How to get the period:
 
 Notes only: Court Order order date, Child Support Agreement signing date; gaps before a latest stretch that already covers 3 months; paying party in arrears (arrears, amount owing) or a payment that has stopped (cancelled, ceased), amounts and dates as printed; Child Support "Private Collect" (Services Australia does not collect).
 
-Could not check: period (2C); rule 18 unclear whether the Applicant receives or pays → "Applicant's role".
+Could not check: period (2C); rule 18 unclear whether the Applicant receives or pays → "Applicant's role". Something this file does not check (not a field, comparison or Notices condition here: children's details, payment lines not needed for the period or 2C, whether a seal or signature is genuine) that could not be seen or confirmed: at most a Notes line, never "Could not check" (SKILL.md section 7).
 
 ## 5. Special notes
 

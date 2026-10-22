@@ -125,12 +125,16 @@ Notes only:
 - D blue or yellow card: "card holder is not yet a permanent resident; see visa".
 - Screenshot of a digital licence: "some lenders require the physical card".
 - VEVO over 30 days old; Visa Grant Notice does not show the current status.
+- Photo: only checked as present (section 1); the face is not compared. A photo shown as a placeholder or silhouette, blurred or under glare: Notes.
+- D card colour not visible (black-and-white copy, text only): "card colour not visible"; Expiry Date is still written as printed.
+
+**Could not check** (SKILL.md section 7: keeps the document from `PASS` until staff accept it) only for: a field of section 3 not clearly readable or covered (including a side or page not sent, section 1); an ID number still unclear after re-reading (2C); a Notices condition above that cannot be assessed (name or address comparison with no Applicant or profile address yet, or no single Applicant to choose: section 5; expiry, visa status or visa expiry not readable). Anything else that could not be seen or confirmed (the photo, card colour, security features such as hologram or microprint, the signature on the card, a card back with no field to record) is at most a Notes line: never "Could not check" or Notices, no effect on the Conclusion.
 
 ## 5. Special notes
 
 - **Medicare with several people.** For each Applicant take the line whose name is closest to that person to compare, record one "Name on document" line. Lines of people not in the profile: "card has N other name lines, ignored", do not copy the names. No Applicant yet: card has only 1 name line → "Name on document" copies that name as printed, without the IRN (**Medicare name**, 2C), Notes "card has 1 name line, no Applicant yet", name comparison "Could not check", ask the user; 2 or more name lines → "not determined (card has N name lines)", copy no name, ask the user.
 - **Several Applicants, none MATCH:** `[Name mismatch]` against the closest person; cannot choose → "Could not check: name".
-- **Facts for cross-checking**: A name · address · expiry; B, C country code · name · last 4 characters of passport number · expiry; D card colour · name on the Applicant line without the IRN (no Applicant yet, 1-line card: that line's name) · expiry; E subclass · group · status · expiry · name · last 4 characters of passport number.
+- **Facts for cross-checking**: A name · address · expiry; B, C country code · name · last 4 characters of passport number · expiry; D card colour ("colour not visible" when it cannot be seen) · name on the Applicant line without the IRN (no Applicant yet, 1-line card: that line's name) · expiry; E subclass · group · status · expiry · name · last 4 characters of passport number.
 
 ## 6. Example
 

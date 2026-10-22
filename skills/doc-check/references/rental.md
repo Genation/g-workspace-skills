@@ -81,6 +81,7 @@ Notes only:
 - Agreement: whether the Applicant is Landlord or Tenant; do not compare the other party's name. Applicant is Tenant: Rent amount is the rent payable.
 - Agreement EXPIRED per the tool (may have rolled over to periodic).
 - Agreement has a blank signature line.
+- Something this file does not check (not a field, comparison or Notices condition here: a logo, fee % or GST, detail pages not needed for 2C) that could not be seen or confirmed: at most a Notes line, never "Could not check" (SKILL.md section 7).
 
 Write "Could not check":
 - Agreement where the Applicant's side is unclear (e.g. only "c/- <agency> as agent for the landlord" printed) → "Applicant's side".
