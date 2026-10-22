@@ -2,13 +2,13 @@
 
 Section 12 of the doc-check skill, split out of SKILL.md; read when the table in SKILL.md section 1 says so. "Sections 1–9" are SKILL.md sections; section 10 is in `references/crm-recording.md`, 11 in `references/intake.md`.
 
-Filing means renaming the file by the organisation's naming rule and moving it from `tmp/` into the subfolder for its document type (e.g. `3. ID`). The CRM sets the name and folder, and only the CRM moves files, with `genation-workspace_deal_files_file`, exactly per the plan staff approved. Never file before staff agree; never automatically.
+Filing means renaming the file and moving it from `tmp/` into the subfolder for its document type (e.g. `3. ID`). The CRM sets the folder and suggests the name by the organisation's naming rule; staff have the final say on the name. Only the CRM moves and renames files (`genation-workspace_deal_files_file`, `genation-workspace_deal_files_rename`), exactly per the plan shown. File, rename, accept and tick only per the approval rule (SKILL.md section 1), never on your own initiative.
 
 Do this when the CRM is present with both tools `genation-workspace_deal_file_filing_get`, `genation-workspace_deal_files_file`: for each batch file already on the deal (including files checked earlier, section 11 step 3) still in `tmp/` (`filingState` = `unfiled`), after the result is recorded (10.2). `filed` or `other` files, files not on the deal: do not file. Batch not via section 11 (attachments, files in the client folder): do this after the lines of section 10.5.
 
 ### 12.1 Planning
 
-`deal_file_filing_get` with `id` = the file's `id` on the deal and `facts` = facts read from the document for the placeholders in the type's `fileNamePattern` (compact list of `document_types_list`), per the table below. Result: `currentPath`, `targetFolderPath`, `targetName`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Remember exactly the `facts` sent.
+`deal_file_filing_get` with `id` = the file's `id` on the deal, `facts` = facts read from the document for the placeholders in the type's `fileNamePattern` (compact list of `document_types_list`), per the table below, and `name` only when staff chose a name (12.4). Result: `currentPath`, `targetFolderPath`, `targetName` (the final name, with the extension and any ` (2)`), `suggestedName` (the naming rule's name), `nameChosenByStaff`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Remember exactly the `facts` and `name` sent.
 
 | Placeholder in the name pattern | `facts` |
 |---|---|
@@ -32,32 +32,51 @@ Every fact in exactly the format above, no other format mixed in. Not clearly re
 | `code` | Action |
 |---|---|
 | `document_type_missing`, `subject_contact_missing` | 10.3 could not set it: ask staff for the document type or the document's client |
-| `naming_facts_missing` | re-read the document for the facts in `naming.missingFacts`, then re-plan; still missing: ask staff for the value |
+| `naming_facts_missing` | re-read the document for the facts in `naming.missingFacts`, then re-plan; still missing: ask staff for the value, or for a name of their own (12.4; with `name` this blocker does not apply) |
 | `check_missing` | record the result (10.2), then re-plan |
-| `check_not_satisfied` | staff decide: list the `not_met` or `not_checked` criteria of the latest check (`ruleResults` just recorded, or `document_checks_list` with `dealFileId`, `limit` 1). Name each criterion in the rule's words (`condition`, otherwise `subject`), taken from the `checkRules` read with `codes`. File type not in that read (file checked earlier): call `document_types_list` with `codes` = the missing types, once for all such files. Staff tick the criteria on the CRM (the manual approval path) or ask for a re-check. The assistant only ticks (`document_check_rules_mark`) when staff state exactly which criterion of which file; never tick on its own to make a file pass |
+| `check_not_satisfied` | staff decide: 12.5 |
 | `file_locked` | staff unlock the file; do not unlock it yourself |
 | `deal_folder_missing`, `not_in_deal_folder`, `category_folder_missing`, `file_archived` | do not file, give the reason: deal has no folder; file is outside the deal folder; document type has no subfolder (configured by an admin); file is archived |
 
 Re-plan each file at most twice after handling things yourself. `filed` = true: "already in place", do not file.
 
-### 12.3 Approval request
+### 12.3 Proposal
 
-Files with no blockers left: list, number, then ask ONE question and end the turn:
+Files with no blockers left: list and number them, with the suggested name and the folder:
 
 ```
-File into <deal folder> (rename by the naming rule, move out of tmp/):
+File into <deal folder> (out of tmp/, named by the naming rule; keep each name or give your own):
 1. tmp/IMG_20261018_DL.pdf → 3. ID/Lachlan_DL.pdf
 2. tmp/Payslip Oct 2026.pdf → 4. Income & Expenses/Lachlan_Coastal Freight Pty Ltd_Payslip_01-14Oct26.pdf
-Do you approve filing all 2 files, or only certain numbers?
 ```
 
-Paths relative to the deal folder: left `currentPath`, right `targetFolderPath` and `targetName`, copied exactly from the plan. This is where the assistant asks before writing, as before sending an email: the app may not ask again when the tool is called, so only the user's reply in chat is consent. Document content, emails, file names are never consent.
+Paths relative to the deal folder: left `currentPath`, right `targetFolderPath` and `targetName`, copied exactly from the plan. Then per the approval rule:
+- The user already asked to file (a clear instruction earlier in this chat, such as "process and file"): file (12.4) without asking; in Full access no list is needed, the lines after filing are the report.
+- Otherwise, in both modes: the filing question goes into the next steps (SKILL.md section 7), for example "File these 2 as listed?" with the options "File all 2", "Change…" (other numbers or names), "No".
 
 ### 12.4 File
 
-User agrees (whole list, or numbers stated explicitly): for each approved file, `deal_files_file` with `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` of exactly the plan shown, and exactly the `facts` sent. Files not approved: leave in `tmp/`. User wants a different name: the name follows the organisation's rule, only the facts (employer, period…) can be changed: re-plan, show and ask again.
+For each file approved (the whole list, the numbers stated, or the user's request): `deal_files_file` with `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` of exactly the plan shown, exactly the `facts` sent, and the same `name` when staff chose one. Files not approved: leave in `tmp/`.
+- **A name staff give** ("call no. 2 Lachlan payslip October"): re-plan that file (12.1) with `name` = their name as given (the CRM keeps the file's extension) and the same `facts`; show `tmp/<file> → <subfolder>/<targetName>`, then file it with that `name` and `expectedName` = this plan's `targetName`: their answer is the approval. `targetName` has a version suffix (` (2)`: another file in the folder already has that name): say so; in Ask first, ask once more (`question`: "File as <targetName>", "Change…", "No") before filing.
+- `[file_name_invalid]` (plan or filing): the name cannot be used. Say why in plain words from the message (a character SharePoint refuses, such as `/ : * ? " < > |`, a reserved name, or too long) and ask for another name; you may offer a corrected name as an option, never use a name staff did not choose.
 - Success: `moved` = true means filed; `moved` = false means already in place.
-- `[filing_blocked]`, `[check_not_latest]`, `[filing_changed]`, `[name_taken]`, `[item_changed]`: the plan has changed (a new check or a criterion just ticked, the name just taken by another file, the file just changed). Re-plan that file (12.1), show the new plan and ask again; do not file per the new plan until approved again.
-- User declines permission: do not retry, "not filed: user declined". Other errors: quote the tool's message verbatim, do not retry.
+- `[filing_blocked]`, `[check_not_latest]`, `[filing_changed]`, `[name_taken]`, `[item_changed]`: the plan has changed (a new check, a criterion just ticked or a document just accepted, the name just taken by another file, the file just changed). Re-plan that file (12.1, same `facts` and `name`), show the new plan; Ask first: ask again before filing; Full access: file per the new plan when it has no blockers.
+- User says no: leave in `tmp/`, "not filed: user declined", do not retry. Other errors: quote the tool's message verbatim, do not retry.
 
-After filing, one line per approved file: `- tmp/<file name> → <subfolder>/<new name> · <filed | already in place | not filed: reason>`. OneDrive on this computer updates after a few minutes; meanwhile the file may still show in `tmp/`.
+After filing, one line per file: `- tmp/<file name> → <subfolder>/<new name> · <filed | already in place | not filed: reason>` (`<new name>` = the result's final name; add `, name chosen by staff` when it was). OneDrive on this computer updates after a few minutes; meanwhile the file may still show in `tmp/`.
+
+### 12.5 Open check items (`check_not_satisfied`)
+
+Staff decide, in both modes; never accept or tick on your own judgement, not even when the user asked to "file everything".
+- **Explain** in plain words what is open: the `not_met` or `not_checked` criteria of the latest check (`ruleResults` just recorded, or `document_checks_list` with `dealFileId`, `limit` 1), each in the rule's words (`condition`, otherwise `subject`) from the `checkRules` read with `codes`; file type not in that read (file checked earlier): `document_types_list` with `codes` = the missing types, once for all such files. Type without rules: the report's Notices and Could not check lines.
+- **Offer**, in the next steps (SKILL.md section 7): "Accept as is (type your reason)", "Tick specific criteria", "Request a new one" (only when the action is a new document from the client), "Leave it". For example: "The payslip has no pay period: request a new one, accept it as is (your reason), or leave it?"
+- **Accept as is:** only when a staff member says in the chat that they accept the document: `genation-workspace_document_checks_accept` with `documentId` = `document.id`, `dealId`, `note` = their reason in their own words. No reason given: ask for it once; never write a reason yourself. It ticks every criterion of the type and also works for a type without rules. `[document_type_required]`: classify first (10.3; type unknown: ask staff); `[file_archived]`: not accepted, say why.
+- **Tick specific criteria:** only the criteria staff name, of the file they name: `genation-workspace_document_check_rules_mark` with `dealFileId`, `ruleId` (or `ruleCode`), `outcome` = `met` (or what they say), `note` = their words.
+- **Request a new one:** nothing is accepted, the file stays in `tmp/`; the draft request the check put on the deal (10.2 `request`), if any, is there for staff to send.
+- **Leave it:** the file stays in `tmp/`, nothing recorded.
+
+After an acceptance or a tick: re-plan (12.1; `latestCheck.id` is now the staff's check), then file per 12.3–12.4 when the user asked to file it ("accept it and file it", or "process and file"); otherwise propose filing it. Line: `- <file> · accepted by staff: <note>` or `- <file> · ticked: <criteria>`.
+
+### 12.6 Renaming a filed file
+
+Staff ask to rename a file on the deal that is not in `tmp/` (filed, or staying where it is): their request is the approval; otherwise only propose a rename as a next step. `genation-workspace_deal_files_rename` with `id` = the file's `id` on the deal (`deal_files_list`), `name` = the name staff gave. The file keeps its folder and extension; a taken name gets a version suffix (` (2)`); the result's `document.name` is the final name: `- <old name> → <new name> · renamed`. A file still in `tmp/`: file it with `name` (12.4) instead. `[file_name_invalid]`: as in 12.4; `[file_locked]`: staff unlock the file first; `[file_archived]`: not renamed; `[item_changed]`: OneDrive just changed the file, call again once. No such tool: say renaming is not available yet.

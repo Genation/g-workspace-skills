@@ -35,7 +35,7 @@ Two sources of new files:
    - 10.3 (type, client) for every file in the batch;
    - read the rules of the types in the batch, ONCE with `codes` ("Document types and rules", start of section 10);
    - then for each file: 10.4 (required document), 10.2 (result with `ruleResults`).
-5. **Filing** per section 12 (read `references/filing.md`), for every file of the deal still in `tmp/`.
+5. **Filing** per section 12 (read `references/filing.md`), for every file of the deal still in `tmp/`: file only when the user asked to ("process and file"), otherwise propose it (approval rule, SKILL.md section 1).
 6. **Summary** after the report (section 7), one block for the whole `tmp/`:
 
 ```
@@ -56,4 +56,4 @@ Portal files from the client still not checked: <file name> (<reason>), … | no
 - Each new or unchecked intake item gets one `- <file name>` entry (`fileName`), even when not registered; files already in `tmp/` beforehand say "in tmp/".
 - Some files not checked because OneDrive on this computer has not synced: add the line "Ask again to "process new files for deal <deal name>" in a few minutes to check the remaining files."
 
-Check status by the file's `checkStatus`: `satisfied` satisfied, `needs_attention` needs attention, `incomplete` incomplete (criteria not yet met), `unchecked` not checked. Non-document file: one line `- <file name> · not a document, left in tmp/`. After the block: the approval list of section 12.3 (if any), then ONE final question combining the approval question with everything staff need to decide (the final question of section 7, of 10.3, 10.4, 12.2).
+Check status by the file's `checkStatus`: `satisfied` satisfied, `needs_attention` needs attention, `incomplete` incomplete (criteria not yet met), `unchecked` not checked. Non-document file: one line `- <file name> · not a document, left in tmp/`. After the block: the filing list of section 12.3 (if any), then the next steps of SKILL.md section 7, everything staff need to decide in ONE `question` call (filing, open check items of 12.5, the questions of 10.3, 10.4), per the approval rule (SKILL.md section 1).
