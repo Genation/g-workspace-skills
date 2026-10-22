@@ -32,7 +32,7 @@ Results go into the loan application: conclude only from content you read and fr
 |---|---|---|
 | 9. Saving results to the client folder | `references/folder-save.md` | no CRM, the batch is files in a client folder and `guroos_document_result_save` exists |
 | 10. Recording results on the CRM | `references/crm-recording.md` | before step 1 of section 3 (10.1 finds the files before checking), or when section 11 needs it |
-| 11. New client files (tmp/) | `references/intake.md` | the user asks, in any language, to process, handle, work on or check a deal or its documents, what is new for a deal, whether clients sent new files, or to process new files: before any other step or CRM tool. New files = the files in the deal's `tmp/`, from any source (portal, email, staff upload, dropped into OneDrive) |
+| 11. New client files (tmp/) | `references/intake.md` | the user asks, in any language, to process, handle, work on or check a deal or its documents, what is new for a deal, whether clients sent new files, or to process new files: before any other step or CRM tool |
 | 12. Filing | `references/filing.md` | `genation-workspace_deal_file_filing_get` and `genation-workspace_deal_files_file` exist: after 10.2 when the batch has deal files still in `tmp/`; the user answers the filing question, asks to file or rename a file, accept a document or tick a criterion |
 | 13. The client's old folder | `references/old-folder.md` | the deal has no `folderPath`, or `folderReplaceable` is true (the CRM's empty folder), before the first file is registered on the deal (section 2, section 11 step 2); the user asks to attach a client's old folder to the deal. No `genation-workspace_deals_attach_folder`: do not read it, use `folderPath`, else `plannedFolderPath` |
 | 14. Moving a client portal account to an existing contact | `references/portal-accounts.md` | staff ask for it and `genation-workspace_portal_accounts_link` exists; never offer it yourself. Portal invitations and other portal account tasks: not this skill |
@@ -122,7 +122,7 @@ Check the source file first, because a file may have been retyped or edited; the
 - **Fact Find:** only the fields the rule file lists; when the document does not print one, write per the "If absent, write" column; do not fill the template for the sake of it.
 - **Actions** the rule file does not give: "refer to staff for review"; do not invent other actions.
 - **Dates** printed Australian style DD/MM/YYYY; the document date is the issue date, failing that the period end date (unless the rule file says otherwise). Period lengths, deadlines: per the conclusion of `guroos_date_check` (check the dates the tool printed; a parameter error is not a result); two dates printed on the same document are compared directly. Date notices give the printed date and today; a date not clearly readable: "Could not check".
-- **Tool timestamps** (`createdAt`…; `Z` = UTC): show in the user's local time zone from the app; none given: mark "UTC" (`22/10/2026 16:10 UTC`), never as if local.
+- **Dates and times you show:** DD/MM/YYYY, times HH:MM (24-hour), never seconds or milliseconds. Tool timestamps (`createdAt`…; `Z` = UTC) in the user's local time zone (latest `local-time` context); none given: mark "UTC" (`22/10/2026 16:10 UTC`), never as if local.
 
 ## 7. Report template
 

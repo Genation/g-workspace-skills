@@ -20,7 +20,7 @@ Each step does exactly one job, takes its input from the previous step and retur
 - Ask only there and where **Stop** is written below.
 - Plan only: change nothing; say which folder, files and registrations you would make, and that the chat must be in Ask first or Full access for it.
 
-The CRM tools are the `genation-workspace_…` tools (the app's server, for the organisation the user has selected). When talking to the user, refer to clients and deals by name; do not read out ids. Show dates and times (date received…) in the user's local time zone from the app; a tool time ending in `Z` is UTC; no time zone given: mark it "UTC", never as if local. A tool output cut short ("… truncated; full content saved to …"): never open, glob or list that file or the app's tool-output folder; ask the tool for less if it can, else use what you have.
+The CRM tools are the `genation-workspace_…` tools (the app's server, for the organisation the user has selected). When talking to the user, refer to clients and deals by name; do not read out ids. Show dates (date received…) as DD/MM/YYYY and times as HH:MM (24-hour), never seconds or milliseconds, in the user's local time zone (latest `local-time` context); a tool time ending in `Z` is UTC; no time zone given: mark it "UTC", never as if local. A tool output cut short ("… truncated; full content saved to …"): never open, glob or list that file or the app's tool-output folder; ask the tool for less if it can, else use what you have.
 
 ## Step 0 - Choose the mailbox
 
