@@ -5,6 +5,7 @@
 Step 6 of SKILL.md: ONCE for the whole batch of one client, after steps 1–5 of every document.
 
 - **Who takes part:** documents that passed Step 0 and are readable; INVALID, UNREADABLE count as absent. A document with `[Source file]` or "uncertain" still takes part; state that in the evidence. Exception: readable out-of-scope name-linking documents (Marriage, Change of Name, Birth Certificate) are still used in the last row of table 3.
+- **Documents already on the deal** (CRM, the batch's deal known): the sets (table 1) and pairs (tables 2, 3) also take in the same person's documents already on the deal, so a partial upload is checked against what came before (payslip 2 after payslip 1, filed in an earlier run): files of `deal_files_list` (10.1, already read) with the same client (`document.subjectContactId`), a type of the set or pair, `archivedAt` and `replacedByDealFileId` empty (archived or superseded files never count) and a latest check that is not `not_met`. Their facts: the file name when the naming rule put them there unambiguously (period `14-27Sep26`, employer, account …4821), their latest check (`document_checks_list`, `dealFileId`, `limit` 1: Fact Find findings such as Employer ABN); a figure the rule needs that neither gives (a period not in the name, YTD Gross, a closing balance): read that page with `guroos_document_read` (`cloud` from the file's `document`). They are not checked or recorded again: name them in the evidence and in `periods` as "<file name> (already on the deal)"; the set lines go in the newest block of the batch. Without a CRM or a known deal: the batch only.
 - **Figures** come from "Facts for cross-checking"; if missing, re-read the exact page.
 - **Pair only the same subject:** same person (names on the two documents MATCH, even when there is no Applicant yet), same entity (legal name; ABN/ACN if both print it), same account (institution and last 4 digits), same property address, same financial year (compare in the form 2024–25: `Company tax return 2025`, `Year ended 30 June 2025`, `For the year ended 30 June 2025` are all 2024–25).
 - **Write in block A**, do not repeat in block B. Set rules are written ONCE in the newest block of the set; older blocks get a Notes line "checked as a set in block <file>".
@@ -66,7 +67,7 @@ One Notes line in block A; existing tags stay unchanged.
 - Entity Tax Return or Financial Statements without the other document for the same year → Could not check "cross-check Tax Return with Financial Statements: missing <document>".
 - Individual Tax Return without a NOA for the same year, or the reverse → Notes "batch has no <type> for the same year to compare".
 
-User gave the figure in chat: compare with that figure; evidence says "per the user, no document". Do not open files outside the batch yourself; a file in `guroos_customer_files` may be B: name it in the "Could not check" line, ask at the end of the report (attached batch: ask for B to be attached).
+User gave the figure in chat: compare with that figure; evidence says "per the user, no document". Do not open files outside the batch yourself, except documents already on the deal ("When to use"); another file in `guroos_customer_files` may be B: name it in the "Could not check" line, ask at the end of the report (attached batch: ask for B to be attached).
 
 ## Example
 

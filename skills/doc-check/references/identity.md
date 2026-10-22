@@ -105,12 +105,15 @@ Beyond the SKILL.md list, do not copy: Visa grant number; passport number printe
 
 Compare names per SKILL.md section 6. **Middle name:** given name and surname match and the middle name is only printed as the correct initial, or is missing on one side (Medicare often prints only the initial: "ISLA M BRENNAN" = Isla Margaret Brennan; "ISLA BRENNAN" likewise) is a MATCH: no `[Name mismatch]`, no Statutory Declaration request. Only A, B, C (documents the lender uses to verify identity; the name on the loan application follows the full printed name) add a Notes line `middle name differs from profile: "<printed name>" / "<profile name>"`; D, E record nothing. A wrong initial, a different middle name, an abbreviated given name (first name) or surname is still DIFFERENT.
 
+**Same person or another person.** A name DIFFERENT from the Applicant is the **same person** when it is a variant of their name: the given names match but the family name differs (marriage, name change), a name is missing, added or spelt differently, or it is a previous or other name in the profile. It is **another person's** document when the given names differ and are not a variant ("Daniel Carter" uploaded for Applicant Emily Carter) and the name matches no client of the deal (one that matches is that client's document, SKILL.md section 6). A Statutory Declaration or Name Change Certificate is only for the same person; never suggest it for another person's document. Unsure which: refer to staff with both actions.
+
 Compare addresses (A only): ignore case, punctuation, abbreviations (St = Street, VIC = Victoria, "Unit 3, 12" = "3/12"); a different unit number, street number, street name, suburb or postcode is DIFFERENT. An address stuck on or printed on the back of the card is the latest address.
 
 | Condition | Tag | Evidence | Action |
 |---|---|---|---|
-| A, B: name DIFFERENT from the Applicant (a middle-name-only difference as above: does not count) | Name mismatch | Both names verbatim, where they differ | prepare a Statutory Declaration / Name Change Certificate |
-| C, D, E: name DIFFERENT (as above) | Name mismatch | As above | prepare a Statutory Declaration |
+| A, B: name DIFFERENT from the Applicant, same person (a middle-name-only difference as above: does not count) | Name mismatch | Both names verbatim, where they differ | prepare a Statutory Declaration / Name Change Certificate |
+| C, D, E: name DIFFERENT (as above), same person | Name mismatch | As above | prepare a Statutory Declaration |
+| A–E: another person's document (above) | Name mismatch | "another person's <document>": name as printed, Applicant's name | request <Applicant>'s own <document> from the client, or ask staff whether <name as printed> should be added to the deal |
 | A: address DIFFERENT from profile | Address mismatch | Both addresses, which part differs | request an updated address from the client |
 | A, C, D: expired; B: expired more than 2 years | Expired | Expiry Date, today (B adds the 2-year mark) | request a current document or a replacement document from the client |
 | C: always, unless the batch has a valid Visa/VEVO or that person's own Australian passport | Visa | Country code; batch has no visa or Australian passport for this person | request the current visa from the client |

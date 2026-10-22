@@ -93,7 +93,7 @@ Net pay, period, Pay date do not go into Fact Find; record them in the "Facts fo
 - Do not put reversed periods (start after end) in `periods`, because the tool returns an error for the whole call. Then record "Could not check: continuity: reversed period in <file>".
 - The three set-level lines (Over 30 days, Not consecutive, YTD) go only in the latest payslip's block. Other blocks write a Notes line "assessed as a set in the <latest file> block".
 - A payslip prints only the period end: do not compute the start yourself; call without `periods` (dropping one period would create a false gap) and record "Could not check: continuity: <file> prints only the period end".
-- The whole set has only one payslip: "Could not check: continuity: only one payslip".
+- The set includes that person's payslips already on the deal, not archived or replaced (`references/cross-checks.md`, "Documents already on the deal"): a payslip of the batch whose period directly follows a filed one is consecutive. Only when the whole set, with those, has one payslip: "Could not check: continuity: only one payslip".
 
 Notes only when:
 - Superannuation paid by the employer (Superannuation Guarantee): not salary sacrifice.
