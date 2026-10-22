@@ -105,7 +105,7 @@ Notes only when:
 ## 5. Special notes
 
 - **Payslip set** = every payslip for the same Employee and the same employer (compare ABN; no ABN, compare name) in the batch, including several payslips in one file. Working in two places = two sets, assessed separately.
-- **Duplicate files.** Two files with the same content (same period, same figures, same file information): Notes "duplicate of <name>" in both blocks, counted only once in the set.
+- **Duplicate files.** Two files with the same content (same period, same figures, same file information): Notes "duplicate of <name>" in both blocks, counted only once in the set. With a CRM, the same pay period and employer as a batch payslip or one on the deal: a likely duplicate (`crm-recording.md` 10.6).
 - An `INVALID` payslip does not join the set. The latest payslip's block writes a Notes line "<file> not counted in the set (INVALID)".
 - "Facts for cross-checking" include, if printed: Employee · employer, ABN and ABN status per ABN Lookup · period (frequency) · Pay date · Gross · Net pay · YTD Gross · pay account (last 4 digits).
 

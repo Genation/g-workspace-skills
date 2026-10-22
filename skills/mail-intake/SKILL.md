@@ -5,7 +5,7 @@ description: Take in one client email for a loan application - from the mail acc
 
 # Client email intake
 
-Put the attachments of ONE email into `<deal folder>/tmp/`, for the next step to check with the `doc-check` skill. This skill does not assess, rename or file files into the official folders by content. Files stay in `tmp/` until the `doc-check` skill checks them; when a file passes and staff approve, the CRM renames it by the rules and moves it into the folder of its document type (filing).
+Put the attachments of ONE email into `<deal folder>/tmp/`, for the next step to check with the `doc-check` skill. This skill does not assess, rename or file files into the official folders by content. Files stay in `tmp/` until the `doc-check` skill checks them; when a file passes and staff approve (Full access: at once), the CRM renames it by the rules and moves it into the folder of its document type (filing).
 
 There are three paths, chosen in Step 0:
 - **CRM path** (Steps 1, 2, C1 → C6), the default: an email in a mail account on this computer, and the organisation has the `crm` module enabled (find the client and deal on the CRM, register files on the deal).
