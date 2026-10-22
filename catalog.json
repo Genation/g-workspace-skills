@@ -4,14 +4,13 @@
     {
       "id": "mail-intake",
       "title": "Client email intake",
-      "summary": "Find the client and deal by the sender's email (on the CRM if your organisation has one, otherwise on Monday), save the attachments to the deal folder (straight from your organisation's shared mailbox when it has one) and register them on the deal.",
-      "details": "For the email you choose, the assistant finds the client and deal on your organisation's CRM by the sender's email address (if the organisation has no CRM, it finds the Deal on Monday), finds the deal folder (the folder the CRM has linked or will link to the deal, usually under Customers/; if there is none, it creates one with a tmp/ folder), saves the attachments that aren't there yet into tmp/ to be checked later, then registers those files on the deal on the CRM. When your organisation has connected its shared Outlook mailbox, the assistant reads the email there (when you start it from the Mail page or name the email) and the server copies the attachments straight into the deal's tmp/ on OneDrive, without a mail account or OneDrive sync on this computer; it leaves out signature logos and pictures in the email body. If there is no client or deal yet, the assistant proposes creating them and only creates them when you agree. Asking it to process an email covers creating the folder, saving the files and registering them, in Ask first and Full access mode; in Plan only mode it only says what it would do. The assistant doesn't rename files, change Monday, reply to the email or mark it as read; files stay in tmp/ until they are checked and you approve filing.",
+      "summary": "Find the client and deal by the sender's email (on the CRM if your organisation has one, otherwise on Monday), save the attachments to the deal folder and register them on the deal.",
+      "details": "For the email you choose, the assistant finds the client and deal on your organisation's CRM by the sender's email address (if the organisation has no CRM, it finds the Deal on Monday), finds the deal folder (the folder the CRM has linked or will link to the deal, usually under Customers/; if there is none, it creates one with a tmp/ folder), saves the attachments that aren't there yet into tmp/ to be checked later, then registers those files on the deal on the CRM. It reads the email from the mail account you added on this computer (Sign in with Microsoft or IMAP). Only if your organisation uses the enterprise shared-mailbox connection and this computer has no mail account does it read the email through the app's server instead, which copies the attachments straight into the deal's tmp/ on OneDrive, leaving out signature logos and pictures in the email body. If there is no client or deal yet, the assistant proposes creating them and only creates them when you agree. Asking it to process an email covers creating the folder, saving the files and registering them, in Ask first and Full access mode; in Plan only mode it only says what it would do. The assistant doesn't rename files, change Monday, reply to the email or mark it as read; files stay in tmp/ until they are checked and you approve filing.",
       "default": true,
       "icon": "inbox",
       "examples": [
         "Process this email and save the files to the deal",
-        "Save the documents the client sent in this email to the deal",
-        "Process the latest email from the client in the shared mailbox"
+        "Save the documents the client sent in this email to the deal"
       ]
     },
     {
