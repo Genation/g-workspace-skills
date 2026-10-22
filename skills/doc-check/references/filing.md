@@ -8,7 +8,7 @@ Do this when the CRM is present with both tools `genation-workspace_deal_file_fi
 
 ### 12.1 Planning
 
-`deal_file_filing_get` with `id` = the file's `id` on the deal, `facts` = facts read from the document for the placeholders in the type's `fileNamePattern` (compact list of `document_types_list`), per the table below, and `name` only when staff chose a name (12.4). Result: `currentPath`, `targetFolderPath`, `targetName` (the final name, with the extension and any ` (2)`), `suggestedName` (the naming rule's name), `nameChosenByStaff`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Remember exactly the `facts` and `name` sent.
+`deal_file_filing_get` with `id` = the file's `id` on the deal, `facts` = facts read from the document for the placeholders in the type's `fileNamePattern` (compact list of `document_types_list`), per the table below, and `name` only when staff chose a name (12.4). Result: `currentPath`, `targetFolderPath`, `targetName` (the final name, with the extension and any ` (2)`), `suggestedName` (the naming rule's name), `nameChosenByStaff`, `naming`, `latestCheck`, `checkStatus`, `filed`, `blockers`. Remember exactly the `facts` and `name` sent. Plan every file in ONE turn. A plan stays valid until the file changes (a new check, an acceptance, a tick, a name staff give, a filing error of 12.4): without such a change, do not plan that file again; use the plan you have.
 
 | Placeholder in the name pattern | `facts` |
 |---|---|
@@ -42,21 +42,22 @@ Re-plan each file at most twice after handling things yourself. `filed` = true: 
 
 ### 12.3 Proposal
 
-Files with no blockers left: list and number them, with the suggested name and the folder:
+Files with no blockers left, then files whose only blocker is `check_not_satisfied` (12.5, marked `· open check items`): list and number them, with the suggested name and the folder:
 
 ```
 File into <deal folder> (out of tmp/, named by the naming rule; keep each name or give your own):
 1. tmp/IMG_20261018_DL.pdf → 3. ID/Lachlan_DL.pdf
 2. tmp/Payslip Oct 2026.pdf → 4. Income & Expenses/Lachlan_Coastal Freight Pty Ltd_Payslip_01-14Oct26.pdf
+3. tmp/Passport scan.jpg → 3. ID/Lachlan_Passport.jpg · open check items
 ```
 
-Paths relative to the deal folder: left `currentPath`, right `targetFolderPath` and `targetName`, copied exactly from the plan. Then per the approval rule:
+Paths relative to the deal folder: left `currentPath`, right `targetFolderPath` and `targetName`, copied exactly from the plan. Then per the approval rule (files with open check items: only per 12.5):
 - The user already asked to file (a clear instruction earlier in this chat, such as "process and file"): file (12.4) without asking; in Full access no list is needed, the lines after filing are the report.
 - Otherwise, in both modes: the filing question goes into the next steps (SKILL.md section 7), for example "File these 2 as listed?" with the options "File all 2", "Change…" (other numbers or names), "No".
 
 ### 12.4 File
 
-For each file approved (the whole list, the numbers stated, or the user's request): `deal_files_file` with `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` of exactly the plan shown, exactly the `facts` sent, and the same `name` when staff chose one. Files not approved: leave in `tmp/`.
+For each file approved (the whole list, the numbers stated, or the user's request), every file in ONE turn: `deal_files_file` with `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` of exactly the plan shown, exactly the `facts` sent, and the same `name` when staff chose one. Files not approved: leave in `tmp/`.
 - **A name staff give** ("call no. 2 Lachlan payslip October"): re-plan that file (12.1) with `name` = their name as given (the CRM keeps the file's extension) and the same `facts`; show `tmp/<file> → <subfolder>/<targetName>`, then file it with that `name` and `expectedName` = this plan's `targetName`: their answer is the approval. `targetName` has a version suffix (` (2)`: another file in the folder already has that name): say so; in Ask first, ask once more (`question`: "File as <targetName>", "Change…", "No") before filing.
 - `[file_name_invalid]` (plan or filing): the name cannot be used. Say why in plain words from the message (a character SharePoint refuses, such as `/ : * ? " < > |`, a reserved name, or too long) and ask for another name; you may offer a corrected name as an option, never use a name staff did not choose.
 - Success: `moved` = true means filed; `moved` = false means already in place.
@@ -69,13 +70,13 @@ After filing, one line per file: `- tmp/<file name> → <subfolder>/<new name> �
 
 Staff decide, in both modes; never accept or tick on your own judgement, not even when the user asked to "file everything".
 - **Explain** in plain words what is open: the `not_met` or `not_checked` criteria of the latest check (`ruleResults` just recorded, or `document_checks_list` with `dealFileId`, `limit` 1), each in the rule's words (`condition`, otherwise `subject`) from the `checkRules` read with `codes`; file type not in that read (file checked earlier): `document_types_list` with `codes` = the missing types, once for all such files. Type without rules: the report's Notices and Could not check lines.
-- **Offer**, in the next steps (SKILL.md section 7): "Accept as is (type your reason)", "Tick specific criteria", "Request a new one" (only when the action is a new document from the client), "Leave it". For example: "The payslip has no pay period: request a new one, accept it as is (your reason), or leave it?"
-- **Accept as is:** only when a staff member says in the chat that they accept the document: `genation-workspace_document_checks_accept` with `documentId` = `document.id`, `dealId`, `note` = their reason in their own words. No reason given: ask for it once; never write a reason yourself. It ticks every criterion of the type and also works for a type without rules. `[document_type_required]`: classify first (10.3; type unknown: ask staff); `[file_archived]`: not accepted, say why.
+- **Offer**, in the next steps (SKILL.md section 7), one question per file: "Accept as is and file (type your reason)" (only when `check_not_satisfied` is its only blocker; the plan is in the 12.3 list), "Accept only (type your reason)", "Tick specific criteria", "Request a new one" (only when the action is a new document from the client), "Leave it". For example: "No. 3, the passport, is not certified: accept it as is and file it as listed (type your reason), accept only, request a new one, or leave it?"
+- **Accept as is** (and file, or only): only when a staff member says in the chat that they accept the document (one of these options, or their own words): `genation-workspace_document_checks_accept` with `documentId` = `document.id`, `dealId`, `note` = their reason in their own words. No reason given: ask for it once; never write a reason yourself. It ticks every criterion of the type and also works for a type without rules. `[document_type_required]`: classify first (10.3; type unknown: ask staff); `[file_archived]`: not accepted, say why.
 - **Tick specific criteria:** only the criteria staff name, of the file they name: `genation-workspace_document_check_rules_mark` with `dealFileId`, `ruleId` (or `ruleCode`), `outcome` = `met` (or what they say), `note` = their words.
 - **Request a new one:** nothing is accepted, the file stays in `tmp/`; the draft request the check put on the deal (10.2 `request`), if any, is there for staff to send.
 - **Leave it:** the file stays in `tmp/`, nothing recorded.
 
-After an acceptance or a tick: re-plan (12.1; `latestCheck.id` is now the staff's check), then file per 12.3–12.4 when the user asked to file it ("accept it and file it", or "process and file"); otherwise propose filing it. Line: `- <file> · accepted by staff: <note>` or `- <file> · ticked: <criteria>`.
+**Accept and file in one answer.** A staff member's "Accept as is and file" (or "accept it and file it") approves both the acceptance and the filing: do not ask again; the same when they accept a file after asking to file ("process and file"). Accept (every such file in ONE turn), then in the next turn file each per 12.4 with `checkId` = the id of the check the accept returned, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath`, the same `facts` and `name`, of the plan already shown, without planning again (no plan for that file yet: plan it, 12.1, in the turn of the accept; its check blockers do not count). `[check_not_latest]`, `[filing_changed]`, `[filing_blocked]`: as in 12.4. The same after a tick that returns `checkStatus` = `satisfied`, with that check, when the user asked to file. "Accept only", or a tick with no request to file: do not file; say the file is now ready to file. Line: `- <file> · accepted by staff: <note>` or `- <file> · ticked: <criteria>`.
 
 ### 12.6 Renaming a filed file
 
