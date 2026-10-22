@@ -14,9 +14,10 @@ There are three paths, chosen in Step 0:
 
 Each step does exactly one job, takes its input from the previous step and returns exactly the output written below. A step that hits a **Stop** condition: do not do the later steps; only report the result (Result section) with the stop reason.
 
-**Approval.** The chat's mode (latest `chat-mode` context; none: Ask first) is the only permission; the app shows no card for these tools.
-- Asking to process an email (typed, or started from the app's Mail page or mail screen) plainly covers what this skill does: creating the deal folder, saving the email's attachments into the deal's `tmp/`, registering them on the deal. In Ask first and Full access, do these straight away, without asking: the request is the approval the save tools ask for.
-- Ask the user only where **Stop** is written below. Creating a client or deal is not part of the request: never on your own initiative, in either mode; propose it and ask with the `question` tool (Step C3), unless the user already asked for it in this chat.
+**Approval.** The chat's mode (latest `chat-mode` context; none: Ask first) is the only permission; the app shows no card for these tools. A request to process an email (typed, or started from the app's Mail page or mail screen) permits reading it and finding the client, deal and folder; every change needs the mode's approval:
+- **Ask first:** ONE `question` before the first change (creating the deal folder, saving, registering), once the email is read and the client and deal are matched. First a short message with what you found (sender, client, deal, deal folder, attachments to save and left out), then e.g. "Save 2 attachments to <deal> tmp/ and register them?" with "Save and register", "Change…", "No". When: CRM path before Step C4 item 3; Monday path before Step M2 item 3 ("Save 2 attachments to <Deal folder>/tmp/?", "Save"); shared mailbox path after Step S3. That answer covers the whole batch: the folder, saving, registering and the check that follows (`doc-check` does not ask again for these files); never ask per file. Step C3 needed: the same ONE question ("Create client <name> and deal <name>, then save 2 attachments to its tmp/ and register them?", "Create, save and register"). A clear instruction earlier in this chat ("save and register them") counts: do not ask. "Change…" or a typed answer: adjust, show it, ask again; "No": **Stop** - "not saved: you chose not to".
+- **Full access:** do it without asking, then report. Never create a client or deal on your own initiative, in either mode (Step C3).
+- Ask only there and where **Stop** is written below.
 - Plan only: change nothing; say which folder, files and registrations you would make, and that the chat must be in Ask first or Full access for it.
 
 The CRM tools are the `genation-workspace_…` tools (the app's server, for the organisation the user has selected). When talking to the user, refer to clients and deals by name; do not read out ids.
@@ -32,7 +33,7 @@ Local mail is the default: the mail accounts the user added on this computer (Si
    - **Local mail finds no account:** a local mail tool answers that there is no email account on this computer, or there are no `guroos_mail_…` tools. The list has `outlook_mail` and `crm` and the `mailbox_messages_list` tool exists: shared mailbox path, Step S1, with the user's request. Otherwise: **Stop** - "No mailbox is connected on this computer: in the Mail page, click \"Add email account\", then Sign in with Microsoft, or IMAP."
 3. **Backend errors.** The shared mailbox path answers `mailbox_read_not_allowed`, `mailbox_not_connected` or `mailbox_not_configured`, or lacks its tools: unless a local mail tool already said there is no account, call `guroos_mail_folders` once (it lists this computer's accounts).
    - A local account: switch to local mail. For the hand-off, find the same email with `guroos_mail_search` (`from` = the sender, `subject` = the subject the hand-off names), once; exactly one: Step 1 with it; none or several: list them and ask, **Stop**. Write in the result: "the organisation's shared mailbox could not be read (<reason>); used the mail account on this computer".
-   - No local account: **Stop** - "No mailbox is connected on this computer: in the Mail page, click \"Add email account\", then Sign in with Microsoft, or IMAP." Add the shared mailbox's reason in one line (an organisation admin can finish its set-up in Settings → Microsoft 365).
+   - No local account: **Stop** as in item 2 ("No mailbox is connected on this computer…"). Add the shared mailbox's reason in one line (an organisation admin can finish its set-up in Settings → Microsoft 365).
 4. **One email, one path.** Read and save an email only with its path's tools: never save a local email's attachments with `mailbox_attachments_save` (it only reaches the organisation's shared mailbox on the server), and never read or save the shared mailbox's email with the local tools, except when switching per item 3.
 
 **Output:** local mail or shared mailbox path.
@@ -83,7 +84,7 @@ Search only by the sender's email address, and by the signature phone number whe
 
 ### Step C3 - Propose creating a client or deal
 
-Never create a client or deal on your own initiative, in either mode. Propose, then ask with the `question` tool (options: "Create client and deal" or "Create deal", "Change…", "No"), unless the user already asked in this chat to create them; **Stop** until the user answers:
+Never create a client or deal on your own initiative, in either mode. Propose, then ask with the `question` tool (options: "Create client and deal" or "Create deal", "Change…", "No"; Ask first: one question with the save, Approval), unless the user already asked in this chat to create them; **Stop** until the user answers:
 
 - No client yet: propose creating a client with the full name split from the sender display name (last word is the surname - `familyName`, the rest is the given name - `firstName`), `email` = sender address, and the signature phone number if any; plus a deal named with the client's full name, the client as `client`. State the names you will use so the user can correct them. Display name empty or not a person's name (company name, "info", an email address): ask the user for the client's full name.
 - Client exists but no open deal: propose creating a deal named with the client's name, the client as `client`.
@@ -107,7 +108,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
 2. Both empty (the CRM has no usable folder name left, or an old CRM): call `genation-workspace_deal_files_list` with `dealId`. Each file has `document.path`, the path from the root folder, e.g. `/Customers/Lan Quach_PUR OO/3. ID/Lan Quach_DL.pdf`.
    - Files exist: the deal folder is the part of the path before the subfolder (`0. Compliance` … `6. Approval & Settlement`, `Archive`, `tmp`), or before the file name when the file sits directly in the deal folder; drop the leading `/`. Files give two different deal folders: **Stop** - list them and ask the user which folder to use.
    - No files yet: **Stop** - "CRM has not given the folder of deal `<title>`": ask the user where the deal folder is in the vault.
-3. Call `guroos_customer_create` ONCE with `customer` = the deal folder path above and `new_folder` = `true` (creates missing folders, including `Customers/`, adds `tmp/` and the standard subfolders; existing folders and files stay unchanged). Tool reports the path unusable or outside the vault: **Stop** - quote the tool's words verbatim.
+3. Ask first: only after the approval (Approval; Step C3's question already covers it). Call `guroos_customer_create` ONCE with `customer` = the deal folder path above and `new_folder` = `true` (creates missing folders, including `Customers/`, adds `tmp/` and the standard subfolders; existing folders and files stay unchanged). Tool reports the path unusable or outside the vault: **Stop** - quote the tool's words verbatim.
 
 **Output:** deal folder path (from the vault root), just created or existing, the subfolders just added.
 
@@ -158,15 +159,13 @@ This skill only reads Monday; do not create or edit items, columns or comments.
 
 ### Step M2 - Find or create the Deal folder, with the full set of subfolders
 
-This step does not ask the user. The `guroos_customers` result may say "ask the user" or "Ask the user for the exact name": in this step ignore that prompt and follow the rules below. Do not list every folder, do not guess a folder with a similar name.
+This step asks the user only for Ask first's approval, before item 3. The `guroos_customers` result may say "ask the user" or "Ask the user for the exact name": in this step ignore that prompt and follow the rules below. Do not list every folder, do not guess a folder with a similar name.
 
 1. Search with `guroos_customers`, `query` = the Deal name (matched against the vault's top-level folders, ignoring accents, case and word order); never a path.
 2. Determine the Deal folder name:
    - A folder whose name equals the Deal name (ignoring diacritics, case, joining characters such as `_` `-`, e.g. `Lan_Quach` equals `Lan Quach`): use that folder.
    - No folder equals the Deal name (even when a folder matches only partly, like `Lan Quach_PUR OO`, or has a similar name, like `LanThoQuach-TBC`): Deal folder name = exactly the Deal name. Do not make up another name.
-3. Call `guroos_customer_create` ONCE with `customer` = the Deal folder name from item 2 and `new_folder` = `true`. The tool does exactly what is missing:
-   - Folder does not exist: creates the Deal folder with `tmp/` and the standard subfolders (`0. Compliance`, `1. Application`, `2. Security`, `3. ID`, `4. Income & Expenses`, `5. Assets & Liabilities`, `6. Approval & Settlement`, `Archive`).
-   - Folder exists: only adds `tmp/` and any missing standard subfolders; existing folders and files stay unchanged. Nothing missing: the tool reports "Nothing created".
+3. Ask first: the approval `question` first (Approval). Call `guroos_customer_create` ONCE with `customer` = the Deal folder name from item 2 and `new_folder` = `true`. The tool creates only what is missing (the Deal folder, `tmp/`, the standard subfolders `0. Compliance` … `6. Approval & Settlement`, `Archive`); existing folders and files stay unchanged ("Nothing created" when nothing was missing).
 
 **Output:** the name of exactly one Deal folder, whether it was just created or existed, and the subfolders just added (if any).
 
@@ -192,6 +191,7 @@ Enterprise option, only when Step 0 chooses it. The backend reads the email and 
 
 **Fewer turns** (each turn re-sends the whole conversation). Read the email ONCE: one `mailbox_messages_get`, plain text, default length; do not read it again in HTML or longer. Make every independent call of a step in ONE turn, in parallel; never repeat a call whose input has not changed (reuse the earlier result). A run with a known client and deal takes three turns of calls, then the result:
 1. `modules_list` and `mailbox_messages_get` (the hand-off's id; no local account: `mailbox_messages_list`, then `mailbox_messages_get` next turn);
+   Ask first: then the message and the ONE approval `question` (Approval), alone in its turn;
 2. ONE `mailbox_attachments_save` per deal (with `document_types_list` when Step S3 needs it);
 3. every `deal_files_register_existing` call.
 
@@ -234,7 +234,7 @@ Compressed or password-protected files: save as is, note it in the report. Nothi
 
 ### Step S4 - Save into the deal's tmp/
 
-ONE `genation-workspace_mailbox_attachments_save` call per deal: `messageId` = the email's `id`, `dealId` = the deal, `attachmentIds` = every id from Step S3 (at most 20; more: a second call with the rest after the first returns). Never one call per file. The backend creates the deal folder when the deal has none (do not call `guroos_customer_create`), keeps each attachment's name, adds ` (2)` on a name clash and never overwrites.
+Ask first: only after the approval (Approval). ONE `genation-workspace_mailbox_attachments_save` call per deal: `messageId` = the email's `id`, `dealId` = the deal, `attachmentIds` = every id from Step S3 (at most 20; more: a second call with the rest after the first returns). Never one call per file. The backend creates the deal folder when the deal has none (do not call `guroos_customer_create`), keeps each attachment's name, adds ` (2)` on a name clash and never overwrites.
 
 The result has `dealFolderPath` and `files` (`attachmentId`, `name`, `path`, `driveItemId`, `alreadySaved`). Note each file's saved `name`. `alreadySaved` true: "already there" (saved from this email before); still register it in Step S5.
 
@@ -254,12 +254,7 @@ In ONE turn, one `genation-workspace_deal_files_register_existing` call per file
 - `subjectContactId` = the client's `id` (Step S2 or C3);
 - `documentTypeCode` only when Step S3 chose a type.
 
-Do not pass `path`, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId`. Results:
-- Success: as Step C6 item 3 (keep the file's `id` and `document.id` in the conversation for `doc-check`; do not read them out).
-- `409`: "already on the deal".
-- `404`: the file is no longer on the organisation's OneDrive (deleted or moved): "not registered: file no longer on OneDrive"; do not retry.
-- `503`: write the reason the tool gives, once; do not retry.
-- Other errors: write the tool's words verbatim, do not retry.
+Do not pass `path`, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId`. Results as Step C6 item 3, except `404`: the file is no longer on the organisation's OneDrive (deleted or moved): "not registered: file no longer on OneDrive"; do not retry.
 
 **Output:** files registered on the deal and files not registered (with reason).
 
