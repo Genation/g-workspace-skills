@@ -107,6 +107,7 @@ Notes only:
 - Tax Return showing negative Taxable income or a business loss (`[Loss]` is only for Profit and Loss).
 - Medicare levy other than 2% of Taxable income (may be reduced or exempt); NOA is an amended assessment.
 - The comparisons done and their results.
+- Something this file does not check (not a field, comparison or Notices condition here: the tax agent's or accountant's details, schedules or notes pages not needed under "Read by page") that could not be seen or confirmed: at most a Notes line, never "Could not check" (SKILL.md section 7).
 
 ## 5. Special notes
 

@@ -103,6 +103,7 @@ Notes only:
 - "and/or nominee" after the purchaser's name.
 - Electronic signature, signing by an attorney, director, executor or administrator of an estate: counts as signed.
 - Land Title with a mortgage or caveat: write the mortgagee's or caveator's name.
+- Something this file does not check (not a field, comparison or Notices condition here: a logo, payment slip or BPAY details, General Conditions or appendix pages not needed under "Long documents", whether a signature is genuine (only whether each party signed is checked)) that could not be seen or confirmed: at most a Notes line, never "Could not check" (SKILL.md section 7).
 
 ## 5. Special notes
 

@@ -109,6 +109,7 @@ Notes only when:
 - Name on the Equifax report differs from the Applicant; names of Settlor, Appointor, individual Trustee, Secretary (the checklist does not compare these names).
 - Previous Directorships; enquiries before the 6-month mark.
 - Profile has no entity yet: record the trust or company name.
+- Something this file does not check (not a field, comparison or Notices condition here: deed clauses or pages not needed under "Read in this order", the credit score, old addresses, whether a signature or stamp is genuine (only whether it is there is checked)) that could not be seen or confirmed: at most a Notes line, never "Could not check" (SKILL.md section 7).
 
 ## 5. Special notes
 

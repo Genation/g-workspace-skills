@@ -111,6 +111,7 @@ Copy only the transactions to notify.
 - Type A account with "Dishonour fee", "Overdrawn fee".
 - Credit card: Credit limit, "Overlimit fee", "Cash advance". Home loan: Fixed rate expiry, offset, redraw.
 - BNPL with late fees (rule 23 checks the name only).
+- Something this file does not check (not a field, comparison or Notices condition here: a logo, a masked BSB, card artwork) that could not be seen or confirmed: at most a Notes line, never "Could not check" (SKILL.md section 7).
 
 ## 5. Special notes
 
