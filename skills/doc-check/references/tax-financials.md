@@ -83,7 +83,9 @@ Figures and dates read from an image (image file, page image) or the OCR text la
 | Type | Field | If absent, write |
 |---|---|---|
 | Individual Tax Return, NOA | Taxable income (or loss, as printed) with the financial year, e.g. "88,320 (2024–25)" | "not on the document" |
+| Individual Tax Return | Net profit / loss (figure of `Net income or loss from business`, business and professional items), printed label and financial year in brackets | "no business income on the return" |
 | Entity Tax Return (company, partnership, trust) | Total income (figure of `Total income` or `Total business income`); Total expenses; Net profit / loss (figure of `Total profit or loss` or `Net income or loss`); keep field names exactly as in this column, printed label and financial year in brackets | "not on the document" |
+| Tax Return (individual, partnership, company, trust) | Balance Sheet: `Total assets` and `Total liabilities` as printed on the return, printed labels and financial year in brackets | "not on the tax return" |
 | Financial Statements — Profit and Loss (including standalone P&L, management accounts) | Total income; Total expenses; Net profit / loss | "not on the document" |
 | Financial Statements — Balance Sheet (including standalone Balance Sheet) | Total assets; Total liabilities; Net assets | "not on the document" |
 | ATO Income Statement | no Fact Find field | — |
@@ -132,6 +134,8 @@ Conclusion: ACTION NEEDED
 Source file check: passed (source: known software (XReport tax/accounting software, from Producer)) · rules: references/tax-financials.md
 Record in Fact Find
 - Taxable income: 88,320 (2024–25)
+- Net profit / loss: no business income on the return
+- Balance Sheet: not on the tax return
 Notices
 - [TFN] Pages 1, 3, 4, 5, 6, 7, 8, 9 and following pages show a TFN → redact the TFN before saving or sharing.
 Could not check
