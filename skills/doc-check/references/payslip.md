@@ -62,7 +62,7 @@ Scanned pages and pages Guroos re-rendered (payslip printed through a PDF printe
 | Payslip | Employer phone no. | "not on the payslip" |
 | Payslip | Salary Sacrifice / Packaging / Deductions before tax (item name and amount for the period) | "not on the payslip"; only zero lines (section 4): "none (<item name as printed> $0.00)" |
 
-Net pay, period, Pay date do not go into Fact Find; record them in the "Facts for cross-checking" line (section 5).
+Net pay, period, Pay date do not go into Fact Find; record them in the "Facts for cross-checking" line (section 5). With a CRM, Employer ABN, address and phone go on the person's employment with this employer in the deal's Fact Find (`crm-recording.md` 10.2, "Employment").
 
 **ABN lookup** (ABN Lookup; SKILL.md 5.5). Look up each employer in the batch once; payslips with the same ABN share the result.
 - Payslip prints an ABN: `guroos_abn_lookup(abn=<ABN as printed>, name_to_match=<employer name as printed at the top of the page>)`.
@@ -88,12 +88,15 @@ Net pay, period, Pay date do not go into Fact Find; record them in the "Facts fo
 
 **Zero lines.** Payslip templates print every item, even when nothing was paid or deducted. A line whose amount for the period is $0.00, blank or "-", and whose YTD (if printed) is also $0.00, blank or "-", means none: salary sacrifice, packaging, pre-tax and post-tax deductions, allowances, reimbursements, overtime, bonus, leave. It raises no Notices line (no `[Salary sacrifice]`, so no request to the client), no "Could not check" line and no Notes line; it changes no 2C total, so it is never an item of unclear group. Exception: a salary sacrifice, packaging or pre-tax line at $0.00 for the period but above $0.00 YTD is still `[Salary sacrifice]` (evidence: both amounts as printed). PAYG `Tax` at $0.00: section 1, sign (7).
 
-**By set.** At step 6 (`references/cross-checks.md` table 1), call once for the whole set:
-`guroos_date_check(document_date=<Pay date of the latest payslip>, max_age_days=30, periods=[<period of each payslip>])`
+**By set.** At step 6 (`references/cross-checks.md` table 1), call once for the whole set, in every run:
+`guroos_date_check(document_date=<Pay date of the set's latest payslip>, max_age_days=30, periods=[<period of each payslip of the set>])`
+- **The whole set, recomputed every run.** With a CRM, the set is the batch's payslips plus ALL of that person's payslips from that employer now on the deal, filed or still in `tmp/`, checked earlier or not (`references/cross-checks.md`, "Documents already on the deal"); never archived or superseded ones (`archivedAt` or `replacedByDealFileId` set), failed ones (latest check `not_met`: INVALID, UNREADABLE) or likely duplicates (`crm-recording.md` 10.6). The set's latest payslip may be one already on the deal: its Pay date is `document_date`.
+- **Each period from the payslip itself:** what this conversation read, the filed name (`14-27Sep26`), else read its page (`guroos_document_read` with `cloud`). Never take a gap, a `[Not consecutive]` line, a set result or a period list from an earlier check, report or reply: a payslip added since makes them stale. Continuity is only what this run's tool call returns.
+- **Show the computed set:** every period in date order with its file ("(already on the deal)" for those), then the tool's result, e.g. "Set of 3 payslips (Sample Logistics Pty Ltd): 17/08–30/08/2026 payslip_0.pdf · 31/08–13/09/2026 payslip_1.pdf (already on the deal) · 14/09–27/09/2026 payslip_2.pdf (already on the deal): continuous, no gaps (per the tool)". A gap: `[Not consecutive]` with this call's "Gap" lines.
 - Do not put reversed periods (start after end) in `periods`, because the tool returns an error for the whole call. Then record "Could not check: continuity: reversed period in <file>".
-- The three set-level lines (Over 30 days, Not consecutive, YTD) go only in the latest payslip's block. Other blocks write a Notes line "assessed as a set in the <latest file> block".
+- The three set-level lines (Over 30 days, Not consecutive, YTD) go only in the block of the batch's latest payslip. Other blocks write a Notes line "assessed as a set in the <latest file> block".
 - A payslip prints only the period end: do not compute the start yourself; call without `periods` (dropping one period would create a false gap) and record "Could not check: continuity: <file> prints only the period end".
-- The set includes that person's payslips already on the deal, not archived or replaced (`references/cross-checks.md`, "Documents already on the deal"): a payslip of the batch whose period directly follows a filed one is consecutive. Only when the whole set, with those, has one payslip: "Could not check: continuity: only one payslip".
+- Only when the whole set, with those on the deal, has one payslip: "Could not check: continuity: only one payslip".
 
 Notes only when:
 - Superannuation paid by the employer (Superannuation Guarantee): not salary sacrifice.
@@ -131,7 +134,7 @@ Could not check
 Notes
 - Source unknown (Producer "SamplePay PDF"). The creating software is not on the known list.
 - $3,000.00 − $200.00 − $650.00 = Net pay $2,150.00: matches.
-- Set of 2 payslips: periods 31/08/2026–27/09/2026 continuous; YTD Gross $21,000.00 − $18,000.00 = Gross $3,000.00. Pay date 30/09/2026, today 11/10/2026: WITHIN 30 days (per the tool).
+- Set of 2 payslips (Sample Logistics Pty Ltd): 31/08–13/09/2026 payslip_1.pdf · 14/09–27/09/2026 payslip_2.pdf: continuous, no gaps (per the tool); YTD Gross $21,000.00 − $18,000.00 = Gross $3,000.00. Pay date 30/09/2026, today 11/10/2026: WITHIN 30 days (per the tool).
 - Superannuation $360.00 paid by the employer, not salary sacrifice.
 - ABN Lookup: employer name matches the entity name; GST registered from 01/07/2015.
 Facts for cross-checking: Employee Thi Mai Tran · Sample Logistics Pty Ltd, ABN check digits valid, Active (ABN Lookup) · period 14/09–27/09/2026 (fortnightly) · Pay date 30/09/2026 · Gross $3,000.00 · Net pay $2,150.00 · YTD Gross $21,000.00 · pay account …4821
