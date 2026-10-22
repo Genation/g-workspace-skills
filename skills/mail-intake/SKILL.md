@@ -99,7 +99,7 @@ User declines: **Stop** - "not saved: no deal yet". Tool reports an error: **Sto
 
 ### Step C4 - Deal folder
 
-The vault (the conversation's working folder) is the local synced copy of the organisation's OneDrive root folder. The deal folder can be anywhere under the vault; by the organisation's naming convention it is usually `Customers/<deal folder name>`. The `guroos_…` tools take the deal folder as a **path from the vault root** in `customer` (e.g. `Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`), not just the top-level folder name. Determine that path as follows:
+The vault (the conversation's working folder) is the local synced copy of the organisation's OneDrive root folder. The deal folder can be anywhere under the vault; by the organisation's naming convention it is usually `Customers/<deal folder name>`. The `guroos_…` tools take the deal folder as a **path from the vault root** in `customer` (e.g. `Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`), not just the top-level folder name, never an absolute path (`C:\…`, `/Users/…`): that always misses. A known deal folder needs no `guroos_customers` search, whatever its description says. Determine that path as follows:
 
 1. Call `genation-workspace_deals_get` with the deal's `id`. Deal folder = `deal.folderPath ?? deal.plannedFolderPath`, without the leading `/` (e.g. `/Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC` → `Customers/Mai Nguyen & Jono Kirby_REFI OO_WBC`).
    - `folderPath` is the folder the CRM has attached to the deal; always use it, even when another folder has a similar name.
@@ -113,7 +113,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
 
 ### Step C5 - Document type and existing-file check
 
-1. Every file goes into the `tmp` subfolder (files awaiting check, not yet named, not yet filed), even when the type is known: a file only goes into its document-type folder when it is filed after the check (`doc-check` skill). By default, do not pass a document type.
+1. Every file goes into `tmp/`, even when the type is known (filing comes after the check, `doc-check`). By default, do not pass a document type.
 2. Only when the user states in chat what type a file is (e.g. "this file is a payslip"): call `genation-workspace_document_types_list` once, choose the type whose `label` or `code` is exactly the type the user said. Exactly one type: register that file with `documentTypeCode` = `code`. None or several: do not pass a type. Do not guess the type from the file name, subject or email content.
 3. View the deal folder with `guroos_customer_files` with `customer` = the deal folder path; compare each attachment name with the file names in `tmp/`, case-insensitive. A file with the same name is "already there": do not save it again, but still register it on the deal in Step C6 (the previous run may not have registered it).
 
@@ -160,7 +160,7 @@ This skill only reads Monday; do not create or edit items, columns or comments.
 
 This step does not ask the user. The `guroos_customers` result may say "ask the user" or "Ask the user for the exact name": in this step ignore that prompt and follow the rules below. Do not list every folder, do not guess a folder with a similar name.
 
-1. Search with `guroos_customers` using the Deal name (a name, never a path).
+1. Search with `guroos_customers`, `query` = the Deal name (matched against the vault's top-level folders, ignoring accents, case and word order); never a path.
 2. Determine the Deal folder name:
    - A folder whose name equals the Deal name (ignoring diacritics, case, joining characters such as `_` `-`, e.g. `Lan_Quach` equals `Lan Quach`): use that folder.
    - No folder equals the Deal name (even when a folder matches only partly, like `Lan Quach_PUR OO`, or has a similar name, like `LanThoQuach-TBC`): Deal folder name = exactly the Deal name. Do not make up another name.
