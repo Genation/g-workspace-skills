@@ -16,14 +16,14 @@
     {
       "id": "doc-check",
       "title": "Check loan documents",
-      "summary": "Check a client's documents against the 23-item checklist and report what needs doing; with the CRM, process a deal's new files from any source and file the ones that pass.",
-      "details": "The assistant checks the source file (genuine issued copy, edited, photo or scan), recognises the type, reads it by that type's rules and cross-checks the documents; the report gives the conclusion, Fact Find details and what to tell the client. With the CRM, when you ask it to process a deal it takes each new file in the deal's tmp/ (client portal, email, your upload, OneDrive): it registers each file with its type and client, records the results, marks a required document received only when fully met and files each document that passes. Then it lists what needs your review: notes the client will see, documents with open items and likely duplicates. It accepts a document only when you say so and never copies TFNs, Medicare or card numbers.",
+      "summary": "Check a client's documents against the 23-item checklist and report what needs doing; with the CRM, process a deal's new files, file the ones that pass and say what each borrower still needs.",
+      "details": "The assistant checks the source file (genuine issued copy, edited, photo or scan), recognises the type, reads it by that type's rules and cross-checks the documents; the report gives the conclusion, Fact Find details and what to tell the client. With the CRM, when you ask it to process a deal it takes each new file in the deal's tmp/ (portal, email, your upload, OneDrive), registers it with its type and client, records the results, marks a required document received only when fully met and files each document that passes, then lists what needs your review. Ask what's still missing and it answers per borrower: documents still needed, missing Fact File details and values waiting for you to accept. It accepts a document only when you say so and never copies TFNs, Medicare or card numbers.",
       "icon": "clipboard-check",
       "examples": [
         "Process the Whitmore deal",
         "What's new for the Whitmore deal?",
         "Has any client sent new documents?",
-        "Check the Whitmore deal's documents",
+        "What's still missing for the Whitmore deal, for each borrower?",
         "Check the payslip and statement I just attached"
       ],
       "default": true
