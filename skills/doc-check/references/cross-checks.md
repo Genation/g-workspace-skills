@@ -1,5 +1,7 @@
 # Cross-checks (multiple documents)
 
+This file also holds SKILL.md section 7, the report template, in its last part ("7. Report template").
+
 ## When to use
 
 Step 6 of SKILL.md: ONCE for the whole batch of one client, after steps 1–5 of every document.
@@ -92,3 +94,57 @@ Notes
 - SAMPLE AUTO FINANCE repayment $412.00 monthly: the batch has no statement for this loan yet.
 Facts for cross-checking: …4821 · period 01/07–30/09/2026 · pay 16/09 $2,150.00, 30/09 $2,000.00 · rent 05/09 $2,289.04 · repayment $412.00 monthly
 ```
+
+# 7. Report template
+
+Section 7 of the doc-check skill (the report's template and rules), split out of SKILL.md; read this file when SKILL.md section 3 says so. "Sections 1–9" are SKILL.md sections; "Next steps" and the review items stay in SKILL.md section 7.
+
+With a client folder, start with `Folder: <name or path of the folder used>`, then one block per document, ordered rule 1 → 23:
+
+```
+### <file> — <type> (rule n) · <certain | uncertain: reason>
+Conclusion: <INVALID | UNREADABLE | ACTION NEEDED | NOT ENOUGH INFORMATION | PASS>
+Source file check: <passed | failed | not measured> (source: <…>) · rules: references/<file>.md
+Reasons
+- [<reason tag>] <safe evidence>
+Record in Fact Find
+- <Field>: <verbatim value>
+Record in Broker's Notes
+- <…>
+Notices
+- [<tag>] <evidence> → <action>
+Could not check
+- <item>: <what is missing>
+Notes
+- <…>
+Facts for cross-checking: <one line of the figures step 6 needs>
+```
+
+- The template's fixed words (section names, conclusions, statuses, tags) are written exactly as above, in English, whatever language the reply is in.
+- One block per document. Two sides of a card in two files: one block `### <front file> + <back file> — …`. A file with several documents (schedules and attachments of a document belong to that document, not split off): one block per document `<file> (part n)` (no page numbers in the heading; pages go into Notes), an out-of-scope part is the line `### <file> (part n) — Outside the checklist (…)`. Combined statements of several accounts: per the rule file. Unreadable, so the type is not recognised: `### <file> — Type not recognised`, Conclusion `UNREADABLE`.
+- "Reasons" only with `INVALID`; "Record in Broker's Notes" only in rule 11. An empty section: "- None".
+- The heading copies the attachment name exactly (including a leading sequence number, without the `.txt` of the text file) or the file path exactly as the tool lists it (`tmp/Passport.pdf`). Section names written in full as in the template ("Record in Fact Find"); every Notices line ends with `→ <action>` (the "Action" column of the rule file).
+- Heading: `(rule n)` stands alone in brackets, an alternative name of the type goes before it. "Source file check" always has all three parts (status, source, rules), even when `UNREADABLE`; type recognised (file name, image) but content unreadable: still open that type's rule file for Step 0. "Source file check": "not measured" when there is no block (even when that makes it `INVALID`), "failed" when `INVALID`, otherwise "passed" (even with `[Source file]`). "(source: …)": the "Source group" line verbatim; no block: say why.
+- `INVALID`: no figures at all; Fact Find "- None"; Facts for cross-checking "not used (invalid file)"; Notices one line `[Source file] <summary of the reasons> → <action as the FLAG line, section 5>`, plus `[TFN]` if there is a TFN (section 8).
+- `UNREADABLE` (password, blurry image, an image the tool did not send or could not view, an unreadable page: section 2): no extraction, no cross-check (5.2 still applies); Could not check "- Content: <why>; need a clearer copy or the original PDF"; Facts for cross-checking "not used (unreadable)". Only some pages unreadable: those the rule file needs (by default every page; long documents: the parts the rule file names) go under "Could not check", unless the rule file says otherwise; other pages: Notes.
+  An `UNREADABLE` block still has every line of the template (with the rule and rule file when the type is recognised from the file name or readable pages); its other sections `- None`.
+
+**Conclusion**, pick the FIRST line that applies:
+1. A STOP in Step 0 → `INVALID`
+2. Content unreadable → `UNREADABLE`
+3. Any "Notices" → `ACTION NEEDED`
+4. Any "Could not check" → `NOT ENOUGH INFORMATION`
+5. Otherwise → `PASS`
+
+**Notices, Could not check or Notes.** Only "Notices" and "Could not check" change the Conclusion, so each holds only checklist items:
+- "Notices": a condition in the rule file's Notices table or in `references/cross-checks.md`, a 2C mismatch (5.5), or a Step 0 FLAG (`[Source file]`), with its tag.
+- "Could not check": a checklist item that could not be checked: a Fact Find field of the rule file not clearly readable (a field not printed takes the "If absent, write" value, unless that value is "Could not check"); a Notices condition that could not be assessed (name, address, expiry, period, set, signature, ABN lookup…); a page or part the rule file needs; a case the rule file itself sends to "Could not check". It keeps the document from `PASS` (line 4) until staff accept it; never move it to Notes.
+- Everything else goes under Notes only (never "Could not check" or "Notices") and does not change the Conclusion: what the rule file lists as "Notes only", "could not compare …" lines (5.5), Technical notes, pages the rule file does not need, and details the checklist does not ask for that could not be seen or confirmed (a photo shown as a placeholder or unclear, card colour, security features, logos, print quality). A missing structural sign goes in the heading (5.4); it is a "Could not check" line only when it is also one of the items above (an unreadable Fact Find field, a needed page).
+
+An out-of-scope file gets one line only, no Conclusion: `### <file> — Outside the checklist (<type, if recognised>)`; one line per file even when it has several out-of-scope documents. Nothing to cross-check: write no extra line.
+
+**Tags.** Use only these tags; anything without a tag goes into Notes.
+- Notices: Name mismatch, Address mismatch, Expired, Visa, Over 30 days, Under 3 months, Under 6 months, Not consecutive, Salary sacrifice, TFN, Loss, Figures mismatch, Arrears, Not signed, Not certified, Company status, Directorship, Adverse credit, Unusual transactions, Pay mismatch, Rent mismatch, Late payments, Source file, ABN cancelled, Not found, Invalid ABN, Business name mismatch.
+- Reasons: Source, Content edited, Text covered, Photo/scan, Text as outlines, Image edited, Invalid number, Forged check block, Structure, Figures.
+
+**End of report:** one summary line counting the blocks with a Conclusion (not the documents inside a block), exactly like "4 documents: 1 invalid, 3 pass; 1 file outside the checklist".
