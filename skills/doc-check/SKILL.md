@@ -176,7 +176,7 @@ An out-of-scope file gets one line only, no Conclusion: `### <file> — Outside 
 
 **End of report:** one summary line counting the blocks with a Conclusion (not the documents inside a block), exactly like "4 documents: 1 invalid, 3 pass; 1 file outside the checklist".
 
-**Next steps**, last in the reply, after the report is written (and the lines of 9 or 10.5, the summary of 11, the filing list of 12.3): what staff can do next and whatever is missing (Applicant, other names, address, entity, today; the questions of 10.1, 10.3, 10.4), as open questions, e.g. "File these 3 as listed?" · "Open check items: no. 3 passport not certified; no. 5 payslip has no pay period" (12.5)
+**Next steps**, last in the reply, after the report is written (and the lines of 9 or 10.5, the summary of 11, the filing list of 12.3): what staff can do next and whatever is missing (Applicant, other names, address, entity, today; the questions of 10.1, 10.3, 10.4), as short statements, never questions; decisions go only in the `question` card, e.g. "Ready to file: 3 as listed" · "Open check items: no. 3 passport not certified; no. 5 payslip has no pay period" (12.5)
 - ONE `question` call for all of them (Ask first: plus the batch's approval if not given yet, section 1, and notes for the client word for word, 10.2; Full access: after doing what the user asked, only what needs staff judgement), at most one question per kind of decision (filing, open check items, likely duplicates, client notes, which client or type, missing details), each covering all its files by number with grouped options ("File all 5", "Change…", "No"); never one card per file, never question after question. Act on the answers per "Answers" (section 1).
 - Nothing to propose or ask: no question.
 
