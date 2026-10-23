@@ -86,7 +86,9 @@ Field not clearly readable: "Could not check".
 | A | Licence No. | Copy the full number as printed, without spaces; exactly the number sent to `guroos_identity_check`. Photo Card: the card number. A Card No. printed separately on a licence is not the Licence No. Characters still uncertain after re-reading → "Could not check", do not guess |
 | A, B, C | Name on document | Verbatim as printed; passports use "Surname, Given names" on the printed page, not the MRZ |
 | A, B, C | Expiry Date | DD/MM/YYYY; card printing only month/year: MM/YYYY |
+| A | State of issue | The issuing state or territory as its code, the `state` sent to `guroos_identity_check`: NSW, VIC, QLD, WA, SA, TAS, ACT or NT ("Victoria", "VicRoads" → VIC), never the name. Not issued by a state or territory (ImmiCard, Keypass, foreign card), or not clear: no line (no rule asks for it) |
 | B, C | Document No. | The "Passport No." field on the printed page, not the MRZ |
+| B, C | Country of issue | The issuing country of the printed "Code" / "Country code" field, by its English name (AUS → Australia, VNM → Vietnam, NZL → New Zealand), not the nationality line. Not clear: no line (no rule asks for it) |
 | D | Name on document | The name on the Applicant's line, without the leading IRN digit, as printed (**Medicare name**, 2C): "ISLA M BRENNAN", not "1 ISLA M BRENNAN"; none → "no name line for <Applicant>", raise `[Name mismatch]`. No Applicant yet: section 5 |
 | D | Expiry Date | As printed: MM/YYYY (green card) or DD/MM/YYYY |
 | E | Active Visa subclass | Subclass of the "In Effect" visa |
@@ -153,6 +155,7 @@ Record in Fact Find
 - Licence No.: 012345678
 - Name on document: TRAN, Mai
 - Expiry Date: 03/02/2026
+- State of issue: VIC
 Notices
 - [Expired] Expiry Date 03/02/2026, today 11/10/2026 → request a current document or a replacement document from the client
 - [Name mismatch] Document shows "TRAN, Mai", profile shows "Thi Mai Tran": name "Thi" missing → prepare a Statutory Declaration / Name Change Certificate
@@ -169,6 +172,7 @@ Conclusion: ACTION NEEDED
 Source file check: passed (source: unknown — every page is a scanned image, so this is not the issuer) · rules: references/identity.md
 Record in Fact Find
 - Document No.: C1234567
+- Country of issue: Vietnam
 - Name on document: TRAN, THI MAI
 - Expiry Date: 20/11/2031
 Notices

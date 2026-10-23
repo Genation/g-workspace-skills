@@ -62,7 +62,7 @@ Scanned pages and pages Guroos re-rendered (payslip printed through a PDF printe
 | Payslip | Employer phone no. | "not on the payslip" |
 | Payslip | Salary Sacrifice / Packaging / Deductions before tax (item name and amount for the period) | "not on the payslip"; only zero lines (section 4): "none (<item name as printed> $0.00)" |
 
-Net pay, period, Pay date do not go into Fact Find; record them in the "Facts for cross-checking" line (section 5). With a CRM, Employer ABN, address and phone go on the person's employment with this employer in the deal's Fact Find (`crm-recording.md` 10.2, "Employment").
+Net pay, period, Pay date do not go into Fact Find; record them in the "Facts for cross-checking" line (section 5). With a CRM, Employer ABN, address and phone go on the person's employment with this employer in the deal's Fact Find (`crm-recording.md` 10.2, "Records").
 
 **ABN lookup** (ABN Lookup; SKILL.md 5.5). Look up each employer in the batch once; payslips with the same ABN share the result.
 - Payslip prints an ABN: `guroos_abn_lookup(abn=<ABN as printed>, name_to_match=<employer name as printed at the top of the page>)`.
