@@ -133,6 +133,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
    - `404` (file not yet synced to OneDrive, or the vault is not the organisation's root folder): register again once after trying the other files; still failing: write "saved, not registered on the deal: OneDrive has not finished syncing or the vault is not the organisation's folder".
    - `409` (document already on the deal): write "already on the deal".
    - `503` (the organisation's Microsoft 365 not connected or failing): do not register the remaining files; write the reason the tool gives, once.
+   - "The contact is not on this deal" (a `404` about the client, not the file): copy the client's id again from the latest tool result that has it (the deal's clients the error lists, `contactId` and `displayName`, else `deals_get`), never retyped; register again once; still refused: write "saved, not registered on the deal" with the tool's words.
    - Other errors: write the tool's words verbatim, do not retry.
 
 **Output:** list of files saved, files not saved (with reason), files registered on the deal and files not registered (with reason).
@@ -250,7 +251,7 @@ In ONE turn, one `genation-workspace_deal_files_register_existing` call per file
 - `subjectContactId` = the client's `id` (Step S2 or C3);
 - `documentTypeCode` only when Step S3 chose a type.
 
-Do not pass `path`, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId`. Results as Step C6 item 3, except `404`: the file is no longer on the organisation's OneDrive (deleted or moved): "not registered: file no longer on OneDrive"; do not retry.
+Do not pass `path`, `name`, `labels`, `requiredDocumentId`, `replacesDealFileId`. Results as Step C6 item 3, except a `404` about the file: the file is no longer on the organisation's OneDrive (deleted or moved): "not registered: file no longer on OneDrive"; do not retry.
 
 **Output:** files registered on the deal and files not registered (with reason).
 
