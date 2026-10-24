@@ -42,4 +42,4 @@ Limits per result (the tool rejects the whole save when one is exceeded): `field
 | 22 / 23 | `study_loan_statement` / `bnpl_statement` |
 | — | `other`: a "Type not recognised" block |
 
-Saving is a routine part of the check (SKILL.md section 1): do not ask. The app declines the save: "not saved: declined", do not retry. The tool reports an error in a result (`ACTION NEEDED` without `notices`, a badly formatted date…): fix exactly that per the report, call again once. After saving, add one line per file under the report: `- <file> · <status the tool returns: Approve | Reject | Need Review> (<conclusion>)` or `- <file> · not saved: <reason>`.
+Saving is a routine part of the check (SKILL.md section 1). The app declines the save: "not saved: declined". The tool reports an error in a result (`ACTION NEEDED` without `notices`, a badly formatted date…): fix exactly that per the report, call again once. After saving, add one line per file under the report: `- <file> · <status the tool returns: Approve | Reject | Need Review> (<conclusion>)` or `- <file> · not saved: <reason>`.
