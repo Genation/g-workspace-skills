@@ -58,7 +58,7 @@ For each file to file (12.3, the user's request, or an answer to a review item),
 - `[file_name_invalid]` (plan or filing): the name cannot be used. Say why in plain words from the message (a character SharePoint refuses, such as `/ : * ? " < > |`, a reserved name, or too long) and ask for another name as a review item; you may suggest a corrected name, never use a name staff did not choose.
 - Success: `moved` = true means filed; `moved` = false means already in place.
 - `[filing_blocked]`, `[check_not_latest]`, `[filing_changed]`, `[name_taken]`, `[item_changed]`: the plan has changed (a new check, a criterion just ticked or a document just accepted, the name just taken by another file, the file just changed). Re-plan that file (12.1, same `facts`, `name` and `categoryFolder`) and file per the new plan when it has no blockers; a name staff chose that the new plan changes: a review item as above.
-- The app declines the call, or staff say not to file: leave in `tmp/`, "not filed: declined", do not retry. An id refused (not found, not on the deal): SKILL.md section 1 "Ids". Other errors: quote the tool's message verbatim, do not retry.
+- The app declines the call, or staff say not to file: leave in `tmp/`, "not filed: declined". An id refused (not found, not on the deal): SKILL.md section 1 "Ids". Other errors: quote the tool's message verbatim, do not retry.
 
 After filing, one line per file: `- tmp/<file name> → <subfolder>/<new name> · <filed | already in place | not filed: reason>` (`<new name>` = the result's final name; add `, name chosen by staff` when it was). OneDrive on this computer updates after a few minutes; meanwhile the file may still show in `tmp/`.
 
