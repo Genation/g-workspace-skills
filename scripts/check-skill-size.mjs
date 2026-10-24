@@ -3,8 +3,8 @@
  * Size guard for the skills of this store (`skills/<id>/`).
  *
  * The agent engine (OpenCode 2.0.14) cuts every tool output at 50 KiB (51,200 bytes, UTF-8) or 2,000 lines and keeps
- * only the head; the rest goes to a file in the engine's data folder, which the app does not let the assistant read
- * (every try is an "external folder" consent card). Loading a skill and reading one of its files are tool outputs:
+ * only the head; the rest goes to a file in the engine's data folder (since desktop 0.4.14 the assistant may read it, at
+ * the cost of extra turns). Loading a skill and reading one of its files are tool outputs:
  *   - SKILL.md <= 35 KiB: the engine appends the skill's base directory and file list after it, and they must survive;
  *   - every other file of a skill (references/...) <= 45 KiB;
  *   - at most 2,000 lines per file, and at most 2,000 characters per line (the engine's `read` cuts longer lines).
