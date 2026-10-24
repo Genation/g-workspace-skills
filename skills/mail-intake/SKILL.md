@@ -23,7 +23,7 @@ The CRM tools are the `genation-workspace_…` tools (the app's server, for the 
 
 Local mail is the default: the mail accounts the user added on this computer (Sign in with Microsoft or IMAP, often a shared account such as `info@`), read with the local mail tools (`guroos_mail_*`). The organisation's shared mailbox on the app's server (`outlook_mail`, the `genation-workspace_mailbox_…` tools) is an enterprise option, used only as below.
 
-1. `genation-workspace_modules_list` tool available: call it ONCE (no parameters) and keep the result for the whole conversation (Step 2 uses it; do not call it again). Each item is `{key, name}`. Make the first call of the chosen path (Step 1 or Step S1) in the same turn.
+1. `genation-workspace_modules_list` tool available: call it ONCE (no parameters) and keep the result for the whole conversation (do not call it again). Each item is `{key, name}`. Make the first call of the chosen path (Step 1 or Step S1) in the same turn.
 2. Choose:
    - **The app's hand-off** with `(shared mailbox message id: <id>)` (the enterprise Mail view): **shared mailbox path** (Steps S1 → S5). It needs `outlook_mail` and `crm` in the list and the `mailbox_messages_get` tool; without them: as a backend error (item 3).
    - **Anything else** (an email attached to the conversation, "this email", an email the user describes, no email named): **local mail** (Steps 1 and 2), even when the organisation has `outlook_mail`.
@@ -46,11 +46,8 @@ Read the email with `guroos_mail_read`. A local mail tool answers that there is 
 
 ## Step 2 - Choose CRM or Monday (local mail)
 
-1. The module list from Step 0:
-   - An item with `key` = `crm`: **CRM path** (Steps C1 → C6).
-   - None: **Monday path** (Steps M1 → M4).
-2. No `genation-workspace_modules_list` tool (app server not connected or no organisation selected): **Monday path**. CRM tools are only listed when the `crm` module is enabled, so no `genation-workspace_contacts_find` also means **Monday path**.
-3. On the CRM path and a CRM tool reports `module_not_enabled`: drop the CRM path, redo from Step M1; write in the report "CRM not enabled for the organisation, used Monday".
+1. The ground rules' `CRM:` line: `CRM: on`: **CRM path** (Steps C1 → C6); `CRM: off`, or no `genation-workspace_contacts_find` tool (the app's server not connected): **Monday path** (Steps M1 → M4).
+2. On the CRM path and a CRM tool reports `module_not_enabled`: drop the CRM path, redo from Step M1; write in the report "CRM not enabled for the organisation, used Monday".
 
 **Output:** CRM path or Monday path.
 
