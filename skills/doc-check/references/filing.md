@@ -25,6 +25,13 @@ Do this when the CRM is present with both tools `genation-workspace_deal_file_fi
 
 Every fact in exactly the format above, no other format mixed in. Not clearly readable or not printed on the document: do not send, do not invent.
 
+**Category folder (`categoryFolder`).** Some types offer a second subfolder: `otherCategoryFolder` with `otherCategoryFolderWhen` in the compact `document_types_list`; in a plan, `categoryFolders` (the default first, then the other with its `when`) and `categoryFolder` (the one used). A type without a second folder (or an older server, which lists none): never send `categoryFolder`, file as before. A `proof_of_ownership` document (rule 1: rates notice, title search…) whose type has one: compare the property it is about with the deal's securities (`genation-workspace_securities_list`, `dealId`, once per batch, in the turn of the checks; same address, ignoring case, punctuation and street-type abbreviations such as Pde = Parade):
+- a security of the deal: the default folder (`2. Security`), no `categoryFolder`;
+- another property the client owns, not among the securities: plan with `categoryFolder` = the other folder exactly as listed (`5. Assets & Liabilities`), and send the same `categoryFolder` to `deal_files_file` (12.4);
+- unclear (no securities on the deal yet, an address that only partly matches, no address printed): do not plan or file it yet; a review item before filing, e.g. "3. tmp/Rates notice.pdf: is 12 Sample St, Fitzroy a security of this deal? Reply security (files in 2. Security) or other property (files in 5. Assets & Liabilities)." Then plan and file per the answer.
+
+Another type's second folder: only when its `when` clearly holds for the document, the same way. `[category_folder_invalid]`: that folder is not one of the type's: plan again with one copied exactly from `categoryFolders`.
+
 ### 12.2 Blockers
 
 `blockers` (each item `code`, `message` in English; restate in plain words):
@@ -46,11 +53,11 @@ File (12.4) every file whose plan has no blockers (Satisfied), without asking, u
 
 ### 12.4 File
 
-For each file to file (12.3, the user's request, or an answer to a review item), every file in ONE turn: `deal_files_file` with `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` of exactly the plan, exactly the `facts` sent, and the same `name` when staff chose one. Other files: leave in `tmp/`.
+For each file to file (12.3, the user's request, or an answer to a review item), every file in ONE turn: `deal_files_file` with `id`, `checkId` = `latestCheck.id`, `expectedName` = `targetName`, `expectedFolderPath` = `targetFolderPath` of exactly the plan, exactly the `facts` sent, the same `name` when staff chose one, and the same `categoryFolder` when the plan was made with one (12.1). Other files: leave in `tmp/`.
 - **A name staff give** ("file it as Emily_PP.pdf", "call the payslip Lachlan payslip October"): file under that name; never ask to confirm the name or the filing (the tool's "show staff" is met by the line after filing). Re-plan that file (12.1) with `name` = their name as given (the CRM keeps the file's extension) and the same `facts`, then, in the next turn, file it with that `name` and `expectedName` = this plan's `targetName`. A review item only when the plan differs from their name beyond the extension and case (a version suffix ` (2)`: another file in the folder already has that name: "Reply ok to file as <targetName>, or give another name") or has blockers (12.2).
 - `[file_name_invalid]` (plan or filing): the name cannot be used. Say why in plain words from the message (a character SharePoint refuses, such as `/ : * ? " < > |`, a reserved name, or too long) and ask for another name as a review item; you may suggest a corrected name, never use a name staff did not choose.
 - Success: `moved` = true means filed; `moved` = false means already in place.
-- `[filing_blocked]`, `[check_not_latest]`, `[filing_changed]`, `[name_taken]`, `[item_changed]`: the plan has changed (a new check, a criterion just ticked or a document just accepted, the name just taken by another file, the file just changed). Re-plan that file (12.1, same `facts` and `name`) and file per the new plan when it has no blockers; a name staff chose that the new plan changes: a review item as above.
+- `[filing_blocked]`, `[check_not_latest]`, `[filing_changed]`, `[name_taken]`, `[item_changed]`: the plan has changed (a new check, a criterion just ticked or a document just accepted, the name just taken by another file, the file just changed). Re-plan that file (12.1, same `facts`, `name` and `categoryFolder`) and file per the new plan when it has no blockers; a name staff chose that the new plan changes: a review item as above.
 - The app declines the call, or staff say not to file: leave in `tmp/`, "not filed: declined", do not retry. An id refused (not found, not on the deal): SKILL.md section 1 "Ids". Other errors: quote the tool's message verbatim, do not retry.
 
 After filing, one line per file: `- tmp/<file name> → <subfolder>/<new name> · <filed | already in place | not filed: reason>` (`<new name>` = the result's final name; add `, name chosen by staff` when it was). OneDrive on this computer updates after a few minutes; meanwhile the file may still show in `tmp/`.

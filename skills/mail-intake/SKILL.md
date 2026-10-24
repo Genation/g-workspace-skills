@@ -1,6 +1,6 @@
 ---
 name: mail-intake
-description: Take in one client email for a loan application - from the mail account on this computer (or, as an enterprise option, the organisation's shared mailbox through the app's server) - find the client and deal by the sender's email address (on the organisation's CRM if it has one, otherwise the Deal on Monday), find or create the deal folder with its tmp/ folder, save the attachments not yet there into it and register them on the deal in the CRM. Use when the user points to a specific email (including the app's hand-off with a shared mailbox message id) and asks to process it or save the documents the client sent.
+description: Take in one client email for a loan application - from the mail account on this computer (or, as an enterprise option, the organisation's shared mailbox through the app's server) - find the client and deal by the sender's email address (on the organisation's CRM if it has one, otherwise the Deal on Monday), find or create the deal folder with its tmp/ folder, save the attachments not yet there into it and register them on the deal in the CRM. Use only when the user's words point to an email (an email or the inbox is mentioned, or the client emailed it; or the app's hand-off with a shared mailbox message id) and they ask to process it or save its attachments to the deal; asked to check them too, it hands over to doc-check. Not for files a client sent through the client portal or someone dropped into the deal folder, with no email mentioned: they are already in the deal's tmp/ (the doc-check skill).
 ---
 
 # Client email intake
@@ -119,7 +119,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
 
 ### Step C6 - Save files and register them on the deal
 
-1. For each file to save, call `guroos_mail_save_attachment` with `ref` = the `a.…` ref, `customer` = deal folder path (Step C4), `subfolder` = `tmp`. Keep the original file name (do not pass `filename`). Note the file name the tool reports as saved (it may add a suffix such as ` (2)` on a name clash). File already saved from this email before, compressed or password-protected file: as in Step M4.
+1. For each file to save, call `guroos_mail_save_attachment` with `ref` = the `a.…` ref, `customer` = deal folder path (Step C4), `subfolder` = `tmp`. Keep the original file name (do not pass `filename`). Note the file name the tool reports as saved (it may add a suffix such as ` (2)` on a name clash). Tool reports the file was already saved from this email before: write "already there". Compressed or password-protected file: save as is, note it in the report (both as in Step M4).
 2. Once all files are saved, register each file just saved or already there with `genation-workspace_deal_files_register_existing` with:
    - `dealId` = the deal from Step C2/C3;
    - `path` = `/<deal folder path>/tmp/<saved file name>`, from the organisation's root folder (e.g. `/Customers/Lan Quach_PUR OO/tmp/Lan_DL.pdf`);
@@ -140,48 +140,7 @@ The vault (the conversation's working folder) is the local synced copy of the or
 
 ## Monday path
 
-### Step M1 - Find the Deal on Monday by sender email
-
-Search only by the sender email address from Step 1. Do NOT search by sender name, subject or email content.
-
-1. Search with `monday_search` using exactly that email address, once.
-2. Handle the result:
-   - Exactly one Deal: use that Deal.
-   - Several Deals: list the Deals and ask the user to choose. **Stop** until the user chooses.
-   - No Deal: **Stop** - "no Deal matches email `<email>`". Do not guess, do not search another way.
-3. No `monday_…` tool at all: the assistant is not connected to Monday. **Stop** - ask the user to open the Monday page in the app and click "Connect the assistant".
-
-This skill only reads Monday; do not create or edit items, columns or comments.
-
-**Output:** Deal name (e.g. `Lan Quach`).
-
-### Step M2 - Find or create the Deal folder, with the full set of subfolders
-
-This step does not ask the user. The `guroos_customers` result may say "ask the user" or "Ask the user for the exact name": in this step ignore that prompt and follow the rules below. Do not list every folder, do not guess a folder with a similar name.
-
-1. Search with `guroos_customers`, `query` = the Deal name (matched against the vault's top-level folders, ignoring accents, case and word order); never a path.
-2. Determine the Deal folder name:
-   - A folder whose name equals the Deal name (ignoring diacritics, case, joining characters such as `_` `-`, e.g. `Lan_Quach` equals `Lan Quach`): use that folder.
-   - No folder equals the Deal name (even when a folder matches only partly, like `Lan Quach_PUR OO`, or has a similar name, like `LanThoQuach-TBC`): Deal folder name = exactly the Deal name. Do not make up another name.
-3. Call `guroos_customer_create` ONCE with `customer` = the Deal folder name from item 2 and `new_folder` = `true`. The tool creates only what is missing (the Deal folder, `tmp/`, the standard subfolders `0. Compliance` … `6. Approval & Settlement`, `Archive`); existing folders and files stay unchanged ("Nothing created" when nothing was missing).
-
-**Output:** the name of exactly one Deal folder, whether it was just created or existed, and the subfolders just added (if any).
-
-### Step M3 - Check files in tmp/
-
-1. View the Deal folder with `guroos_customer_files`; note the names of the files currently in `tmp/` (a just-created `tmp/` is empty).
-2. Compare the attachment names (Step 1) with the file names in `tmp/`, case-insensitive. A file with the same name is "already there".
-
-**Output:** list of attachments to save (not yet in `tmp/`) and list of files already there. No file left to save: **Stop** - all files already there.
-
-### Step M4 - Save attachments into tmp/
-
-For each file to save from Step M3, call `guroos_mail_save_attachment` with `ref` = the `a.…` ref, `customer` = Deal folder name, `subfolder` = `tmp`. Keep the original file name (do not pass `filename`).
-
-- Tool reports the file was already saved from this email before: write "already there".
-- Compressed or password-protected file: save as is, note it in the report.
-
-**Output:** list of files saved and files not saved (with reason).
+Steps M1 → M4 (find the Deal on Monday by the sender's email, find or create the Deal folder, check `tmp/`, save the attachments) are in `references/monday-path.md`. When Step 2 chooses the Monday path, read that file once with `read`, path = the skill's base directory (the line `Base directory for this skill: …` after the skill content) + `/references/monday-path.md`, copied exactly, then follow it.
 
 ## Shared mailbox path
 
@@ -297,7 +256,9 @@ Stopped part-way: write only the email line and `- Stopped at Step <n>: <reason>
 
 Some files not registered because OneDrive has not synced: add a line "Run this email intake again in a few minutes to register the remaining files on the deal."
 
-Files just saved: do not ask whether to check them now. Checking, classifying and filing belong to the `doc-check` skill. CRM and Monday paths: after this reply the Guroos app itself attaches the unchecked files to the conversation and asks for a check; add only one line: "Guroos will check these files in the next step; if that step does not start by itself, ask to \"process new files for deal <deal name>\" or attach the files from `tmp/` to the chat box and ask for a check." Shared mailbox path: add only one line: "Next step: checking these files. If Guroos does not start it by itself, ask to \"process new files for deal <deal name>\"." Do not read or check these files yourself (no `mailbox_attachments_download_link`); leave them in `tmp/`: after the check, the CRM renames and moves the files that pass (filing).
+**Asked to check them too.** When the user's request also asks to check the files (saving and checking asked together, in any words), do not stop at the result: in the same turn, load the `doc-check` skill and check these files with it (with the CRM, its section 11 for the deal used here; without, the files just saved in `tmp/`), so the reply gives the result above, then the check report; no next-step line below, nothing to ask.
+
+Otherwise, files just saved: do not ask whether to check them now. Checking, classifying and filing belong to the `doc-check` skill. CRM and Monday paths: after this reply the Guroos app itself attaches the unchecked files to the conversation and asks for a check; add only one line: "Guroos will check these files in the next step; if that step does not start by itself, ask to \"process new files for deal <deal name>\" or attach the files from `tmp/` to the chat box and ask for a check." Shared mailbox path: add only one line: "Next step: checking these files. If Guroos does not start it by itself, ask to \"process new files for deal <deal name>\"." Never read or check these files with this skill (no `mailbox_attachments_download_link`): only `doc-check` does; leave them in `tmp/`: after the check, the CRM renames and moves the files that pass (filing).
 
 ## Limits and safety
 
